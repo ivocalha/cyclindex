@@ -3,42 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyclindex - Cycling Performance Index</title>
+  <title>Cyclindex - Professional Cycling Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    .block-link { transition: transform 0.2s, box-shadow 0.2s; }
-    .block-link:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+    body, html { height: 100%; margin: 0; }
+    .bg-image {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1593766812601-1a2b3d9b2b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      min-height: 100vh;
+    }
+    .card {
+      @apply bg-white rounded-lg shadow-xl p-6 text-center transition-transform hover:scale-105;
+      min-height: 140px;
+    }
+    .plus {
+      @apply w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3;
+    }
+    .sidebar-card {
+      @apply bg-gradient-to-br from-indigo-700 to-indigo-900 text-white rounded-lg shadow-2xl p-8 flex flex-col justify-between;
+      min-height: 280px;
+    }
+    .arrow {
+      @apply w-12 h-12 bg-white text-indigo-700 rounded-full flex items-center justify-center text-2xl ml-auto;
+    }
+    .logo {
+      @apply w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-700 font-bold text-xl;
+    }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="font-sans">
 
-  <header class="bg-white shadow-sm p-6 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold text-indigo-700">Cyclindex</h1>
-    <p class="mt-2 text-lg text-gray-600">Professional Cycling Performance Index</p>
-  </header>
+  <div class="bg-image flex items-center justify-center p-6 md:p-12">
 
-  <main class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-5xl">
-    <a href="results.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-indigo-600 text-center">
-      <h2 class="text-2xl font-bold text-gray-800">Results Log</h2>
-      <p class="mt-2 text-gray-600">All race results</p>
-    </a>
-    <a href="rider-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-green-600 text-center">
-      <h2 class="text-2xl font-bold text-gray-800">Rider Score</h2>
-      <p class="mt-2 text-gray-600">Individual rankings</p>
-    </a>
-    <a href="team-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-purple-600 text-center">
-      <h2 class="text-2xl font-bold text-gray-800">Team Score</h2>
-      <p class="mt-2 text-gray-600">Team performance</p>
-    </a>
-    <a href="nation-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-yellow-600 text-center">
-      <h2 class="text-2xl font-bold text-gray-800">Nation Score</h2>
-      <p class="mt-2 text-gray-600">Country rankings</p>
-    </a>
-    <a href="how-it-works.html" class="block-link block p-10 bg-white rounded-xl shadow col-span-1 md:col-span-2 border-t-4 border-red-600 text-center">
-      <h2 class="text-2xl font-bold text-gray-800">How It Works</h2>
-      <p class="mt-2 text-gray-600">Scoring system explained</p>
-    </a>
-  </main>
+    <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+
+      <!-- Logo + Title -->
+      <div class="absolute top-0 left-0 flex items-center gap-3 text-white">
+        <div class="logo">C</div>
+        <h1 class="text-2xl md:text-3xl font-bold">Cyclindex</h1>
+      </div>
+
+      <!-- Top Row: 3 Cards -->
+      <a href="results.html" class="card">
+        <div class="plus">+</div>
+        <h3 class="text-xl font-bold text-gray-800">Results Log</h3>
+      </a>
+
+      <a href="rider-score.html" class="card">
+        <div class="plus">+</div>
+        <h3 class="text-xl font-bold text-gray-800">Rider Score</h3>
+      </a>
+
+      <a href="team-score.html" class="card">
+        <div class="plus">+</div>
+        <h3 class="text-xl font-bold text-gray-800">Team Score</h3>
+      </a>
+
+      <!-- Sidebar Card (How It Works) -->
+      <div class="sidebar-card row-span-2">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2">How It Works</h2>
+          <p class="text-indigo-100">Scoring system, inclusions, exclusions</p>
+        </div>
+        <a href="how-it-works.html" class="arrow">→</a>
+      </div>
+
+      <!-- Bottom Row: 2 Cards -->
+      <a href="nation-score.html" class="card">
+        <div class="plus">+</div>
+        <h3 class="text-xl font-bold text-gray-800">Nation Score</h3>
+      </a>
+
+      <div class="card bg-gradient-to-br from-indigo-50 to-white border-2 border-dashed border-indigo-300">
+        <div class="plus opacity-50">?</div>
+        <p class="text-gray-500 italic">More coming soon...</p>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
