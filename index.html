@@ -3,103 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyclindex - Professional Cycling Index</title>
+  <title>Cyclindex – Professional Cycling Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body, html { height: 100%; margin: 0; overflow-x: hidden; }
-    .bg-image {
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
-                  url('https://images.unsplash.com/photo-1558618047-3c8c76ca7e9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
+    html, body { height: 100%; margin: 0; }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+                  url('https://raw.githubusercontent.com/cyclindex/assets/main/hero-peloton.jpg') center/cover no-repeat;
       min-height: 100vh;
-      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 2rem 1rem;
     }
-    .bg-image::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: inherit;
-      z-index: -1;
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
     }
     .card {
-      @apply bg-white/90 backdrop-blur-sm rounded-lg shadow-xl p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl;
-      min-height: 120px;
-      display: flex; flex-direction: column; justify-content: center;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(4px);
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      padding: 1.75rem;
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    .plus {
-      @apply w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg;
-    }
-    .sidebar-card {
-      @apply bg-gradient-to-br from-indigo-700 via-indigo-800 to-blue-900 text-white rounded-lg shadow-2xl p-8 flex flex-col justify-between relative;
-      min-height: 280px;
-      border: none;
-    }
-    .arrow {
-      @apply absolute bottom-4 right-4 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center text-2xl font-bold transition-colors;
-    }
-    .logo {
-      @apply w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xl shadow-md;
-    }
-    .title-text { @apply text-2xl md:text-3xl font-bold text-white drop-shadow-lg; }
-    .subtitle { @apply text-indigo-100 text-sm md:text-base; }
-    @media (max-width: 768px) {
-      .grid-container { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto auto; }
-      .sidebar-card { order: 5; grid-column: 1 / -1; }
-    }
-  </style>
-</head>
-<body class="font-sans text-gray-800">
-
-  <div class="bg-image flex items-center justify-center p-4 md:p-8">
-
-    <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 grid-container">
-
-      <!-- Logo + Title (Top-Left) -->
-      <div class="absolute top-4 left-4 flex items-center gap-3 z-20">
-        <div class="logo">C</div>
-        <h1 class="title-text">Cyclindex</h1>
-      </div>
-
-      <!-- Top Row: 3 Cards -->
-      <a href="results.html" class="card">
-        <div class="plus">+</div>
-        <h3 class="text-xl font-bold">Results Log</h3>
-        <p class="text-gray-600 text-sm mt-1">All race results</p>
-      </a>
-
-      <a href="rider-score.html" class="card">
-        <div class="plus">+</div>
-        <h3 class="text-xl font-bold">Rider Score</h3>
-        <p class="text-gray-600 text-sm mt-1">Individual rankings</p>
-      </a>
-
-      <a href="team-score.html" class="card">
-        <div class="plus">+</div>
-        <h3 class="text-xl font-bold">Team Score</h3>
-        <p class="text-gray-600 text-sm mt-1">Team performance</p>
-      </a>
-
-      <!-- Sidebar Card (Spans 2 Rows on Desktop) -->
-      <div class="sidebar-card md:col-span-1 md:row-span-2 order-1 md:order-none">
-        <div>
-          <h2 class="text-2xl md:text-3xl font-bold mb-3">How It Works</h2>
-          <p class="subtitle">Scoring system, inclusions, exclusions</p>
-        </div>
-        <a href="how-it-works.html" class="arrow">→</a>
-      </div>
-
-      <!-- Bottom Row: 2 Cards -->
-      <a href="nation-score.html" class="card">
-        <div class="plus">+</div>
-        <h3 class="text-xl font-bold">Nation Score</h3>
-        <p class="text-gray-600 text-sm mt-1">Country rankings</p>
-      </a>
-
-      <div class="card border-2 border-dashed border-indigo-300/50">
-        <div class="plus opacity-50">+</div>
-        <p class="text-gray-500 italic text-sm">More coming soon...</p>
-      </div>
-
-    </div>
-  </div>
-
-</body>
-</html>
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px
