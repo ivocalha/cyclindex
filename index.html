@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyclindex - Cycling Performance Index</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .block-link { transition: transform 0.2s, box-shadow 0.2s; }
+    .block-link:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <header class="bg-white shadow-sm p-6 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-indigo-700">Cyclindex</h1>
+    <p class="mt-2 text-lg text-gray-600">Professional Cycling Performance Index</p>
+  </header>
+
+  <main class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-5xl">
+    <a href="results.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-indigo-600 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Results Log</h2>
+      <p class="mt-2 text-gray-600">All race results</p>
+    </a>
+    <a href="rider-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-green-600 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Rider Score</h2>
+      <p class="mt-2 text-gray-600">Individual rankings</p>
+    </a>
+    <a href="team-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-purple-600 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Team Score</h2>
+      <p class="mt-2 text-gray-600">Team performance</p>
+    </a>
+    <a href="nation-score.html" class="block-link block p-10 bg-white rounded-xl shadow border-t-4 border-yellow-600 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Nation Score</h2>
+      <p class="mt-2 text-gray-600">Country rankings</p>
+    </a>
+    <a href="how-it-works.html" class="block-link block p-10 bg-white rounded-xl shadow col-span-1 md:col-span-2 border-t-4 border-red-600 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">How It Works</h2>
+      <p class="mt-2 text-gray-600">Scoring system explained</p>
+    </a>
+  </main>
+
+</body>
+</html>
