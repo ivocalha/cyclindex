@@ -6,64 +6,82 @@
   <title>Cyclindex - Professional Cycling Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body, html { height: 100%; margin: 0; }
+    body, html { height: 100%; margin: 0; overflow-x: hidden; }
     .bg-image {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
-                  url('https://images.unsplash.com/photo-1593766812601-1a2b3d9b2b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                  url('https://images.unsplash.com/photo-1558618047-3c8c76ca7e9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
       min-height: 100vh;
+      position: relative;
+    }
+    .bg-image::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: inherit;
+      z-index: -1;
     }
     .card {
-      @apply bg-white rounded-lg shadow-xl p-6 text-center transition-transform hover:scale-105;
-      min-height: 140px;
+      @apply bg-white/90 backdrop-blur-sm rounded-lg shadow-xl p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+      min-height: 120px;
+      display: flex; flex-direction: column; justify-content: center;
     }
     .plus {
-      @apply w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3;
+      @apply w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg;
     }
     .sidebar-card {
-      @apply bg-gradient-to-br from-indigo-700 to-indigo-900 text-white rounded-lg shadow-2xl p-8 flex flex-col justify-between;
+      @apply bg-gradient-to-br from-indigo-700 via-indigo-800 to-blue-900 text-white rounded-lg shadow-2xl p-8 flex flex-col justify-between relative;
       min-height: 280px;
+      border: none;
     }
     .arrow {
-      @apply w-12 h-12 bg-white text-indigo-700 rounded-full flex items-center justify-center text-2xl ml-auto;
+      @apply absolute bottom-4 right-4 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center text-2xl font-bold transition-colors;
     }
     .logo {
-      @apply w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-700 font-bold text-xl;
+      @apply w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xl shadow-md;
+    }
+    .title-text { @apply text-2xl md:text-3xl font-bold text-white drop-shadow-lg; }
+    .subtitle { @apply text-indigo-100 text-sm md:text-base; }
+    @media (max-width: 768px) {
+      .grid-container { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto auto; }
+      .sidebar-card { order: 5; grid-column: 1 / -1; }
     }
   </style>
 </head>
-<body class="font-sans">
+<body class="font-sans text-gray-800">
 
-  <div class="bg-image flex items-center justify-center p-6 md:p-12">
+  <div class="bg-image flex items-center justify-center p-4 md:p-8">
 
-    <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+    <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 grid-container">
 
-      <!-- Logo + Title -->
-      <div class="absolute top-0 left-0 flex items-center gap-3 text-white">
+      <!-- Logo + Title (Top-Left) -->
+      <div class="absolute top-4 left-4 flex items-center gap-3 z-20">
         <div class="logo">C</div>
-        <h1 class="text-2xl md:text-3xl font-bold">Cyclindex</h1>
+        <h1 class="title-text">Cyclindex</h1>
       </div>
 
       <!-- Top Row: 3 Cards -->
       <a href="results.html" class="card">
         <div class="plus">+</div>
-        <h3 class="text-xl font-bold text-gray-800">Results Log</h3>
+        <h3 class="text-xl font-bold">Results Log</h3>
+        <p class="text-gray-600 text-sm mt-1">All race results</p>
       </a>
 
       <a href="rider-score.html" class="card">
         <div class="plus">+</div>
-        <h3 class="text-xl font-bold text-gray-800">Rider Score</h3>
+        <h3 class="text-xl font-bold">Rider Score</h3>
+        <p class="text-gray-600 text-sm mt-1">Individual rankings</p>
       </a>
 
       <a href="team-score.html" class="card">
         <div class="plus">+</div>
-        <h3 class="text-xl font-bold text-gray-800">Team Score</h3>
+        <h3 class="text-xl font-bold">Team Score</h3>
+        <p class="text-gray-600 text-sm mt-1">Team performance</p>
       </a>
 
-      <!-- Sidebar Card (How It Works) -->
-      <div class="sidebar-card row-span-2">
+      <!-- Sidebar Card (Spans 2 Rows on Desktop) -->
+      <div class="sidebar-card md:col-span-1 md:row-span-2 order-1 md:order-none">
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-2">How It Works</h2>
-          <p class="text-indigo-100">Scoring system, inclusions, exclusions</p>
+          <h2 class="text-2xl md:text-3xl font-bold mb-3">How It Works</h2>
+          <p class="subtitle">Scoring system, inclusions, exclusions</p>
         </div>
         <a href="how-it-works.html" class="arrow">→</a>
       </div>
@@ -71,12 +89,13 @@
       <!-- Bottom Row: 2 Cards -->
       <a href="nation-score.html" class="card">
         <div class="plus">+</div>
-        <h3 class="text-xl font-bold text-gray-800">Nation Score</h3>
+        <h3 class="text-xl font-bold">Nation Score</h3>
+        <p class="text-gray-600 text-sm mt-1">Country rankings</p>
       </a>
 
-      <div class="card bg-gradient-to-br from-indigo-50 to-white border-2 border-dashed border-indigo-300">
-        <div class="plus opacity-50">?</div>
-        <p class="text-gray-500 italic">More coming soon...</p>
+      <div class="card border-2 border-dashed border-indigo-300/50">
+        <div class="plus opacity-50">+</div>
+        <p class="text-gray-500 italic text-sm">More coming soon...</p>
       </div>
 
     </div>
