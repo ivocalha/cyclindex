@@ -81,22 +81,15 @@
       font-size: 0.875rem;
       opacity: 0.9;
     }
-    .results { background: rgba(34, 139, 34, 0.5); color: white; }
-    .rider, .team, .nation { background: rgba(255, 255, 255, 0.5); color: #1f2937; }
-    .how { background: rgba(30, 64, 175, 0.5); color: white; }
-    .how .arrow {
-      width: 40px; height: 40px;
-      background: rgba(255,255,255,0.3);
+    /* Both ends: Deep Blue */
+    .results, .how {
+      background: rgba(30, 64, 175, 0.5);
       color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin: 1rem auto 0;
-      transition: background 0.3s;
     }
-    .how .arrow:hover { background: rgba(255,255,255,0.5); }
+    .rider, .team, .nation {
+      background: rgba(255, 255, 255, 0.5);
+      color: #1f2937;
+    }
 
     @media (max-width: 768px) {
       .blocks-container { flex-direction: column; align-items: center; }
@@ -119,30 +112,34 @@
     <!-- 5 Blocks -->
     <div class="blocks-container">
 
+      <!-- Results Log (Deep Blue) -->
       <a href="results.html" class="block results">
         <h3>Results Log</h3>
         <p>All race results</p>
       </a>
 
+      <!-- Rider Score (White) -->
       <a href="rider-score.html" class="block rider">
         <h3>Rider Score</h3>
         <p>Individual rankings</p>
       </a>
 
+      <!-- Team Score (White) -->
       <a href="team-score.html" class="block team">
         <h3>Team Score</h3>
         <p>Team performance</p>
       </a>
 
+      <!-- Nation Score (White) -->
       <a href="nation-score.html" class="block nation">
         <h3>Nation Score</h3>
         <p>Country rankings</p>
       </a>
 
+      <!-- How It Works (Deep Blue, No Arrow) -->
       <a href="how-it-works.html" class="block how">
         <h3>How It Works</h3>
         <p>Scoring system, inclusions, exclusions</p>
-        <div class="arrow">→</div>
       </a>
 
     </div>
