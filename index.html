@@ -57,7 +57,6 @@
       flex: 1;
       min-width: 180px;
       max-width: 260px;
-      /* 75% transparency = rgba(..., 0.25) */
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(10px);
       border-radius: 1.5rem;
@@ -104,13 +103,17 @@
       margin: 0 auto;
       loading: eager;
     }
+
+    /* Left & Right: Blue background, white text */
     .results, .how {
-      background: rgba(30, 64, 175, 0.25); /* 75% transparent */
+      background: rgba(30, 64, 175, 0.25);
       color: white;
     }
+
+    /* Center 3: White background (transparent), white text */
     .rider, .team, .nation {
-      background: rgba(255, 255, 255, 0.25); /* 75% transparent */
-      color: #1f2937;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
     }
 
     @media (max-width: 768px) {
