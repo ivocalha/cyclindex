@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="cyclindex_logo.png">
+  <title>How It Works – Cyclindex</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Suissnord';
+      src: url('Suissnord.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html, body { height: 100%; margin: 0; }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .section {
+      flex: 1;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    .section-title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      margin: 0;
+    }
+    .section-content {
+      font-size: 1.1rem;
+      color: white;
+      max-width: 800px;
+      line-height: 1.7;
+      opacity: 0.95;
+    }
+
+    /* Section 1: Deep Blue */
+    .section-1 {
+      background: #1e3a8a;
+    }
+
+    /* Section 2: Rich Cobalt */
+    .section-2 {
+      background: #1e40af;
+    }
+
+    /* Section 3: Navy */
+    .section-3 {
+      background: #0f172a;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 3rem 1.5rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .section-content {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- SECTION 1 -->
+    <section class="section section-1">
+      <h2 class="section-title">Section 1</h2>
+      <p class="section-content">
+        This is the first horizontal section. It will explain the first part of how Cyclindex works.
+      </p>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="section section-2">
+      <h2 class="section-title">Section 2</h2>
+      <p class="section-content">
+        This is the second section. Add your scoring logic, data sources, or methodology here.
+      </p>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="section section-3">
+      <h2 class="section-title">Section 3</h2>
+      <p class="section-content">
+        This is the final section. Perfect for inclusions, exclusions, updates, or FAQs.
+      </p>
+    </section>
+
+  </div>
+
+</body>
+</html>
