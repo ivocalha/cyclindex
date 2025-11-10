@@ -76,6 +76,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     }
     .block h3 {
+      font-family: 'Suissnord', sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
       margin: 0;
@@ -84,6 +85,12 @@
       width: 28px;
       height: 28px;
       fill: currentColor;
+      opacity: 0.9;
+    }
+    .icon-img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
       opacity: 0.9;
     }
     .results, .how {
@@ -113,7 +120,7 @@
       <h1 class="title">Cyclindex</h1>
     </div>
 
-    <!-- 5 Blocks with Icons -->
+    <!-- 5 Blocks -->
     <div class="blocks-container">
 
       <!-- Results Log -->
@@ -127,32 +134,26 @@
       <!-- Rider Score -->
       <a href="rider-score.html" class="block rider">
         <h3>Rider Score</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12,2A3,3 0 0,1 15,5V6.5C16.79,7.46 18,9.42 18,11.5V18A2,2 0 0,1 16,20H8A2,2 0 0,1 6,18V11.5C6,9.42 7.21,7.46 9,6.5V5A3,3 0 0,1 12,2M12,4A1,1 0 0,0 11,5V6H13V5A1,1 0 0,0 12,4M8.5,9A1.5,1.5 0 0,0 7,10.5V11H17V10.5A1.5,1.5 0 0,footnotesize 15.5,9H8.5Z"/>
-        </svg>
+        <img src="rider_ico.png" alt="Rider" class="icon-img">
       </a>
 
       <!-- Team Score -->
       <a href="team-score.html" class="block team">
         <h3>Team Score</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12,5A2,2 0 0,1 14,7A2,2 0 0,1 12,9A2,2 0 0,1 10,7A2,2 0 0,1 12,5M12,15C14.5,15 16.58,16.08 18,17.5V20H6V17.5C7.42,16.08 9.5,15 12,15M12,3A4,4 0 0,0 8,7A4,4 0 0,0 12,11A4,4 0 0,0 16,7A4,4 0 0,0 12,3M12,13C9.33,13 4,14.33 4,17V22H20V17C20,14.33 14.67,13 12,13Z"/>
-        </svg>
+        <img src="team_ico.png" alt="Team" class="icon-img">
       </a>
 
       <!-- Nation Score -->
       <a href="nation-score.html" class="block nation">
         <h3>Nation Score</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12,2L1,21H23M12,5.34L18.5,19H5.5L12,5.34Z"/>
-        </svg>
+        <img src="nation_icon.png" alt="Nation" class="icon-img">
       </a>
 
       <!-- How It Works -->
       <a href="how-it-works.html" class="block how">
         <h3>How It Works</h3>
         <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M10,17H8V7H10V17M16,17H14V12H12V10H16V17Z"/>
+          <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M11,14H13V6H11V14Z"/>
         </svg>
       </a>
 
