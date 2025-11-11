@@ -15,13 +15,8 @@
       font-display: swap;
     }
 
-    html, body { 
-      margin: 0; 
-      padding: 0;
-      background: #0f172a;
-      color: white;
-      overflow-x: hidden; /* crucial */
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
     
     .container {
       min-height: 100vh;
@@ -29,122 +24,139 @@
       flex-direction: column;
     }
 
-    /* === SECTION 1: DATABASE MODEL === */
+    /* ==================== SECTION 1: DATABASE MODEL ==================== */
     .db-section {
       flex: 1;
-      padding: 6rem 5vw;
+      padding: 7rem 4vw 8rem;
       background: #0f172a;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
     .section-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      font-size: clamp(3rem, 8vw, 4.5rem);
       font-weight: bold;
-      color: white;
-      text-align: center;
       margin-bottom: 4rem;
       text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-      letter-spacing: 0.05em;
     }
-
-    /* TABLE WRAPPER — THIS IS THE KEY FIX */
-    .table-wrapper {
+    .table-container {
       width: 100%;
-      max-width: 1380px;
+      max-width: 1320px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 0 1rem;
     }
-
     table {
       width: 100%;
-      min-width: 900px;           /* prevents crushing on small screens */
       border-collapse: separate;
       border-spacing: 0;
       background: rgba(255,255,255,0.09);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
       border-radius: 2rem;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.6);
     }
-
     th, td {
-      padding: 1.6rem 1.2rem;
+      padding: 1.7rem 1.4rem;
       text-align: center;
-      color: white;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
     }
     th {
       background: rgba(255,255,255,0.18);
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-      font-weight: bold;
+      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
       letter-spacing: 0.08em;
     }
     td:first-child, th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: clamp(1.15rem, 2.8vw, 1.35rem);
+      font-size: clamp(1.25rem, 3vw, 1.45rem);
     }
-
-    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.34); }
-    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.34); }
+    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.36); }
+    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.36); }
     tr:nth-child(4) td {
-      background: rgba(30, 58, 138, 0.5);
+      background: rgba(30, 58, 138, 0.55);
       color: #c0d6ff;
-      font-size: clamp(0.98rem, 2vw, 1.1rem);
+      font-size: clamp(1.02rem, 2.1vw, 1.15rem);
     }
 
-    /* Rest of sections (unchanged but with safe padding) */
-    .scoring-section, .specs-section {
+    /* ==================== SECTION 2: SCORING LOGIC ==================== */
+    .scoring-section {
       flex: 1;
-      padding: 7rem 5vw;
+      padding: 8rem 4vw;
+      background: #1e3a8a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .scoring-section { background: #1e3a8a; }
-    .specs-section { background: #0f172a; }
-
-    /* (scoring panels and specs table styles remain exactly as in previous perfect version) */
     .scoring-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.8rem;
       max-width: 1600px;
       width: 100%;
-      margin: 2rem auto 0;
+      margin-top: 3rem;
     }
-    .panel { /* same as before */ }
-    .panel-1 { background: rgba(59, 130, 246, 0.42); }
-    .panel-2 { background: rgba(34, 197, 94, 0.42); }
-    .panel-3 { background: rgba(168, 85, 247, 0.42); }
-    .panel-4 { background: rgba(239, 68, 68, 0.42); }
+    .panel {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem !important;
+      padding: 3.2rem 2rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    }
+    .panel:hover {
+      transform: translateY(-20px);
+      background: rgba(255,255,255,0.26);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    }
+    .panel h3 {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.9rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    .panel p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.95);
+    }
+    .panel-1 { background: rgba(59, 130, 246, 0.45); }
+    .panel-2 { background: rgba(34, 197, 94, 0.45); }
+    .panel-3 { background: rgba(168, 85, 247, 0.45); }
+    .panel-4 { background: rgba(239, 68, 68, 0.45); }
 
+    /* ==================== SECTION 3: SPECS DEFINITION ==================== */
+    .specs-section {
+      flex: 1;
+      padding: 9rem 4vw;
+      background: #0f172a;
+      text-align: center;
+    }
     .specs-table {
-      width: 100%;
       max-width: 1100px;
       margin: 3rem auto;
-      background: rgba(59, 130, 246, 0.35);
-      backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
+      background: rgba(59, 130, 246, 0.4);
+      backdrop-filter: blur(14px);
+      border-radius: 2rem;
       overflow: hidden;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .specs-table td {
+      padding: 2.8rem 2rem;
+      font-size: 1.55rem;
     }
     .specs-table td:first-child {
       font-family: 'Suissnord', sans-serif;
+      background: rgba(59, 130, 246, 0.7);
       font-weight: bold;
-      background: rgba(59, 130, 246, 0.6);
     }
-
-    /* Responsive */
-    @media (max-width: 1280px) {
-      .scoring-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .db-section, .scoring-section, .specs-section { padding: 4rem 1rem; }
-      .scoring-grid { grid-template-columns: 1fr; }
+    .specs-note {
+      font-size: 1.45rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.9);
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -155,8 +167,7 @@
     <!-- SECTION 1: DATABASE MODEL -->
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
-      
-      <div class="table-wrapper">
+      <div class="table-container">
         <table>
           <tr>
             <th></th>
@@ -228,12 +239,9 @@
           <td>All result types are considered for every event respecting Database Model</td>
         </tr>
       </table>
-      <p style="font-size:1.4rem;color:rgba(255,255,255,0.9);font-style:italic;margin-top:2rem;">
-        Other more specific Specs will be added soon.
-      </p>
+      <p class="specs-note">Other more specific Specs will be added soon.</p>
     </section>
 
   </div>
-
 </body>
 </html>
