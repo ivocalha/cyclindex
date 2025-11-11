@@ -3,184 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="cyclindex_logo.png">
   <title>Results Log – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.tailwindcss.css">
-
   <style>
-    @font-face {
-      font-family: 'Suissnord';
-      src: url('Suissnord.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-    body { background:#0f172a; color:white; margin:0; padding:0; overflow-x:hidden; }
-    .page-title {
-      font-family: 'Suissnord', sans-serif;
-      font-size: clamp(4rem, 10vw, 6.5rem);
-      font-weight: bold;
-      text-align: center;
-      padding: 8rem 4vw 5rem;
-      text-shadow: 0 8px 40px rgba(0,0,0,0.95);
-      background: linear-gradient(to bottom, #1e3a8a, #0f172a);
-      margin-bottom: 4rem;
-    }
-    .table-container {
-      padding: 0 5vw 15rem;
-      max-width: 2400px;
-      margin: 0 auto;
-    }
-    #resultsTable {
-      background: rgba(255,255,255,0.09);
-      backdrop-filter: blur(24px);
-      border-radius: 2.6rem;
-      overflow: hidden;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
-    }
-    #resultsTable thead th {
-      background: rgba(255,255,255,0.22) !important;
-      font-family: 'Suissnord', sans-serif;
-      font-size: 1.42rem;
-      font-weight: bold;
-      text-align: center;
-      padding: 2.2rem 1.2rem !important;
-      border-bottom: 3px solid rgba(59,130,246,0.7);
-    }
-    #resultsTable tbody td {
-      padding: 1.6rem 1rem;
-      text-align: center;
-      font-size: 1.20rem;
-    }
-    #resultsTable tbody tr:hover {
-      background: rgba(59,130,246,0.18) !important;
-    }
-    .dataTables_wrapper .dataTables_filter input,
-    .dataTables_wrapper .dataTables_length select {
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.4);
-      color: white;
-      border-radius: 1.2rem;
-      padding: 0.8rem 1.4rem;
-    }
-    .dt-buttons button {
-      background: rgba(59,130,246,0.9) !important;
-      border-radius: 1.2rem !important;
-      padding: 0.9rem 1.6rem !important;
-      font-weight: bold;
-    }
-    .loading {
-      text-align: center;
-      padding: 6rem;
-      font-size: 1.6rem;
-      color: rgba(255,255,255,0.8);
-    }
+    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
+    body { background:#0f172a; color:white; margin:0; padding:0; }
+    h1 { font-family: 'Suissnord', sans-serif; font-size: 6.8rem; text-align:center; padding:10rem 0 6rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 12px 60px #000; }
+    .c { padding:0 5vw 20rem; max-width:2400px; margin:0 auto; }
+    table { background:rgba(255,255,255,0.11); backdrop-filter:blur(28px); border-radius:3rem; box-shadow:0 50px 140px rgba(0,0,0,0.98); overflow:hidden; }
+    thead th { background:rgba(59,130,246,1)!important; font-family:'Suissnord',sans-serif; font-size:1.55rem; padding:2.6rem 1rem!important; }
   </style>
 </head>
 <body>
 
-  <h1 class="page-title">RESULTS LOG</h1>
-
-  <div class="table-container">
-    <div id="loadingMessage" class="loading">
-      Loading results_log.csv<br><br>
-      <span style="font-size:1.1rem;color:#aaa;">(If nothing appears, make sure the CSV is in the same folder)</span>
-    </div>
-
-    <table id="resultsTable" class="display nowrap" style="width:100%; visibility:hidden;">
+  <h1>RESULTS LOG</h1>
+  <div class="c">
+    <table id="t" class="display nowrap" style="width:100%">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Season</th>
-          <th>Rider</th>
-          <th>Country</th>
-          <th>Confederation</th>
-          <th>Year of Birth</th>
-          <th>Age Group</th>
-          <th>Team</th>
-          <th>Team Tier</th>
-          <th>Race</th>
-          <th>Class</th>
-          <th>Category</th>
-          <th>Stage</th>
-          <th>Rank</th>
-          <th>Result Type</th>
-          <th>UCI Points</th>
-          <th>Spec</th>
-          <th>Level</th>
-          <th>Season Result Rank</th>
+          <th>Date</th><th>Season</th><th>Rider</th><th>Country</th><th>Confederation</th>
+          <th>Year of Birth</th><th>Age Group</th><th>Team</th><th>Team Tier</th><th>Race</th>
+          <th>Class</th><th>Category</th><th>Stage</th><th>Rank</th><th>Result Type</th>
+          <th>UCI Points</th><th>Spec</th><th>Level</th><th>Season Result Rank</th>
         </tr>
       </thead>
-      <tbody></tbody>
     </table>
   </div>
 
-  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
-  <script src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    $(document).ready(function() {
-      fetch('results_log.csv')
-        .then(response => {
-          if (!response.ok) throw new Error('CSV not found');
-          return response.text();
-        })
-        .then(csvString => {
-          const parsed = Papa.parse(csvString, {
-            header: true,
-            skipEmptyLines: true,
-            dynamicTyping: true
-          });
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-          if (parsed.errors.length > 0) {
-            console.error("PapaParse errors:", parsed.errors);
-            throw new Error("CSV parsing failed");
-          }
-
-          // Success → hide loading message & show table
-          $('#loadingMessage').remove();
-          $('#resultsTable').css('visibility', 'visible');
-
-          $('#resultsTable').DataTable({
-            data: parsed.data,
-            pageLength: 50,
-            lengthMenu: [25, 50, 100, 250, 500, 1000],
-            order: [[0, 'desc']],
-            scrollX: true,
-            colReorder: true,
-            dom: 'Bfrtip',
-            buttons: [
-              { extend: 'colvis', text: 'Toggle Columns' },
-              { extend: 'csv', text: 'Export CSV', filename: 'Cyclindex_Results_Log' },
-              'copy'
-            ],
-            columnDefs: [
-              { targets: [1,4,5,6,8,10,11,14,16], visible: false },
-              { targets: '_all', searchable: true, orderable: true }
-            ],
-            language: {
-              search: "Global Search:",
-              emptyTable: "No results found in CSV"
-            }
-          });
-        })
-        .catch(err => {
-          $('#loadingMessage').html(
-            `<strong style="color:#ff6b6b;">ERROR: results_log.csv not found or corrupted</strong><br><br>` +
-            `Make sure the file is in the same folder as this HTML and named exactly <code>results_log.csv</code>`
-          );
-          console.error(err);
-        });
+    fetch(CSV_URL).then(r => r.text()).then(csv => {
+      const data = Papa.parse(csv, {header:true, dynamicTyping:true, skipEmptyLines:true}).data;
+      $('#t').DataTable({
+        data: data,
+        pageLength: 50,
+        order: [[0,'desc']],
+        scrollX: true,
+        colReorder: true,
+        dom: 'Bfrtip',
+        buttons: ['colvis','csv','copy'],
+        columnDefs: [{targets: [1,4,5,6,8,10,11,14,16], visible:false}]
+      });
     });
   </script>
 </body>
