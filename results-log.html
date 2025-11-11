@@ -6,8 +6,6 @@
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
   <title>Results Log – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  
-  <!-- DataTables + Buttons + ColReorder -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.tailwindcss.css">
@@ -23,77 +21,76 @@
     body { background:#0f172a; color:white; margin:0; padding:0; overflow-x:hidden; }
     .page-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(3.8rem, 9vw, 5.8rem);
+      font-size: clamp(4rem, 10vw, 6.5rem);
       font-weight: bold;
       text-align: center;
-      padding: 7rem 4vw 4rem;
-      text-shadow: 0 6px 35px rgba(0,0,0,0.95);
+      padding: 8rem 4vw 5rem;
+      text-shadow: 0 8px 40px rgba(0,0,0,0.95);
       background: linear-gradient(to bottom, #1e3a8a, #0f172a);
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
     }
     .table-container {
-      padding: 0 5vw 12rem;
+      padding: 0 5vw 15rem;
       max-width: 2400px;
       margin: 0 auto;
     }
     #resultsTable {
       background: rgba(255,255,255,0.09);
-      backdrop-filter: blur(22px);
-      border-radius: 2.4rem;
+      backdrop-filter: blur(24px);
+      border-radius: 2.6rem;
       overflow: hidden;
-      box-shadow: 0 35px 110px rgba(0,0,0,0.85);
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
     }
     #resultsTable thead th {
-      background: rgba(255,255,255,0.20) !important;
+      background: rgba(255,255,255,0.22) !important;
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.38rem;
+      font-size: 1.42rem;
       font-weight: bold;
       text-align: center;
-      padding: 2rem 1.2rem !important;
-      border-bottom: 2px solid rgba(59,130,246,0.6);
+      padding: 2.2rem 1.2rem !important;
+      border-bottom: 3px solid rgba(59,130,246,0.7);
     }
     #resultsTable tbody td {
-      padding: 1.5rem 1rem;
+      padding: 1.6rem 1rem;
       text-align: center;
-      font-size: 1.18rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.20rem;
     }
     #resultsTable tbody tr:hover {
-      background: rgba(59,130,246,0.15) !important;
+      background: rgba(59,130,246,0.18) !important;
     }
     .dataTables_wrapper .dataTables_filter input,
     .dataTables_wrapper .dataTables_length select {
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
       color: white;
-      border-radius: 1rem;
-      padding: 0.7rem 1.2rem;
-      font-size: 1.1rem;
+      border-radius: 1.2rem;
+      padding: 0.8rem 1.4rem;
     }
-    .dataTables_wrapper .dataTables_filter input::placeholder { color: rgba(255,255,255,0.7); }
-    .dt-buttons .buttons-colvis,
-    .dt-buttons .buttons-copy,
-    .dt-buttons .buttons-csv {
-      background: rgba(59,130,246,0.85) !important;
-      border: none !important;
-      border-radius: 1rem !important;
-      color: white !important;
+    .dt-buttons button {
+      background: rgba(59,130,246,0.9) !important;
+      border-radius: 1.2rem !important;
+      padding: 0.9rem 1.6rem !important;
       font-weight: bold;
-      padding: 0.8rem 1.4rem !important;
-      margin: 0 0.4rem;
     }
-    .dt-buttons .buttons-colvis:hover,
-    .dt-buttons .buttons-csv:hover {
-      background: rgba(59,130,246,1) !important;
+    .loading {
+      text-align: center;
+      padding: 6rem;
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.8);
     }
   </style>
 </head>
 <body>
 
-  <h1 class="page-title">Results Log</h1>
+  <h1 class="page-title">RESULTS LOG</h1>
 
   <div class="table-container">
-    <table id="resultsTable" class="display nowrap" style="width:100%">
+    <div id="loadingMessage" class="loading">
+      Loading results_log.csv<br><br>
+      <span style="font-size:1.1rem;color:#aaa;">(If nothing appears, make sure the CSV is in the same folder)</span>
+    </div>
+
+    <table id="resultsTable" class="display nowrap" style="width:100%; visibility:hidden;">
       <thead>
         <tr>
           <th>Date</th>
@@ -117,9 +114,7 @@
           <th>Season Result Rank</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Data loaded dynamically from CSV -->
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
@@ -131,33 +126,36 @@
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
   <script src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <!-- PapaParse – allows local CSV loading without server -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
     $(document).ready(function() {
-      $.get('results_log.csv')
-        .done(function(csvString) {
+      fetch('results_log.csv')
+        .then(response => {
+          if (!response.ok) throw new Error('CSV not found');
+          return response.text();
+        })
+        .then(csvString => {
           const parsed = Papa.parse(csvString, {
             header: true,
             skipEmptyLines: true,
-            dynamicTyping: true,
-            transform: function(value) {
-              return value.trim();
-            }
+            dynamicTyping: true
           });
 
-          if (parsed.errors.length) {
-            console.error("CSV Parse Errors:", parsed.errors);
-            alert("Error parsing CSV. Check console.");
-            return;
+          if (parsed.errors.length > 0) {
+            console.error("PapaParse errors:", parsed.errors);
+            throw new Error("CSV parsing failed");
           }
+
+          // Success → hide loading message & show table
+          $('#loadingMessage').remove();
+          $('#resultsTable').css('visibility', 'visible');
 
           $('#resultsTable').DataTable({
             data: parsed.data,
             pageLength: 50,
             lengthMenu: [25, 50, 100, 250, 500, 1000],
-            order: [[0, 'desc']], // newest first by Date
+            order: [[0, 'desc']],
             scrollX: true,
             colReorder: true,
             dom: 'Bfrtip',
@@ -167,27 +165,21 @@
               'copy'
             ],
             columnDefs: [
-              // Hidden by default (user can show with Toggle Columns)
               { targets: [1,4,5,6,8,10,11,14,16], visible: false },
-              // All columns are searchable & sortable
               { targets: '_all', searchable: true, orderable: true }
             ],
             language: {
               search: "Global Search:",
-              lengthMenu: "Show _MENU_ results per page",
-              info: "Showing _START_ to _END_ of _TOTAL_ results",
-              emptyTable: "No data available – make sure results_log.csv is in the same folder",
-              processing: "Loading results..."
+              emptyTable: "No results found in CSV"
             }
           });
         })
-        .fail(function() {
-          $('#resultsTable tbody').html(
-            '<tr><td colspan="19" style="text-align:center; padding: 4rem; font-size: 1.4rem;">' +
-            '<strong>results_log.csv not found</strong><br><br>' +
-            'Please place your CSV file in the same folder as this HTML file and refresh.' +
-            '</td></tr>'
+        .catch(err => {
+          $('#loadingMessage').html(
+            `<strong style="color:#ff6b6b;">ERROR: results_log.csv not found or corrupted</strong><br><br>` +
+            `Make sure the file is in the same folder as this HTML and named exactly <code>results_log.csv</code>`
           );
+          console.error(err);
         });
     });
   </script>
