@@ -41,53 +41,55 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
-
-    fetch(CSV_URL)
-      .then(r => {
-        if (!r.ok) throw new Error("CSV not found");
-        return r.text();
-      })
+    fetch("https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv")
+      .then(r => r.text())
       .then(csv => {
-        const result = Papa.parse(csv, {
+        const parsed = Papa.parse(csv, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
           trimHeaders: true,
-          transformHeader: header => header.trim(),
-          transform: value => value.trim()
+          transformHeader: h => h.trim(),
+          transform: v => v.trim()
         });
 
-        // REMOVE ANY ROW THAT DOESN'T HAVE ALL 19 COLUMNS
-        const cleanData = result.data.filter(row => 
-          row.Date && 
-          row.Season !== null && 
-          row.Rider && 
-          row.Rank && 
-          Object.keys(row).length === 19
-        );
+        // THIS IS THE NUCLEAR FIX — ONLY KEEP ROWS WITH EXACTLY 19 VALID FIELDS
+        const data = parsed.data.filter(row => {
+          return row.Date &&
+                 row.Season !== undefined &&
+                 row.Rider &&
+                 row.Country &&
+                 row.Team &&
+                 row.Race &&
+                 row.Rank &&
+                 row["UCI Points"] !== undefined &&
+                 row.Level !== undefined &&
+                 Object.keys(row).length === 19;
+        });
+
+        // Force column order exactly as defined (prevents DataTables error forever)
+        const columns = [
+          "Date","Season","Rider","Country","Confederation",
+          "Year of Birth","Age Group","Team","Team Tier","Race",
+          "Class","Category","Stage","Rank","Result Type",
+          "UCI Points","Spec","Level","Season Result Rank"
+        ];
+
+        const finalData = data.map(row => {
+          return columns.map(col => row[col] ?? "");
+        });
 
         $('#resultsTable').DataTable({
-          data: cleanData,
+          data: finalData,
+          columns: columns.map(title => ({ title })),
           pageLength: 50,
-          lengthMenu: [25, 50, 100, 250, 500],
           order: [[0, 'desc']],
           scrollX: true,
           colReorder: true,
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          columnDefs: [
-            { targets: [1,4,5,6,8,10,11,14,16], visible: false }
-          ],
-          language: { processing: "Loading..." }
+          columnDefs: [{ targets: [1,4,5,6,8,10,11,14,16], visible: false }]
         });
-      })
-      .catch(err => {
-        document.querySelector('.c').innerHTML = 
-          `<div style="text-align:center;padding:100px;color:#ff6b6b;font-size:2rem;">
-             ERROR: ${err.message}<br><br>
-             Make sure results-log.csv is uploaded correctly.
-           </div>`;
       });
   </script>
 </body>
