@@ -15,7 +15,13 @@
       font-display: swap;
     }
 
-    html, body { height: 100%; margin: 0; }
+    html, body { 
+      height: 100%; 
+      margin: 0; 
+      background: #0f172a;
+      color: white;
+    }
+    
     .container {
       min-height: 100vh;
       display: flex;
@@ -24,8 +30,8 @@
 
     /* === SECTION 1: DATABASE MODEL === */
     .db-section {
-      flex: 1.1;
-      padding: 5rem 2rem;
+      flex: 1;
+      padding: 6rem 2rem;
       background: #0f172a;
       display: flex;
       flex-direction: column;
@@ -34,65 +40,150 @@
     }
     .section-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: 3.4rem;
+      font-size: 3.8rem;
       font-weight: bold;
       color: white;
       text-align: center;
-      margin-bottom: 3.5rem;
-      text-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      margin-bottom: 4rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      letter-spacing: 0.05em;
     }
     table {
       width: 100%;
-      max-width: 1350px;
+      max-width: 1400px;
       border-collapse: separate;
       border-spacing: 0;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(14px);
+      border-radius: 2rem;
       overflow: hidden;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
     th, td {
-      padding: 1.5rem 1.2rem;
+      padding: 1.6rem 1.4rem;
       text-align: center;
       color: white;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      font-size: 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      font-size: 1.15rem;
     }
     th {
-      background: rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.18);
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: bold;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
-    /* First column = Suissnord */
     td:first-child, th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
-    tr:last-child td { border-bottom: none; }
-
-    /* Row colors */
-    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.28); }   /* Inclusions = Green */
-    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.28); }   /* Exclusions = Red */
+    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.32); }
+    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.32); }
     tr:nth-child(4) td {
-      background: rgba(30, 58, 138, 0.35);   /* Deep blue background */
-      color: #94a3b8;                        /* Elegant dark blue text */
-      font-size: 1.05rem;
-      /* No italic anymore */
+      background: rgba(30, 58, 138, 0.45);
+      color: #c0d6ff;
+      font-size: 1.08rem;
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      th, td { padding: 1.2rem 0.8rem; font-size: 1rem; }
-      td:first-child, th:first-child { font-size: 1.15rem; }
+    /* === SECTION 2: SCORING LOGIC === */
+    .scoring-section {
+      flex: 1;
+      padding: 7rem 2rem;
+      background: #1e3a8a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .scoring-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      width: 100%;
+      max-width: 1600px;
+      margin-top: 2rem;
+    }
+    .panel {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(14px);
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    .panel:hover {
+      transform: translateY(-20px);
+      background: rgba(255,255,255,0.26);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+    .panel h3 {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+    .panel p {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    .panel-1 { background: rgba(59, 130, 246, 0.42); }
+    .panel-2 { background: rgba(34, 197, 94, 0.42); }
+    .panel-3 { background: rgba(168, 85, 247, 0.42); }
+    .panel-4 { background: rgba(239, 68, 68, 0.42); }
+
+    /* === SECTION 3: SPECS DEFINITION === */
+    .specs-section {
+      flex: 1;
+      padding: 8rem 2rem;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .specs-table {
+      width: 100%;
+      max-width: 1100px;
+      margin: 3rem 0;
+      background: rgba(59, 130, 246, 0.35);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+    }
+    .specs-table td {
+      padding: 2.5rem 2rem;
+      font-size: 1.5rem;
+      color: white;
+    }
+    .specs-table td:first-child {
+      font-family: 'Suissnord', sans-serif;
+      font-weight: bold;
+      background: rgba(59, 130, 246, 0.6);
+      width: 30%;
+    }
+    .specs-note {
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.9);
+      font-style: italic;
+      max-width: 900px;
+      line-height: 1.8;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1280px) {
+      .scoring-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      .section-title { font-size: 2.6rem; margin-bottom: 2rem; }
-      th, td { padding: 1rem 0.5rem; font-size: 0.9rem; }
-      td:first-child, th:first-child { font-size: 1.1rem; }
+      .section-title { font-size: 2.8rem; margin-bottom: 2rem; }
+      .scoring-grid { grid-template-columns: 1fr; }
+      .panel { padding: 2.5rem 1.5rem; }
+      .panel h3 { font-size: 1.6rem; }
+      th, td { padding: 1.2rem 0.8rem; font-size: 1rem; }
+      .db-section, .scoring-section, .specs-section { padding: 4rem 1rem; }
     }
   </style>
 </head>
