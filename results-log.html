@@ -42,19 +42,38 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    fetch(CSV_URL).then(r => r.text()).then(csv => {
-      const data = Papa.parse(csv, {header:true, dynamicTyping:true, skipEmptyLines:true}).data;
-      $('#t').DataTable({
-        data: data,
-        pageLength: 50,
-        order: [[0,'desc']],
-        scrollX: true,
-        colReorder: true,
-        dom: 'Bfrtip',
-        buttons: ['colvis','csv','copy'],
-        columnDefs: [{targets: [1,4,5,6,8,10,11,14,16], visible:false}]
+    fetch(CSV_URL)
+      .then(r => r.text())
+      .then(csv => {
+        const parsed = Papa.parse(csv, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: true,
+          transform: (value) => value.trim()
+        });
+
+        // THIS FIXES THE ERROR FOREVER – removes any broken/incomplete rows
+        const cleanData = parsed.data.filter(row => {
+          return row.Date && row.Rider && row.Rank; // keep only valid rows
+        });
+
+        $('#t').DataTable({
+          data: cleanData,
+          pageLength: 50,
+          lengthMenu: [25, 50, 100, 250, 500],
+          order: [[0, 'desc']],
+          scrollX: true,
+          colReorder: true,
+          dom: 'Bfrtip',
+          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
+          columnDefs: [
+            { targets: [1,4,5,6,8,10,11,14,16], visible: false } // hidden columns
+          ]
+        });
+      })
+      .catch(err => {
+        document.body.innerHTML += `<div style="text-align:center;padding:100px;color:#ff6b6b;font-size:2rem;">ERROR LOADING CSV<br>${err}</div>`;
       });
-    });
   </script>
 </body>
 </html>
