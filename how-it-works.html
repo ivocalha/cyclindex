@@ -15,75 +15,70 @@
       font-display: swap;
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
-    
-    .container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    .container { min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ==================== SECTION 1: DATABASE MODEL ==================== */
+    /* SECTION 1: DATABASE MODEL – GOLDEN VERSION (PRE-MERGE) */
     .db-section {
       flex: 1;
-      padding: 7rem 4vw 8rem;
+      padding: 6rem 2rem;
       background: #0f172a;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
     .section-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(3rem, 8vw, 4.5rem);
+      font-size: 3.6rem;
       font-weight: bold;
-      margin-bottom: 4rem;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-    }
-    .table-container {
-      width: 100%;
-      max-width: 1320px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      color: white;
+      text-align: center;
+      margin-bottom: 3.5rem;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.6);
     }
     table {
       width: 100%;
+      max-width: 1350px;
       border-collapse: separate;
       border-spacing: 0;
-      background: rgba(255,255,255,0.09);
-      backdrop-filter: blur(16px);
-      border-radius: 2rem;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
       overflow: hidden;
-      box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.4);
     }
     th, td {
-      padding: 1.7rem 1.4rem;
+      padding: 1.5rem 1.2rem;
       text-align: center;
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 1.1rem;
     }
     th {
-      background: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.16);
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
-      letter-spacing: 0.08em;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
     td:first-child, th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: clamp(1.25rem, 3vw, 1.45rem);
+      font-size: 1.25rem;
     }
-    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.36); }
-    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.36); }
-    tr:nth-child(4) td {
-      background: rgba(30, 58, 138, 0.55);
-      color: #c0d6ff;
-      font-size: clamp(1.02rem, 2.1vw, 1.15rem);
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.28); }
+    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.28); }
+    tr:nth-child(4) td { 
+      background: rgba(30, 58, 138, 0.35); 
+      color: #94a3b8;
+      font-size: 1.02rem;
     }
 
-    /* ==================== SECTION 2: SCORING LOGIC ==================== */
+    /* SECTION 2: SCORING LOGIC – GOLDEN VERSION (PERFECT ROUNDED PANELS) */
     .scoring-section {
       flex: 1;
-      padding: 8rem 4vw;
+      padding: 7rem 2rem;
       background: #1e3a8a;
       display: flex;
       flex-direction: column;
@@ -91,72 +86,82 @@
     }
     .scoring-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.8rem;
-      max-width: 1600px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      max-width: 1500px;
       width: 100%;
-      margin-top: 3rem;
     }
     .panel {
-      background: rgba(255,255,255,0.16);
-      backdrop-filter: blur(16px);
-      border-radius: 2rem !important;
-      padding: 3.2rem 2rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      padding: 2.8rem 2rem;
       text-align: center;
       transition: all 0.4s ease;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
     .panel:hover {
-      transform: translateY(-20px);
-      background: rgba(255,255,255,0.26);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+      transform: translateY(-16px);
+      background: rgba(255,255,255,0.28);
     }
     .panel h3 {
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.9rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+      font-weight: bold;
       color: white;
+      margin-bottom: 1.2rem;
     }
     .panel p {
-      font-size: 1.15rem;
-      line-height: 1.75;
       color: rgba(255,255,255,0.95);
+      font-size: 1.1rem;
+      line-height: 1.7;
     }
-    .panel-1 { background: rgba(59, 130, 246, 0.45); }
-    .panel-2 { background: rgba(34, 197, 94, 0.45); }
-    .panel-3 { background: rgba(168, 85, 247, 0.45); }
-    .panel-4 { background: rgba(239, 68, 68, 0.45); }
+    .panel-1 { background: rgba(59, 130, 246, 0.38); }
+    .panel-2 { background: rgba(34, 197, 94, 0.38); }
+    .panel-3 { background: rgba(168, 85, 247, 0.38); }
+    .panel-4 { background: rgba(239, 68, 68, 0.38); }
 
-    /* ==================== SECTION 3: SPECS DEFINITION ==================== */
+    /* SECTION 3: SPECS DEFINITION */
     .specs-section {
       flex: 1;
-      padding: 9rem 4vw;
+      padding: 8rem 2rem;
       background: #0f172a;
       text-align: center;
     }
     .specs-table {
       max-width: 1100px;
       margin: 3rem auto;
-      background: rgba(59, 130, 246, 0.4);
-      backdrop-filter: blur(14px);
-      border-radius: 2rem;
+      background: rgba(59, 130, 246, 0.35);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
     }
     .specs-table td {
-      padding: 2.8rem 2rem;
-      font-size: 1.55rem;
+      padding: 2.5rem 2rem;
+      font-size: 1.5rem;
+      color: white;
     }
     .specs-table td:first-child {
       font-family: 'Suissnord', sans-serif;
-      background: rgba(59, 130, 246, 0.7);
       font-weight: bold;
+      background: rgba(59, 130, 246, 0.6);
     }
     .specs-note {
-      font-size: 1.45rem;
-      font-style: italic;
+      font-size: 1.4rem;
       color: rgba(255,255,255,0.9);
+      font-style: italic;
       margin-top: 2rem;
+    }
+
+    @media (max-width: 1280px) {
+      .scoring-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .scoring-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.8rem; }
+      table { font-size: 0.95rem; }
+      th, td { padding: 1.2rem 0.8rem; }
     }
   </style>
 </head>
@@ -164,50 +169,51 @@
 
   <div class="container">
 
-    <!-- SECTION 1: DATABASE MODEL -->
+    <!-- SECTION 1: DATABASE MODEL (GOLDEN PRE-MERGE VERSION) -->
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
-      <div class="table-container">
-        <table>
-          <tr>
-            <th></th>
-            <th>Gender</th>
-            <th>Discipline</th>
-            <th>Category</th>
-            <th>Tour Events</th>
-            <th>Championships</th>
-            <th>Time Trials</th>
-          </tr>
-          <tr>
-            <td><strong>Inclusions</strong></td>
-            <td>Men</td>
-            <td>Road Race</td>
-            <td>Elite</td>
-            <td>x.UWT, x.PRO, x.1</td>
-            <td>Worlds & Olympics</td>
-            <td>Prologues & ITTs</td>
-          </tr>
-          <tr>
-            <td><strong>Exclusions</strong></td>
-            <td>Women</td>
-            <td>Others</td>
-            <td>Others</td>
-            <td>Others</td>
-            <td>Continentals & Nationals</td>
-            <td>TTTs</td>
-          </tr>
-          <tr>
-            <td><strong>Reasons</strong></td>
-            <td>Keep initial testing database smaller.<br>Will be added asap</td>
-            <td colspan="3">None or low significance vs Database size increase</td>
-            <td colspan="2">Complex points system skews performance levels<br>and mixed gender events</td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
+      <table>
+        <tr>
+          <th></th>
+          <th>Gender</th>
+          <th>Discipline</th>
+          <th>Category</th>
+          <th>Tour Events</th>
+          <th>Championships</th>
+          <th>Time Trials</th>
+        </tr>
+        <tr>
+          <td><strong>Inclusions</strong></td>
+          <td>Men</td>
+          <td>Road Race</td>
+          <td>Elite</td>
+          <td>x.UWT, x.PRO, x.1</td>
+          <td>Worlds & Olympics</td>
+          <td>Prologues & ITTs</td>
+        </tr>
+        <tr>
+          <td><strong>Exclusions</strong></td>
+          <td>Women</td>
+          <td>Others</td>
+          <td>Others</td>
+          <td>Others</td>
+          <td>Continentals & Nationals</td>
+          <td>TTTs</td>
+        </tr>
+        <tr>
+          <td><strong>Reasons</strong></td>
+          <td>Keep initial testing database smaller.<br>Will be added asap</td>
+          <td>None or low significance vs Database size increase</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Complex points system skews performance levels<br>and mixed gender events</td>
+          <td></td>
+        </tr>
+      </table>
     </section>
 
-    <!-- SECTION 2: SCORING LOGIC -->
+    <!-- SECTION 2: SCORING LOGIC (GOLDEN VERSION) -->
     <section class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       <div class="scoring-grid">
