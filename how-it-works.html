@@ -15,9 +15,11 @@
       font-display: swap;
     }
 
+    *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
     .container { min-height: 100vh; display: flex; flex-direction: column; }
 
+    /* ===================== SECTION 1: DATABASE MODEL ===================== */
     .db-section {
       flex: 1;
       padding: 6rem 4vw 8rem;
@@ -31,10 +33,11 @@
       font-family: 'Suissnord', sans-serif;
       font-size: clamp(3.3rem, 8vw, 4.6rem);
       font-weight: bold;
+      color: white;
+      text-align: center;
       margin-bottom: 4.8rem;
       text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     }
-
     table {
       width: 100%;
       max-width: 1400px;
@@ -47,46 +50,127 @@
       box-shadow: 0 25px 80px rgba(0,0,0,0.65);
       table-layout: fixed;
     }
-
     th, td {
       padding: 1.75rem 1rem;
       text-align: center;
     }
-
-    /* HEADER ROW – exact same font size, no overflow */
     th {
-      background: rgba(255,255,255,0.18) !important;
+      background: rgba(255,255,255,0.18);
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.38rem !important;
+      font-size: 1.38rem;
       font-weight: bold;
       white-space: nowrap;
     }
-
-    /* FIRST COLUMN (Inclusions/Exclusions/Reasons) – now SAME size as header */
     td:first-child, th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: 1.38rem !important;
+      font-size: 1.38rem;
       white-space: nowrap;
     }
-
-    /* Only Tour Events & Time Trials may wrap */
-    th:nth-child(5), th:nth-child(7) { white-space: normal; }
-
-    /* Row colors – full width guaranteed */
-    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.38) !important; }
-    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.38) !important; }
+    th:nth-child(5), th:nth-child(7) { white-space: normal; } /* Tour Events & Time Trials */
+    tr:nth-child(2) td { background: rgba(34, 197, 94, 0.38); }
+    tr:nth-child(3) td { background: rgba(239, 68, 68, 0.38); }
     tr:nth-child(4) td {
-      background: rgba(30, 58, 138, 0.58) !important;
+      background: rgba(30, 58, 138, 0.58);
       color: #c0d6ff;
       font-size: 1.18rem;
       white-space: normal;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    /* Extra safety for your exact resolution */
+    /* ===================== SECTION 2: SCORING LOGIC ===================== */
+    .scoring-section {
+      flex: 1;
+      padding: 8rem 4vw;
+      background: #1e3a8a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .scoring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
+      max-width: 1700px;
+      width: 100%;
+      margin-top: 3rem;
+    }
+    .panel {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      padding: 3.2rem 2.4rem;
+      text-align: center;
+      transition: all 0.45s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .panel:hover {
+      transform: translateY(-22px);
+      background: rgba(255,255,255,0.28);
+      box-shadow: 0 35px 90px rgba(0,0,0,0.7);
+    }
+    .panel h3 {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.95rem;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1.6rem;
+    }
+    .panel p {
+      font-size: 1.18rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.96);
+    }
+    .panel-1 { background: rgba(59, 130, 246, 0.45); }
+    .panel-2 { background: rgba(34, 197, 94, 0.45); }
+    .panel-3 { background: rgba(168, 85, 247, 0.45); }
+    .panel-4 { background: rgba(239, 68, 68, 0.45); }
+
+    /* ===================== SECTION 3: SPECS DEFINITION ===================== */
+    .specs-section {
+      flex: 1;
+      padding: 9rem 4vw;
+      background: #0f172a;
+      text-align: center;
+    }
+    .specs-table {
+      max-width: 1100px;
+      margin: 4rem auto;
+      background: rgba(59, 130, 246, 0.42);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+    }
+    .specs-table td {
+      padding: 3rem 2.5rem;
+      font-size: 1.58rem;
+      color: white;
+    }
+    .specs-table td:first-child {
+      font-family: 'Suissnord', sans-serif;
+      font-weight: bold;
+      background: rgba(59, 130, 246, 0.75);
+    }
+    .specs-note {
+      font-size: 1.48rem;
+      color: rgba(255,255,255,0.92);
+      font-style: italic;
+      margin-top: 2.5rem;
+    }
+
+    /* Responsive perfection */
     @media (max-width: 1600px) {
-      th, td:first-child { font-size: 1.34rem !important; }
+      th, td:first-child { font-size: 1.34rem; }
+    }
+    @media (max-width: 1280px) {
+      .scoring-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .scoring-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.9rem; }
+      th, td { padding: 1.3rem 0.8rem; font-size: 1.15rem; }
+      td:first-child { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -94,6 +178,7 @@
 
   <div class="container">
 
+    <!-- SECTION 1: DATABASE MODEL -->
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
       <table>
@@ -134,8 +219,40 @@
       </table>
     </section>
 
-    <!-- Sections 2 & 3 untouched – still perfect -->
-    <!-- (same inline styles you already love) -->
+    <!-- SECTION 2: SCORING LOGIC -->
+    <section class="scoring-section">
+      <h2 class="section-title">Scoring Logic</h2>
+      <div class="scoring-grid">
+        <div class="panel panel-1">
+          <h3>UCI Points System</h3>
+          <p>Base reference: official UCI individual ranking points as foundation for race weighting and comparability.</p>
+        </div>
+        <div class="panel panel-2">
+          <h3>Performance Level Ladder</h3>
+          <p>Custom 7-tier race classification (Grand Tours to .2 events) with dynamic multipliers and prestige coefficients.</p>
+        </div>
+        <div class="panel panel-3">
+          <h3>Rider Score Formula</h3>
+          <p>Final Cyclindex Rider Score = (UCI Points × Level Multiplier × Form Factor × Consistency Bonus) with 52-week rolling decay.</p>
+        </div>
+        <div class="panel panel-4">
+          <h3>Team & Nation Score Formula</h3>
+          <p>Aggregated score of top 8 riders (Team) / all registered riders (Nation) with depth and dominance bonuses.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SPECS DEFINITION -->
+    <section class="specs-section">
+      <h2 class="section-title">Specs Definition</h2>
+      <table class="specs-table">
+        <tr>
+          <td>OVERALL</td>
+          <td>All result types are considered for every event respecting Database Model</td>
+        </tr>
+      </table>
+      <p class="specs-note">Other more specific Specs will be added soon.</p>
+    </section>
 
   </div>
 </body>
