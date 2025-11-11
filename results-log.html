@@ -10,16 +10,59 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: 6.8rem; text-align:center; padding:10rem 0 6rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 12px 60px #000; }
-    .c { padding:0 5vw 20rem; max-width:2400px; margin:0 auto; }
-    table { background:rgba(255,255,255,0.11); backdrop-filter:blur(28px); border-radius:3rem; box-shadow:0 50px 140px rgba(0,0,0,0.98); overflow:hidden; }
-    thead th { background:#3b82f6!important; font-family:'Suissnord',sans-serif; font-size:1.55rem; padding:2.6rem 1rem!important; }
+    h1 { 
+      font-family: 'Suissnord', sans-serif; 
+      font-size: clamp(4rem, 8vw, 6rem); 
+      text-align:center; 
+      padding:10rem 0 4rem; 
+      background:linear-gradient(to bottom,#1e3a8a,#0f172a); 
+      text-shadow:0 8px 30px #000; 
+      margin:0;
+    }
+    .container { padding:2rem 4vw 10rem; max-width:2600px; margin:0 auto; }
+    #resultsTable {
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(20px);
+      border-radius:1.6rem;
+      overflow:hidden;
+      box-shadow:0 30px 100px rgba(0,0,0,0.9);
+    }
+    #resultsTable thead th {
+      background:#1e40af !important;
+      font-family:'Suissnord',sans-serif;
+      font-size:1.28rem !important;
+      padding:1.4rem 0.8rem !important;
+      text-align:center;
+      font-weight:bold;
+    }
+    #resultsTable tbody td {
+      padding:0.9rem 0.6rem !important;
+      font-size:1.02rem;
+      text-align:center;
+    }
+    #resultsTable tbody tr:hover {
+      background:rgba(59,130,246,0.22) !important;
+    }
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.3);
+      color:white;
+      border-radius:0.6rem;
+      padding:0.4rem 0.8rem;
+    }
+    .dt-buttons button {
+      background:#3b82f6 !important;
+      border-radius:0.8rem !important;
+      padding:0.6rem 1.2rem !important;
+    }
   </style>
 </head>
 <body>
 
   <h1>RESULTS LOG</h1>
-  <div class="c">
+
+  <div class="container">
     <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
@@ -41,7 +84,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    fetch("https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv")
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
+
+    fetch(CSV_URL)
       .then(r => r.text())
       .then(csv => {
         const parsed = Papa.parse(csv, {
@@ -53,21 +98,6 @@
           transform: v => v.trim()
         });
 
-        // THIS IS THE NUCLEAR FIX — ONLY KEEP ROWS WITH EXACTLY 19 VALID FIELDS
-        const data = parsed.data.filter(row => {
-          return row.Date &&
-                 row.Season !== undefined &&
-                 row.Rider &&
-                 row.Country &&
-                 row.Team &&
-                 row.Race &&
-                 row.Rank &&
-                 row["UCI Points"] !== undefined &&
-                 row.Level !== undefined &&
-                 Object.keys(row).length === 19;
-        });
-
-        // Force column order exactly as defined (prevents DataTables error forever)
         const columns = [
           "Date","Season","Rider","Country","Confederation",
           "Year of Birth","Age Group","Team","Team Tier","Race",
@@ -75,14 +105,15 @@
           "UCI Points","Spec","Level","Season Result Rank"
         ];
 
-        const finalData = data.map(row => {
-          return columns.map(col => row[col] ?? "");
-        });
+        const cleanData = parsed.data
+          .filter(row => row.Date && row.Rider && row.Rank && Object.keys(row).length === 19)
+          .map(row => columns.map(col => row[col] ?? ""));
 
         $('#resultsTable').DataTable({
-          data: finalData,
+          data: cleanData,
           columns: columns.map(title => ({ title })),
-          pageLength: 50,
+          pageLength: 100,
+          lengthMenu: [50, 100, 250, 500],
           order: [[0, 'desc']],
           scrollX: true,
           colReorder: true,
