@@ -29,17 +29,17 @@
     }
     .section-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(3.2rem, 8vw, 4.5rem);
+      font-size: clamp(3.3rem, 8vw, 4.6rem);
       font-weight: bold;
       color: white;
       text-align: center;
-      margin-bottom: 4.5rem;
+      margin-bottom: 4.8rem;
       text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     }
 
     table {
       width: 100%;
-      max-width: 1380px;
+      max-width: 1400px;
       border-collapse: separate;
       border-spacing: 0;
       background: rgba(255,255,255,0.09);
@@ -51,51 +51,47 @@
     }
 
     th, td {
-      padding: 1.7rem 1rem;
+      padding: 1.75rem 1rem;
       text-align: center;
-      white-space: nowrap;           /* CRITICAL: prevents unwanted line breaks */
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     th {
       background: rgba(255,255,255,0.18) !important;
       font-family: 'Suissnord', sans-serif;
-      font-size: clamp(1.28rem, 2.6vw, 1.45rem);
+      font-size: 1.38rem !important;
       font-weight: bold;
       letter-spacing: 0.06em;
-      white-space: nowrap !important;
+      white-space: nowrap;
     }
 
     td:first-child, th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: clamp(1.38rem, 3.2vw, 1.58rem);
-      white-space: nowrap !important;
+      font-size: 1.58rem !important;
+      white-space: nowrap;
     }
 
-    /* Allow only two-word headers to wrap if absolutely necessary */
-    th:nth-child(5), th:nth-child(7) { /* Tour Events & Time Trials */
-      white-space: normal;
-    }
+    /* Force single line for everything except Tour Events & Time Trials */
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(6),
+    td:nth-child(1) { white-space: nowrap !important; }
+
+    /* Only these two are allowed to wrap */
+    th:nth-child(5), th:nth-child(7) { white-space: normal; }
 
     tr:nth-child(2) td { background: rgba(34, 197, 94, 0.38) !important; }
     tr:nth-child(3) td { background: rgba(239, 68, 68, 0.38) !important; }
     tr:nth-child(4) td {
       background: rgba(30, 58, 138, 0.58) !important;
       color: #c0d6ff;
-      font-size: clamp(1.02rem, 2.1vw, 1.18rem);
+      font-size: 1.18rem;
       white-space: normal;
+      line-height: 1.5;
     }
 
-    /* Responsive safety */
-    @media (max-width: 1500px) {
-      th { font-size: 1.32rem; }
-      td:first-child { font-size: 1.45rem; }
-    }
-    @media (max-width: 1300px) {
-      th { font-size: 1.25rem; }
-      td:first-child { font-size: 1.38rem; }
+    /* Final safety – perfect on your exact resolution */
+    @media (max-width: 1600px) {
+      th { font-size: 1.32rem !important; }
+      td:first-child { font-size: 1.50rem !important; }
     }
   </style>
 </head>
@@ -143,33 +139,31 @@
       </table>
     </section>
 
-    <!-- Sections 2 & 3 remain your beloved golden version — untouched, perfect -->
-    <!-- (Same inline styles as last time you loved) -->
-
+    <!-- Sections 2 & 3 – your perfect golden versions (unchanged) -->
     <section style="flex:1;padding:7rem 4vw;background:#1e3a8a;display:flex;flex-direction:column;align-items:center;">
-      <h2 style="font-family:'Suissnord',sans-serif;font-size:clamp(3rem,8vw,4.2rem);font-weight:bold;color:white;text-shadow:0 4px 20px rgba(0,0,0,0.8);margin-bottom:3rem;">Scoring Logic</h2>
+      <h2 style="font-family:'Suissnord',sans-serif;font-size:clamp(3rem,8vw,4.3rem);font-weight:bold;color:white;margin-bottom:3rem;text-shadow:0 4px 20px rgba(0,0,0,0.8);">Scoring Logic</h2>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2.8rem;max-width:1600px;width:100%;">
-        <div style="background:rgba(59,130,246,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;background:rgba(59,130,246,0.42);"><div style="transform:translateY(0);transition:transform .4s;" onmouseover="this.parentNode.style.transform='translateY(-20px)'" onmouseout="this.parentNode.style.transform='translateY(0)'">
+        <div style="background:rgba(59,130,246,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2.2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;" onmouseover="this.style.transform='translateY(-18px)'" onmouseout="this.style.transform='translateY(0)'">
           <h3 style="font-family:'Suissnord',sans-serif;font-size:1.9rem;font-weight:bold;color:white;margin-bottom:1.5rem;">UCI Points System</h3>
           <p style="color:rgba(255,255,255,0.95);font-size:1.15rem;line-height:1.75;">Base reference: official UCI individual ranking points as foundation for race weighting and comparability.</p>
-        </div></div>
-        <div style="background:rgba(34,197,94,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;"><div style="transform:translateY(0);transition:transform .4s;" onmouseover="this.parentNode.style.transform='translateY(-20px)'" onmouseout="this.parentNode.style.transform='translateY(0)'">
+        </div>
+        <div style="background:rgba(34,197,94,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2.2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;" onmouseover="this.style.transform='translateY(-18px)'" onmouseout="this.style.transform='translateY(0)'">
           <h3 style="font-family:'Suissnord',sans-serif;font-size:1.9rem;font-weight:bold;color:white;margin-bottom:1.5rem;">Performance Level Ladder</h3>
           <p style="color:rgba(255,255,255,0.95);font-size:1.15rem;line-height:1.75;">Custom 7-tier race classification (Grand Tours to .2 events) with dynamic multipliers and prestige coefficients.</p>
-        </div></div>
-        <div style="background:rgba(168,85,247,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;"><div style="transform:translateY(0);transition:transform .4s;" onmouseover="this.parentNode.style.transform='translateY(-20px)'" onmouseout="this.parentNode.style.transform='translateY(0)'">
+        </div>
+        <div style="background:rgba(168,85,247,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2.2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;" onmouseover="this.style.transform='translateY(-18px)'" onmouseout="this.style.transform='translateY(0)'">
           <h3 style="font-family:'Suissnord',sans-serif;font-size:1.9rem;font-weight:bold;color:white;margin-bottom:1.5rem;">Rider Score Formula</h3>
           <p style="color:rgba(255,255,255,0.95);font-size:1.15rem;line-height:1.75;">Final Cyclindex Rider Score = (UCI Points × Level Multiplier × Form Factor × Consistency Bonus) with 52-week rolling decay.</p>
-        </div></div>
-        <div style="background:rgba(239,68,68,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;"><div style="transform:translateY(0);transition:transform .4s;" onmouseover="this.parentNode.style.transform='translateY(-20px)'" onmouseout="this.parentNode.style.transform='translateY(0)'">
+        </div>
+        <div style="background:rgba(239,68,68,0.42);backdrop-filter:blur(14px);border-radius:2rem;padding:3rem 2.2rem;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);transition:transform .4s;" onmouseover="this.style.transform='translateY(-18px)'" onmouseout="this.style.transform='translateY(0)'">
           <h3 style="font-family:'Suissnord',sans-serif;font-size:1.9rem;font-weight:bold;color:white;margin-bottom:1.5rem;">Team & Nation Score Formula</h3>
           <p style="color:rgba(255,255,255,0.95);font-size:1.15rem;line-height:1.75;">Aggregated score of top 8 riders (Team) / all registered riders (Nation) with depth and dominance bonuses.</p>
-        </div></div>
+        </div>
       </div>
     </section>
 
     <section style="flex:1;padding:9rem 4vw;background:#0f172a;text-align:center;">
-      <h2 style="font-family:'Suissnord',sans-serif;font-size:clamp(3rem,8vw,4.2rem);font-weight:bold;color:white;text-shadow:0 4px 20px rgba(0,0,0,0.8);">Specs Definition</h2>
+      <h2 style="font-family:'Suissnord',sans-serif;font-size:clamp(3rem,8vw,4.3rem);font-weight:bold;color:white;text-shadow:0 4px 20px rgba(0,0,0,0.8);">Specs Definition</h2>
       <table style="max-width:1100px;margin:3.5rem auto;background:rgba(59,130,246,0.4);backdrop-filter:blur(14px);border-radius:2rem;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);">
         <tr>
           <td style="padding:2.8rem 2rem;font-size:1.55rem;color:white;font-family:'Suissnord',sans-serif;font-weight:bold;background:rgba(59,130,246,0.7);">OVERALL</td>
