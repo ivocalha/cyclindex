@@ -13,14 +13,14 @@
     h1 { font-family: 'Suissnord', sans-serif; font-size: 6.8rem; text-align:center; padding:10rem 0 6rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 12px 60px #000; }
     .c { padding:0 5vw 20rem; max-width:2400px; margin:0 auto; }
     table { background:rgba(255,255,255,0.11); backdrop-filter:blur(28px); border-radius:3rem; box-shadow:0 50px 140px rgba(0,0,0,0.98); overflow:hidden; }
-    thead th { background:rgba(59,130,246,1)!important; font-family:'Suissnord',sans-serif; font-size:1.55rem; padding:2.6rem 1rem!important; }
+    thead th { background:#3b82f6!important; font-family:'Suissnord',sans-serif; font-size:1.55rem; padding:2.6rem 1rem!important; }
   </style>
 </head>
 <body>
 
   <h1>RESULTS LOG</h1>
   <div class="c">
-    <table id="t" class="display nowrap" style="width:100%">
+    <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
           <th>Date</th><th>Season</th><th>Rider</th><th>Country</th><th>Confederation</th>
@@ -29,6 +29,7 @@
           <th>UCI Points</th><th>Spec</th><th>Level</th><th>Season Result Rank</th>
         </tr>
       </thead>
+      <tbody></tbody>
     </table>
   </div>
 
@@ -43,21 +44,30 @@
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
     fetch(CSV_URL)
-      .then(r => r.text())
+      .then(r => {
+        if (!r.ok) throw new Error("CSV not found");
+        return r.text();
+      })
       .then(csv => {
-        const parsed = Papa.parse(csv, {
+        const result = Papa.parse(csv, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
-          transform: (value) => value.trim()
+          trimHeaders: true,
+          transformHeader: header => header.trim(),
+          transform: value => value.trim()
         });
 
-        // THIS FIXES THE ERROR FOREVER – removes any broken/incomplete rows
-        const cleanData = parsed.data.filter(row => {
-          return row.Date && row.Rider && row.Rank; // keep only valid rows
-        });
+        // REMOVE ANY ROW THAT DOESN'T HAVE ALL 19 COLUMNS
+        const cleanData = result.data.filter(row => 
+          row.Date && 
+          row.Season !== null && 
+          row.Rider && 
+          row.Rank && 
+          Object.keys(row).length === 19
+        );
 
-        $('#t').DataTable({
+        $('#resultsTable').DataTable({
           data: cleanData,
           pageLength: 50,
           lengthMenu: [25, 50, 100, 250, 500],
@@ -67,12 +77,17 @@
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
           columnDefs: [
-            { targets: [1,4,5,6,8,10,11,14,16], visible: false } // hidden columns
-          ]
+            { targets: [1,4,5,6,8,10,11,14,16], visible: false }
+          ],
+          language: { processing: "Loading..." }
         });
       })
       .catch(err => {
-        document.body.innerHTML += `<div style="text-align:center;padding:100px;color:#ff6b6b;font-size:2rem;">ERROR LOADING CSV<br>${err}</div>`;
+        document.querySelector('.c').innerHTML = 
+          `<div style="text-align:center;padding:100px;color:#ff6b6b;font-size:2rem;">
+             ERROR: ${err.message}<br><br>
+             Make sure results-log.csv is uploaded correctly.
+           </div>`;
       });
   </script>
 </body>
