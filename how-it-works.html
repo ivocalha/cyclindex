@@ -19,7 +19,7 @@
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
     .container { min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ===================== SECTION 1: DATABASE MODEL ===================== */
+    /* ===================== SECTION 1: DATABASE MODEL – "Champs" instead of "Championships" ===================== */
     .db-section {
       flex: 1;
       padding: 7rem 5vw 9rem;
@@ -73,67 +73,70 @@
       line-height: 1.65;
     }
 
-    /* ===================== SECTION 2: SCORING LOGIC – 2×2 + FINAL TEXT ===================== */
+    /* ===================== SECTION 2: SCORING LOGIC – NEW LAYOUT: 1+2+4 LEFT, 3 RIGHT ===================== */
     .scoring-section {
       flex: 1;
-      padding: 10rem 6vw;
+      padding: 11rem 7vw;
       background: #1e3a8a;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .scoring-grid {
+    .scoring-wrapper {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 5rem;
-      max-width: 1680px;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 5.5rem;
+      max-width: 1780px;
       width: 100%;
+      align-items: start;
+    }
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 4.8rem;
     }
     .panel {
       background: rgba(255,255,255,0.16);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(22px);
       border-radius: 2.6rem;
-      padding: 4.4rem 3.8rem;
+      padding: 4.2rem 3.6rem;
       text-align: center;
-      transition: all 0.55s ease;
-      box-shadow: 0 30px 90px rgba(0,0,0,0.65);
-      min-height: 460px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      transition: all 0.6s ease;
+      box-shadow: 0 32px 95px rgba(0,0,0,0.68);
       border: 1px solid rgba(255,255,255,0.12);
     }
     .panel:hover {
-      transform: translateY(-28px);
-      background: rgba(255,255,255,0.30);
-      box-shadow: 0 50px 120px rgba(0,0,0,0.85);
+      transform: translateY(-30px);
+      background: rgba(255,255,255,0.32);
+      box-shadow: 0 55px 130px rgba(0,0,0,0.9);
     }
     .panel h3 {
       font-family: 'Suissnord', sans-serif;
-      font-size: 2.22rem;
+      font-size: 2.25rem;
       font-weight: bold;
       color: white;
       margin-bottom: 2.4rem;
       line-height: 1.25;
     }
     .panel p {
-      font-size: 1.30rem;
-      line-height: 1.95;
+      font-size: 1.32rem;
+      line-height: 1.98;
       color: rgba(255,255,255,0.99);
     }
     .formula {
-      background: rgba(0,0,0,0.35);
-      padding: 1.8rem 1.4rem;
-      border-radius: 1.4rem;
-      margin: 1.8rem 0;
-      font-size: 1.28rem;
-      line-height: 2.1;
+      background: rgba(0,0,0,0.38);
+      padding: 2rem 1.6rem;
+      border-radius: 1.6rem;
+      margin: 2rem 0;
+      font-size: 1.30rem;
+      line-height: 2.2;
       font-family: 'Courier New', monospace;
+      text-align: center;
     }
-    .panel-1 { background: rgba(59, 130, 246, 0.56); }
-    .panel-2 { background: rgba(34, 197, 94, 0.56); }
-    .panel-3 { background: rgba(168, 85, 247, 0.56); }
-    .panel-4 { background: rgba(239, 68, 68, 0.56); }
+    .panel-1 { background: rgba(59, 130, 246, 0.58); }
+    .panel-2 { background: rgba(34, 197, 94, 0.58); }
+    .panel-3 { background: rgba(168, 85, 247, 0.62); min-height: 720px; padding: 5rem 4.5rem; }
+    .panel-4 { background: rgba(239, 68, 68, 0.58); }
 
     /* ===================== SECTION 3: SPECS DEFINITION ===================== */
     .specs-section {
@@ -175,13 +178,14 @@
       margin-top: 3rem;
     }
 
-    @media (max-width: 1100px) {
-      .scoring-grid { grid-template-columns: 1fr; gap: 4.5rem; }
-      .panel { min-height: 420px; padding: 4rem 3.4rem; }
+    @media (max-width: 1200px) {
+      .scoring-wrapper { grid-template-columns: 1fr; }
+      .panel-3 { min-height: auto; }
     }
     @media (max-width: 768px) {
       .section-title { font-size: 3rem; margin-bottom: 3rem; }
-      .panel h3 { font-size: 1.95rem; }
+      .panel { padding: 3.4rem 2.8rem; }
+      .panel h3 { font-size: 2rem; }
       .panel p, .formula { font-size: 1.18rem; }
     }
   </style>
@@ -190,7 +194,7 @@
 
   <div class="container">
 
-    <!-- SECTION 1: DATABASE MODEL (unchanged – perfect) -->
+    <!-- SECTION 1: DATABASE MODEL – "Champs" instead of "Championships" -->
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
       <table class="db-table">
@@ -200,7 +204,7 @@
           <th>Discipline</th>
           <th>Category</th>
           <th>Tour Events</th>
-          <th>Championships</th>
+          <th>Champs</th>
           <th>Time Trials</th>
         </tr>
         <tr>
@@ -230,27 +234,34 @@
       </table>
     </section>
 
-    <!-- SECTION 2: SCORING LOGIC – FINAL TEXT VERSION (2×2) -->
+    <!-- SECTION 2: SCORING LOGIC – PERFECT NEW LAYOUT (1+2+4 left | 3 right) -->
     <section class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       
-      <div class="scoring-grid">
+      <div class="scoring-wrapper">
         
-        <div class="panel panel-1">
-          <h3>UCI Points System</h3>
-          <p>Riders earn points based on their results according to the current UCI points scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p>
-        </div>
-        
-        <div class="panel panel-2">
-          <h3>Performance Level Ladder</h3>
-          <p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p>
+        <div class="left-column">
+          <div class="panel panel-1">
+            <h3>UCI Points System</h3>
+            <p>Riders earn points based on their results according to the current UCI points scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p>
+          </div>
+          
+          <div class="panel panel-2">
+            <h3>Performance Level Ladder</h3>
+            <p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p>
+          </div>
+          
+          <div class="panel panel-4">
+            <h3>Team & Nation Score</h3>
+            <p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
+          </div>
         </div>
         
         <div class="panel panel-3">
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
           <div class="formula">
-            Score = [(L₁/2 + 40)·1 + (L₂/2 + 40)·0.67 + (L₃/2 + 40)·0.33] × 100<br>
+            Score = [(L₁/Australia2 + 40)·1 + (L₂/2 + 40)·0.67 + (L₃/2 + 40)·0.33] × 100<br>
                     ÷ [(100/2 + 40)·1 + (99/2 + 40)·0.67 + (99/2 + 40)·0.33]
           </div>
           <p>Where:<br>
@@ -258,15 +269,10 @@
           The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season. The theoretical minimum score is <strong>40</strong>.</p>
         </div>
         
-        <div class="panel panel-4">
-          <h3>Team & Nation Score</h3>
-          <p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
-        </div>
-        
       </div>
     </section>
 
-    <!-- SECTION 3: SPECS DEFINITION (unchanged – perfect) -->
+    <!-- SECTION 3: SPECS DEFINITION -->
     <section class="specs-section">
       <h2 class="section-title">Specs Definition</h2>
       <table class="specs-table">
