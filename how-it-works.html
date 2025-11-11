@@ -67,8 +67,6 @@
       letter-spacing: 0.05em;
     }
     tr:last-child td { border-bottom: none; }
-
-    /* Row colors */
     tr:nth-child(2) td { background: rgba(34, 197, 94, 0.28); }   /* Inclusions = Green */
     tr:nth-child(3) td { background: rgba(239, 68, 68, 0.28); }   /* Exclusions = Red */
     tr:nth-child(4) td { 
@@ -77,15 +75,107 @@
       font-size: 1rem;
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      table { font-size: 0.95rem; }
-      th, td { padding: 1.2rem 0.8rem; }
+    /* === SECTION 2: SCORING LOGIC === */
+    .scoring-section {
+      flex: 1;
+      padding: 5rem 2rem;
+      background: #1e3a8a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+    .scoring-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      width: 100%;
+      max-width: 1500px;
+    }
+    .panel {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      padding: 2.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+    .panel:hover {
+      transform: translateY(-16px);
+      background: rgba(255,255,255,0.28);
+    }
+    .panel h3 {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.65rem;
+      font-weight: bold;
+      color: white;
+      margin: 0 0 1.2rem 0;
+    }
+    .panel p {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .panel-1 { background: rgba(59, 130, 246, 0.38); }
+    .panel-2 { background: rgba(34, 197, 94, 0.38); }
+    .panel-3 { background: rgba(168, 85, 247, 0.38); }
+    .panel-4 { background: rgba(239, 68, 68, 0.38); }
+
+    /* === SECTION 3: SPECS DEFINITION (BOTTOM) === */
+    .specs-section {
+      flex: 1;
+      padding: 7rem 2rem;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .specs-table {
+      width: 100%;
+      max-width: 1100px;
+      margin: 2rem auto 3rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 1.6rem;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .specs-table td {
+      padding: 2rem 1.5rem;
+      font-size: 1.35rem;
+      color: white;
+    }
+    .specs-table td:first-child {
+      font-family: 'Suissnord', sans-serif;
+      font-weight: bold;
+      background: rgba(59, 130, 246, 0.4);
+      width: 28%;
+    }
+    .specs-table td:last-child {
+      background: rgba(255,255,255,0.08);
+      text-align: left;
+      padding-left: 3rem;
+    }
+    .specs-note {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 900px;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .section-title { font-size: 2.6rem; }
-      th, td { padding: 1rem 0.5rem; font-size: 0.88rem; }
-      .db-section { padding: 4rem 1rem; }
+      .specs-table td { font-size: 1.15rem; padding: 1.5rem 1rem; }
+      .specs-table td:last-child { padding-left: 1.5rem; text-align: center; }
+      .specs-note { font-size: 1.15rem; }
     }
   </style>
 </head>
@@ -93,7 +183,7 @@
 
   <div class="container">
 
-    <!-- SECTION 1: DATABASE MODEL (TOP) -->
+    <!-- SECTION 1: DATABASE MODEL -->
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
       <table>
@@ -160,9 +250,16 @@
     <!-- SECTION 3: SPECS DEFINITION -->
     <section class="specs-section">
       <h2 class="section-title">Specs Definition</h2>
-      <p class="specs-content">
-        Full transparency: included/excluded races, nationality rules, team transfers policy, minimum race requirements, 
-        update schedule, error correction protocol, and open methodology commitment.
+      
+      <table class="specs-table">
+        <tr>
+          <td>OVERALL</td>
+          <td>All result types are considered for every event respecting Database Model</td>
+        </tr>
+      </table>
+      
+      <p class="specs-note">
+        Other more specific Specs will be added soon.
       </p>
     </section>
 
