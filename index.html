@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
-  <title>Cyclindex – Professional Cycling Index</title>
+  <title>Cyclindex – The Ultimate Cycling Performance Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @font-face {
@@ -15,165 +15,217 @@
       font-display: swap;
     }
 
-    html, body { height: 100%; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin:0; padding:0; height:100%; overflow-x:hidden; }
+    body {
+      background: #000;
+      color: white;
+      font-family: system-ui, -apple-system, sans-serif;
+      position: relative;
+    }
+
+    /* ===================== ANIMATED DATA GRID BACKGROUND ===================== */
+    .data-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+        repeating-linear-gradient(90deg, rgba(30, 58, 138, 0.08) 0px, transparent 1px, transparent 40px, rgba(30, 58, 138, 0.08) 41px),
+        repeating-linear-gradient(0deg, rgba(30, 58, 138, 0.08) 0px, transparent 1px, transparent 40px, rgba(30, 58, 138, 0.08) 41px);
+      background-size: 40px 40px;
+      z-index: 1;
+      pointer-events: none;
+      animation: gridPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes gridPulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+
+    /* Floating data points */
+    .data-point {
+      position: absolute;
+      width: 6px; height: 6px;
+      background: #3b82f6;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #3b82f6;
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
+    }
+    .data-point:nth-child(1) { top: 15%; left: 12%; animation-delay: 0s; }
+    .data-point:nth-child(2) { top: 28%; left: 78%; animation-delay: 1.2s; }
+    .data-point:nth-child(3) { top: 65%; left: 22%; animation-delay: 2.4s; }
+    .data-point:nth-child(4) { top: 82%; left: 65%; animation-delay: 3.6s; }
+    .data-point:nth-child(5) { top: 45%; left: 88%; animation-delay: 4.8s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+      50% { transform: translateY(-20px) scale(1.3); opacity: 1; }
+    }
+
+    /* Dynamic data lines */
+    .data-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+      z-index: 2;
+      opacity: 0.4;
+      animation: scan 4s linear infinite;
+    }
+    .data-line:nth-child(6) { top: 30%; width: 60%; left: 10%; animation-delay: 0s; }
+    .data-line:nth-child(7) { top: 55%; width: 45%; left: 30%; animation-delay: 1.5s; }
+    .data-line:nth-child(8) { top: 75%; width: 70%; left: 5%; animation-delay: 3s; }
+    @keyframes scan {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX 100%; }
+    }
+
+    /* ===================== HERO CONTENT ===================== */
     .hero {
-      /* Darker blue diagonal gradient */
-      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+      position: relative;
+      z-index: 10;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 2rem 1rem;
-      gap: 3rem;
-    }
-    .logo-title {
-      display: flex;
       align-items: center;
-      gap: 1.5rem;
+      text-align: center;
+      padding: 0 5vw;
     }
-    .logo-img {
-      height: 70px;
-      width: auto;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    .logo-container {
+      margin-bottom: 3rem;
+      position: relative;
     }
+    .logo {
+      height: 180px;
+      filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.8));
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.8)); }
+      50% { filter: drop-shadow(0 0 60px rgba(59, 130, 246, 1)); }
+    }
+
     .title {
       font-family: 'Suissnord', sans-serif;
-      font-size: 3.5rem;
+      font-size: clamp(4.5rem, 12vw, 8rem);
       font-weight: bold;
+      margin: 0 0 1.5rem;
+      background: linear-gradient(135deg, #60a5fa, #3b82f6, #1e40af);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      line-height: 1.1;
+    }
+    .subtitle {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      margin: 0 0 3rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 900px;
+      line-height: 1.5;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
       color: white;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.7);
-      letter-spacing: 0.05em;
-      margin: 0;
-    }
-    .blocks-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      max-width: 1400px;
-    }
-    .block {
-      flex: 1;
-      min-width: 180px;
-      max-width: 260px;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      border-radius: 1.5rem;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 160px;
-      gap: 0.75rem;
-    }
-    .block:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      background: rgba(255, 255, 255, 0.35);
-    }
-    .block-title {
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.35rem;
+      font-size: 1.6rem;
       font-weight: bold;
-      line-height: 1.3;
-      text-align: center;
-      margin: 0;
-      white-space: normal;
-      max-width: 100%;
-      letter-spacing: 0.03em;
-      opacity: 1 !important;
+      padding: 1.2rem 3.2rem;
+      border-radius: 1.6rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.4s ease;
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+      position: relative;
+      overflow: hidden;
     }
-    .icon {
-      width: 28px;
-      height: 28px;
-      fill: currentColor;
-      opacity: 1 !important;
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.6s;
     }
-    .icon-img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      opacity: 1 !important;
-      display: block;
-      margin: 0 auto;
-      loading: eager;
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    .cta-button:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 60px rgba(59, 130, 246, 0.6);
     }
 
-    /* Left & Right: Deep blue tint */
-    .results, .how {
-      background: rgba(15, 23, 42, 0.25);
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-logo {
+      height: 50px;
+    }
+    .nav-links a {
       color: white;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 2rem;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #3b82f6;
     }
 
-    /* Center 3: Glass white */
-    .rider, .team, .nation {
-      background: rgba(255, 255, 255, 0.25);
-      color: white;
-    }
-
+    /* Responsive */
     @media (max-width: 768px) {
-      .blocks-container { flex-direction: column; align-items: center; }
-      .block { max-width: 320px; }
-      .title { font-size: 2.5rem; }
-      .logo-img { height: 50px; }
-      .block-title { font-size: 1.25rem; }
+      .nav-links { display: none; }
+      .title { font-size: 4.5rem; }
+      .logo { height: 140px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="hero">
+  <!-- Animated Data Grid Background -->
+  <div class="data-grid"></div>
+  <div class="data-point"></div>
+  <div class="data-point"></div>
+  <div class="data-point"></div>
+  <div class="data-point"></div>
+  <div class="data-point"></div>
+  <div class="data-line"></div>
+  <div class="data-line"></div>
+  <div class="data-line"></div>
 
-    <!-- Logo + Title -->
-    <div class="logo-title">
-      <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
-      <h1 class="title">Cyclindex</h1>
+  <!-- Navigation -->
+  <nav class="nav">
+    <img src="cyclindex_logo.png" alt="Cyclindex" class="nav-logo">
+    <div class="nav-links">
+      <a href="results-log.html">Results Log</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="#">Rankings</a>
+      <a href="#">About</a>
     </div>
+  </nav>
 
-    <!-- 5 Blocks -->
-    <div class="blocks-container">
-
-      <!-- Results Log -->
-      <a href="results.html" class="block results">
-        <h3 class="block-title">Results<br>Log</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-        </svg>
-      </a>
-
-      <!-- Rider Score -->
-      <a href="rider-score.html" class="block rider">
-        <h3 class="block-title">Rider<br>Score</h3>
-        <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
-      </a>
-
-      <!-- Team Score -->
-      <a href="team-score.html" class="block team">
-        <h3 class="block-title">Team<br>Score</h3>
-        <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
-      </a>
-
-      <!-- Nation Score -->
-      <a href="nation-score.html" class="block nation">
-        <h3 class="block-title">Nation<br>Score</h3>
-        <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
-      </a>
-
-      <!-- How It Works -->
-      <a href="how-it-works.html" class="block how">
-        <h3 class="block-title">How It<br>Works</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M11,14H13V6H11V14Z"/>
-        </svg>
-      </a>
-
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="logo-container">
+      <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo">
     </div>
-  </div>
+    <h1 class="title">CYCLINDEX</h1>
+    <p class="subtitle">
+      The world’s first <strong>data-driven performance index</strong> for professional cycling.<br>
+      Powered by UCI results. Built for truth.
+    </p>
+    <a href="results-log.html" class="cta-button">EXPLORE THE DATA</a>
+  </section>
 
 </body>
 </html>
