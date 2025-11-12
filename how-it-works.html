@@ -36,7 +36,7 @@
       margin-bottom: 6rem;
       text-shadow: 0 5px 28px rgba(0,0,0,0.95);
       text-align: center;
-19    }
+    }
     .db-table {
       width: 100%;
       max-width: 1440px;
@@ -49,18 +49,23 @@
       box-shadow: 0 35px 100px rgba(0,0,0,0.75);
       table-layout: fixed;
     }
-    .db-table th, .db-table td { padding: 2rem 1.3rem; text-align: center; }
+    .db-table th, .db-table td {
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+      font-size: 1.24rem;
+      line-height: 1.5;
+    }
     .db-table th {
       background: rgba(255,255,255,0.19);
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.40rem;
       font-weight: bold;
+      font-size: 1.24rem;
       white-space: nowrap;
     }
     .db-table td:first-child, .db-table th:first-child {
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      font-size: 1.40rem;
+      font-size: 1.24rem;
       white-space: nowrap;
     }
     .db-table th:nth-child(5), .db-table th:nth-child(7) { white-space: normal; }
@@ -69,12 +74,12 @@
     .db-table tr:nth-child(4) td {
       background: rgba(30, 58, 138, 0.68);
       color: #d0e0ff;
-      font-size: 1.24rem;
-      line-height: 1.72;
+      font-size: 1.18rem;
+      line-height: 1.7;
       white-space: normal;
     }
 
-    /* ===================== SECTION 2: SCORING LOGIC – FINAL 5-PANEL LAYOUT ===================== */
+    /* ===================== SECTION 2: SCORING LOGIC ===================== */
     .scoring-section {
       flex: 1;
       padding: 11rem 6vw;
@@ -123,9 +128,10 @@
       line-height: 1.25;
     }
     .panel p {
-      font-size: 1.34rem;
-      line-height: 2.02;
+      font-size: 1.18rem;
+      line-height: 1.7;
       color: rgba(255,255,255,0.99);
+      margin-bottom: 0;
     }
     .formula {
       background: rgba(0,0,0,0.40);
@@ -171,9 +177,9 @@
     }
     .specs-table td:last-child {
       padding: 3.6rem 4.5rem;
-      font-size: 1.66rem;
+      font-size: 1.18rem;
       text-align: left;
-      line-height: 1.78;
+      line-height: 1.7;
     }
     .specs-note {
       font-size: 1.56rem;
@@ -232,7 +238,7 @@
       </table>
     </section>
 
-    <!-- SECTION 2: SCORING LOGIC – FINAL 5-PANEL LAYOUT (NATION SCORE FIXED) -->
+    <!-- SECTION 2: SCORING LOGIC -->
     <section class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       
@@ -252,12 +258,10 @@
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
           <div class="formula">
-            Score = [(L₁/2 + 40)·1 + (L₂/2 + 40)·0.67 + (L₃/2 + 40)·0.33] × 100<br>
-                    ÷ [(100/2 + 40)·1 + (99/2 + 40)·0.67 + (99/2 + 40)·0.33]
+            Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100<br>
+                    ÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]
           </div>
-          <p>Where:<br>
-          • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively.<br><br>
-          The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season. The theoretical minimum score is <strong>40</strong>.</p>
+          <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively.<br>The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
         </div>
         
         <div class="panel panel-4">
