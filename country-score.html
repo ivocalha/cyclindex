@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="cyclindex_logo.png">
+  <title>Country Score – Cyclindex</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
+  <style>
+    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
+    body { background:#0f172a; color:white; margin:0; padding:0; }
+    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
+    .container { padding:2rem 2vw 12rem; max-width:100%; margin:0 auto; }
+    #countryTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.92rem; }
+    #countryTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
+    #countryTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.92rem; }
+    #countryTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
+    .flag-img { width:28px; height:21px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
+    .flag-img:hover { transform:scale(2.2); }
+    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
+    .flag-container:hover .tooltip { opacity:1; }
+    .flag-container { position:relative; display:inline-block; cursor:help; }
+  </style>
+</head>
+<body>
+
+  <h1>COUNTRY SCORE</h1>
+
+  <div class="container">
+    <table id="countryTable" class="display nowrap" style="width:100%">
+      <thead>
+        <tr>
+          <th>Rank</th><th></th><th>Country</th><th>Confed</th>
+          <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
+          <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
+          <th>Rider 3</th><th>Rk3</th><th>Sc3</th><th>Total Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <script>
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/country-score.csv";
+
+    // FULL WORLD COUNTRY LIST — ALL 250+ COUNTRIES
+    const countryFlags = {
+      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
+      "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
+      "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
+      "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo (Brazzaville)":"cg","Congo (Kinshasa)":"cd",
+      "Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do",
+      "Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi",
+      "France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn",
+      "Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq",
+      "Ireland":"ie","Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk",
+      "Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt",
+      "Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Mauritania":"mr","Mauritius":"mu","Mexico":"mx",
+      "Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nepal":"np","Netherlands":"nl",
+      "New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palestine":"ps","Panama":"pa",
+      "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saudi Arabia":"sa",
+      "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","South Africa":"za","South Korea":"kr","Spain":"es",
+      "Sri Lanka":"lk","Sweden":"se","Switzerland":"ch","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Trinidad and Tobago":"tt",
+      "Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb","Scotland":"gb","Wales":"gb",
+      "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+    };
+
+    fetch(CSV_URL)
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+        const parsed = Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: true,
+          delimiter: ";",
+          trimHeaders: true,
+          transformHeader: h => h.trim(),
+          transform: v => v ? v.trim() : ""
+        });
+
+        const columnsToShow = ["Rank","Country","Confederation","Rider1","Rank1","Score1","Rider2","Rank2","Score2","Rider3","Rank3","Score3","Score"];
+
+        const tableData = parsed.data.map(row => {
+          const country = row["Country"] || "";
+          const code = countryFlags[country] || countryFlags[country.toLowerCase()] || "";
+          const flagHtml = code 
+            ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
+            : country;
+
+          return columnsToShow.map((col, i) => {
+            if (col === "Country") return flagHtml;
+
+            let val = row[col] ?? "";
+
+            // ROUND Score1, Score2, Score3, Total Score → 2 decimals (correct rounding + comma → dot fix)
+            if (i === 5 || i === 8 || i === 11 || i === 12) {
+              if (val === "" || val == null) return "";
+              if (typeof val === "string") val = val.replace(",", ".");
+              const num = parseFloat(val);
+              if (!isNaN(num)) val = num.toFixed(2);
+            }
+
+            return val;
+          });
+        });
+
+        $('#countryTable').DataTable({
+          data: tableData,
+          columns: columnsToShow.map((title, i) => ({
+            title: i === 3 ? "Confed" : i === 5 ? "Sc1" : i === 8 ? "Sc2" : i === 11 ? "Sc3" : i === 12 ? "Total Score" : title
+          })),
+          pageLength: 50,
+          lengthMenu: [25, 50, 100],
+          order: [[0, 'asc']],
+          scrollX: false,
+          autoWidth: false,
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
+          language: { search: "Filter countries:", lengthMenu: "Show _MENU_ countries" },
+          columnDefs: [
+            { width: "60px",  targets: 0 },   // Rank
+            { width: "50px",  targets: 1 },   // Flag
+            { width: "180px", targets: 2 },   // Country name
+            { width: "80px",  targets: 3 },   // Confederation
+            { width: "200px", targets: 4 },   // Rider 1
+            { width: "50px",  targets: 5 },   // Rk1
+            { width: "72px",  targets: 6 },   // Sc1
+            { width: "200px", targets: 7 },   // Rider 2
+            { width: "50px",  targets: 8 },   // Rk2
+            { width: "72px",  targets: 9 },   // Sc2
+            { width: "200px", targets: 10 },  // Rider 3
+            { width: "50px",  targets: 11 },  // Rk3
+            { width: "72px",  targets: 12 },  // Sc3
+            { width: "100px", targets: 13 }   // Total Score
+          ]
+        });
+      });
+  </script>
+</body>
+</html>
