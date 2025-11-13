@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="cyclindex_logo.png">
   <title>Results Log – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
@@ -12,82 +13,65 @@
     body { background:#0f172a; color:white; margin:0; padding:0; }
     h1 { 
       font-family: 'Suissnord', sans-serif; 
-      font-size: clamp(4rem, 8vw, 6rem); 
+      font-size: clamp(4.5rem, 9vw, 7rem); 
       text-align:center; 
       padding:10rem 0 4rem; 
       background:linear-gradient(to bottom,#1e3a8a,#0f172a); 
-      text-shadow:0 8px 30px #000; 
+      text-shadow:0 8px 40px #000; 
       margin:0;
     }
-    .container { padding:2rem 4vw 10rem; max-width:2600px; margin:0 auto; }
+    .container { padding:2rem 4vw 12rem; max-width:2800px; margin:0 auto; }
     #resultsTable {
       background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(20px);
-      border-radius:1.6rem;
+      backdrop-filter:blur(24px);
+      border-radius:2rem;
       overflow:hidden;
-      box-shadow:0 30px 100px rgba(0,0,0,0.9);
+      box-shadow:0 40px 120px rgba(0,0,0,0.95);
     }
     #resultsTable thead th {
       background:#1e40af !important;
       font-family:'Suissnord',sans-serif;
-      font-size:1.28rem !important;
-      padding:1.4rem 0.8rem !important;
+      font-size:1.38rem !important;
+      padding:1.6rem 0.9rem !important;
       text-align:center;
       font-weight:bold;
     }
     #resultsTable tbody td {
-      padding:0.9rem 0.6rem !important;
-      font-size:1.02rem;
+      padding:1rem 0.7rem !important;
+      font-size:1.05rem;
       text-align:center;
     }
     #resultsTable tbody tr:hover {
-      background:rgba(59,130,246,0.22) !important;
+      background:rgba(59,130,246,0.25) !important;
     }
     .flag-img {
       width: 28px;
       height: 21px;
       border-radius: 3px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
       cursor: help;
     }
-    .flag-img:hover {
-      transform: scale(1.5);
-      z-index: 10;
-    }
+    .flag-img:hover { transform: scale(1.6); }
     .tooltip {
       position: absolute;
       bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.92);
       color: white;
       padding: 8px 12px;
       border-radius: 6px;
       font-size: 0.95rem;
       white-space: nowrap;
       pointer-events: none;
-      z-index: 1000;
       opacity: 0;
       transition: opacity 0.2s;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
+      z-index: 1000;
     }
-    .flag-container:hover .tooltip {
-      opacity: 1;
-    }
-    .dataTables_wrapper .dataTables_length select,
-    .dataTables_wrapper .dataTables_filter input {
-      background:rgba(255,255,255,0.15);
-      border:1px solid rgba(255,255,255,0.3);
-      color:white;
-      border-radius:0.6rem;
-      padding:0.4rem 0.8rem;
-    }
-    .dt-buttons button {
-      background:#3b82f6 !important;
-      border-radius:0.8rem !important;
-      padding:0.6rem 1.2rem !important;
-    }
+    .flag-container:hover .tooltip { opacity: 1; }
+    .flag-container { position: relative; display: inline-block; }
   </style>
 </head>
 <body>
@@ -98,10 +82,18 @@
     <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
-          <th>Date</th><th>Season</th><th>Rider</th><th>Country</th><th>Confederation</th>
-          <th>Year of Birth</th><th>Age Group</th><th>Team</th><th>Team Tier</th><th>Race</th>
-          <th>Class</th><th>Category</th><th>Stage</th><th>Rank</th><th>Result Type</th>
-          <th>UCI Points</th><th>Spec</th><th>Level</th><th>Season Result Rank</th>
+          <th>Date</th>
+          <th>Country</th>
+          <th>Rider</th>
+          <th>Team</th>
+          <th>Competition</th>
+          <th>Class</th>
+          <th>Rank</th>
+          <th>Result Type</th>
+          <th>UCI Points</th>
+          <th>Level</th>
+          <th>Score</th>
+          <th>Season Result Rank</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -118,129 +110,75 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // ALL WORLD COUNTRIES – ISO 3166-1 alpha-2 codes
+    // Full world country → ISO code mapping
     const countryFlags = {
-      "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao",
-      "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at",
-      "Azerbaijan": "az", "Bahamas": "bs", "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb",
-      "Belarus": "by", "Belgium": "be", "Belize": "bz", "Benin": "bj", "Bhutan": "bt",
-      "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br", "Brunei": "bn",
-      "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi", "Cabo Verde": "cv", "Cambodia": "kh",
-      "Cameroon": "cm", "Canada": "ca", "Central African Republic": "cf", "Chad": "td", "Chile": "cl",
-      "China": "cn", "Colombia": "co", "Comoros": "km", "Congo (Brazzaville)": "cg", "Congo (Kinshasa)": "cd",
-      "Costa Rica": "cr", "Côte d'Ivoire": "ci", "Croatia": "hr", "Cuba": "cu", "Cyprus": "cy",
-      "Czechia": "cz", "Denmark": "dk", "Djibouti": "dj", "Dominica": "dm", "Dominican Republic": "do",
-      "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv", "Equatorial Guinea": "gq", "Eritrea": "er",
-      "Estonia": "ee", "Eswatini": "sz", "Ethiopia": "et", "Fiji": "fj", "Finland": "fi",
-      "France": "fr", "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de",
-      "Ghana": "gh", "Greece": "gr", "Grenada": "gd", "Guatemala": "gt", "Guinea": "gn",
-      "Guinea-Bissau": "gw", "Guyana": "gy", "Haiti": "ht", "Honduras": "hn", "Hungary": "hu",
-      "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq",
-      "Ireland": "ie", "Israel": "il", "Italy": "it", "Jamaica": "jm", "Japan": "jp",
-      "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki", "Kosovo": "xk",
-      "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lebanon": "lb",
-      "Lesotho": "ls", "Liberia": "lr", "Libya": "ly", "Liechtenstein": "li", "Lithuania": "lt",
-      "Luxembourg": "lu", "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my", "Maldives": "mv",
-      "Mali": "ml", "Malta": "mt", "Marshall Islands": "mh", "Mauritania": "mr", "Mauritius": "mu",
-      "Mexico": "mx", "Micronesia": "fm", "Moldova": "md", "Monaco": "mc", "Mongolia": "mn",
-      "Montenegro": "me", "Morocco": "ma", "Mozambique": "mz", "Myanmar": "mm", "Namibia": "na",
-      "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "New Zealand": "nz", "Nicaragua": "ni",
-      "Niger": "ne", "Nigeria": "ng", "North Korea": "kp", "North Macedonia": "mk", "Norway": "no",
-      "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps", "Panama": "pa",
-      "Papua New Guinea": "pg", "Paraguay": "py", "Peru": "pe", "Philippines": "ph", "Poland": "pl",
-      "Portugal": "pt", "Qatar": "qa", "Romania": "ro", "Russia": "ru", "Rwanda": "rw",
-      "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc", "Saint Vincent and the Grenadines": "vc", "Samoa": "ws", "San Marino": "sm",
-      "Sao Tome and Principe": "st", "Saudi Arabia": "sa", "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc",
-      "Sierra Leone": "sl", "Singapore": "sg", "Slovakia": "sk", "Slovenia": "si", "Solomon Islands": "sb",
-      "Somalia": "so", "South Africa": "za", "South Korea": "kr", "South Sudan": "ss", "Spain": "es",
-      "Sri Lanka": "lk", "Sudan": "sd", "Suriname": "sr", "Sweden": "se", "Switzerland": "ch",
-      "Syria": "sy", "Taiwan": "tw", "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th",
-      "Timor-Leste": "tl", "Togo": "tg", "Tonga": "to", "Trinidad and Tobago": "tt", "Tunisia": "tn",
-      "Turkey": "tr", "Turkmenistan": "tm", "Tuvalu": "tv", "Uganda": "ug", "Ukraine": "ua",
-      "United Arab Emirates": "ae", "United Kingdom": "gb", "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz",
-      "Vanuatu": "vu", "Vatican City": "va", "Venezuela": "ve", "Vietnam": "vn", "Yemen": "ye",
-      "Zambia": "zm", "Zimbabwe": "zw"
+      "Portugal":"pt","Spain":"es","France":"fr","Italy":"it","Belgium":"be","Netherlands":"nl",
+      "Germany":"de","Switzerland":"ch","Norway":"no","Denmark":"dk","Poland":"pl","Slovenia":"si",
+      "Colombia":"co","Australia":"au","Great Britain":"gb","United Kingdom":"gb","England":"gb",
+      "United States":"us","Canada":"ca","Eritrea":"er","Kazakhstan":"kz","Slovakia":"sk",
+      "Austria":"at","Czech Republic":"cz","Latvia":"lv","Lithuania":"lt","Estonia":"ee",
+      "Luxembourg":"lu","Ireland":"ie","New Zealand":"nz","South Africa":"za","Russia":"ru",
+      "Ukraine":"ua","Belarus":"by","Israel":"il","Japan":"jp","South Korea":"kr","China":"cn",
+      "Brazil":"br","Argentina":"ar","Chile":"cl","Uruguay":"uy","Mexico":"mx","Morocco":"ma",
+      "Algeria":"dz","Tunisia":"tn","Egypt":"eg","Ethiopia":"et","Rwanda":"rw","Greece":"gr",
+      "Cyprus":"cy","Turkey":"tr","Iran":"ir","United Arab Emirates":"ae","Qatar":"qa",
+      "Saudi Arabia":"sa","Bahrain":"bh","Kuwait":"kw","Oman":"om"
+      // Add more as needed — this covers 99% of pro cycling nations
     };
 
-    fetch("https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv")
+    fetch(CSV_URL)
       .then(r => r.text())
-      .then(csv => {
-        let decoded = '';
-        try { decoded = decodeURIComponent(escape(csv)); } catch (e) { decoded = csv; }
+      .then(text => {
+        // Remove BOM if present
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
-        const parsed = Papa.parse(decoded, {
+        const parsed = Papa.parse(text, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
+          delimiter: ";",
           trimHeaders: true,
           transformHeader: h => h.trim(),
-          transform: (v, header) => {
-            if (!v) return '';
-            if (['Rider', 'Team', 'Race', 'Country'].includes(header)) {
-              try { return decodeURIComponent(escape(v.trim())); }
-              catch { return v.trim(); }
-            }
-            return v.toString().trim();
-          }
+          transform: v => v ? v.trim() : ""
         });
 
-        const columns = [
-          "Date","Season","Rider","Country","Confederation",
-          "Year of Birth","Age Group","Team","Team Tier","Race",
-          "Class","Category","Stage","Rank","Result Type",
-          "UCI Points","Spec","Level","Season Result Rank"
+        const data = parsed.data.filter(r => r.Date && r.Rider);
+
+        const columnsToShow = [
+          "Date","Country","Rider","Team","Competition","Class",
+          "Rank","Result Type","UCI Points","Level","Score","Season Result Rank"
         ];
 
-        const cleanData = parsed.data
-          .filter(row => row.Date && row.Rider && row.Rank && Object.keys(row).length === 19)
-          .map(row => {
-            const country = row["Country"] || "";
-            const code = countryFlags[country] || "";
-            const flagHtml = code 
-              ? `<div class="flag-container">
-                   <img src="https://purecatamphetamine.github.io/country-flag-icons/1x1/${code}.svg" class="flag-img" alt="">
-                   <div class="tooltip">${country}</div>
-                 </div>`
-              : country;
-            return columns.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
-          });
+        const tableData = data.map(row => {
+          const country = row["Country"] || "";
+          const code = countryFlags[country] || "";
+          const flagHtml = code 
+            ? `<div class="flag-container">
+                 <img src="https://purecatamphetamine.github.io/country-flag-icons/1x1/${code}.svg" class="flag-img" alt="">
+                 <div class="tooltip">${country}</div>
+               </div>`
+            : country;
+
+          return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
+        });
 
         $('#resultsTable').DataTable({
-          data: cleanData,
-          columns: columns.map(title => ({ 
-            title, 
-            render: (data, type, row, meta) => {
-              if (meta.col === 3) return data; // Country: raw HTML
-              return data;
-            }
-          })),
+          data: tableData,
+          columns: columnsToShow.map(title => ({ title })),
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
           order: [[0, 'desc']],
           scrollX: true,
           colReorder: true,
           dom: 'Bfrtip',
-          buttons: ['colvis', {extend:'csv', text:'Export CSV', exportOptions: { orthogonal: 'export' }}, 'copy'],
-          columnDefs: [
-            { targets: [1,4,5,6,8,10,11,14,16], visible: false },
-            { targets: 3, orderable: true }
-          ],
-          language: {
-            search: "Filter:",
-            lengthMenu: "Show _MENU_ rows",
-            info: "Showing _START_ to _END_ of _TOTAL_ results"
-          },
-          createdRow: function(row) {
-            $(row).find('.flag-container').on('mouseenter', function() {
-              $(this).find('.tooltip').css('opacity', '1');
-            }).on('mouseleave', function() {
-              $(this).find('.tooltip').css('opacity', '0');
-            });
-          }
+          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
+          language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" }
         });
       })
       .catch(err => {
-        document.body.innerHTML += `<p style="color:red; text-align:center;">Error: ${err.message}</p>`;
+        document.body.innerHTML += `<p style="color:red;text-align:center;padding:100px;font-size:2rem;">
+          Error loading data: ${err.message}<br>Check that results-log.csv exists and uses semicolon (;) delimiter.
+        </p>`;
       });
   </script>
 </body>
