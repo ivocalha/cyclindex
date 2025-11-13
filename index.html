@@ -4,87 +4,159 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
-  <title>CYCLINDEX – Real-Time Cycling Power Index</title>
+  <title>Cyclindex – Professional Cycling Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
-    body { background:#0f172a; color:white; margin:0; padding:0; min-height:100vh; display:flex; flex-direction:column; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(6rem, 16vw, 14rem); text-align:center; padding:6rem 0 3rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 12px 60px #000; margin:0; }
-    .grid { 
-      display:grid; 
-      grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); 
-      gap:4rem; 
-      padding:6rem 5vw 10rem; 
-      max-width:1900px; 
-      margin:0 auto; 
-      flex:1;
+    @font-face {
+      font-family: 'Suissnord';
+      src: url('Suissnord.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
     }
-    .btn-card { 
-      background:linear-gradient(135deg, #1e40af, #3b82f6); 
-      border-radius:3rem; 
-      padding:3.5rem 2rem; 
-      text-align:center; 
-      box-shadow:0 30px 80px rgba(0,0,0,0.7), inset 0 -10px 30px rgba(0,0,0,0.3); 
-      transition:all 0.4s ease; 
-      position:relative; 
-      overflow:hidden;
-      border:2px solid rgba(255,255,255,0.1);
+    html, body { height: 100%; margin: 0; }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      gap: 3rem;
     }
-    .btn-card::before {
-      content:""; position:absolute; top:0; left:0; right:0; bottom:0; 
-      background:linear-gradient(135deg, transparent, rgba(255,255,255,0.15)); 
-      opacity:0; transition:opacity 0.4s;
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
     }
-    .btn-card:hover::before { opacity:1; }
-    .btn-card:hover { transform:translateY(-20px) scale(1.05); box-shadow:0 50px 120px rgba(59,130,246,0.6); }
-    .icon { width:140px; height:140px; margin:1.5rem auto 2rem; filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6)); }
-    .title { font-family:'Suissnord',sans-serif; font-size:3.2rem; margin-bottom:1rem; text-shadow:0 6px 20px rgba(0,0,0,0.7); }
-    .subtitle { font-size:1.3rem; opacity:0.95; }
-    footer { text-align:center; padding:3rem; font-size:0.9rem; color:#64748b; }
+    .logo-img {
+      height: 70px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    }
+    .title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+    .blocks-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      max-width: 1400px;
+    }
+    .block {
+      flex: 1;
+      min-width: 180px;
+      max-width: 260px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      gap: 0.75rem;
+    }
+    .block:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .block-title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.35rem;
+      font-weight: bold;
+      line-height: 1.3;
+      text-align: center;
+      margin: 0;
+      white-space: normal;
+      max-width: 100%;
+      letter-spacing: 0.03em;
+      opacity: 1 !important;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+      opacity: 1 !important;
+    }
+    .icon-img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      opacity: 1 !important;
+      display: block;
+      margin: 0 auto;
+      loading: eager;
+    }
+    .results, .how {
+      background: rgba(15, 23, 42, 0.25);
+      color: white;
+    }
+    .rider, .team, .nation {
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .blocks-container { flex-direction: column; align-items: center; }
+      .block { max-width: 320px; }
+      .title { font-size: 2.5rem; }
+      .logo-img { height: 50px; }
+      .block-title { font-size: 1.25rem; }
+    }
   </style>
 </head>
 <body>
-
-  <h1>CYCLINDEX</h1>
-
-  <div class="grid">
-
-    <a href="results-log.html" class="btn-card">
-      <div class="title">RESULTS LOG</div>
-      <img src="https://ivocalha.github.io/cyclindex/icons/results.svg" alt="Results" class="icon">
-      <div class="subtitle">Live race results updated instantly</div>
-    </a>
-
-    <a href="rider-score.html" class="btn-card">
-      <div class="title">RIDER SCORE</div>
-      <img src="https://ivocalha.github.io/cyclindex/icons/rider.svg" alt="Rider" class="icon">
-      <div class="subtitle">Real-time individual rider power ranking</div>
-    </a>
-
-    <a href="team-score.html" class="btn-card">
-      <div class="title">TEAM SCORE</div>
-      <img src="https://ivocalha.github.io/cyclindex/icons/team.svg" alt="Team" class="icon">
-      <div class="subtitle">Current form of every pro team</div>
-    </a>
-
-    <a href="nation-score.html" class="btn-card">
-      <div class="title">NATION SCORE</div>
-      <img src="https://ivocalha.github.io/cyclindex/icons/nation.svg" alt="Nation" class="icon">
-      <div class="subtitle">Which country dominates the peloton?</div>
-    </a>
-
-    <a href="how-it-works.html" class="btn-card">
-      <div class="title">HOW IT WORKS</div>
-      <img src="https://ivocalha.github.io/cyclindex/icons/how.svg" alt="How" class="icon">
-      <div class="subtitle">The algorithm behind the rankings</div>
-    </a>
-
+  <div class="hero">
+    <!-- Logo + Title -->
+    <div class="logo-title">
+      <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
+      <h1 class="title">Cyclindex</h1>
+    </div>
+    <!-- 5 Blocks -->
+    <div class="blocks-container">
+      <!-- Results Log – FIXED LINK -->
+      <a href="results-log.html" class="block results">
+        <h3 class="block-title">Results<br>Log</h3>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+        </svg>
+      </a>
+      <!-- Rider Score -->
+      <a href="rider-score.html" class="block rider">
+        <h3 class="block-title">Rider<br>Score</h3>
+        <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- Team Score -->
+      <a href="team-score.html" class="block team">
+        <h3 class="block-title">Team<br>Score</h3>
+        <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- Nation Score -->
+      <a href="nation-score.html" class="block nation">
+        <h3 class="block-title">Nation<br>Score</h3>
+        <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- How It Works -->
+      <a href="how-it-works.html" class="block how">
+        <h3 class="block-title">How It<br>Works</h3>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M11,14H13V6H11V14Z"/>
+        </svg>
+      </a>
+    </div>
   </div>
-
-  <footer>
-    CYCLINDEX © 2025 – The most accurate real-time cycling index in the world<br>
-    Built with precision. Updated every race.
-  </footer>
-
 </body>
 </html>
