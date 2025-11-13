@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
   <title>Cyclindex – Professional Cycling Index</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
+    @font-face {
+      font-family: 'Suissnord';
+      src: url('Suissnord.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
     html, body { height: 100%; margin: 0; }
     .hero {
       background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
@@ -19,23 +25,132 @@
       padding: 2rem 1rem;
       gap: 3rem;
     }
-    /* ... rest of your styles ... */
-    .block-title { font-size: 1.35rem; }
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .logo-img {
+      height: 70px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    }
+    .title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+    .blocks-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      max-width: 1400px;
+    }
+    .block {
+      flex: 1;
+      min-width: 180px;
+      max-width: 260px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      gap: 0.75rem;
+    }
+    .block:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .block-title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.35rem;
+      font-weight: bold;
+      line-height: 1.3;
+      text-align: center;
+      margin: 0;
+      white-space: normal;
+      max-width: 100%;
+      letter-spacing: 0.03em;
+      opacity: 1 !important;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+      opacity: 1 !important;
+    }
+    .icon-img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      opacity: 1 !important;
+      display: block;
+      margin: 0 auto;
+      loading: eager;
+    }
+    .results, .how {
+      background: rgba(15, 23, 42, 0.25);
+      color: white;
+    }
+    .rider, .team, .nation {
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .blocks-container { flex-direction: column; align-items: center; }
+      .block { max-width: 320px; }
+      .title { font-size: 2.5rem; }
+      .logo-img { height: 50px; }
+      .block-title { font-size: 1.25rem; }
+    }
   </style>
 </head>
 <body>
   <div class="hero">
+    <!-- Logo + Title -->
     <div class="logo-title">
       <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
       <h1 class="title">Cyclindex</h1>
     </div>
+    <!-- 5 Blocks -->
     <div class="blocks-container">
-      <a href="results-log.html" class="block results"> <!-- FIXED -->
+      <!-- Results Log – FIXED LINK -->
+      <a href="results-log.html" class="block results">
         <h3 class="block-title">Results<br>Log</h3>
-        <svg class="icon" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+        </svg>
       </a>
-      <!-- Other blocks unchanged -->
-    </div>
-  </div>
-</body>
-</html>
+      <!-- Rider Score -->
+      <a href="rider-score.html" class="block rider">
+        <h3 class="block-title">Rider<br>Score</h3>
+        <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- Team Score -->
+      <a href="team-score.html" class="block team">
+        <h3 class="block-title">Team<br>Score</h3>
+        <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- Nation Score -->
+      <a href="nation-score.html" class="block nation">
+        <h3 class="block-title">Nation<br>Score</h3>
+        <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
+      </a>
+      <!-- How It Works -->
+      <a href="how-it-works.html" class="block how">
+        <h3 class="block-title">How It<br>Works</h3>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20
