@@ -14,10 +14,8 @@
       font-style: normal;
       font-display: swap;
     }
-
     html, body { height: 100%; margin: 0; }
     .hero {
-      /* Darker blue diagonal gradient */
       background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
       min-height: 100vh;
       display: flex;
@@ -103,19 +101,14 @@
       margin: 0 auto;
       loading: eager;
     }
-
-    /* Left & Right: Deep blue tint */
     .results, .how {
       background: rgba(15, 23, 42, 0.25);
       color: white;
     }
-
-    /* Center 3: Glass white */
     .rider, .team, .nation {
       background: rgba(255, 255, 255, 0.25);
       color: white;
     }
-
     @media (max-width: 768px) {
       .blocks-container { flex-direction: column; align-items: center; }
       .block { max-width: 320px; }
@@ -126,44 +119,36 @@
   </style>
 </head>
 <body>
-
   <div class="hero">
-
     <!-- Logo + Title -->
     <div class="logo-title">
       <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
       <h1 class="title">Cyclindex</h1>
     </div>
-
     <!-- 5 Blocks -->
     <div class="blocks-container">
-
-      <!-- Results Log -->
-      <a href="results.html" class="block results">
+      <!-- Results Log – FIXED LINK -->
+      <a href="results-log.html" class="block results">
         <h3 class="block-title">Results<br>Log</h3>
         <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
         </svg>
       </a>
-
       <!-- Rider Score -->
       <a href="rider-score.html" class="block rider">
         <h3 class="block-title">Rider<br>Score</h3>
         <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
       </a>
-
       <!-- Team Score -->
       <a href="team-score.html" class="block team">
         <h3 class="block-title">Team<br>Score</h3>
         <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
       </a>
-
       <!-- Nation Score -->
       <a href="nation-score.html" class="block nation">
         <h3 class="block-title">Nation<br>Score</h3>
         <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
       </a>
-
       <!-- How It Works -->
       <a href="how-it-works.html" class="block how">
         <h3 class="block-title">How It<br>Works</h3>
@@ -171,9 +156,7 @@
           <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M11,14H13V6H11V14Z"/>
         </svg>
       </a>
-
     </div>
   </div>
-
 </body>
 </html>
