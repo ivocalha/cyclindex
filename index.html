@@ -8,84 +8,83 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
-    body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(6rem, 15vw, 12rem); text-align:center; padding:8rem 0 2rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 10px 50px #000; margin:0; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:3rem; padding:6rem 4vw; max-width:1800px; margin:0 auto; }
-    .card { background:rgba(255,255,255,0.06); backdrop-filter:blur(24px); border-radius:2.5rem; padding:3rem 2rem; text-align:center; box-shadow:0 30px 100px rgba(0,0,0,0.8); transition:all 0.4s; border:1px solid rgba(59,130,246,0.2); }
-    .card:hover { transform:translateY(-20px); background:rgba(59,130,246,0.18); border-color:#3b82f6; }
-    .icon { width:120px; height:120px; margin:0 auto 2rem; filter:drop-shadow(0 10px 30px rgba(0,0,0,0.7)); }
-    .btn { background:#1e40af; padding:1.2rem 3rem; border-radius:9999px; font-weight:bold; font-size:1.1rem; transition:all 0.3s; display:inline-block; margin-top:1.5rem; }
-    .btn:hover { background:#3b82f6; transform:scale(1.08); }
-    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); margin-bottom:16px; background:rgba(0,0,0,0.96); color:white; padding:14px 20px; border-radius:12px; font-size:0.95rem; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.3s; z-index:1000; box-shadow:0 15px 40px rgba(0,0,0,0.8); border:1px solid rgba(59,130,246,0.4); }
-    .tooltip::after { content:""; position:absolute; top:100%; left:50%; margin-left:-10px; border:10px solid transparent; border-top-color:rgba(0,0,0,0.96); }
-    .question-group { position:relative; display:inline-block; cursor:help; }
-    .question-group:hover .tooltip { opacity:1; }
+    body { background:#0f172a; color:white; margin:0; padding:0; min-height:100vh; display:flex; flex-direction:column; }
+    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(6rem, 16vw, 14rem); text-align:center; padding:6rem 0 3rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 12px 60px #000; margin:0; }
+    .grid { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); 
+      gap:4rem; 
+      padding:6rem 5vw 10rem; 
+      max-width:1900px; 
+      margin:0 auto; 
+      flex:1;
+    }
+    .btn-card { 
+      background:linear-gradient(135deg, #1e40af, #3b82f6); 
+      border-radius:3rem; 
+      padding:3.5rem 2rem; 
+      text-align:center; 
+      box-shadow:0 30px 80px rgba(0,0,0,0.7), inset 0 -10px 30px rgba(0,0,0,0.3); 
+      transition:all 0.4s ease; 
+      position:relative; 
+      overflow:hidden;
+      border:2px solid rgba(255,255,255,0.1);
+    }
+    .btn-card::before {
+      content:""; position:absolute; top:0; left:0; right:0; bottom:0; 
+      background:linear-gradient(135deg, transparent, rgba(255,255,255,0.15)); 
+      opacity:0; transition:opacity 0.4s;
+    }
+    .btn-card:hover::before { opacity:1; }
+    .btn-card:hover { transform:translateY(-20px) scale(1.05); box-shadow:0 50px 120px rgba(59,130,246,0.6); }
+    .icon { width:140px; height:140px; margin:1.5rem auto 2rem; filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6)); }
+    .title { font-family:'Suissnord',sans-serif; font-size:3.2rem; margin-bottom:1rem; text-shadow:0 6px 20px rgba(0,0,0,0.7); }
+    .subtitle { font-size:1.3rem; opacity:0.95; }
+    footer { text-align:center; padding:3rem; font-size:0.9rem; color:#64748b; }
   </style>
 </head>
 <body>
 
   <h1>CYCLINDEX</h1>
 
-  <!-- HOW IT WORKS WITH RESTORED QUESTION MARK -->
-  <div class="text-center py-8">
-    <h2 class="text-5xl md:text-7xl font-bold inline-flex items-center">
-      HOW IT WORKS
-      <span class="question-group ml-6">
-        <svg class="w-16 h-16 md:w-20 md:h-20 text-white/60 hover:text-white transition" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-        </svg>
-        <div class="tooltip">
-          <p class="font-bold text-lg mb-3">Cyclindex Scoring System</p>
-          <ul class="text-left space-y-2 text-sm">
-            <li>• Only the <strong>top 3 riders per nation/team</strong> contribute</li>
-            <li>• Points = UCI ranking × race level × consistency factor</li>
-            <li>• Updated <strong>instantly after every pro race</strong></li>
-            <li>• The most accurate real-time power index in cycling</li>
-          </ul>
-        </div>
-      </span>
-    </h2>
-  </div>
-
-  <!-- 5 ICONIC BLOCKS -->
   <div class="grid">
 
-    <a href="results-log.html" class="card">
+    <a href="results-log.html" class="btn-card">
+      <div class="title">RESULTS LOG</div>
       <img src="https://ivocalha.github.io/cyclindex/icons/results.svg" alt="Results" class="icon">
-      <h3 class="text-3xl md:text-4xl font-bold mb-4">LIVE RESULTS LOG</h3>
-      <p class="text-lg text-white/70">Every professional race result as it happens — updated in real time</p>
-      <div class="btn">ENTER</div>
+      <div class="subtitle">Live race results updated instantly</div>
     </a>
 
-    <a href="team-score.html" class="card">
-      <img src="https://ivocalha.github.io/cyclindex/icons/team.svg" alt="Team Score" class="icon">
-      <h3 class="text-3xl md:text-4xl font-bold mb-4">TEAM SCORE</h3>
-      <p class="text-lg text-white/70">Real-time ranking of all WorldTour & ProTeams by current form</p>
-      <div class="btn">ENTER</div>
+    <a href="rider-score.html" class="btn-card">
+      <div class="title">RIDER SCORE</div>
+      <img src="https://ivocalha.github.io/cyclindex/icons/rider.svg" alt="Rider" class="icon">
+      <div class="subtitle">Real-time individual rider power ranking</div>
     </a>
 
-    <a href="nation-score.html" class="card">
-      <img src="https://ivocalha.github.io/cyclindex/icons/nation.svg" alt="Nation Score" class="icon">
-      <h3 class="text-3xl md:text-4xl font-bold mb-4">NATION SCORE</h3>
-      <p class="text-lg text-white/70">Which country dominates the peloton right now?</p>
-      <div class="btn">ENTER</div>
+    <a href="team-score.html" class="btn-card">
+      <div class="title">TEAM SCORE</div>
+      <img src="https://ivocalha.github.io/cyclindex/icons/team.svg" alt="Team" class="icon">
+      <div class="subtitle">Current form of every pro team</div>
     </a>
 
-    <div class="card">
-      <img src="https://ivocalha.github.io/cyclindex/icons/rider.svg" alt="Rider Index" class="icon">
-      <h3 class="text-3xl md:text-4xl font-bold mb-4">RIDER INDEX</h3>
-      <p class="text-lg text-white/70">Coming 2026 — Individual real-time power ranking</p>
-      <div class="btn opacity-50 cursor-not-allowed">SOON</div>
-    </div>
+    <a href="nation-score.html" class="btn-card">
+      <div class="title">NATION SCORE</div>
+      <img src="https://ivocalha.github.io/cyclindex/icons/nation.svg" alt="Nation" class="icon">
+      <div class="subtitle">Which country dominates the peloton?</div>
+    </a>
 
-    <div class="card">
-      <img src="https://ivocalha.github.io/cyclindex/icons/history.svg" alt="History" class="icon">
-      <h3 class="text-3xl md:text-4xl font-bold mb-4">HISTORICAL ARCHIVE</h3>
-      <p class="text-lg text-white/70">Season-by-season rankings since 2020</p>
-      <div class="btn opacity-50 cursor-not-allowed">SOON</div>
-    </div>
+    <a href="how-it-works.html" class="btn-card">
+      <div class="title">HOW IT WORKS</div>
+      <img src="https://ivocalha.github.io/cyclindex/icons/how.svg" alt="How" class="icon">
+      <div class="subtitle">The algorithm behind the rankings</div>
+    </a>
 
   </div>
+
+  <footer>
+    CYCLINDEX © 2025 – The most accurate real-time cycling index in the world<br>
+    Built with precision. Updated every race.
+  </footer>
 
 </body>
 </html>
