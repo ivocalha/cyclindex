@@ -43,6 +43,19 @@
     #resultsTable tbody tr:hover {
       background:rgba(59,130,246,0.22) !important;
     }
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.3);
+      color:white;
+      border-radius:0.6rem;
+      padding:0.4rem 0.8rem;
+    }
+    .dt-buttons button {
+      background:#3b82f6 !important;
+      border-radius:0.8rem !important;
+      padding:0.6rem 1.2rem !important;
+    }
   </style>
 </head>
 <body>
@@ -76,15 +89,29 @@
     fetch(CSV_URL)
       .then(r => r.text())
       .then(csv => {
-        // Force UTF-8 decoding
-        const decoded = decodeURIComponent(escape(csv));
+        // CRITICAL: Properly decode UTF-8 without breaking parsing
+        let decoded = '';
+        try {
+          decoded = decodeURIComponent(escape(csv));
+        } catch (e) {
+          decoded = csv; // fallback
+        }
+
         const parsed = Papa.parse(decoded, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
           trimHeaders: true,
           transformHeader: h => h.trim(),
-          transform: v => v.trim()
+          transform: (v, header) => {
+            if (!v) return '';
+            // Only decode Rider, Team, Race — avoid breaking numbers
+            if (['Rider', 'Team', 'Race', 'Country'].includes(header)) {
+              try { return decodeURIComponent(escape(v.trim())); }
+              catch { return v.trim(); }
+            }
+            return v.toString().trim();
+          }
         });
 
         const columns = [
@@ -108,8 +135,18 @@
           colReorder: true,
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          columnDefs: [{ targets: [1,4,5,6,8,10,11,14,16], visible: false }]
+          columnDefs: [
+            { targets: [1,4,5,6,8,10,11,14,16], visible: false } // HIDDEN COLUMNS
+          ],
+          language: {
+            search: "Filter:",
+            lengthMenu: "Show _MENU_ rows",
+            info: "Showing _START_ to _END_ of _TOTAL_ results"
+          }
         });
+      })
+      .catch(err => {
+        document.body.innerHTML += `<p style="color:red; text-align:center;">Error loading data: ${err.message}</p>`;
       });
   </script>
 </body>
