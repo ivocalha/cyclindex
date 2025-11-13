@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Score Table</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background:#f8f9fa; }
+        h1 { text-align:center; color:#333; }
+        .container { max-width: 100%; margin: 0 auto; }
+        table { width: 100% !important; }
+        th { background:#343a40; color:white; }
+        .dataTables_wrapper .dataTables_filter input {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Rider Score Table</h1>
+    <table id="riderTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Country</th>
+                <th>Rider</th>
+                <th>Team1</th>
+                <th>Date1</th>
+                <th>Event1</th>
+                <th>Rank1</th>
+                <th>Results_Type1</th>
+                <th>Level1</th>
+                <th>Team2</th>
+                <th>Date2</th>
+                <th>Event2</th>
+                <th>Rank2</th>
+                <th>Results_Type2</th>
+                <th>Level2</th>
+                <th>Team3</th>
+                <th>Date3</th>
+                <th>Event3</th>
+                <th>Rank3</th>
+                <th>Results_Type3</th>
+                <th>Level3</th>
+                <th>Score</th>
+                <th>rider_team_rank</th>
+                <th>rider_country_rank</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+// Load and parse the CSV file
+Papa.parse("rider-score.csv", {
+    download: true,
+    header: true,
+    dynamicTyping: true,
+    complete: function(results) {
+        const data = results.data;
+
+        // Define the exact column order you requested
+        const columnOrder = [
+            "Rank","Country","Rider",
+            "Team1","Date1","Event1","Rank1","Results_Type1","Level1",
+            "Team2","Date2","Event2","Rank2","Results_Type2","Level2",
+            "Team3","Date3","Event3","Rank3","Results_Type3","Level3",
+            "Score","rider_team_rank","rider_country_rank"
+        ];
+
+        // Re-order data according to your specification
+        const orderedData = data.map(row => {
+            let orderedRow = [];
+            columnOrder.forEach(col => {
+                orderedRow.push(row[col] !== undefined ? row[col] : "");
+            });
+            return orderedRow;
+        });
+
+        // Initialize DataTable with the exact column titles and ordered data
+        $('#riderTable').DataTable({
+            data: orderedData,
+            columns: columnOrder.map(title => ({ title })),
+            pageLength: 25,
+            lengthMenu: [10, 25, 50, 100, "All"],
+            order: [[0, "asc"]],  // default sort by Rank
+            responsive: true,
+            dom: 'Bfrtip',
+            language: {
+                search: "Search riders:",
+                lengthMenu: "Show _MENU_ riders per page",
+                info: "Showing _START_ to _END_ of _TOTAL_ riders"
+            }
+        });
+    },
+    error: function(err) {
+        console.error("Error loading CSV:", err);
+        alert("Could not load rider-score.csv – make sure the file is in the same folder as this HTML file.");
+    }
+});
+</script>
+</body>
+</html>
