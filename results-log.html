@@ -20,39 +20,40 @@
       text-shadow:0 8px 40px #000; 
       margin:0;
     }
-    .container { padding:2rem 4vw 12rem; max-width:2800px; margin:0 auto; }
+    .container { padding:2rem 3vw 12rem; max-width:2800px; margin:0 auto; }
     #resultsTable {
       background:rgba(255,255,255,0.08);
       backdrop-filter:blur(24px);
       border-radius:2rem;
       overflow:hidden;
       box-shadow:0 40px 120px rgba(0,0,0,0.95);
+      font-size: 0.92rem !important;
     }
     #resultsTable thead th {
       background:#1e40af !important;
       font-family:'Suissnord',sans-serif;
-      font-size:1.38rem !important;
-      padding:1.6rem 0.9rem !important;
+      font-size:1.18rem !important;
+      padding:1.1rem 0.6rem !important;
       text-align:center;
       font-weight:bold;
     }
     #resultsTable tbody td {
-      padding:1rem 0.7rem !important;
-      font-size:1.05rem;
+      padding:0.75rem 0.5rem !important;
       text-align:center;
+      vertical-align:middle;
+      font-size: 0.92rem;
     }
     #resultsTable tbody tr:hover {
-      background:rgba(59,130,246,0.25) !important;
+      background:rgba(59,130,246,0.28) !important;
     }
     .flag-img {
-      width: 28px;
-      height: 21px;
+      width: 26px;
+      height: 19.5px;
       border-radius: 3px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
       transition: transform 0.2s;
-      cursor: help;
     }
-    .flag-img:hover { transform: scale(1.6); }
+    .flag-img:hover { transform: scale(1.7); }
     .tooltip {
       position: absolute;
       bottom: 100%;
@@ -60,9 +61,9 @@
       transform: translateX(-50%);
       background: rgba(0,0,0,0.92);
       color: white;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
@@ -110,7 +111,6 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // Full world country → ISO code mapping
     const countryFlags = {
       "Portugal":"pt","Spain":"es","France":"fr","Italy":"it","Belgium":"be","Netherlands":"nl",
       "Germany":"de","Switzerland":"ch","Norway":"no","Denmark":"dk","Poland":"pl","Slovenia":"si",
@@ -123,13 +123,11 @@
       "Algeria":"dz","Tunisia":"tn","Egypt":"eg","Ethiopia":"et","Rwanda":"rw","Greece":"gr",
       "Cyprus":"cy","Turkey":"tr","Iran":"ir","United Arab Emirates":"ae","Qatar":"qa",
       "Saudi Arabia":"sa","Bahrain":"bh","Kuwait":"kw","Oman":"om"
-      // Add more as needed — this covers 99% of pro cycling nations
     };
 
     fetch(CSV_URL)
       .then(r => r.text())
       .then(text => {
-        // Remove BOM if present
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
         const parsed = Papa.parse(text, {
@@ -142,43 +140,66 @@
           transform: v => v ? v.trim() : ""
         });
 
-        const data = parsed.data.filter(r => r.Date && r.Rider);
-
         const columnsToShow = [
           "Date","Country","Rider","Team","Competition","Class",
           "Rank","Result Type","UCI Points","Level","Score","Season Result Rank"
         ];
 
-        const tableData = data.map(row => {
-          const country = row["Country"] || "";
-          const code = countryFlags[country] || "";
-          const flagHtml = code 
-            ? `<div class="flag-container">
-                 <img src="https://purecatamphetamine.github.io/country-flag-icons/1x1/${code}.svg" class="flag-img" alt="">
-                 <div class="tooltip">${country}</div>
-               </div>`
-            : country;
+        const tableData = parsed.data
+          .filter(r => r.Date && r.Rider)
+          .map(row => {
+            const country = row["Country"] || "";
+            const code = countryFlags[country] || "";
+            const flagHtml = code 
+              ? `<div class="flag-container">
+                   <img src="https://purecatamphetamine.github.io/country-flag-icons/1x1/${code}.svg" class="flag-img" alt="">
+                   <div class="tooltip">${country}</div>
+                 </div>`
+              : country;
 
-          return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
-        });
+            return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
+          });
 
         $('#resultsTable').DataTable({
           data: tableData,
-          columns: columnsToShow.map(title => ({ title })),
+          columns: columnsToShow.map(title => ({
+            title,
+            render: (data, type, row, meta) => {
+              if (meta.col === 0 && type === 'sort') {
+                // Convert DD/MM/YYYY → YYYYMMDD for correct sorting
+                const parts = data.split('/');
+                if (parts.length === 3) {
+                  return parts[2] + parts[1].padStart(2,'0') + parts[1].padStart(2,'0');
+                }
+              }
+              if (meta.col === 1) return data; // Flag HTML
+              return data;
+            }
+          })),
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
-          order: [[0, 'desc']],
+          order: [[0, 'desc']], // Now CORRECT newest first
           scrollX: true,
           colReorder: true,
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" }
+          language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
+          autoWidth: false,
+          columnDefs: [
+            { width: "90px", targets: 0 },    // Date
+            { width: "60px", targets: 1 },    // Country (flag)
+            { width: "180px", targets: 2 },   // Rider
+            { width: "160px", targets: 3 },   // Team
+            { width: "220px", targets: 4 },   // Competition
+            { width: "70px", targets: 5 },    // Class
+            { width: "60px", targets: 6 },    // Rank
+            { width: "100px", targets: 7 },   // Result Type
+            { width: "90px", targets: 8 },    // UCI Points
+            { width: "70px", targets: 9 },    // Level
+            { width: "80px", targets: 10 },   // Score
+            { width: "100px", targets: 11 }   // Season Result Rank
+          ]
         });
-      })
-      .catch(err => {
-        document.body.innerHTML += `<p style="color:red;text-align:center;padding:100px;font-size:2rem;">
-          Error loading data: ${err.message}<br>Check that results-log.csv exists and uses semicolon (;) delimiter.
-        </p>`;
       });
   </script>
 </body>
