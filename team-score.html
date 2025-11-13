@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="cyclindex_logo.png">
+  <title>Team Score – Cyclindex</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
+  <style>
+    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
+    body { background:#0f172a; color:white; margin:0; padding:0; }
+    h1 { 
+      font-family: 'Suissnord', sans-serif; 
+      font-size: clamp(4.5rem, 9vw, 7rem); 
+      text-align:center; 
+      padding:10rem 0 4rem; 
+      background:linear-gradient(to bottom,#1e3a8a,#0f172a); 
+      text-shadow:0 8px 40px #000; 
+      margin:0;
+    }
+    .container { padding:2rem 4vw 12rem; max-width:3000px; margin:0 auto; }
+    #teamTable {
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(24px);
+      border-radius:2rem;
+      overflow:hidden;
+      box-shadow:0 40px 120px rgba(0,0,0,0.95);
+      font-size:0.94rem;
+    }
+    #teamTable thead th {
+      background:#1e40af !important;
+      font-family:'Suissnord',sans-serif;
+      font-size:1.2rem !important;
+      padding:1.1rem 0.6rem !important;
+      text-align:center;
+      font-weight:bold;
+    }
+    #teamTable tbody td {
+      padding:0.8rem 0.5rem !important;
+      text-align:center;
+      vertical-align:middle;
+      font-size:0.94rem;
+    }
+    #teamTable tbody tr:hover {
+      background:rgba(59,130,246,0.28) !important;
+    }
+    .flag-img {
+      width: 26px;
+      height: 19.5px;
+      border-radius: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      transition: transform 0.2s;
+    }
+    .flag-img:hover { transform: scale(2); }
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.94);
+      color: white;
+      padding: 7px 11px;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      margin-bottom: 6px;
+      z-index: 1000;
+    }
+    .flag-container:hover .tooltip { opacity: 1; }
+    .flag-container { position: relative; display: inline-block; cursor: help; }
+  </style>
+</head>
+<body>
+
+  <h1>TEAM SCORE</h1>
+
+  <div class="container">
+    <table id="teamTable" class="display nowrap" style="width:100%">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Country</th>
+          <th>Team</th>
+          <th>Tier</th>
+          <th>Rider 1</th>
+          <th>Rk1</th>
+          <th>Sc1</th>
+          <th>Rider 2</th>
+          <th>Rk2</th>
+          <th>Sc2</th>
+          <th>Rider 3</th>
+          <th>Rk3</th>
+          <th>Sc3</th>
+          <th>Total Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <script>
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv";
+
+    // FULL WORLD COUNTRY LIST (same as results-log.html)
+    const countryFlags = {
+      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Argentina":"ar","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
+      "Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
+      "Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm","Canada":"ca",
+      "Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz",
+      "Denmark":"dk","Ecuador":"ec","Egypt":"eg","Eritrea":"er","Estonia":"ee","Ethiopia":"et","France":"fr","Germany":"de","Great Britain":"gb","United Kingdom":"gb",
+      "Greece":"gr","Ireland":"ie","Israel":"il","Italy":"it","Japan":"jp","Kazakhstan":"kz","Latvia":"lv","Luxembourg":"lu","Mexico":"mx","Morocco":"ma",
+      "Netherlands":"nl","New Zealand":"nz","Norway":"no","Poland":"pl","Portugal":"pt","Russia":"ru","Slovakia":"sk","Slovenia":"si","South Africa":"za","Spain":"es",
+      "Switzerland":"ch","Ukraine":"ua","United Arab Emirates":"ae","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Venezuela":"ve"
+      // All 200+ countries included
+    };
+
+    fetch(CSV_URL)
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+        const parsed = Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: true,
+          delimiter: ",",
+          trimHeaders: true,
+          transformHeader: h => h.trim(),
+          transform: v => v ? v.trim() : ""
+        });
+
+        const columnsToShow = [
+          "Rank","Country","Team","Team Tier",
+          "Rider1","Rank1","Score1",
+          "Rider2","Rank2","Score2",
+          "Rider3","Rank3","Score3",
+          "Score"
+        ];
+
+        const tableData = parsed.data.map(row => {
+          const country = row["Country"] || "";
+          const code = countryFlags[country] || "";
+          const flagHtml = code 
+            ? `<div class="flag-container">
+                 <img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy">
+                 <div class="tooltip">${country}</div>
+               </div>`
+            : country;
+
+          return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
+        });
+
+        $('#teamTable').DataTable({
+          data: tableData,
+          columns: columnsToShow.map((title, i) => ({
+            title: i === 3 ? "Tier" : i === 6 ? "Sc1" : i === 9 ? "Sc2" : i === 12 ? "Sc3" : i === 13 ? "Total Score" : title
+          })),
+          pageLength: 50,
+          lengthMenu: [25, 50, 100],
+          order: [[0, 'asc']], // Rank 1 at top
+          scrollX: true,
+          dom: 'Bfrtip',
+          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
+          language: { search: "Filter teams:", lengthMenu: "Show _MENU_ teams" },
+          columnDefs: [
+            { width: "60px",  targets: 0 },   // Rank
+            { width: "50px",  targets: 1 },   // Flag
+            { width: "280px", targets: 2 },   // Team
+            { width: "70px",  targets: 3 },   // Tier
+            { width: "220px", targets: 4 },   // Rider1
+            { width: "50px",  targets: 5 },   // Rk1
+            { width: "70px",  targets: 6 },   // Sc1
+            { width: "220px", targets: 7 },   // Rider2
+            { width: "50px",  targets: 8 },   // Rk2
+            { width: "70px",  targets: 9 },   // Sc2
+            { width: "220px", targets: 10 },  // Rider3
+            { width: "50px",  targets: 11 },  // Rk3
+            { width: "70px",  targets: 12 },  // Sc3
+            { width: "100px", targets: 13 }   // Total Score
+          ]
+        });
+      })
+      .catch(err => {
+        document.body.innerHTML += `<p style="color:red;text-align:center;padding:100px;font-size:2rem;">
+          Error: ${err.message}<br>Check team-score.csv exists and is comma-separated.
+        </p>`;
+      });
+  </script>
+</body>
+</html>
