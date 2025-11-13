@@ -3,54 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rider Score Table</title>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <title>Cyclindex Rider Score Table</title>
+
+    <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background:#f8f9fa; }
-        h1 { text-align:center; color:#333; }
-        .container { max-width: 100%; margin: 0 auto; }
+        body { font-family: Arial, sans-serif; padding: 20px; background:#f8f9fa; margin: 0; }
+        h1 { text-align:center; color:#222; margin-bottom: 10px; }
+        .subtitle { text-align:center; color:#666; margin-bottom: 30px; font-size: 1.1em; }
+        .container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
         table { width: 100% !important; }
-        th { background:#343a40; color:white; }
+        th { background:#222 !important; color:white !important; }
         .dataTables_wrapper .dataTables_filter input {
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 6px;
             border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        .dataTables_wrapper .dataTables_length select {
+            padding: 6px;
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Rider Score Table</h1>
+    <h1>Cyclindex Rider Score</h1>
+    <div class="subtitle">Live table • Updated automatically from GitHub</div>
+
     <table id="riderTable" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>Rank</th>
                 <th>Country</th>
                 <th>Rider</th>
-                <th>Team1</th>
-                <th>Date1</th>
-                <th>Event1</th>
-                <th>Rank1</th>
-                <th>Results_Type1</th>
-                <th>Level1</th>
-                <th>Team2</th>
-                <th>Date2</th>
-                <th>Event2</th>
-                <th>Rank2</th>
-                <th>Results_Type2</th>
-                <th>Level2</th>
-                <th>Team3</th>
-                <th>Date3</th>
-                <th>Event3</th>
-                <th>Rank3</th>
-                <th>Results_Type3</th>
-                <th>Level3</th>
+                <th>Team 1</th>
+                <th>Date 1</th>
+                <th>Event 1</th>
+                <th>Rank 1</th>
+                <th>Type 1</th>
+                <th>Level 1</th>
+                <th>Team 2</th>
+                <th>Date 2</th>
+                <th>Event 2</th>
+                <th>Rank 2</th>
+                <th>Type 2</th>
+                <th>Level 2</th>
+                <th>Team 3</th>
+                <th>Date 3</th>
+                <th>Event 3</th>
+                <th>Rank 3</th>
+                <th>Type 3</th>
+                <th>Level 3</th>
                 <th>Score</th>
-                <th>rider_team_rank</th>
-                <th>rider_country_rank</th>
+                <th>Team Rank</th>
+                <th>Country Rank</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -58,15 +72,17 @@
 </div>
 
 <script>
-// Load and parse the CSV file
-Papa.parse("rider-score.csv", {
+// Direct raw GitHub URL to your CSV (always up-to-date)
+const csvUrl = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
+
+Papa.parse(csvUrl, {
     download: true,
     header: true,
     dynamicTyping: true,
     complete: function(results) {
         const data = results.data;
 
-        // Define the exact column order you requested
+        // Exact column order you asked for
         const columnOrder = [
             "Rank","Country","Rider",
             "Team1","Date1","Event1","Rank1","Results_Type1","Level1",
@@ -75,36 +91,45 @@ Papa.parse("rider-score.csv", {
             "Score","rider_team_rank","rider_country_rank"
         ];
 
-        // Re-order data according to your specification
+        // Re-order rows
         const orderedData = data.map(row => {
-            let orderedRow = [];
-            columnOrder.forEach(col => {
-                orderedRow.push(row[col] !== undefined ? row[col] : "");
-            });
-            return orderedRow;
+            return columnOrder.map(col => row[col] ?? "");
         });
 
-        // Initialize DataTable with the exact column titles and ordered data
+        // Initialize DataTable
         $('#riderTable').DataTable({
             data: orderedData,
-            columns: columnOrder.map(title => ({ title })),
+            columns: columnOrder.map(title => ({ title: niceTitle(title) })),
             pageLength: 25,
-            lengthMenu: [10, 25, 50, 100, "All"],
-            order: [[0, "asc"]],  // default sort by Rank
+            lengthMenu: [10, 25, 50, 100, 250, "All"],
+            order: [[0, "asc"]],  // default sort by overall Rank
             responsive: true,
-            dom: 'Bfrtip',
+            dom: 'Blfrtip',
+            buttons: ['copy', 'csv', 'excel'],
             language: {
                 search: "Search riders:",
-                lengthMenu: "Show _MENU_ riders per page",
                 info: "Showing _START_ to _END_ of _TOTAL_ riders"
             }
         });
     },
     error: function(err) {
-        console.error("Error loading CSV:", err);
-        alert("Could not load rider-score.csv – make sure the file is in the same folder as this HTML file.");
+        document.body.innerHTML += `<p style="text-align:center;color:red;">Error loading data: ${err}</p>`;
     }
 });
+
+// Optional: nicer column titles
+function niceTitle(key) {
+    return key
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .replace("Yob", "YOB")
+        .replace("Id", "ID");
+}
 </script>
+
+<!-- DataTables Buttons (Export) -->
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 </html>
