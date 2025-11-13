@@ -43,6 +43,14 @@
     #resultsTable tbody tr:hover {
       background:rgba(59,130,246,0.22) !important;
     }
+    .flag-img {
+      width: 24px;
+      height: 18px;
+      margin-right: 6px;
+      vertical-align: middle;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
     .dataTables_wrapper .dataTables_length select,
     .dataTables_wrapper .dataTables_filter input {
       background:rgba(255,255,255,0.15);
@@ -86,16 +94,20 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
+    // Country code mapping (ISO 3166-1 alpha-2)
+    const countryFlags = {
+      "Portugal": "pt", "Spain": "es", "France": "fr", "Italy": "it", "Belgium": "be",
+      "Netherlands": "nl", "Germany": "de", "Switzerland": "ch", "Norway": "no", "Denmark": "dk",
+      "Poland": "pl", "Slovenia": "si", "Colombia": "co", "Australia": "au", "Great Britain": "gb",
+      "United States": "us", "Canada": "ca", "Eritrea": "er", "Kazakhstan": "kz", "Slovakia": "sk",
+      // Add more as needed
+    };
+
     fetch(CSV_URL)
       .then(r => r.text())
       .then(csv => {
-        // CRITICAL: Properly decode UTF-8 without breaking parsing
         let decoded = '';
-        try {
-          decoded = decodeURIComponent(escape(csv));
-        } catch (e) {
-          decoded = csv; // fallback
-        }
+        try { decoded = decodeURIComponent(escape(csv)); } catch (e) { decoded = csv; }
 
         const parsed = Papa.parse(decoded, {
           header: true,
@@ -105,7 +117,6 @@
           transformHeader: h => h.trim(),
           transform: (v, header) => {
             if (!v) return '';
-            // Only decode Rider, Team, Race — avoid breaking numbers
             if (['Rider', 'Team', 'Race', 'Country'].includes(header)) {
               try { return decodeURIComponent(escape(v.trim())); }
               catch { return v.trim(); }
@@ -123,20 +134,35 @@
 
         const cleanData = parsed.data
           .filter(row => row.Date && row.Rider && row.Rank && Object.keys(row).length === 19)
-          .map(row => columns.map(col => row[col] ?? ""));
+          .map(row => {
+            const country = row["Country"] || "";
+            const code = countryFlags[country] || "";
+            const flagHtml = code ? `<img src="https://flagcdn.com/24x18/${code}.png" class="flag-img" alt="${country}">` : "";
+            return columns.map(col => {
+              if (col === "Country") return `${flagHtml}${country}`;
+              return row[col] ?? "";
+            });
+          });
 
         $('#resultsTable').DataTable({
           data: cleanData,
-          columns: columns.map(title => ({ title })),
+          columns: columns.map(title => ({ 
+            title, 
+            render: (data, type, row, meta) => {
+              if (meta.col === 3) return data; // Country column: raw HTML
+              return data;
+            }
+          })),
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
           order: [[0, 'desc']],
           scrollX: true,
           colReorder: true,
           dom: 'Bfrtip',
-          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
+          buttons: ['colvis', {extend:'csv', text:'Export CSV', exportOptions: { orthogonal: 'export' }}, 'copy'],
           columnDefs: [
-            { targets: [1,4,5,6,8,10,11,14,16], visible: false } // HIDDEN COLUMNS
+            { targets: [1,4,5,6,8,10,11,14,16], visible: false },
+            { targets: 3, orderable: true } // Keep country sortable
           ],
           language: {
             search: "Filter:",
@@ -146,7 +172,7 @@
         });
       })
       .catch(err => {
-        document.body.innerHTML += `<p style="color:red; text-align:center;">Error loading data: ${err.message}</p>`;
+        document.body.innerHTML += `<p style="color:red; text-align:center;">Error: ${err.message}</p>`;
       });
   </script>
 </body>
