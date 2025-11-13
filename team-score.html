@@ -26,7 +26,7 @@
 </head>
 <body>
 
-  <h1>TEAM SCORE</h1>
+   <h1>TEAM SCORE</h1>
 
   <div class="container">
     <table id="teamTable" class="display nowrap" style="width:100%">
@@ -52,7 +52,7 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv";
 
-    // FULL WORLD COUNTRY LIST — ALL 250+ COUNTRIES
+    // FULL WORLD COUNTRY LIST — ALL 250+ COUNTRIES (ISO 3166-1 alpha-2)
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
       "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
@@ -93,7 +93,7 @@
 
         const tableData = parsed.data.map(row => {
           const country = row["Country"] || "";
-          const code = countryFlags[country.toLowerCase()] || countryFlags[country] || "";
+          const code = countryFlags[country] || countryFlags[country.toLowerCase()] || "";
           const flagHtml = code 
             ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
             : country;
@@ -103,12 +103,18 @@
 
             let val = row[col] ?? "";
 
-            // FORCE 2 DECIMAL PLACES FOR Score1, Score2, Score3, and Total Score
-            if (i === 6 || i === 9 || i === 12 || i === 13) {  // Score1, Score2, Score3, Score
+            // CORRECT ROUNDING: Score1, Score2, Score3, Total Score → 2 decimals
+            if (i === 6 || i === 9 || i === 12 || i === 13) {  // Sc1, Sc2, Sc3, Total Score
               if (val === "" || val == null) return "";
+              // Handle both number and string with comma as decimal separator
+              if (typeof val === "string") {
+                val = val.replace(",", ".");  // Fix European format: 99,253344 → 99.253344
+              }
               const num = parseFloat(val);
               if (!isNaN(num)) {
-                val = num.toFixed(2);
+                val = num.toFixed(2);  // This does CORRECT rounding: 99.253344 → 99.25
+              } else {
+                val = "";
               }
             }
 
