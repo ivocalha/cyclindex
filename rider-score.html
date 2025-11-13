@@ -11,17 +11,68 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
-    .container { padding:2rem 3vw 12rem; max-width:3400px; margin:0 auto; }
-    # riderTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.90rem; }
-    #riderTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.16rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
-    #riderTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.90rem; }
-    #riderTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
-    .flag-img { width:24px; height:18px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
-    .flag-img:hover { transform:scale(2.2); }
-    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
-    .flag-container:hover .tooltip { opacity:1; }
-    .flag-container { position:relative; display:inline-block; cursor:help; }
+    h1 { 
+      font-family: 'Suissnord', sans-serif; 
+      font-size: clamp(4.5rem, 9vw, 7rem); 
+      text-align:center; 
+      padding:10rem 0 4rem; 
+      background:linear-gradient(to bottom,#1e3a8a,#0f172a); 
+      text-shadow:0 8px 40px #000; 
+      margin:0;
+    }
+    .container { padding:2rem 4vw 12rem; max-width:3000px; margin:0 auto; }
+    #riderTable {
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(24px);
+      border-radius:2rem;
+      overflow:hidden;
+      box-shadow:0 40px 120px rgba(0,0,0,0.95);
+      font-size:0.94rem;
+    }
+    #riderTable thead th {
+      background:#1e40af !important;
+      font-family:'Suissnord',sans-serif;
+      font-size:1.2rem !important;
+      padding:1.1rem 0.6rem !important;
+      text-align:center;
+      font-weight:bold;
+    }
+    #riderTable tbody td {
+      padding:0.8rem 0.5rem !important;
+      text-align:center;
+      vertical-align:middle;
+      font-size:0.94rem;
+    }
+    #riderTable tbody tr:hover {
+      background:rgba(59,130,246,0.28) !important;
+    }
+    .flag-img {
+      width: 26px;
+      height: 19.5px;
+      border-radius: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      transition: transform 0.2s;
+    }
+    .flag-img:hover { transform: scale(2); }
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.94);
+      color: white;
+      padding: 7px 11px;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      margin-bottom: 6px;
+      z-index: 1000;
+    }
+    .flag-container:hover .tooltip { opacity: 1; }
+    .flag-container { position: relative; display: inline-block; cursor: help; }
   </style>
 </head>
 <body>
@@ -57,7 +108,6 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
-    // FULL WORLD COUNTRY LIST (same as before)
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Argentina":"ar","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
       "Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
@@ -121,33 +171,27 @@
           })),
           pageLength: 100,
           lengthMenu: [50, 100, 250],
-          order: [[0, 'asc']], // Rank 1 at top
+          order: [[0, 'asc']],
           scrollX: true,
           colReorder: true,
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
           language: { search: "Search riders:", lengthMenu: "Show _MENU_ riders" },
-          autoWidth: false,
           columnDefs: [
-            { width: "60px",  targets: 0 },   // Rank
-            { width: "48px",  targets: 1 },   // Flag
-            { width: "220px", targets: 2 },   // Rider
-            { width: "140px", targets: 3 }, { width: "90px", targets: 4 }, { width: "200px", targets: 5 },
-            { width: "50px",  targets: 6 }, { width: "90px",  targets: 7 }, { width: "60px",  targets: 8 },
-            { width: "140px", targets: 9 }, { width: "90px", targets: 10 }, { width: "200px", targets: 11 },
-            { width: "50px",  targets: 12 }, { width: "90px",  targets: 13 }, { width: "60px",  targets: 14 },
-            { width: "140px", targets: 15 }, { width: "90px", targets: 16 }, { width: "200px", targets: 17 },
-            { width: "50px",  targets: 18 }, { width: "90px",  targets: 19 }, { width: "60px",  targets: 20 },
-            { width: "90px",  targets: 21 },  // Score
-            { width: "80px",  targets: 22 },  // Team Rank
-            { width: "90px",  targets: 23 }   // Country Rank
+            { width: "60px",  targets: 0 },
+            { width: "50px",  targets: 1 },
+            { width: "240px", targets: 2 },
+            { width: "160px", targets: 3 }, { width: "92px", targets: 4 }, { width: "220px", targets: 5 },
+            { width: "52px",  targets: 6 }, { width: "92px",  targets: 7 }, { width: "62px",  targets: 8 },
+            { width: "160px", targets: 9 }, { width: "92px", targets: 10 }, { width: "220px", targets: 11 },
+            { width: "52px",  targets: 12 }, { width: "92px",  targets: 13 }, { width: "62px",  targets: 14 },
+            { width: "160px", targets: 15 }, { width: "92px", targets: 16 }, { width: "220px", targets: 17 },
+            { width: "52px",  targets: 18 }, { width: "92px",  targets: 19 }, { width: "62px",  targets: 20 },
+            { width: "100px", targets: 21 },
+            { width: "88px",  targets: 22 },
+            { width: "96px",  targets: 23 }
           ]
         });
-      })
-      .catch(err => {
-        document.body.innerHTML += `<p style="color:red;text-align:center;padding:100px;font-size:2rem;">
-          Error loading rider-score.csv: ${err.message}
-        </p>`;
       });
   </script>
 </body>
