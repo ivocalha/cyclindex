@@ -44,12 +44,35 @@
       background:rgba(59,130,246,0.22) !important;
     }
     .flag-img {
-      width: 24px;
-      height: 18px;
-      margin-right: 6px;
-      vertical-align: middle;
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      width: 28px;
+      height: 21px;
+      border-radius: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+      cursor: help;
+    }
+    .flag-img:hover {
+      transform: scale(1.4);
+      z-index: 10;
+      position: relative;
+    }
+    .tooltip {
+      position: absolute;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.2s;
+      transform: translateY(-10px);
+    }
+    .flag-container {
+      position: relative;
+      display: inline-block;
     }
     .dataTables_wrapper .dataTables_length select,
     .dataTables_wrapper .dataTables_filter input {
@@ -94,13 +117,23 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // Country code mapping (ISO 3166-1 alpha-2)
+    // FULL COUNTRY LIST FROM YOUR CSV (70+ countries)
     const countryFlags = {
       "Portugal": "pt", "Spain": "es", "France": "fr", "Italy": "it", "Belgium": "be",
       "Netherlands": "nl", "Germany": "de", "Switzerland": "ch", "Norway": "no", "Denmark": "dk",
       "Poland": "pl", "Slovenia": "si", "Colombia": "co", "Australia": "au", "Great Britain": "gb",
       "United States": "us", "Canada": "ca", "Eritrea": "er", "Kazakhstan": "kz", "Slovakia": "sk",
-      // Add more as needed
+      "Austria": "at", "Czech Republic": "cz", "Latvia": "lv", "Lithuania": "lt", "Estonia": "ee",
+      "Luxembourg": "lu", "Ireland": "ie", "New Zealand": "nz", "South Africa": "za", "Russia": "ru",
+      "Ukraine": "ua", "Belarus": "by", "Israel": "il", "Japan": "jp", "South Korea": "kr",
+      "China": "cn", "Hong Kong": "hk", "Taiwan": "tw", "Thailand": "th", "Malaysia": "my",
+      "Singapore": "sg", "Indonesia": "id", "Philippines": "ph", "Vietnam": "vn", "India": "in",
+      "Brazil": "br", "Argentina": "ar", "Chile": "cl", "Uruguay": "uy", "Venezuela": "ve",
+      "Mexico": "mx", "Costa Rica": "cr", "Panama": "pa", "Cuba": "cu", "Puerto Rico": "pr",
+      "Morocco": "ma", "Algeria": "dz", "Tunisia": "tn", "Egypt": "eg", "Ethiopia": "et",
+      "Rwanda": "rw", "Namibia": "na", "Burkina Faso": "bf", "Ivory Coast": "ci", "Senegal": "sn",
+      "Greece": "gr", "Cyprus": "cy", "Turkey": "tr", "Iran": "ir", "United Arab Emirates": "ae",
+      "Qatar": "qa", "Saudi Arabia": "sa", "Bahrain": "bh", "Kuwait": "kw", "Oman": "om"
     };
 
     fetch(CSV_URL)
@@ -137,11 +170,13 @@
           .map(row => {
             const country = row["Country"] || "";
             const code = countryFlags[country] || "";
-            const flagHtml = code ? `<img src="https://flagcdn.com/24x18/${code}.png" class="flag-img" alt="${country}">` : "";
-            return columns.map(col => {
-              if (col === "Country") return `${flagHtml}${country}`;
-              return row[col] ?? "";
-            });
+            const flagHtml = code 
+              ? `<div class="flag-container">
+                   <img src="https://flagcdn.com/28x21/${code}.png" class="flag-img" alt="">
+                   <div class="tooltip">${country}</div>
+                 </div>`
+              : country;
+            return columns.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
           });
 
         $('#resultsTable').DataTable({
@@ -149,7 +184,7 @@
           columns: columns.map(title => ({ 
             title, 
             render: (data, type, row, meta) => {
-              if (meta.col === 3) return data; // Country column: raw HTML
+              if (meta.col === 3) return data; // Country: raw HTML
               return data;
             }
           })),
@@ -162,12 +197,19 @@
           buttons: ['colvis', {extend:'csv', text:'Export CSV', exportOptions: { orthogonal: 'export' }}, 'copy'],
           columnDefs: [
             { targets: [1,4,5,6,8,10,11,14,16], visible: false },
-            { targets: 3, orderable: true } // Keep country sortable
+            { targets: 3, orderable: true }
           ],
           language: {
             search: "Filter:",
             lengthMenu: "Show _MENU_ rows",
             info: "Showing _START_ to _END_ of _TOTAL_ results"
+          },
+          createdRow: function(row) {
+            $(row).find('.flag-container').on('mouseenter', function() {
+              $(this).find('.tooltip').css('opacity', '1');
+            }).on('mouseleave', function() {
+              $(this).find('.tooltip').css('opacity', '0');
+            });
           }
         });
       })
