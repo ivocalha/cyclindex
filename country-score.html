@@ -35,7 +35,8 @@
           <th>Rank</th><th></th><th>Country</th><th>Confed</th>
           <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
           <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
-          <th>Rider 3</th><th>Rk3</th><th>Sc3</th><th>Total Score</th>
+          <th>Rider 3</th><th>Rk3</th><th>Sc3</th>
+          <th>Total Score</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -52,7 +53,7 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/country-score.csv";
 
-    // FULL WORLD COUNTRY LIST — ALL 250+ COUNTRIES
+    // FULL WORLD COUNTRY LIST
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
       "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
@@ -89,11 +90,17 @@
           transform: v => v ? v.trim() : ""
         });
 
-        const columnsToShow = ["Rank","Country","Confederation","Rider1","Rank1","Score1","Rider2","Rank2","Score2","Rider3","Rank3","Score3","Score"];
+        const columnsToShow = [
+          "Rank","Country","Confederation",
+          "Rider1","Rank1","Score1",
+          "Rider2","Rank2","Score2",
+          "Rider3","Rank3","Score3",
+          "Score"
+        ]; // 13 columns exactly
 
         const tableData = parsed.data.map(row => {
           const country = row["Country"] || "";
-          const code = countryFlags[country] || countryFlags[country.toLowerCase()] || "";
+          const code = countryFlags[country] || "";
           const flagHtml = code 
             ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
             : country;
@@ -103,14 +110,13 @@
 
             let val = row[col] ?? "";
 
-            // ROUND Score1, Score2, Score3, Total Score → 2 decimals (correct rounding + comma → dot fix)
+            // Round Score1, Score2, Score3, Total Score to 2 decimals
             if (i === 5 || i === 8 || i === 11 || i === 12) {
               if (val === "" || val == null) return "";
               if (typeof val === "string") val = val.replace(",", ".");
               const num = parseFloat(val);
               if (!isNaN(num)) val = num.toFixed(2);
             }
-
             return val;
           });
         });
@@ -118,7 +124,11 @@
         $('#countryTable').DataTable({
           data: tableData,
           columns: columnsToShow.map((title, i) => ({
-            title: i === 3 ? "Confed" : i === 5 ? "Sc1" : i === 8 ? "Sc2" : i === 11 ? "Sc3" : i === 12 ? "Total Score" : title
+            title: i === 2 ? "Confed" :
+                   i === 5 ? "Sc1" :
+                   i === 8 ? "Sc2" :
+                   i === 11 ? "Sc3" :
+                   i === 12 ? "Total Score" : title
           })),
           pageLength: 50,
           lengthMenu: [25, 50, 100],
@@ -130,22 +140,27 @@
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
           language: { search: "Filter countries:", lengthMenu: "Show _MENU_ countries" },
           columnDefs: [
-            { width: "60px",  targets: 0 },   // Rank
-            { width: "50px",  targets: 1 },   // Flag
-            { width: "180px", targets: 2 },   // Country name
-            { width: "80px",  targets: 3 },   // Confederation
-            { width: "200px", targets: 4 },   // Rider 1
-            { width: "50px",  targets: 5 },   // Rk1
-            { width: "72px",  targets: 6 },   // Sc1
-            { width: "200px", targets: 7 },   // Rider 2
-            { width: "50px",  targets: 8 },   // Rk2
-            { width: "72px",  targets: 9 },   // Sc2
-            { width: "200px", targets: 10 },  // Rider 3
-            { width: "50px",  targets: 11 },  // Rk3
-            { width: "72px",  targets: 12 },  // Sc3
-            { width: "100px", targets: 13 }   // Total Score
+            { width: "60px",  targets: 0 },
+            { width: "50px",  targets: 1 },
+            { width: "180px", targets: 2 },
+            { width: "80px",  targets: 3 },
+            { width: "200px", targets: 4 },
+            { width: "50px",  targets: 5 },
+            { width: "72px",  targets: 6 },
+            { width: "200px", targets: 7 },
+            { width: "50px",  targets: 8 },
+            { width: "72px",  targets: 9 },
+            { width: "200px", targets: 10 },
+            { width: "50px",  targets: 11 },
+            { width: "72px",  targets: 12 },
+            { width: "100px", targets: 13 }
           ]
         });
+      })
+      .catch(err => {
+        document.body.innerHTML += `<div style="color:red;text-align:center;padding:100px;font-size:2rem;">
+          Error loading country-score.csv: ${err.message}
+        </div>`;
       });
   </script>
 </body>
