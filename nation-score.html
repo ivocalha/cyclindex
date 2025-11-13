@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
-  <title>Country Score – Cyclindex</title>
+  <title>Nation Score – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
@@ -13,10 +13,10 @@
     body { background:#0f172a; color:white; margin:0; padding:0; }
     h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
     .container { padding:2rem 2vw 12rem; max-width:100%; margin:0 auto; }
-    #countryTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.92rem; }
-    #countryTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
-    #countryTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.92rem; }
-    #countryTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
+    #nationTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.92rem; }
+    #nationTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
+    #nationTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.92rem; }
+    #nationTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
     .flag-img { width:28px; height:21px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
     .flag-img:hover { transform:scale(2.2); }
     .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
@@ -26,14 +26,14 @@
 </head>
 <body>
 
-  <h1>COUNTRY SCORE</h1>
+  <h1>NATION SCORE</h1>
 
   <div class="container">
-    <table id="countryTable" class="display nowrap" style="width:100%">
+    <table id="nationTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
           <th>Rank</th>
-          <th>Country</th>
+          <th>Nation</th>
           <th>Confed</th>
           <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
           <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
@@ -53,7 +53,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/country-score.csv";
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv";
 
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
@@ -91,14 +91,6 @@
           transform: v => v ? v.trim() : ""
         });
 
-        const columnsToShow = [
-          "Rank","Country","Confederation",
-          "Rider1","Rank1","Score1",
-          "Rider2","Rank2","Score2",
-          "Rider3","Rank3","Score3",
-          "Score"
-        ]; // Exactly 13 columns
-
         const tableData = parsed.data.map(row => {
           const country = row["Country"] || "";
           const code = countryFlags[country] || "";
@@ -108,14 +100,11 @@
 
           return [
             row["Rank"] ?? "",
-            flagHtml,  // This replaces Country column
+            flagHtml,
             row["Confederation"] ?? "",
-            row["Rider1"] ?? "", row["Rank1"] ?? "", 
-            formatScore(row["Score1"]),
-            row["Rider2"] ?? "", row["Rank2"] ?? "", 
-            formatScore(row["Score2"]),
-            row["Rider3"] ?? "", row["Rank3"] ?? "", 
-            formatScore(row["Score3"]),
+            row["Rider1"] ?? "", row["Rank1"] ?? "", formatScore(row["Score1"]),
+            row["Rider2"] ?? "", row["Rank2"] ?? "", formatScore(row["Score2"]),
+            row["Rider3"] ?? "", row["Rank3"] ?? "", formatScore(row["Score3"]),
             formatScore(row["Score"])
           ];
         });
@@ -127,11 +116,11 @@
           return isNaN(num) ? "" : num.toFixed(2);
         }
 
-        $('#countryTable').DataTable({
+        $('#nationTable').DataTable({
           data: tableData,
           columns: [
             { title: "Rank" },
-            { title: "Country" },
+            { title: "Nation" },
             { title: "Confed" },
             { title: "Rider 1" }, { title: "Rk1" }, { title: "Sc1" },
             { title: "Rider 2" }, { title: "Rk2" }, { title: "Sc2" },
@@ -146,10 +135,10 @@
           responsive: true,
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          language: { search: "Filter countries:", lengthMenu: "Show _MENU_ countries" },
+          language: { search: "Filter nations:", lengthMenu: "Show _MENU_ nations" },
           columnDefs: [
             { width: "60px",  targets: 0 },
-            { width: "90px",  targets: 1 },   // Slightly wider for flag
+            { width: "90px",  targets: 1 },
             { width: "80px",  targets: 2 },
             { width: "200px", targets: 3 },
             { width: "50px",  targets: 4 },
