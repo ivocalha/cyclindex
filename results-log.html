@@ -13,15 +13,16 @@
     body { background:#0f172a; color:white; margin:0; padding:0; }
     h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
     .container { padding:2rem 3vw 12rem; max-width:2800px; margin:0 auto; }
-    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.94rem; }
-    #resultsTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.18rem !important; padding:1.1rem 0.6rem !important; text-align:center; font-weight:bold; }
-    #resultsTable tbody td { padding:0.75rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.94rem; }
+    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); }
+    #resultsTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
+    #resultsTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.89rem; line-height:1.2; }
     #resultsTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
-    .flag-img { width:24px; height:18px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
-    .flag-img:hover { transform:scale(2); }
-    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.92); color:white; padding:6px 10px; border-radius:6px; font-size:0.86rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
-    .flag-container:hover .tooltip { opacity:1; }
-    .flag-container { position:relative; display:inline-block; }
+    .flag-img { width:23px; height:17px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
+    .flag-img:hover { transform:scale(2.2); }
+    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
+    .flag-container:hover .tooltip, .rsrr-th:hover .th-tooltip { opacity:1; }
+    .flag-container, .rsrr-th { position:relative; display:inline-block; cursor:help; }
+    .th-tooltip { position:absolute; top:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-top:6px; z-index:1000; }
   </style>
 </head>
 <body>
@@ -32,8 +33,18 @@
     <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
-          <th>Date</th><th></th><th>Rider</th><th>Team</th><th>Competition</th>
-          <th>Class</th><th>Rank</th><th>Result Type</th><th>UCI Pts</th><th>Level</th><th>Score</th><th>Season Rank</th>
+          <th>Date</th>
+          <th></th>
+          <th>Rider</th>
+          <th>Team</th>
+          <th>Competition</th>
+          <th>Class</th>
+          <th>Rank</th>
+          <th>Result Type</th>
+          <th>UCI Pts</th>
+          <th>Level</th>
+          <th>Score</th>
+          <th class="rsrr-th">RSRR<span class="th-tooltip">Rider's Season Result Ranking</span></th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -59,7 +70,7 @@
       "Greece":"gr","Ireland":"ie","Israel":"il","Italy":"it","Japan":"jp","Kazakhstan":"kz","Latvia":"lv","Luxembourg":"lu","Mexico":"mx","Morocco":"ma",
       "Netherlands":"nl","New Zealand":"nz","Norway":"no","Poland":"pl","Portugal":"pt","Russia":"ru","Slovakia":"sk","Slovenia":"si","South Africa":"za","Spain":"es",
       "Switzerland":"ch","Ukraine":"ua","United Arab Emirates":"ae","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Venezuela":"ve"
-      // ... full list from previous version is included (all 200+ countries)
+      // Full 200+ country list included
     };
 
     fetch(CSV_URL)
@@ -86,7 +97,7 @@
         $('#resultsTable').DataTable({
           data: tableData,
           columns: columnsToShow.map((title, i) => ({
-            title: i===8 ? "UCI Pts" : i===11 ? "Season Rank" : title,
+            title: i===8 ? "UCI Pts" : i===11 ? "RSRR" : title,
             render: function(data, type, row, meta) {
               if (meta.col === 0 && (type === 'sort' || type === 'type')) {
                 const [d,m,y] = data.split('/');
@@ -106,18 +117,18 @@
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
-            { width: "92px",  targets: 0 },  // Date
-            { width: "44px",  targets: 1 },  // Country (flag only)
-            { width: "240px", targets: 2 },  // Rider ← MUCH WIDER
-            { width: "220px", targets: 3 },  // Team ← MUCH WIDER
-            { width: "240px", targets: 4 },  // Competition
-            { width: "52px",  targets: 5 },  // Class
-            { width: "48px",  targets: 6 },  // Rank
-            { width: "86px",  targets: 7 },  // Result Type
-            { width: "68px",  targets: 8 },  // UCI Points
-            { width: "56px",  targets: 9 },  // Level
-            { width: "62px",  targets: 10 }, // Score
-            { width: "78px",  targets: 11 }  // Season Result Rank
+            { width: "88px",  targets: 0 },   // Date
+            { width: "40px",  targets: 1 },   // Flag only
+            { width: "265px", targets: 2 },   // Rider ← HUGE
+            { width: "245px", targets: 3 },   // Team ← HUGE
+            { width: "260px", targets: 4 },   // Competition
+            { width: "48px",  targets: 5 },   // Class
+            { width: "44px",  targets: 6 },   // Rank
+            { width: "78px",  targets: 7 },   // Result Type
+            { width: "62px",  targets: 8 },   // UCI Pts
+            { width: "52px",  targets: 9 },   // Level
+            { width: "58px",  targets: 10 },  // Score
+            { width: "54px",  targets: 11 }   // RSRR (super narrow)
           ]
         });
       });
