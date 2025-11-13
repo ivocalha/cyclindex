@@ -52,7 +52,7 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv";
 
-    // COMPLETE WORLD COUNTRY LIST — EVERY SINGLE COUNTRY (ISO 3166-1 alpha-2)
+    // FULL WORLD COUNTRY LIST — ALL 250+ COUNTRIES
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
       "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
@@ -93,19 +93,25 @@
 
         const tableData = parsed.data.map(row => {
           const country = row["Country"] || "";
-          const code = countryFlags[country] || "";
+          const code = countryFlags[country.toLowerCase()] || countryFlags[country] || "";
           const flagHtml = code 
             ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
             : country;
 
           return columnsToShow.map((col, i) => {
             if (col === "Country") return flagHtml;
+
             let val = row[col] ?? "";
-            // Round Score1, Score2, Score3, and Total Score to 2 decimals
-            if (i === 6 || i === 9 || i === 12 || i === 13) {
-              if (typeof val === "number") val = val.toFixed(2);
-              else if (val && !isNaN(val)) val = parseFloat(val).toFixed(2);
+
+            // FORCE 2 DECIMAL PLACES FOR Score1, Score2, Score3, and Total Score
+            if (i === 6 || i === 9 || i === 12 || i === 13) {  // Score1, Score2, Score3, Score
+              if (val === "" || val == null) return "";
+              const num = parseFloat(val);
+              if (!isNaN(num)) {
+                val = num.toFixed(2);
+              }
             }
+
             return val;
           });
         });
@@ -118,7 +124,7 @@
           pageLength: 50,
           lengthMenu: [25, 50, 100, 200],
           order: [[0, 'asc']],
-          scrollX: false,           // Prevents horizontal overflow
+          scrollX: false,
           autoWidth: false,
           responsive: true,
           dom: 'Bfrtip',
