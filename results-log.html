@@ -43,19 +43,6 @@
     #resultsTable tbody tr:hover {
       background:rgba(59,130,246,0.22) !important;
     }
-    .dataTables_wrapper .dataTables_length select,
-    .dataTables_wrapper .dataTables_filter input {
-      background:rgba(255,255,255,0.15);
-      border:1px solid rgba(255,255,255,0.3);
-      color:white;
-      border-radius:0.6rem;
-      padding:0.4rem 0.8rem;
-    }
-    .dt-buttons button {
-      background:#3b82f6 !important;
-      border-radius:0.8rem !important;
-      padding:0.6rem 1.2rem !important;
-    }
   </style>
 </head>
 <body>
@@ -89,7 +76,9 @@
     fetch(CSV_URL)
       .then(r => r.text())
       .then(csv => {
-        const parsed = Papa.parse(csv, {
+        // Force UTF-8 decoding
+        const decoded = decodeURIComponent(escape(csv));
+        const parsed = Papa.parse(decoded, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
