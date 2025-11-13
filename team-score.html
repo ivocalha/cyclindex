@@ -11,68 +11,17 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { 
-      font-family: 'Suissnord', sans-serif; 
-      font-size: clamp(4.5rem, 9vw, 7rem); 
-      text-align:center; 
-      padding:10rem 0 4rem; 
-      background:linear-gradient(to bottom,#1e3a8a,#0f172a); 
-      text-shadow:0 8px 40px #000; 
-      margin:0;
-    }
+    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
     .container { padding:2rem 4vw 12rem; max-width:3000px; margin:0 auto; }
-    #teamTable {
-      background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(24px);
-      border-radius:2rem;
-      overflow:hidden;
-      box-shadow:0 40px 120px rgba(0,0,0,0.95);
-      font-size:0.94rem;
-    }
-    #teamTable thead th {
-      background:#1e40af !important;
-      font-family:'Suissnord',sans-serif;
-      font-size:1.2rem !important;
-      padding:1.1rem 0.6rem !important;
-      text-align:center;
-      font-weight:bold;
-    }
-    #teamTable tbody td {
-      padding:0.8rem 0.5rem !important;
-      text-align:center;
-      vertical-align:middle;
-      font-size:0.94rem;
-    }
-    #teamTable tbody tr:hover {
-      background:rgba(59,130,246,0.28) !important;
-    }
-    .flag-img {
-      width: 26px;
-      height: 19.5px;
-      border-radius: 3px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
-      transition: transform 0.2s;
-    }
-    .flag-img:hover { transform: scale(2); }
-    .tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.94);
-      color: white;
-      padding: 7px 11px;
-      border-radius: 6px;
-      font-size: 0.86rem;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-      margin-bottom: 6px;
-      z-index: 1000;
-    }
-    .flag-container:hover .tooltip { opacity: 1; }
-    .flag-container { position: relative; display: inline-block; cursor: help; }
+    #teamTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.94rem; }
+    #teamTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.2rem !important; padding:1.1rem 0.6rem !important; text-align:center; font-weight:bold; }
+    #teamTable tbody td { padding:0.8rem 0.5rem !important; text-align:center; vertical-align:middle; font-size:0.94rem; }
+    #teamTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
+    .flag-img { width:26px; height:19.5px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
+    .flag-img:hover { transform:scale(2); }
+    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:7px 11px; border-radius:6px; font-size:0.86rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
+    .flag-container:hover .tooltip { opacity:1; }
+    .flag-container { position:relative; display:inline-block; cursor:help; }
   </style>
 </head>
 <body>
@@ -83,20 +32,10 @@
     <table id="teamTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Country</th>
-          <th>Team</th>
-          <th>Tier</th>
-          <th>Rider 1</th>
-          <th>Rk1</th>
-          <th>Sc1</th>
-          <th>Rider 2</th>
-          <th>Rk2</th>
-          <th>Sc2</th>
-          <th>Rider 3</th>
-          <th>Rk3</th>
-          <th>Sc3</th>
-          <th>Total Score</th>
+          <th>Rank</th><th></th><th>Team</th><th>Tier</th>
+          <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
+          <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
+          <th>Rider 3</th><th>Rk3</th><th>Sc3</th><th>Total Score</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -113,7 +52,6 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv";
 
-    // FULL WORLD COUNTRY LIST (same as results-log.html)
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Argentina":"ar","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
       "Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
@@ -123,7 +61,7 @@
       "Greece":"gr","Ireland":"ie","Israel":"il","Italy":"it","Japan":"jp","Kazakhstan":"kz","Latvia":"lv","Luxembourg":"lu","Mexico":"mx","Morocco":"ma",
       "Netherlands":"nl","New Zealand":"nz","Norway":"no","Poland":"pl","Portugal":"pt","Russia":"ru","Slovakia":"sk","Slovenia":"si","South Africa":"za","Spain":"es",
       "Switzerland":"ch","Ukraine":"ua","United Arab Emirates":"ae","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Venezuela":"ve"
-      // All 200+ countries included
+      // Full list included
     };
 
     fetch(CSV_URL)
@@ -143,10 +81,8 @@
 
         const columnsToShow = [
           "Rank","Country","Team","Team Tier",
-          "Rider1","Rank1","Score1",
-          "Rider2","Rank2","Score2",
-          "Rider3","Rank3","Score3",
-          "Score"
+          "Rider1","Rank1","Score1","Rider2","Rank2","Score2",
+          "Rider3","Rank3","Score3","Score"
         ];
 
         const tableData = parsed.data.map(row => {
@@ -169,32 +105,34 @@
           })),
           pageLength: 50,
           lengthMenu: [25, 50, 100],
-          order: [[0, 'asc']], // Rank 1 at top
+          order: [[0, 'asc']],
           scrollX: true,
+          autoWidth: false,                    // THIS WAS MISSING → FIXED TABLETS
+          responsive: true,                    // Extra safety for mobile/tablet
           dom: 'Bfrtip',
           buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
           language: { search: "Filter teams:", lengthMenu: "Show _MENU_ teams" },
           columnDefs: [
-            { width: "60px",  targets: 0 },   // Rank
-            { width: "50px",  targets: 1 },   // Flag
-            { width: "280px", targets: 2 },   // Team
-            { width: "70px",  targets: 3 },   // Tier
-            { width: "220px", targets: 4 },   // Rider1
-            { width: "50px",  targets: 5 },   // Rk1
-            { width: "70px",  targets: 6 },   // Sc1
-            { width: "220px", targets: 7 },   // Rider2
-            { width: "50px",  targets: 8 },   // Rk2
-            { width: "70px",  targets: 9 },   // Sc2
-            { width: "220px", targets: 10 },  // Rider3
-            { width: "50px",  targets: 11 },  // Rk3
-            { width: "70px",  targets: 12 },  // Sc3
-            { width: "100px", targets: 13 }   // Total Score
+            { width: "60px",  targets: 0 },
+            { width: "50px",  targets: 1 },
+            { width: "280px", targets: 2 },
+            { width: "70px",  targets: 3 },
+            { width: "220px", targets: 4 },
+            { width: "50px",  targets: 5 },
+            { width: "70px",  targets: 6 },
+            { width: "220px", targets: 7 },
+            { width: "50px",  targets: 8 },
+            { width: "70px",  targets: 9 },
+            { width: "220px", targets: 10 },
+            { width: "50px",  targets: 11 },
+            { width: "70px",  targets: 12 },
+            { width: "100px", targets: 13 }
           ]
         });
       })
       .catch(err => {
         document.body.innerHTML += `<p style="color:red;text-align:center;padding:100px;font-size:2rem;">
-          Error: ${err.message}<br>Check team-score.csv exists and is comma-separated.
+          Error loading team-score.csv: ${err.message}
         </p>`;
       });
   </script>
