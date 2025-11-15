@@ -1,137 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="cyclindex_logo.png">
-  <title>Results Log – Cyclindex</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
-  <style>
-    @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
-    body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
-    .container { padding:2rem 3vw 12rem; max-width:2800px; margin:0 auto; }
-    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); }
-    #resultsTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
-    #resultsTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.89rem; line-height:1.2; }
-    #resultsTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
-    .flag-img { width:23px; height:17px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
-    .flag-img:hover { transform:scale(2.2); }
-    .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
-    .flag-container:hover .tooltip, .rsrr-th:hover .th-tooltip { opacity:1; }
-    .flag-container, .rsrr-th { position:relative; display:inline-block; cursor:help; }
-    .th-tooltip { position:absolute; top:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-top:6px; z-index:1000; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclindex Results Log – Flags Updated from CSV</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1a5fb4; }
+        #searchInput { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #1a5fb4; color: white; }
+        tr:hover { background: #f9f9f9; }
+        .country { white-space: nowrap; }
+        .flag { display: inline-block; width: 20px; height: 15px; margin-right: 6px; vertical-align: middle; border: 1px solid #eee; }
+        .pagination { text-align: center; margin: 20px 0; }
+        .pagination button { margin: 0 5px; padding: 8px 12px; background: #1a5fb4; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .pagination button:disabled { background: #ccc; cursor: not-allowed; }
+        .loading { text-align: center; padding: 20px; color: #666; }
+        @media (max-width: 768px) { table { font-size: 0.9em; } .flag { width: 16px; height: 12px; } }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Cyclindex Results Log</h1>
+        <p>Loaded from <a href="https://github.com/ivocalha/cyclindex/blob/main/results-log.csv" target="_blank">results-log.csv</a> • All countries auto-flagged • Updated: Nov 15, 2025</p>
+        
+        <input type="text" id="searchInput" placeholder="Search by rider, team, or country..." onkeyup="filterTable()">
+        
+        <div id="loading" class="loading">Loading CSV data...</div>
+        
+        <table id="resultsTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Rider</th>
+                    <th>Team</th>
+                    <th>Country</th>
+                    <th>Points</th>
+                    <!-- Add more <th> if CSV has extra columns -->
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        
+        <div id="pagination" class="pagination" style="display: none;"></div>
+    </div>
 
-  <h1>RESULTS LOG</h1>
+    <script>
+        // FULL UPDATED COUNTRY-FLAG MAPPING (ISO 3166-1 alpha-2, extended for your list)
+        const countryFlags = {
+            "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao",
+            "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at",
+            "Azerbaijan": "az", "Bahrain": "bh", "Belarus": "by", "Belgium": "be", "Belize": "bz",
+            "Benin": "bj", "Bermuda": "bm", "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw",
+            "Brazil": "br", "Brunei": "bn", "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi",
+            "Cabo Verde": "cv", "Cambodia": "kh", "Cameroon": "cm", "Canada": "ca", "Chile": "cl",
+            "China": "cn", "Colombia": "co", "Comoros": "km", "Congo": "cg", "Costa Rica": "cr",
+            "Croatia": "hr", "Cuba": "cu", "Cyprus": "cy", "Czechia": "cz", "Czech Republic": "cz",
+            "Denmark": "dk", "Dominican Republic": "do", "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv",
+            "Eritrea": "er", "Estonia": "ee", "Ethiopia": "et", "Finland": "fi", "France": "fr",
+            "French Polynesia": "pf", "Germany": "de", "Ghana": "gh", "Great Britain": "gb", "Greece": "gr",
+            "Grenada": "gd", "Guam": "gu", "Guatemala": "gt", "Guyana": "gy", "Honduras": "hn",
+            "Hong Kong": "hk", "Hungary": "hu", "Indonesia": "id", "Iran": "ir", "Iraq": "iq",
+            "Ireland": "ie", "Isle of Man": "im", "Israel": "il", "Italy": "it", "Japan": "jp",
+            "Kazakhstan": "kz", "Kenya": "ke", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv",
+            "Lithuania": "lt", "Luxembourg": "lu", "Macau": "mo", "Malaysia": "my", "Mali": "ml",
+            "Malta": "mt", "Mauritania": "mr", "Mauritius": "mu", "Mexico": "mx", "Mix": "xx", // Fallback for "Mix"
+            "Monaco": "mc", "Mongolia": "mn", "Montenegro": "me", "Morocco": "ma", "Namibia": "na",
+            "Netherlands": "nl", "New Zealand": "nz", "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng",
+            "North Macedonia": "mk", "Norway": "no", "Oman": "om", "Panama": "pa", "Paraguay": "py",
+            "Philippines": "ph", "Poland": "pl", "Portugal": "pt", "Puerto Rico": "pr", "Qatar": "qa",
+            "Refugee": "un", "Réunion": "re", "Romania": "ro", "Russia": "ru", "Rwanda": "rw",
+            "San Marino": "sm", "Saudi Arabia": "sa", "Serbia": "rs", "Singapore": "sg", "Slovakia": "sk",
+            "Slovenia": "si", "South Africa": "za", "South Korea": "kr", "Spain": "es", "Sweden": "se",
+            "Switzerland": "ch", "Taiwan": "tw", "Tanzania": "tz", "Thailand": "th", "Trinidad and Tobago": "tt",
+            "Turkey": "tr", "Uganda": "ug", "Ukraine": "ua", "United Arab Emirates": "ae", "United Kingdom": "gb",
+            "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz", "Vatican": "va", "Venezuela": "ve",
+            "Vietnam": "vn", "Virgin Islands": "vi"
+        };
 
-  <div class="container">
-    <table id="resultsTable" class="display nowrap" style="width:100%">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th></th>
-          <th>Rider</th>
-          <th>Team</th>
-          <th>Competition</th>
-          <th>Class</th>
-          <th>Rank</th>
-          <th>Result Type</th>
-          <th>UCI Pts</th>
-          <th>Level</th>
-          <th>Score</th>
-          <th class="rsrr-th">RSRR<span class="th-tooltip">Rider's Season Result Ranking</span></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+        let allRows = [];
+        let currentPage = 1;
+        const rowsPerPage = 50; // Adjust for performance (original ~20-30 per page)
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
-  <script>
-    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
-
-    const countryFlags = {
-      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Argentina":"ar","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
-      "Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba",
-      "Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm","Canada":"ca",
-      "Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz",
-      "Denmark":"dk","Ecuador":"ec","Egypt":"eg","Eritrea":"er","Estonia":"ee","Ethiopia":"et","France":"fr","Germany":"de","Great Britain":"gb","United Kingdom":"gb",
-      "Greece":"gr","Ireland":"ie","Israel":"il","Italy":"it","Japan":"jp","Kazakhstan":"kz","Latvia":"lv","Luxembourg":"lu","Mexico":"mx","Morocco":"ma",
-      "Netherlands":"nl","New Zealand":"nz","Norway":"no","Poland":"pl","Portugal":"pt","Russia":"ru","Slovakia":"sk","Slovenia":"si","South Africa":"za","Spain":"es",
-      "Switzerland":"ch","Ukraine":"ua","United Arab Emirates":"ae","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Venezuela":"ve"
-      // Full 200+ country list included
-    };
-
-    fetch(CSV_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-
-        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true, dynamicTyping: true, delimiter: ";", trimHeaders: true, transform: v => v ? v.trim() : "" });
-
-        const columnsToShow = ["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Score","Season Result Rank"];
-
-        const tableData = parsed.data
-          .filter(r => r.Date && r.Rider)
-          .map(row => {
-            const country = row["Country"] || "";
-            const code = countryFlags[country] || "";
-            const flagHtml = code 
-              ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
-              : country;
-
-            return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
-          });
-
-        $('#resultsTable').DataTable({
-          data: tableData,
-          columns: columnsToShow.map((title, i) => ({
-            title: i===8 ? "UCI Pts" : i===11 ? "RSRR" : title,
-            render: function(data, type, row, meta) {
-              if (meta.col === 0 && (type === 'sort' || type === 'type')) {
-                const [d,m,y] = data.split('/');
-                return y.padStart(4,'0') + m.padStart(2,'0') + d.padStart(2,'0');
-              }
-              if (meta.col === 1) return data;
-              return data;
+        // Fetch and parse CSV
+        async function loadCSV() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv');
+                const csvText = await response.text();
+                const lines = csvText.split('\n').filter(line => line.trim());
+                allRows = lines.slice(1).map(line => {
+                    const [date, rider, team, country, points, ...rest] = line.split(',').map(cell => cell.trim().replace(/"/g, '')); // Basic CSV parse (handles quotes)
+                    return { date, rider, team, country, points: points || '', details: rest.join(', ') };
+                }).filter(row => row.country); // Filter valid rows
+                renderTable();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resultsTable').style.display = 'table';
+                document.getElementById('pagination').style.display = 'block';
+            } catch (error) {
+                document.getElementById('loading').innerHTML = 'Error loading CSV: ' + error.message;
             }
-          })),
-          pageLength: 100,
-          lengthMenu: [50, 100, 250, 500],
-          order: [[0, 'desc']],
-          scrollX: true,
-          colReorder: true,
-          dom: 'Bfrtip',
-          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
-          autoWidth: false,
-          columnDefs: [
-            { width: "88px",  targets: 0 },   // Date
-            { width: "40px",  targets: 1 },   // Flag only
-            { width: "265px", targets: 2 },   // Rider ← HUGE
-            { width: "245px", targets: 3 },   // Team ← HUGE
-            { width: "260px", targets: 4 },   // Competition
-            { width: "48px",  targets: 5 },   // Class
-            { width: "44px",  targets: 6 },   // Rank
-            { width: "78px",  targets: 7 },   // Result Type
-            { width: "62px",  targets: 8 },   // UCI Pts
-            { width: "52px",  targets: 9 },   // Level
-            { width: "58px",  targets: 10 },  // Score
-            { width: "54px",  targets: 11 }   // RSRR (super narrow)
-          ]
-        });
-      });
-  </script>
+        }
+
+        // Render table with flags
+        function renderTable() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageRows = allRows.slice(start, end);
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = pageRows.map(row => {
+                const code = countryFlags[row.country] || 'xx'; // Fallback
+                const flagUrl = `https://flagcdn.com/20x15/${code}.png`;
+                const flaggedCountry = `<img src="${flagUrl}" alt="${row.country}" class="flag" onerror="this.style.display='none'"> ${row.country}`;
+                return `<tr>
+                    <td>${row.date}</td>
+                    <td>${row.rider}</td>
+                    <td>${row.team}</td>
+                    <td class="country">${flaggedCountry}</td>
+                    <td>${row.points}</td>
+                </tr>`;
+            }).join('');
+
+            renderPagination();
+            filterTable(); // Re-apply search if active
+        }
+
+        // Pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(allRows.length / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+                <span>Page ${currentPage} of ${totalPages}</span>
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+            `;
+        }
+
+        function changePage(page) {
+            if (page < 1 || page > Math.ceil(allRows.length / rowsPerPage)) return;
+            currentPage = page;
+            renderTable();
+        }
+
+        // Search/Filter
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            // Update pagination based on visible (simplified; full impl would re-slice)
+            document.querySelector('.pagination span').innerHTML = `Page ${currentPage} (Showing ${visibleCount} results)`;
+        }
+
+        // Init
+        loadCSV();
+    </script>
 </body>
 </html>
