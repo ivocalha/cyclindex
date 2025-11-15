@@ -126,7 +126,8 @@
 
         const tableData = parsed.data
           .filter(row => {
-            const score = parseFloat((row["Total Score"] || "0").toString().replace(',', '.')) || 0;
+            const rawScore = (row["Total Score"] || "0").toString().trim();
+            const score = parseFloat(rawScore.replace(',', '.')) || 0;
             return row.Rank && row.Team && score >= 41;
           })
           .map(row => {
@@ -139,8 +140,8 @@
                  </div>`
               : country;
 
-            const rawScore = (row["Total Score"] || "0").toString().replace(',', '.');
-            const scoreNum = parseFloat(rawScore);
+            const rawScore = (row["Total Score"] || "0").toString().trim();
+            const scoreNum = parseFloat(rawScore.replace(',', '.'));
             const formattedScore = isNaN(scoreNum) ? "" : scoreNum.toFixed(2);
 
             return columnsToShow.map(col => {
