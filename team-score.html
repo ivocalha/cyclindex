@@ -30,7 +30,8 @@
     .nav-links a { color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; }
     .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
 
-    .no-data { text-align:center; padding:2rem; font-size:1.2rem; color:#cbd5e1; }
+    .no-data { text-align:center; padding:2.5rem; font-size:1.1rem; color:#e2e8f0; }
+    .no-data strong { color:#fbbf24; }
   </style>
 </head>
 <body>
@@ -75,7 +76,7 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv";
 
-    // Full 249+ country list (ISO 3166-1 alpha-2)
+    // FULL 249+ COUNTRY LIST (ISO 3166-1 alpha-2)
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","American Samoa":"as","Andorra":"ad","Angola":"ao","Anguilla":"ai","Antarctica":"aq","Antigua and Barbuda":"ag",
       "Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb",
@@ -106,18 +107,18 @@
       "Virgin Islands (U.S.)":"vi","Wallis and Futuna":"wf","Western Sahara":"eh","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
     };
 
-    // Robust score parser: "123,45" → 123.45
+    // Robust parser: "123,45" → 123.45
     const parseScore = txt => parseFloat((txt || '').toString().trim().replace(',', '.')) || 0;
 
     fetch(CSV_URL)
       .then(r => r.text())
       .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1); // Strip BOM
 
         const parsed = Papa.parse(text, {
           header: true,
           skipEmptyLines: true,
-          dynamicTyping: false,   // ← CRITICAL: keep as string
+          dynamicTyping: false,   // ← Critical: avoid breaking on commas
           delimiter: ";",
           trimHeaders: true,
           transformHeader: h => h.trim(),
@@ -126,11 +127,13 @@
 
         const columns = ["Rank","Country","Team","Riders","Total Score"];
 
+        // Filter: only teams with score >= 41
         const filtered = parsed.data.filter(row => {
           const score = parseScore(row["Total Score"]);
           return row.Rank && row.Team && score >= 41;
         });
 
+        // Build table data
         const tableData = filtered.map(row => {
           const country = row["Country"] || "";
           const code = countryFlags[country] || "";
@@ -142,21 +145,35 @@
             : country;
 
           const score = parseScore(row["Total Score"]);
-          const formattedScore = score.toFixed(2);
-
           return columns.map(col => {
             if (col === "Country") return flagHtml;
-            if (col === "Total Score") return formattedScore;
+            if (col === "Total Score") return score.toFixed(2);
             return row[col] ?? "";
           });
         });
 
         const $tbody = $('#teamTable tbody');
+
+        // === FALLBACK: No team ≥ 41.00 ===
         if (tableData.length === 0) {
-          $tbody.html('<tr><td colspan="5" class="no-data">No teams currently have a score of 41.00 or higher.</td></tr>');
+          const allScores = parsed.data
+            .map(r => parseScore(r["Total Score"]))
+            .filter(s => s > 0);
+          const maxScore = allScores.length ? Math.max(...allScores).toFixed(2) : "0.00";
+
+          $tbody.html(`
+            <tr>
+              <td colspan="5" class="no-data">
+                <div><strong>No teams have reached 41.00 yet</strong></div>
+                <div class="mt-2 text-yellow-300">Current highest: <strong>${maxScore}</strong></div>
+                <div class="mt-1 text-sm text-gray-400">More race results needed to activate ranking.</div>
+              </td>
+            </tr>
+          `);
           return;
         }
 
+        // === RENDER DATATABLE ===
         $('#teamTable').DataTable({
           data: tableData,
           columns: [
@@ -186,8 +203,8 @@
         });
       })
       .catch(err => {
-        $('#teamTable tbody').html('<tr><td colspan="5" class="no-data text-red-400">Failed to load data. Check console.</td></tr>');
-        console.error("CSV load error:", err);
+        $('#teamTable tbody').html('<tr><td colspan="5" class="no-data text-red-400">Failed to load data. Check internet or GitHub.</td></tr>');
+        console.error("CSV load failed:", err);
       });
   </script>
 </body>
