@@ -18,79 +18,53 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
 
-    /* ===================== SITE NAVIGATION – FIXED ===================== */
+    /* SITE NAV – FIXED */
     .site-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: rgba(15,23,42,0.95); backdrop-filter: blur(12px);
       padding: 1rem 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .nav-links {
-      display: flex; justify-content: center; gap: 1.8rem;
-      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
-      -ms-overflow-style: none; padding: 0.5rem 0;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a {
-      color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem;
-      text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem;
-      transition: all .3s; white-space: nowrap; flex-shrink: 0;
-    }
-    .nav-links a:hover { background: rgba(59,130,246,.4); transform: translateY(-2px); }
-    .nav-links a.active { background: rgba(59,130,246,.6); font-weight: bold; }
 
-    /* ===================== SECTION NAVIGATION – STICKY BELOW SITE NAV ===================== */
+    /* SECTION NAV – STICKY BELOW SITE NAV */
     .section-nav {
       position: sticky;
-      top: 72px; /* Height of site-nav (~56px + padding) */
-      z-index: 900;
-      background: rgba(30,58,138,0.85);
+      top: 0; /* ← NOW STICKS TO TOP OF VIEWPORT */
+      z-index: 999;
+      background: rgba(30,58,138,0.92);
       backdrop-filter: blur(14px);
       padding: 0.7rem 1rem;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
       border-bottom: 1px solid rgba(255,255,255,0.12);
-    }
-    .section-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.6rem;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 0.4rem 0;
-      max-width: 100%;
-    }
-    .section-links::-webkit-scrollbar { display: none; }
-    .section-links a {
-      color: rgba(255,255,255,0.9);
-      font-family: 'Suissnord', sans-serif;
-      font-size: 1rem;
-      text-decoration: none;
-      padding: 0.45rem 1rem;
-      border-radius: 0.7rem;
-      transition: all 0.3s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .section-links a:hover {
-      background: rgba(99,102,241,0.4);
-      color: white;
-      transform: translateY(-1px);
-    }
-    .section-links a.active {
-      background: rgba(99,102,241,0.6);
-      color: white;
-      font-weight: bold;
+      margin-top: 70px; /* ← PUSHED DOWN BY SITE NAV HEIGHT */
     }
 
-    main { padding-top: 140px; } /* Space for both navs */
+    .nav-links, .section-links {
+      display: flex; justify-content: center; gap: 1.8rem;
+      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+      -ms-overflow-style: none; padding: 0.4rem 0;
+    }
+    .nav-links::-webkit-scrollbar, .section-links::-webkit-scrollbar { display: none; }
 
-    /* SECTION STYLES */
+    .nav-links a, .section-links a {
+      color: white; font-family: 'Suissnord', sans-serif;
+      font-size: 1rem; text-decoration: none; padding: 0.45rem 1rem;
+      border-radius: 0.7rem; transition: all 0.3s; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-links a:hover, .section-links a:hover { background: rgba(99,102,241,0.4); transform: translateY(-1px); }
+    .nav-links a.active, .section-links a.active { background: rgba(99,102,241,0.6); font-weight: bold; }
+
+    /* CONTENT STARTS BELOW BOTH NAVS */
+    main { 
+      margin-top: 140px; /* 70px (site) + 60px (section) + padding */
+      padding: 2rem 5vw;
+    }
+
+    /* SECTIONS */
     .db-section, .scoring-section, .specs-section {
-      padding: 7rem 5vw 9rem;
+      padding: 6rem 0 8rem;
       display: flex; flex-direction: column; align-items: center;
-      scroll-margin-top: 160px; /* Smooth scroll offset */
+      scroll-margin-top: 160px;
     }
     .scoring-section { background:#1e3a8a; }
     .specs-section   { background:#0f172a; }
@@ -102,89 +76,47 @@
       text-shadow: 0 5px 28px rgba(0,0,0,.95); text-align:center;
     }
 
-    /* DATABASE TABLE */
-    .db-table {
-      width: 100%; max-width: 1440px;
-      border-collapse: separate; border-spacing: 0;
-      background: rgba(255,255,255,0.095); backdrop-filter: blur(20px);
-      border-radius: 2.4rem; overflow: hidden;
-      box-shadow: 0 35px 100px rgba(0,0,0,0.75); table-layout: fixed;
-    }
-    .db-table th, .db-table td {
-      padding: 1.8rem 1.2rem; text-align:center; font-size:1.24rem; line-height:1.5;
-    }
-    .db-table th {
-      background:rgba(255,255,255,.19); font-family:'Suissnord',sans-serif;
-      font-weight:bold; white-space:nowrap;
-    }
-    .db-table td:first-child, .db-table th:first-child {
-      font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap;
-    }
+    /* REST OF YOUR STYLES (unchanged) */
+    .db-table { width:100%; max-width:1440px; border-collapse:separate; border-spacing:0;
+      background:rgba(255,255,255,0.095); backdrop-filter:blur(20px);
+      border-radius:2.4rem; overflow:hidden; box-shadow:0 35px 100px rgba(0,0,0,0.75); table-layout:fixed; }
+    .db-table th, .db-table td { padding:1.8rem 1.2rem; text-align:center; font-size:1.24rem; line-height:1.5; }
+    .db-table th { background:rgba(255,255,255,.19); font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap; }
+    .db-table td:first-child, .db-table th:first-child { font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap; }
     .db-table tr:nth-child(2) td { background:rgba(34,197,94,.42); }
     .db-table tr:nth-child(3) td { background:rgba(239,68,68,.42); }
-    .db-table tr:nth-child(4) td {
-      background:rgba(30,58,138,.68); color:#d0e0ff;
-      font-size:1.18rem; line-height:1.7; white-space:normal;
-    }
+    .db-table tr:nth-child(4) td { background:rgba(30,58,138,.68); color:#d0e0ff; font-size:1.18rem; line-height:1.7; white-space:normal; }
 
-    /* SCORING GRID */
-    .scoring-grid {
-      display:grid; grid-template-columns:1fr 1fr; gap:3.2rem;
-      max-width:1760px; width:100%;
-    }
-    .panel {
-      background:rgba(255,255,255,.16); backdrop-filter:blur(22px);
-      border-radius:2.6rem; padding:2.8rem 2.6rem; text-align:center;
-      transition:all .6s; box-shadow:0 35px 100px rgba(0,0,0,.7);
-      border:1px solid rgba(255,255,255,.13); display:flex; flex-direction:column;
-    }
+    .scoring-grid { display:grid; grid-template-columns:1fr 1fr; gap:3.2rem; max-width:1760px; width:100%; }
+    .panel { background:rgba(255,255,255,.16); backdrop-filter:blur(22px); border-radius:2.6rem; padding:2.8rem 2.6rem; text-align:center;
+             transition:all .6s; box-shadow:0 35px 100px rgba(0,0,0,.7); border:1px solid rgba(255,255,255,.13); display:flex; flex-direction:column; }
     .panel:hover { transform:translateY(-24px); background:rgba(255,255,255,.34); box-shadow:0 50px 120px rgba(0,0,0,.92); }
     .panel.full-width { grid-column:1/-1; min-height:480px; padding:3.6rem 4rem; }
-
-    .panel h3 {
-      font-family:'Suissnord',sans-serif; font-size:2.1rem; font-weight:bold;
-      color:white; margin-bottom:1.8rem;
-    }
-    .panel p {
-      font-size:1.18rem; line-height:1.7; color:rgba(255,255,255,.99);
-      margin:0 0 1rem; flex-grow:1;
-    }
+    .panel h3 { font-family:'Suissnord',sans-serif; font-size:2.1rem; font-weight:bold; color:white; margin-bottom:1.8rem; }
+    .panel p { font-size:1.18rem; line-height:1.7; color:rgba(255,255,255,.99); margin:0 0 1rem; flex-grow:1; }
     .panel p:last-child { margin-bottom:0; }
 
-    /* FORMULA – TWO LINES, TIGHT */
     .formula {
       background:rgba(0,0,0,.3); padding:0.9rem 1.2rem; border-radius:1rem;
       font-family:monospace; font-size:1.15rem; color:#c9f3a3;
-      margin:1.2rem 0; text-align:center; line-height:1.6;
-      white-space:pre-line;
+      margin:1.2rem 0; text-align:center; line-height:1.6; white-space:pre-line;
     }
 
-    .specs-table {
-      width:100%; max-width:1200px; border-collapse:collapse;
-      background:rgba(255,255,255,.1); backdrop-filter:blur(18px);
-      border-radius:1.8rem; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.7);
-    }
-    .specs-table td {
-      padding:2rem 2.2rem; border-bottom:1px solid rgba(255,255,255,.1);
-      font-size:1.15rem; line-height:1.7;
-    }
-    .specs-table td:first-child {
-      background:rgba(59,130,246,.3); font-weight:bold;
-      font-family:'Suissnord',sans-serif; width:180px;
-    }
+    .specs-table { width:100%; max-width:1200px; border-collapse:collapse; background:rgba(255,255,255,.1); backdrop-filter:blur(18px);
+                   border-radius:1.8rem; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.7); }
+    .specs-table td { padding:2rem 2.2rem; border-bottom:1px solid rgba(255,255,255,.1); font-size:1.15rem; line-height:1.7; }
+    .specs-table td:first-child { background:rgba(59,130,246,.3); font-weight:bold; font-family:'Suissnord',sans-serif; width:180px; }
     .specs-note { font-size:1.1rem; color:#94a3b8; margin-top:1.5rem; font-style:italic; }
 
     @media (max-width:768px){
-      .nav-links a, .section-links a { font-size: 0.95rem; padding: 0.4rem 0.8rem; }
-      .section-nav { top: 68px; }
-      .section-title { font-size:2.8rem; margin-bottom:3rem; }
-      .formula { font-size:1rem; padding:0.7rem 1rem; line-height:1.5; }
+      .nav-links a, .section-links a { font-size:0.95rem; padding:0.4rem 0.8rem; }
+      main { margin-top: 130px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SITE NAVIGATION -->
+  <!-- SITE NAV – FIXED -->
   <nav class="site-nav">
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -196,7 +128,7 @@
     </div>
   </nav>
 
-  <!-- SECTION NAVIGATION – STICKY BELOW -->
+  <!-- SECTION NAV – STICKY BELOW SITE NAV -->
   <div class="section-nav">
     <div class="section-links">
       <a href="#database-model" class="active">Database Model</a>
@@ -207,7 +139,7 @@
 
   <main>
 
-    <!-- SECTION 1: DATABASE MODEL -->
+    <!-- SECTION 1 -->
     <section id="database-model" class="db-section">
       <h2 class="section-title">Database Model</h2>
       <table class="db-table">
@@ -222,14 +154,12 @@
       </table>
     </section>
 
-    <!-- SECTION 2: SCORING LOGIC -->
+    <!-- SECTION 2 -->
     <section id="scoring-logic" class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       <div class="scoring-grid">
         <div class="panel"><h3>UCI Points System</h3><p>Riders earn points based on their results according to the current UCI points scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
-
         <div class="panel"><h3>Performance Level Ladder</h3><p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
-
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
@@ -239,13 +169,12 @@ Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100
           </div>
           <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively. The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
         </div>
-
         <div class="panel"><h3>Team Score</h3><p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p></div>
         <div class="panel"><h3>Nation Score</h3><p>The final nation score is determined by taking the simple average of the scores of its three highest-scoring riders.</p></div>
       </div>
     </section>
 
-    <!-- SECTION 3: SPECS DEFINITION -->
+    <!-- SECTION 3 -->
     <section id="specs-definition" class="specs-section">
       <h2 class="section-title">Specs Definition</h2>
       <table class="specs-table">
@@ -256,39 +185,26 @@ Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100
 
   </main>
 
-  <!-- SMOOTH SCROLL + ACTIVE SECTION HIGHLIGHT -->
+  <!-- SMOOTH SCROLL + ACTIVE HIGHLIGHT -->
   <script>
-    // Smooth scroll
-    document.querySelectorAll('.section-links a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('.section-links a').forEach(a => {
+      a.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop - 150,
-            behavior: 'smooth'
-          });
-        }
+        const target = document.querySelector(a.getAttribute('href'));
+        window.scrollTo({ top: target.offsetTop - 150, behavior: 'smooth' });
       });
     });
 
-    // Active section highlight
     const sections = ['database-model', 'scoring-logic', 'specs-definition'];
     const links = document.querySelectorAll('.section-links a');
-
-    function updateActive() {
+    window.addEventListener('scroll', () => {
       let current = '';
       sections.forEach(id => {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 200) current = id;
       });
-      links.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-      });
-    }
-
-    window.addEventListener('scroll', updateActive);
-    window.addEventListener('load', updateActive);
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${current}`));
+    });
   </script>
 </body>
 </html>
