@@ -11,8 +11,7 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
-
+    
     /* Navigation */
     .nav-bar { background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
     .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
@@ -20,22 +19,22 @@
     .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
     .nav-links a.active { background: rgba(59,130,246,0.6); }
 
-    /* Table Container */
-    .container { padding:2rem 2vw 12rem; max-width:100%; margin:0 auto; }
+    /* Table Container — NO top padding from h1 */
+    .container { padding:1rem 2vw 12rem; max-width:100%; margin:0 auto; }
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
     #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.89rem; }
-    
-    /* Header INSIDE blue row */
-    #resultsTable thead th { 
-      background:#1e40af !important; 
-      font-family:'Suissnord',sans-serif; 
-      font-size:1.15rem !important; 
-      padding:1rem 0.5rem !important; 
-      text-align:center; 
-      font-weight:bold; 
-      position: sticky; 
-      top: 0; 
-      z-index: 10; 
+
+    /* Header INSIDE blue row (like team-score.html) */
+    #resultsTable thead th {
+      background:#1e40af !important;
+      font-family:'Suissnord',sans-serif;
+      font-size:1.15rem !important;
+      padding:1rem 0.5rem !important;
+      text-align:center;
+      font-weight:bold;
+      position: sticky;
+      top: 0;
+      z-index: 10;
       border-bottom: 0 !important;
     }
     #resultsTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; line-height:1.2; }
@@ -47,13 +46,13 @@
     .flag-container:hover .tooltip { opacity:1; }
     .flag-container { position:relative; display:inline-block; cursor:help; }
 
-    /* RSRR Tooltip – INSIDE HEADER, ALWAYS VISIBLE */
+    /* RSRR Tooltip – INSIDE HEADER */
     .header-tooltip { position:relative; display:inline-block; cursor:help; width:100%; }
-    .th-tooltip { 
-      position:absolute; top:100%; left:50%; transform:translateX(-50%); 
-      background:rgba(0,0,0,0.94); color:white; padding:8px 12px; 
-      border-radius:6px; font-size:0.88rem; white-space:nowrap; 
-      pointer-events:none; opacity:0; transition:opacity .2s; 
+    .th-tooltip {
+      position:absolute; top:100%; left:50%; transform:translateX(-50%);
+      background:rgba(0,0,0,0.94); color:white; padding:8px 12px;
+      border-radius:6px; font-size:0.88rem; white-space:nowrap;
+      pointer-events:none; opacity:0; transition:opacity .2s;
       margin-top:8px; z-index:1000; width:max-content; max-width:280px;
     }
     .header-tooltip:hover .th-tooltip { opacity:1; }
@@ -73,8 +72,7 @@
     </div>
   </nav>
 
-  <h1>RESULTS LOG</h1>
-
+  <!-- TABLE HEADER NOW DIRECTLY UNDER NAVIGATION (NO H1) -->
   <div class="container">
     <div class="table-wrapper">
       <table id="resultsTable" class="display nowrap" style="width:100%">
@@ -107,11 +105,12 @@
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Papaparse/5.4.1/papaparse.min.js"></script>
 
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
+    // FULL COUNTRY → ISO CODE MAP
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","American Samoa":"as","Andorra":"ad","Angola":"ao","Anguilla":"ai","Antarctica":"aq","Antigua and Barbuda":"ag",
       "Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb",
@@ -159,12 +158,13 @@
 
         const columnsToShow = ["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
 
+        // === a) CORRECT DATE SORTING: newest → oldest using real Date object ===
         const tableData = parsed.data
           .filter(r => r.Date && r.Rider)
           .map(row => {
             const country = row["Country"] || "";
             const code = countryFlags[country] || "";
-            const flagHtml = code 
+            const flagHtml = code
               ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
               : country;
 
@@ -172,6 +172,11 @@
               if (col === "Country") return flagHtml;
               return row[col] ?? "";
             });
+          })
+          .sort((a, b) => {
+            const [d1, m1, y1] = a[0].split('/').map(Number);
+            const [d2, m2, y2] = b[0].split('/').map(Number);
+            return new Date(y2, m2 - 1, d2) - new Date(y1, m1 - 1, d1); // newest first
           });
 
         $('#resultsTable').DataTable({
@@ -191,7 +196,7 @@
           ],
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
-          order: [[0, 'desc']], // NEWEST FIRST
+          order: [[0, 'desc']], // fallback
           scrollX: true,
           scrollY: '60vh',
           scrollCollapse: true,
@@ -201,19 +206,19 @@
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
-            { width: "88px",  targets: 0 },
-            { width: "40px",  targets: 1 },
+            { width: "88px", targets: 0 },
+            { width: "40px", targets: 1 },
             { width: "265px", targets: 2 },
             { width: "245px", targets: 3 },
             { width: "260px", targets: 4 },
-            { width: "48px",  targets: 5 },
-            { width: "44px",  targets: 6 },
-            { width: "78px",  targets: 7 },
-            { width: "62px",  targets: 8 },
-            { width: "52px",  targets: 9 },
-            { width: "54px",  targets: 10 }
+            { width: "48px", targets: 5 },
+            { width: "44px", targets: 6 },
+            { width: "78px", targets: 7 },
+            { width: "62px", targets: 8 },
+            { width: "52px", targets: 9 },
+            { width: "54px", targets: 10 }
           ],
-          // Date: DD/MM/YYYY display, but sort by YYYYMMDD
+          // === a) Date sorting: display DD/MM/YYYY, sort by YYYYMMDD ===
           columnDefs: [
             {
               targets: 0,
@@ -224,7 +229,7 @@
                   const [d, m, y] = data.split('/');
                   return `${y.padStart(4,'0')}${m.padStart(2,'0')}${d.padStart(2,'0')}`;
                 }
-                return data; // Always show DD/MM/YYYY
+                return data;
               }
             }
           ]
