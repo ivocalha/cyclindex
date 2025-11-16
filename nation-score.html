@@ -131,7 +131,7 @@
       "Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to",
       "Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae",
       "United Kingdom":"gb","Great Britain":"gb","England":"gb","Scotland":"gb","Wales":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
-      "Vatican":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Réunion":"re","Isle of Man":"im"
+      "Vatican":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Réunion":"re","Isle of Man":"im","Hong Kong":"hk"
     };
 
     fetch(CSV_URL)
@@ -159,7 +159,7 @@
 
             const rawScore = row["Score"]?.toString().replace(',', '.') || "0";
             const scoreNum = parseFloat(rawScore);
-            const formattedScore = isNaN(scoreNum) ? "" : scoreNum.toFixed(2);
+            const formattedScore = isNaN(scoreNum) ? "" : scoreNum.toFixed(2).replace('.', ',');
 
             if (scoreNum < 41) return null; // Filter out rows with Score < 41.00
 
@@ -179,7 +179,7 @@
           if (!val) return "";
           if (typeof val === "string") val = val.replace(",", ".");
           const num = parseFloat(val);
-          return isNaN(num) ? "" : num.toFixed(2);
+          return isNaN(num) ? "" : num.toFixed(2).replace('.', ',');
         }
 
         $('#nationTable').DataTable({
