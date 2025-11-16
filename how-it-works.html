@@ -18,8 +18,8 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
 
-    /* ===================== TOP NAVIGATION (FIXED) ===================== */
-    .nav-bar {
+    /* ===================== SITE NAVIGATION (MATCHES rider-score.html) ===================== */
+    .site-nav {
       background: rgba(15,23,42,0.95);
       backdrop-filter: blur(12px);
       padding: 1rem 2rem;
@@ -29,13 +29,15 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .nav-links {
+    .site-links {
       display: flex;
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .nav-links a {
+    .site-links a {
       color: white;
       font-family: 'Suissnord', sans-serif;
       font-size: 1.1rem;
@@ -44,21 +46,22 @@
       border-radius: 0.8rem;
       transition: all 0.3s;
     }
-    .nav-links a:hover {
+    .site-links a:hover {
       background: rgba(59,130,246,0.4);
       transform: translateY(-2px);
     }
-    .nav-links a.active {
-      background: rgba(59,130,246,0.4);
+    .site-links a.active {
+      background: rgba(59,130,246,0.6);
+      font-weight: bold;
     }
 
-    /* ===================== SECTION NAVIGATION (HORIZONTAL, FIXED BELOW TOP NAV) ===================== */
+    /* ===================== SECTION NAVIGATION (HORIZONTAL, FIXED BELOW) ===================== */
     .section-nav {
       background: rgba(30,58,138,0.85);
-      backdrop-filter: blur(16px);
-      padding: 0.75rem 1rem;
+      backdrop-filter: blur(14px);
+      padding: 0.7rem 1rem;
       position: sticky;
-      top: 70px; /* Height of top nav + padding */
+      top: 70px;
       z-index: 900;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
       border-bottom: 1px solid rgba(255,255,255,0.12);
@@ -74,9 +77,9 @@
     .section-links a {
       color: rgba(255,255,255,0.9);
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       text-decoration: none;
-      padding: 0.5rem 1.2rem;
+      padding: 0.45rem 1.1rem;
       border-radius: 0.7rem;
       transition: all 0.3s;
       white-space: nowrap;
@@ -99,21 +102,11 @@
       margin: 0 auto;
     }
     .section {
-      scroll-margin-top: 160px; /* Space for both fixed navs */
-    }
-    .section-title {
-      font-family: 'Suissnord', sans-serif;
-      font-size: clamp(3.2rem, 7vw, 4.8rem);
-      font-weight: bold;
-      margin: 3rem 0 2.5rem;
-      text-shadow: 0 5px 28px rgba(0,0,0,0.95);
-      color: white;
+      scroll-margin-top: 160px;
+      padding: 3rem 0;
     }
 
     /* ===================== DATABASE MODEL ===================== */
-    .db-section {
-      padding: 3rem 0;
-    }
     .db-table {
       width: 100%;
       max-width: 1440px;
@@ -157,9 +150,6 @@
     }
 
     /* ===================== SCORING LOGIC ===================== */
-    .scoring-section {
-      padding: 4rem 0;
-    }
     .scoring-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -218,9 +208,6 @@
     }
 
     /* ===================== SPECS DEFINITION ===================== */
-    .specs-section {
-      padding: 4rem 0;
-    }
     .specs-table {
       width: 100%;
       max-width: 1200px;
@@ -252,46 +239,26 @@
 
     /* Responsive */
     @media (max-width: 992px) {
-      .section-links {
-        gap: 1rem;
-      }
-      .section-links a {
-        font-size: 0.98rem;
-        padding: 0.4rem 1rem;
-      }
+      .section-links { gap: 1rem; }
+      .section-links a { font-size: 0.98rem; padding: 0.4rem 1rem; }
     }
     @media (max-width: 768px) {
-      .nav-links {
-        gap: 1rem;
-      }
-      .nav-links a {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-      }
-      .section-links {
-        gap: 0.8rem;
-      }
-      .section-links a {
-        font-size: 0.92rem;
-        padding: 0.35rem 0.8rem;
-      }
-      .section-nav {
-        top: 64px;
-      }
+      .site-links { gap: 1rem; }
+      .site-links a { font-size: 1rem; padding: 0.4rem 0.8rem; }
+      .section-links { gap: 0.8rem; }
+      .section-links a { font-size: 0.92rem; padding: 0.35rem 0.8rem; }
+      .section-nav { top: 64px; }
     }
     @media (max-width: 480px) {
-      .section-links a {
-        font-size: 0.88rem;
-        padding: 0.3rem 0.6rem;
-      }
+      .section-links a { font-size: 0.88rem; padding: 0.3rem 0.6rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FIXED TOP SITE NAVIGATION -->
-  <nav class="nav-bar">
-    <div class="nav-links">
+  <!-- SITE NAVIGATION (FIXED, SAME AS rider-score.html) -->
+  <nav class="site-nav">
+    <div class="site-links">
       <a href="index.html">Home</a>
       <a href="results-log.html">Results Log</a>
       <a href="rider-score.html">Rider Score</a>
@@ -301,7 +268,7 @@
     </div>
   </nav>
 
-  <!-- FIXED HORIZONTAL SECTION NAVIGATION -->
+  <!-- SECTION NAVIGATION (HORIZONTAL, FIXED BELOW) -->
   <div class="section-nav">
     <div class="section-links">
       <a href="#database-model" class="active">Database Model</a>
@@ -313,9 +280,8 @@
   <!-- MAIN CONTENT -->
   <div class="main-content">
 
-    <!-- SECTION 1: DATABASE MODEL -->
-    <section id="database-model" class="section db-section">
-      <h2 class="section-title">Database Model</h2>
+    <!-- SECTION 1: DATABASE MODEL (NO TITLE) -->
+    <section id="database-model" class="section">
       <table class="db-table">
         <tr>
           <th></th>
@@ -353,23 +319,18 @@
       </table>
     </section>
 
-    <!-- SECTION 2: SCORING LOGIC -->
-    <section id="scoring-logic" class="section scoring-section">
-      <h2 class="section-title">Scoring Logic</h2>
-      
+    <!-- SECTION 2: SCORING LOGIC (NO TITLE) -->
+    <section id="scoring-logic" class="section">
       <div class="scoring-grid">
-        
-        <div class="panel panel-1">
+        <div class="panel">
           <h3>UCI Points System</h3>
           <p>Riders earn points based on their results according to the current UCI points scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p>
         </div>
-        
-        <div class="panel panel-2">
+        <div class="panel">
           <h3>Performance Level Ladder</h3>
           <p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p>
         </div>
-        
-        <div class="panel panel-3 full-width">
+        <div class="panel full-width">
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
           <div class="formula">
@@ -378,23 +339,19 @@
           </div>
           <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively.<br>The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
         </div>
-        
-        <div class="panel panel-4">
+        <div class="panel">
           <h3>Team Score</h3>
           <p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
         </div>
-        
-        <div class="panel panel-5">
+        <div class="panel">
           <h3>Nation Score</h3>
           <p>The final nation score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
         </div>
-        
       </div>
     </section>
 
-    <!-- SECTION 3: SPECS DEFINITION -->
-    <section id="specs-definition" class="section specs-section">
-      <h2 class="section-title">Specs Definition</h2>
+    <!-- SECTION 3: SPECS DEFINITION (NO TITLE) -->
+    <section id="specs-definition" class="section">
       <table class="specs-table">
         <tr>
           <td>OVERALL</td>
@@ -422,15 +379,15 @@
       });
     });
 
-    // Highlight active section in horizontal nav
+    // Highlight active section
     const sections = ['database-model', 'scoring-logic', 'specs-definition'];
     const sectionLinks = document.querySelectorAll('.section-links a');
 
-    window.addEventListener('scroll', () => {
+    function updateActiveSection() {
       let current = '';
       sections.forEach(sec => {
-        const element = document.getElementById(sec);
-        if (element && window.scrollY >= element.offsetTop - 200) {
+        const el = document.getElementById(sec);
+        if (el && window.scrollY >= el.offsetTop - 200) {
           current = sec;
         }
       });
@@ -441,10 +398,10 @@
           link.classList.add('active');
         }
       });
-    });
+    }
 
-    // Initialize on load
-    window.dispatchEvent(new Event('scroll'));
+    window.addEventListener('scroll', updateActiveSection);
+    window.addEventListener('load', updateActiveSection);
   </script>
 </body>
 </html>
