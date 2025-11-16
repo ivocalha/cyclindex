@@ -19,70 +19,6 @@
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
     .container { min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* Site Navigation – Sticky at top */
-    .nav-bar { 
-      background: rgba(15,23,42,0.9); 
-      backdrop-filter: blur(12px); 
-      padding: 1rem 2rem; 
-      position: sticky; 
-      top: 0; 
-      z-index: 1000; 
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
-    }
-    .nav-links { 
-      display: flex; 
-      justify-content: center; 
-      gap: 2rem; 
-      flex-wrap: wrap; 
-    }
-    .nav-links a { 
-      color: white; 
-      font-family: 'Suissnord', sans-serif; 
-      font-size: 1.1rem; 
-      text-decoration: none; 
-      padding: 0.5rem 1rem; 
-      border-radius: 0.8rem; 
-      transition: all 0.3s; 
-    }
-    .nav-links a:hover { 
-      background: rgba(59,130,246,0.4); 
-      transform: translateY(-2px); 
-    }
-    .nav-links a.active {
-      background: rgba(59,130,246,0.4);
-    }
-
-    /* Section Navigation – Sticky below site nav */
-    .section-nav {
-      position: sticky;
-      top: 80px; /* Adjust based on site nav height */
-      background: rgba(15,23,42,0.9);
-      backdrop-filter: blur(12px);
-      padding: 1rem;
-      z-index: 900;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .section-nav a {
-      color: white;
-      font-family: 'Suissnord', sans-serif;
-      font-size: 1.1rem;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.8rem;
-      transition: all 0.3s;
-    }
-    .section-nav a:hover {
-      background: rgba(59,130,246,0.4);
-      transform: translateY(-2px);
-    }
-    .section-nav a.active {
-      background: rgba(59,130,246,0.4);
-    }
-
     /* ===================== SECTION 1: DATABASE MODEL ===================== */
     .db-section {
       flex: 1;
@@ -146,203 +82,169 @@
     /* ===================== SECTION 2: SCORING LOGIC ===================== */
     .scoring-section {
       flex: 1;
-      padding: 6rem 5vw 8rem;
-      background: linear-gradient(to bottom, #0f172a, #1e3a8a);
+      padding: 8rem 6vw 10rem;
+      background: #1e3a8a;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
     .scoring-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      max-width: 1440px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 3.2rem;
+      max-width: 1760px;
       width: 100%;
     }
     .panel {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(18px);
-      border-radius: 1.8rem;
-      padding: 2rem 1.8rem;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.55);
-      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(22px);
+      border-radius: 2.6rem;
+      padding: 2.8rem 2.6rem;
+      text-align: center;
+      transition: all 0.6s ease;
+      box-shadow: 0 35px 100px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.13);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.2rem;
+      justify-content: center;
     }
     .panel:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.65);
-      background: rgba(255,255,255,0.18);
+      transform: translateY(-24px);
+      background: rgba(255,255,255,0.34);
+      box-shadow: 0 50px 120px rgba(0,0,0,0.92);
+    }
+    .panel.full-width {
+      grid-column: 1 / -1;
+      min-height: 580px;
+      padding: 3.6rem 4rem;
     }
     .panel h3 {
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.6rem;
+      font-size: 2.1rem;
       font-weight: bold;
-      margin: 0;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      color: white;
+      margin-bottom: 1.8rem;
+      line-height: 1.25;
     }
     .panel p {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.99);
+      margin: 0 0 1.2rem 0;
     }
     .formula {
-      background: rgba(0,0,0,0.35);
-      padding: 1.2rem 1.6rem;
-      border-radius: 1rem;
-      font-family: monospace;
-      font-size: 1.05rem;
-      white-space: pre-wrap;
+      background: rgba(0,0,0,0.40);
+      padding: 1.8rem 1.4rem;
+      border-radius: 1.6rem;
+      margin: 1.8rem 0;
+      font-size: 1.28rem;
+      line-height: 2.1;
+      font-family: 'Courier New', monospace;
       text-align: center;
-      width: 100%;
-      max-width: 800px;
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
     }
-    .full-width {
-      grid-column: span 2;
-    }
+    .panel-1 { background: rgba(59, 130, 246, 0.60); }
+    .panel-2 { background: rgba(34, 197, 94, 0.60); }
+    .panel-3 { background: rgba(168, 85, 247, 0.66); }
+    .panel-4 { background: rgba(239, 68, 68, 0.60); }
+    .panel-5 { background: rgba(251, 146, 60, 0.60); }
 
     /* ===================== SECTION 3: SPECS DEFINITION ===================== */
     .specs-section {
       flex: 1;
-      padding: 6rem 5vw 10rem;
+      padding: 8rem 5vw 10rem;
       background: #0f172a;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
     }
     .specs-table {
       width: 100%;
-      max-width: 1200px;
-      border-collapse: separate;
-      border-spacing: 0;
-      background: rgba(255,255,255,0.095);
+      max-width: 1260px;
+      margin: 3.5rem auto 1.2rem auto;
+      background: rgba(59, 130, 246, 0.46);
       backdrop-filter: blur(20px);
-      border-radius: 2.4rem;
+      border-radius: 2.6rem;
       overflow: hidden;
       box-shadow: 0 35px 100px rgba(0,0,0,0.75);
-      table-layout: fixed;
-    }
-    .specs-table td {
-      padding: 1.8rem 1.2rem;
-      text-align: center;
-      font-size: 1.24rem;
-      line-height: 1.5;
     }
     .specs-table td:first-child {
+      width: 290px;
+      padding: 2.2rem 2.2rem;
       font-family: 'Suissnord', sans-serif;
       font-weight: bold;
-      background: rgba(255,255,255,0.19);
-      width: 30%;
+      font-size: 1.72rem;
+      background: rgba(59, 130, 246, 0.82);
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+    .specs-table td:last-child {
+      padding: 2.2rem 4.5rem;
+      font-size: 1.18rem;
+      text-align: left;
+      line-height: 1.7;
     }
     .specs-note {
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      color: #d1d5db;
+      font-size: 1.18rem;
+      color: rgba(255,255,255,0.95);
+      font-style: italic;
+      margin: 0 auto;
+      max-width: 1260px;
       text-align: center;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1100px) {
       .scoring-grid { grid-template-columns: 1fr; }
-      .full-width { grid-column: span 1; }
-      .section-nav { top: 60px; flex-direction: row; left: 0; right: 0; transform: none; padding: 0.5rem; gap: 1rem; }
-      .nav-item { font-size: 1rem; padding: 0.4rem 0.8rem; }
-    }
-
-    @media (max-width: 768px) {
-      .section-title { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 4rem; }
-      .db-section, .scoring-section, .specs-section { padding: 5rem 4vw; }
-      .db-table th, .db-table td, .specs-table td { font-size: 1.05rem; padding: 1.4rem 1rem; }
-      .panel { padding: 1.6rem 1.4rem; gap: 1rem; }
-      .panel h3 { font-size: 1.4rem; }
-      .panel p, .formula { font-size: 0.95rem; }
+      .panel.full-width { grid-column: auto; }
+      .panel { padding: 2.4rem 2.2rem; }
+      .panel.full-width { padding: 3.2rem 3.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Site Navigation – Sticky at top -->
-  <nav class="nav-bar">
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="results-log.html">Results Log</a>
-      <a href="rider-score.html">Rider Score</a>
-      <a href="team-score.html">Team Score</a>
-      <a href="nation-score.html">Nation Score</a>
-      <a href="how-it-works.html" class="active">How It Works</a>
-    </div>
-  </nav>
-
-  <!-- Section Navigation – Sticky below site nav -->
-  <nav class="section-nav">
-    <a href="#db-model" class="nav-item active">Database Model</a>
-    <a href="#scoring-logic" class="nav-item">Scoring Logic</a>
-    <a href="#specs" class="nav-item">Specs Definition</a>
-  </nav>
-
   <div class="container">
 
     <!-- SECTION 1: DATABASE MODEL -->
-    <section id="db-model" class="db-section">
+    <section class="db-section">
       <h2 class="section-title">Database Model</h2>
-      
       <table class="db-table">
-        <thead>
-          <tr>
-            <th>Aspect</th>
-            <th>Inclusions</th>
-            <th>Exclusions</th>
-            <th>Reasons</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Gender</td>
-            <td>Men</td>
-            <td>Women</td>
-            <td>Initial testing database kept small.</td>
-          </tr>
-          <tr>
-            <td>Discipline</td>
-            <td>Road Race</td>
-            <td>Others</td>
-            <td>Minimal analytical value vs. size increase.</td>
-          </tr>
-          <tr>
-            <td>Category</td>
-            <td>Elite</td>
-            <td>Others</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Tour Events</td>
-            <td>x.UWT, x.PRO, x.1</td>
-            <td>Others</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Champs</td>
-            <td>Worlds & Olympics</td>
-            <td>Continentals & Nationals</td>
-            <td>Potential distortion from points structures or mixed-gender events.</td>
-          </tr>
-          <tr>
-            <td>Time Trials</td>
-            <td>Prologues & ITTs</td>
-            <td>TTTs</td>
-            <td>-</td>
-          </tr>
-        </tbody>
+        <tr>
+          <th></th>
+          <th>Gender</th>
+          <th>Discipline</th>
+          <th>Category</th>
+          <th>Tour Events</th>
+          <th>Champs</th>
+          <th>Time Trials</th>
+        </tr>
+        <tr>
+          <td><strong>Inclusions</strong></td>
+          <td>Men</td>
+          <td>Road Race</td>
+          <td>Elite</td>
+          <td>x.UWT, x.PRO, x.1</td>
+          <td>Worlds & Olympics</td>
+          <td>Prologues & ITTs</td>
+        </tr>
+        <tr>
+          <td><strong>Exclusions</strong></td>
+          <td>Women</td>
+          <td>Others</td>
+          <td>Others</td>
+          <td>Others</td>
+          <td>Continentals & Nationals</td>
+          <td>TTTs</td>
+        </tr>
+        <tr>
+          <td><strong>Reasons</strong></td>
+          <td>The initial testing database will be kept intentionally small and will be expanded as soon as possible.</td>
+          <td colspan="3">Provides minimal or no analytical value relative to the increase in database size.</td>
+          <td colspan="2">Potential performance level distortion resulting from complex points structures and/or mixed-gender event comparisons.</td>
+        </tr>
       </table>
     </section>
 
     <!-- SECTION 2: SCORING LOGIC -->
-    <section id="scoring-logic" class="scoring-section">
+    <section class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       
       <div class="scoring-grid">
@@ -381,7 +283,7 @@
     </section>
 
     <!-- SECTION 3: SPECS DEFINITION -->
-    <section id="specs" class="specs-section">
+    <section class="specs-section">
       <h2 class="section-title">Specs Definition</h2>
       <table class="specs-table">
         <tr>
