@@ -24,7 +24,7 @@
     #teamTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.92rem; }
     #teamTable thead th { 
       background:#1e40af !important; 
-      font-family:'Suissnord',sans-serif !important; 
+      font-family: system-ui, -apple-system, sans-serif !important; 
       font-size:1.15rem !important; 
       padding:1rem 0.5rem !important; 
       text-align:center; 
@@ -146,7 +146,7 @@
 
               let val = row[col] ?? "";
 
-              // Round Sc1, Sc2, Sc3, Score to 2 decimals
+              // Round Sc1, Sc2, Sc3, Score to 2 decimals with comma
               if (col === "Score1" || col === "Score2" || col === "Score3" || col === "Score") {  
                 if (typeof val === "string") val = val.replace(",", ".");  
                 const num = parseFloat(val);
