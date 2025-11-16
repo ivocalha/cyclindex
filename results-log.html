@@ -12,23 +12,21 @@
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
 
-    /* Navigation */
     .nav-bar { background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
     .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
     .nav-links a { color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; }
     .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
     .nav-links a.active { background: rgba(59,130,246,0.6); }
 
-    /* Container */
     .container { padding: 1rem 2vw 12rem; max-width: 100%; margin: 0 auto; }
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
     #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.89rem; }
 
-    /* === HEADER: SAME AS team-score.html (NO Suissnord) === */
+    /* Header – SAME as team-score.html (NO Suissnord) */
     #resultsTable thead th {
       background:#1e40af !important;
-      font-family: inherit !important;   /* ← REMOVED Suissnord */
-      font-size: 1rem !important;       /* ← Standard size */
+      font-family: inherit !important;
+      font-size: 1rem !important;
       padding: 1rem 0.5rem !important;
       text-align: center;
       font-weight: bold;
@@ -47,19 +45,12 @@
     .flag-container { position:relative; display:inline-block; cursor:help; }
 
     .header-tooltip { position:relative; display:inline-block; cursor:help; width:100%; }
-    .th-tooltip {
-      position:absolute; top:100%; left:50%; transform:translateX(-50%);
-      background:rgba(0,0,0,0.94); color:white; padding:8px 12px;
-      border-radius:6px; font-size:0.88rem; white-space:nowrap;
-      pointer-events:none; opacity:0; transition:opacity .2s;
-      margin-top:8px; z-index:1000; width:max-content; max-width:280px;
-    }
+    .th-tooltip { position:absolute; top:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:8px 12px; border-radius:6px; font-size:0.88rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-top:8px; z-index:1000; width:max-content; max-width:280px; }
     .header-tooltip:hover .th-tooltip { opacity:1; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="nav-bar">
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -71,7 +62,6 @@
     </div>
   </nav>
 
-  <!-- Table (no h1) -->
   <div class="container">
     <div class="table-wrapper">
       <table id="resultsTable" class="display nowrap" style="width:100%">
@@ -95,7 +85,6 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
@@ -103,34 +92,48 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Papaparse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    // === FIXED CSV URL (use your actual file) ===
+    // --------------------------------------------------------------
+    // 1. CHANGE THIS ONLY IF YOUR CSV IS NAMED DIFFERENTLY
+    // --------------------------------------------------------------
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // Country → ISO map
-    const countryFlags = { /* ... same 249+ entries as before ... */ };
+    // --------------------------------------------------------------
+    // 2. COUNTRY → FLAG MAP (unchanged)
+    // --------------------------------------------------------------
+    const countryFlags = { /* ← paste the full map here – same as before */ };
 
+    // --------------------------------------------------------------
+    // 3. LOAD CSV
+    // --------------------------------------------------------------
     fetch(CSV_URL)
       .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status} – ${r.statusText}`);
+        }
         return r.text();
       })
       .then(text => {
-        // Remove BOM
+        // Remove BOM if present
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
         const parsed = Papa.parse(text, {
           header: true,
           skipEmptyLines: true,
-          dynamicTyping: true,
           delimiter: ";",
           trimHeaders: true,
           transformHeader: h => h.trim(),
           transform: v => v ? v.trim() : ""
         });
 
-        if (parsed.errors.length) console.warn("CSV parse errors:", parsed.errors);
+        if (parsed.errors.length) {
+          console.warn("PapaParse errors:", parsed.errors);
+          throw new Error("CSV parsing failed – see console");
+        }
 
-        const columnsToShow = ["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
+        const columnsToShow = [
+          "Date","Country","Rider","Team","Competition",
+          "Class","Rank","Result Type","UCI Points","Level","Season Result Rank"
+        ];
 
         const tableData = parsed.data
           .filter(r => r.Date && r.Rider)
@@ -141,15 +144,17 @@
               ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
               : country;
 
-            return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
+            return columnsToShow.map(col => (col === "Country" ? flagHtml : (row[col] ?? "")));
           })
           .sort((a, b) => {
-            const [d1, m1, y1] = a[0].split('/').map(Number);
-            const [d2, m2, y2] = b[0].split('/').map(Number);
-            return new Date(y2, m2 - 1, d2) - new Date(y1, m1 - 1, d1);
+            const [d1,m1,y1] = a[0].split('/').map(Number);
+            const [d2,m2,y2] = b[0].split('/').map(Number);
+            return new Date(y2, m2-1, d2) - new Date(y1, m1-1, d1);
           });
 
-        // === DataTables init ===
+        // --------------------------------------------------------------
+        // 4. INIT DATATABLES
+        // --------------------------------------------------------------
         $('#resultsTable').DataTable({
           data: tableData,
           columns: [
@@ -177,17 +182,17 @@
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
-            { width: "88px", targets: 0 },
-            { width: "40px", targets: 1 },
+            { width: "88px",  targets: 0 },
+            { width: "40px",  targets: 1 },
             { width: "265px", targets: 2 },
             { width: "245px", targets: 3 },
             { width: "260px", targets: 4 },
-            { width: "48px", targets: 5 },
-            { width: "44px", targets: 6 },
-            { width: "78px", targets: 7 },
-            { width: "62px", targets: 8 },
-            { width: "52px", targets: 9 },
-            { width: "54px", targets: 10 }
+            { width: "48px",  targets: 5 },
+            { width: "44px",  targets: 6 },
+            { width: "78px",  targets: 7 },
+            { width: "62px",  targets: 8 },
+            { width: "52px",  targets: 9 },
+            { width: "54px",  targets: 10 }
           ],
           columnDefs: [
             {
@@ -196,7 +201,7 @@
               render: function(data, type) {
                 if (type === 'sort' || type === 'type') {
                   if (!data) return '';
-                  const [d, m, y] = data.split('/');
+                  const [d,m,y] = data.split('/');
                   return `${y.padStart(4,'0')}${m.padStart(2,'0')}${d.padStart(2,'0')}`;
                 }
                 return data;
@@ -206,9 +211,15 @@
         });
       })
       .catch(err => {
-        console.error("Failed to load CSV:", err);
-        document.querySelector('#resultsTable tbody').innerHTML = 
-          `<tr><td colspan="11" style="text-align:center; color:#f87171;">Error loading data. Check console (F12).</td></tr>`;
+        console.error("CSV load error:", err);
+        const tbody = document.querySelector('#resultsTable tbody');
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="11" style="text-align:center; color:#f87171; padding:2rem;">
+              <strong>Unable to load results-log.csv</strong><br>
+              <small>Check the console (F12) for details.</small>
+            </td>
+          </tr>`;
       });
   </script>
 </body>
