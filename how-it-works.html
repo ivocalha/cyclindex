@@ -18,47 +18,51 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
 
-    /* ===================== FIXED NAVIGATION – WORKS LIKE OTHER PAGES ===================== */
-    .nav-bar { 
-      background: rgba(15, 23, 42, 0.9); 
-      backdrop-filter: blur(12px); 
-      padding: 1rem 2rem; 
-      position: sticky; 
-      top: 0; 
-      z-index: 1000; 
+    /* ===================== FIXED NAVIGATION – 100% LIKE rider-score.html ===================== */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 1rem 1.5rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .nav-links { 
-      display: flex; 
-      justify-content: center; 
-      gap: 2rem; 
-      flex-wrap: wrap; 
-      max-width: 1200px;
-      margin: 0 auto;
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0.5rem 0;
     }
-    .nav-links a { 
-      color: white; 
-      font-family: 'Suissnord', sans-serif; 
-      font-size: 1.1rem; 
-      text-decoration: none; 
-      padding: 0.5rem 1rem; 
-      border-radius: 0.8rem; 
-      transition: all 0.3s; 
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      color: white;
+      font-family: 'Suissnord', sans-serif;
+      font-size: 1.1rem;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.8rem;
+      transition: all 0.3s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
-    .nav-links a:hover { 
-      background: rgba(59,130,246,0.4); 
-      transform: translateY(-2px); 
+    .nav-links a:hover {
+      background: rgba(59,130,246,0.4);
+      transform: translateY(-2px);
     }
     .nav-links a.active {
       background: rgba(59,130,246,0.6);
       font-weight: bold;
     }
 
-    /* ===================== MAIN CONTENT (NO FLEX CONFLICT) ===================== */
-    .main-content {
-      padding-top: 2rem; /* Space after fixed nav */
+    /* ===================== MAIN CONTENT ===================== */
+    main {
+      padding-top: 2rem; /* Prevent content from hiding under fixed nav */
     }
 
     /* ===================== SECTION 1: DATABASE MODEL ===================== */
@@ -214,9 +218,8 @@
       font-style: italic;
     }
 
-    /* Mobile */
+    /* Responsive */
     @media (max-width: 768px) {
-      .nav-links { gap: 1rem; }
       .nav-links a { font-size: 1rem; padding: 0.4rem 0.8rem; }
       .section-title { font-size: 2.8rem; margin-bottom: 3rem; }
     }
@@ -224,8 +227,8 @@
 </head>
 <body>
 
-  <!-- NAVIGATION: MOVED OUTSIDE .container → NOW FIXED -->
-  <nav class="nav-bar">
+  <!-- FIXED NAVIGATION – OUTSIDE ANY FLEX CONTAINER -->
+  <nav class="site-nav">
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="results-log.html">Results Log</a>
@@ -236,8 +239,8 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT (no flex container conflict) -->
-  <div class="main-content">
+  <!-- MAIN CONTENT – NO FLEX WRAPPER -->
+  <main>
 
     <!-- SECTION 1: DATABASE MODEL -->
     <section class="db-section">
@@ -285,28 +288,28 @@
       <div class="scoring-grid">
         <div class="panel">
           <h3>UCI Points System</h3>
-          <p>Riders earn points based on their results according to the current UCI points scale...</p>
+          <p>Riders earn points based on their results according to the current UCI points scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p>
         </div>
         <div class="panel">
           <h3>Performance Level Ladder</h3>
-          <p>UCI result points are normalized to a tiered Levels scale...</p>
+          <p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p>
         </div>
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
-          <p>For each rider, only the three highest Level results are used...</p>
+          <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
           <div class="formula">
             Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100<br>
                     ÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]
           </div>
-          <p>Maximum score: <strong>100</strong></p>
+          <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively.<br>The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
         </div>
         <div class="panel">
           <h3>Team Score</h3>
-          <p>Average of top 3 riders.</p>
+          <p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
         </div>
         <div class="panel">
           <h3>Nation Score</h3>
-          <p>Average of top 3 riders.</p>
+          <p>The final nation score is determined by taking the simple average of the scores of its three highest-scoring riders.</p>
         </div>
       </div>
     </section>
@@ -323,6 +326,6 @@
       <p class="specs-note">Other more specific Specs will be added soon.</p>
     </section>
 
-  </div>
+  </main>
 </body>
 </html>
