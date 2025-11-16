@@ -101,16 +101,16 @@
     }
     .panel p {
       font-size:1.18rem; line-height:1.7; color:rgba(255,255,255,.99);
-      margin:0 0 1rem; flex-grow:1; /* pushes content to top */
+      margin:0 0 1rem; flex-grow:1;
     }
-    .panel p:last-child { margin-bottom:0; } /* removes bottom margin on last <p> */
+    .panel p:last-child { margin-bottom:0; }
 
-    /* FORMULA – ONE LINE, MINIMAL SPACE */
+    /* FORMULA – TWO LINES, CENTERED, TIGHT */
     .formula {
-      background:rgba(0,0,0,.3); padding:0.8rem 1.2rem; border-radius:1rem;
+      background:rgba(0,0,0,.3); padding:0.9rem 1.2rem; border-radius:1rem;
       font-family:monospace; font-size:1.15rem; color:#c9f3a3;
-      margin:1.2rem 0; text-align:center; line-height:1.4;
-      white-space:nowrap; overflow-x:auto;
+      margin:1.2rem 0; text-align:center; line-height:1.6;
+      white-space:pre-line;
     }
 
     .specs-table {
@@ -131,7 +131,7 @@
     @media (max-width:768px){
       .nav-links a { font-size:1rem; padding:.4rem .8rem; }
       .section-title { font-size:2.8rem; margin-bottom:3rem; }
-      .formula { font-size:1rem; padding:0.6rem 1rem; white-space:pre; overflow-x:auto; }
+      .formula { font-size:1rem; padding:0.7rem 1rem; line-height:1.5; }
     }
   </style>
 </head>
@@ -174,12 +174,13 @@
 
         <div class="panel"><h3>Performance Level Ladder</h3><p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
 
-        <!-- RIDER SCORE FORMULA – TIGHT & CLEAN -->
+        <!-- RIDER SCORE FORMULA – TWO LINES, TIGHT & CLEAN -->
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
           <div class="formula">
-Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100 ÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]
+Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100
+÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]
           </div>
           <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively. The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
         </div>
