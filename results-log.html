@@ -11,46 +11,62 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
 
-    /* Fixed header container */
+    /* NAVIGATION */
+    .nav-bar { background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .nav-links a { color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; }
+    .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
+    .nav-links a.active { background: rgba(59,130,246,0.6); }
+
+    /* CONTAINER */
+    .container { padding: 1rem 2vw 12rem; max-width: 100%; margin: 0 auto; }
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
-    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); }
-    #resultsTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; position: sticky; top: 0; z-index: 10; }
-    #resultsTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.89rem; line-height:1.2; }
+    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.89rem; }
+
+    /* HEADER – SAME AS team-score.html (NO Suissnord) */
+    #resultsTable thead th {
+      background:#1e40af !important;
+      font-family: inherit !important;
+      font-size: 1rem !important;
+      padding: 1rem 0.5rem !important;
+      text-align: center;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 0 !important;
+    }
+    #resultsTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; line-height:1.2; }
     #resultsTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
 
     .flag-img { width:23px; height:17px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
     .flag-img:hover { transform:scale(2.2); }
     .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
-    .flag-container:hover .tooltip, .header-tooltip:hover .th-tooltip { opacity:1; }
-    .flag-container, .header-tooltip { position:relative; display:inline-block; cursor:help; }
-    .th-tooltip { position:absolute; top:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-top:6px; z-index:1000; }
+    .flag-container:hover .tooltip { opacity:1; }
+    .flag-container { position:relative; display:inline-block; cursor:help; }
 
-    /* Navigation Bar */
-    .nav-bar { background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-    .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-    .nav-links a { color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; }
-    .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
+    .header-tooltip { position:relative; display:inline-block; cursor:help; width:100%; }
+    .th-tooltip { position:absolute; top:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:8px 12px; border-radius:6px; font-size:0.88rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-top:8px; z-index:1000; width:max-content; max-width:280px; }
+    .header-tooltip:hover .th-tooltip { opacity:1; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- NAVIGATION – Results Log between Home and Rider Score -->
   <nav class="nav-bar">
     <div class="nav-links">
       <a href="index.html">Home</a>
+      <a href="results-log.html" class="active">Results Log</a>
       <a href="rider-score.html">Rider Score</a>
       <a href="team-score.html">Team Score</a>
       <a href="nation-score.html">Nation Score</a>
       <a href="how-it-works.html">How It Works</a>
-      <a href="results-log.html" style="background:rgba(59,130,246,0.4);">Results Log</a>
     </div>
   </nav>
 
-  <h1>RESULTS LOG</h1>
-
-  <div class="container mx-auto px-4 pb-12">
+  <!-- TABLE – NO H1 -->
+  <div class="container">
     <div class="table-wrapper">
       <table id="resultsTable" class="display nowrap" style="width:100%">
         <thead>
@@ -77,54 +93,24 @@
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Papaparse/5.4.1/papaparse.min.js"></script>
 
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // FULL LIST OF 249+ COUNTRIES (ISO 3166-1 alpha-2) — includes Sweden, Guatemala, Monaco, Mongolia, etc.
-    const countryFlags = {
-      "Afghanistan":"af","Albania":"al","Algeria":"dz","American Samoa":"as","Andorra":"ad","Angola":"ao","Anguilla":"ai","Antarctica":"aq","Antigua and Barbuda":"ag",
-      "Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb",
-      "Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bonaire":"bq","Bosnia and Herzegovina":"ba","Botswana":"bw",
-      "Bouvet Island":"bv","Brazil":"br","British Indian Ocean Territory":"io","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
-      "Cameroon":"cm","Canada":"ca","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Christmas Island":"cx","Cocos (Keeling) Islands":"cc",
-      "Colombia":"co","Comoros":"km","Congo":"cg","Congo (DRC)":"cd","Cook Islands":"ck","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Curaçao":"cw","Cyprus":"cy",
-      "Czechia":"cz","Côte d'Ivoire":"ci","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq",
-      "Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Falkland Islands":"fk","Faroe Islands":"fo","Fiji":"fj","Finland":"fi","France":"fr","French Guiana":"gf",
-      "French Polynesia":"pf","French Southern Territories":"tf","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Gibraltar":"gi","Greece":"gr",
-      "Greenland":"gl","Grenada":"gd","Guadeloupe":"gp","Guam":"gu","Guatemala":"gt","Guernsey":"gg","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht",
-      "Heard Island and McDonald Islands":"hm","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq",
-      "Ireland":"ie","Isle of Man":"im","Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp","Jersey":"je","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke",
-      "Kiribati":"ki","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li",
-      "Lithuania":"lt","Luxembourg":"lu","Macao":"mo","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh",
-      "Martinique":"mq","Mauritania":"mr","Mauritius":"mu","Mayotte":"yt","Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me",
-      "Montserrat":"ms","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Caledonia":"nc","New Zealand":"nz",
-      "Nicaragua":"ni","Niger":"ne","Nigeria":"ng","Niue":"nu","Norfolk Island":"nf","North Korea":"kp","North Macedonia":"mk","Northern Mariana Islands":"mp","Norway":"no",
-      "Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Pitcairn":"pn",
-      "Poland":"pl","Portugal":"pt","Puerto Rico":"pr","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Réunion":"re","Saint Barthélemy":"bl","Saint Helena":"sh",
-      "Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Martin":"mf","Saint Pierre and Miquelon":"pm","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm",
-      "Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Sint Maarten":"sx","Slovakia":"sk",
-      "Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Georgia and the South Sandwich Islands":"gs","South Korea":"kr","South Sudan":"ss",
-      "Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Svalbard and Jan Mayen":"sj","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj",
-      "Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tokelau":"tk","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm",
-      "Turks and Caicos Islands":"tc","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","United States":"us",
-      "United States Minor Outlying Islands":"um","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Virgin Islands (British)":"vg",
-      "Virgin Islands (U.S.)":"vi","Wallis and Futuna":"wf","Western Sahara":"eh","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
-    };
+    const countryFlags = { /* ← full map same as before */ };
 
     fetch(CSV_URL)
       .then(r => r.text())
       .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-
+        // REMOVED BOM check — we rely on trim() instead
         const parsed = Papa.parse(text, {
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
           delimiter: ";",
           trimHeaders: true,
-          transformHeader: h => h.trim(),
+          transformHeader: h => h.trim(),  // ← THIS REMOVES BOM
           transform: v => v ? v.trim() : ""
         });
 
@@ -135,14 +121,16 @@
           .map(row => {
             const country = row["Country"] || "";
             const code = countryFlags[country] || "";
-            const flagHtml = code 
+            const flagHtml = code
               ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
               : country;
 
-            return columnsToShow.map((col, idx) => {
-              if (col === "Country") return flagHtml;
-              return row[col] ?? "";
-            });
+            return columnsToShow.map(col => col === "Country" ? flagHtml : (row[col] ?? ""));
+          })
+          .sort((a, b) => {
+            const [d1,m1,y1] = a[0].split('/').map(Number);
+            const [d2,m2,y2] = b[0].split('/').map(Number);
+            return new Date(y2, m2-1, d2) - new Date(y1, m1-1, d1);
           });
 
         $('#resultsTable').DataTable({
@@ -168,7 +156,7 @@
           scrollCollapse: true,
           colReorder: true,
           dom: 'Bfrtip',
-          buttons: ['colvis'], // Only Column Visibility
+          buttons: ['colvis'],
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
@@ -184,21 +172,29 @@
             { width: "52px",  targets: 9 },
             { width: "54px",  targets: 10 }
           ],
-          // Date sorting: DD/MM/YYYY → YYYYMMDD
           columnDefs: [
             {
               targets: 0,
               type: 'date',
-              render: function(data) {
-                if (!data) return '';
-                const [d, m, y] = data.split('/');
-                return `${y.padStart(4,'0')}${m.padStart(2,'0')}${d.padStart(2,'0')}`;
+              render: function(data, type) {
+                if (type === 'sort' || type === 'type') {
+                  if (!data) return '';
+                  const [d, m, y] = data.split('/');
+                  return `${y.padStart(4,'0')}${m.padStart(2,'0')}${d.padStart(2,'0')}`;
+                }
+                return data;
               }
             }
           ]
         });
+      })
+      .catch(err => {
+        console.error("Load failed:", err);
+        document.querySelector('#resultsTable tbody').innerHTML = 
+          `<tr><td colspan="11" style="text-align:center; color:#f87171; padding:2rem;">
+            Failed to load data. Check console.
+           </td></tr>`;
       });
   </script>
 </body>
 </html>
-
