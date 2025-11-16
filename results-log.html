@@ -11,20 +11,20 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    
-    /* Navigation */
+
+    /* Navigation Bar */
     .nav-bar { background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
     .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
     .nav-links a { color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; }
     .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
     .nav-links a.active { background: rgba(59,130,246,0.6); }
 
-    /* Table Container — NO top padding from h1 */
-    .container { padding:1rem 2vw 12rem; max-width:100%; margin:0 auto; }
+    /* Table Container — starts right after nav */
+    .container { padding: 1rem 2vw 12rem; max-width: 100%; margin: 0 auto; }
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
     #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.89rem; }
 
-    /* Header INSIDE blue row (like team-score.html) */
+    /* Header INSIDE blue row — same as team-score.html */
     #resultsTable thead th {
       background:#1e40af !important;
       font-family:'Suissnord',sans-serif;
@@ -46,7 +46,7 @@
     .flag-container:hover .tooltip { opacity:1; }
     .flag-container { position:relative; display:inline-block; cursor:help; }
 
-    /* RSRR Tooltip – INSIDE HEADER */
+    /* Header Tooltip (RSRR, Type, Nation) */
     .header-tooltip { position:relative; display:inline-block; cursor:help; width:100%; }
     .th-tooltip {
       position:absolute; top:100%; left:50%; transform:translateX(-50%);
@@ -79,21 +79,16 @@
         <thead>
           <tr>
             <th>Date</th>
-            <th>Nation</th>
+            <th class="header-tooltip">Nation<span class="th-tooltip">Country/Nation</span></th>
             <th>Rider</th>
             <th>Team</th>
             <th>Race</th>
             <th>Class</th>
             <th>Rank</th>
-            <th>Type</th>
+            <th class="header-tooltip">Type<span class="th-tooltip">Result Type</span></th>
             <th>UCI Pts</th>
             <th>Level</th>
-            <th>
-              <div class="header-tooltip">
-                RSRR
-                <div class="th-tooltip">Rider's Season Result Rank</div>
-              </div>
-            </th>
+            <th class="header-tooltip">RSRR<span class="th-tooltip">Rider's Season Result Rank</span></th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -110,7 +105,7 @@
   <script>
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    // FULL COUNTRY → ISO CODE MAP
+    // FULL 249+ COUNTRY → ISO CODE MAP
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","American Samoa":"as","Andorra":"ad","Angola":"ao","Anguilla":"ai","Antarctica":"aq","Antigua and Barbuda":"ag",
       "Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb",
@@ -196,7 +191,7 @@
           ],
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
-          order: [[0, 'desc']], // fallback
+          order: [[0, 'desc']],
           scrollX: true,
           scrollY: '60vh',
           scrollCollapse: true,
