@@ -18,14 +18,10 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; background:#0f172a; color:white; overflow-x:hidden; }
 
-    /* -------------------------------------------------
-       FIXED NAVIGATION – ALWAYS ON TOP
-       ------------------------------------------------- */
+    /* FIXED NAVIGATION */
     .site-nav {
-      position: fixed;           /* <-- forces it to stay */
-      top: 0;
-      left: 0;
-      right: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 1000;
       background: rgba(15,23,42,0.95);
       backdrop-filter: blur(12px);
@@ -34,49 +30,25 @@
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     .nav-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.8rem;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 0.5rem 0;
+      display: flex; justify-content: center; gap: 1.8rem;
+      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+      -ms-overflow-style: none; padding: 0.5rem 0;
     }
     .nav-links::-webkit-scrollbar { display: none; }
     .nav-links a {
-      color: white;
-      font-family: 'Suissnord', sans-serif;
-      font-size: 1.1rem;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.8rem;
-      transition: all .3s;
-      white-space: nowrap;
-      flex-shrink: 0;
+      color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem;
+      text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem;
+      transition: all .3s; white-space: nowrap; flex-shrink: 0;
     }
-    .nav-links a:hover {
-      background: rgba(59,130,246,.4);
-      transform: translateY(-2px);
-    }
-    .nav-links a.active {
-      background: rgba(59,130,246,.6);
-      font-weight: bold;
-    }
+    .nav-links a:hover { background: rgba(59,130,246,.4); transform: translateY(-2px); }
+    .nav-links a.active { background: rgba(59,130,246,.6); font-weight: bold; }
 
-    /* -------------------------------------------------
-       CONTENT – starts below the fixed nav
-       ------------------------------------------------- */
-    main { padding-top: 80px; }   /* height of nav + a little breathing room */
+    main { padding-top: 80px; }
 
-    /* -------------------------------------------------
-       SECTION STYLES (unchanged – only copied from your original)
-       ------------------------------------------------- */
+    /* SECTION STYLES */
     .db-section, .scoring-section, .specs-section {
       padding: 7rem 5vw 9rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: flex; flex-direction: column; align-items: center;
     }
     .scoring-section { background:#1e3a8a; }
     .specs-section   { background:#0f172a; }
@@ -84,30 +56,61 @@
     .section-title {
       font-family: 'Suissnord', sans-serif;
       font-size: clamp(3.5rem,8vw,5rem);
-      font-weight: bold;
-      margin-bottom: 6rem;
-      text-shadow: 0 5px 28px rgba(0,0,0,.95);
-      text-align:center;
+      font-weight: bold; margin-bottom: 6rem;
+      text-shadow: 0 5px 28px rgba(0,0,0,.95); text-align:center;
     }
 
-    .db-table { /* … same as before … */ }
-    .db-table th, .db-table td { padding:1.8rem 1.2rem; text-align:center; font-size:1.24rem; line-height:1.5; }
-    .db-table th { background:rgba(255,255,255,.19); font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap; }
-    .db-table td:first-child, .db-table th:first-child { font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap; }
+    /* DATABASE TABLE – ROUND CORNERS */
+    .db-table {
+      width: 100%; max-width: 1440px;
+      border-collapse: separate; border-spacing: 0;
+      background: rgba(255,255,255,0.095);
+      backdrop-filter: blur(20px);
+      border-radius: 2.4rem;   /* ← round corners */
+      overflow: hidden;        /* ← ensures corners are visible */
+      box-shadow: 0 35px 100px rgba(0,0,0,0.75);
+      table-layout: fixed;
+    }
+    .db-table th, .db-table td {
+      padding: 1.8rem 1.2rem; text-align:center; font-size:1.24rem; line-height:1.5;
+    }
+    .db-table th {
+      background:rgba(255,255,255,.19); font-family:'Suissnord',sans-serif;
+      font-weight:bold; white-space:nowrap;
+    }
+    .db-table td:first-child, .db-table th:first-child {
+      font-family:'Suissnord',sans-serif; font-weight:bold; white-space:nowrap;
+    }
     .db-table tr:nth-child(2) td { background:rgba(34,197,94,.42); }
     .db-table tr:nth-child(3) td { background:rgba(239,68,68,.42); }
-    .db-table tr:nth-child(4) td { background:rgba(30,58,138,.68); color:#d0e0ff; font-size:1.18rem; line-height:1.7; white-space:normal; }
+    .db-table tr:nth-child(4) td {
+      background:rgba(30,58,138,.68); color:#d0e0ff;
+      font-size:1.18rem; line-height:1.7; white-space:normal;
+    }
 
+    /* SCORING GRID */
     .scoring-grid { display:grid; grid-template-columns:1fr 1fr; gap:3.2rem; max-width:1760px; width:100%; }
-    .panel { background:rgba(255,255,255,.16); backdrop-filter:blur(22px); border-radius:2.6rem; padding:2.8rem 2.6rem; text-align:center;
-             transition:all .6s; box-shadow:0 35px 100px rgba(0,0,0,.7); border:1px solid rgba(255,255,255,.13); }
+    .panel {
+      background:rgba(255,255,255,.16); backdrop-filter:blur(22px);
+      border-radius:2.6rem; padding:2.8rem 2.6rem; text-align:center;
+      transition:all .6s; box-shadow:0 35px 100px rgba(0,0,0,.7);
+      border:1px solid rgba(255,255,255,.13);
+    }
     .panel:hover { transform:translateY(-24px); background:rgba(255,255,255,.34); box-shadow:0 50px 120px rgba(0,0,0,.92); }
     .panel.full-width { grid-column:1/-1; min-height:580px; padding:3.6rem 4rem; }
     .panel h3 { font-family:'Suissnord',sans-serif; font-size:2.1rem; font-weight:bold; color:white; margin-bottom:1.8rem; }
     .panel p { font-size:1.18rem; line-height:1.7; color:rgba(255,255,255,.99); }
-    .formula { background:rgba(0,0,0,.3); padding:1.4rem; border-radius:1rem; font-family:monospace; font-size:1.1rem; color:#c9f3a3; margin:1.5rem 0; text-align:left; white-space:pre-line; }
 
-    .specs-table { width:100%; max-width:1200px; border-collapse:collapse; background:rgba(255,255,255,.1); backdrop-filter:blur(18px);
+    /* FORMULA – CENTERED + NO EXTRA LINES */
+    .formula {
+      background:rgba(0,0,0,.3); padding:1.4rem; border-radius:1rem;
+      font-family:monospace; font-size:1.1rem; color:#c9f3a3;
+      margin:1.5rem 0; text-align:center; white-space:pre-line;
+      line-height:1.8;
+    }
+
+    .specs-table { width:100%; max-width:1200px; border-collapse:collapse;
+                   background:rgba(255,255,255,.1); backdrop-filter:blur(18px);
                    border-radius:1.8rem; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.7); }
     .specs-table td { padding:2rem 2.2rem; border-bottom:1px solid rgba(255,255,255,.1); font-size:1.15rem; line-height:1.7; }
     .specs-table td:first-child { background:rgba(59,130,246,.3); font-weight:bold; font-family:'Suissnord',sans-serif; width:180px; }
@@ -158,7 +161,15 @@
 
         <div class="panel"><h3>Performance Level Ladder</h3><p>UCI result points are normalized to a tiered Levels scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
 
-        <div class="panel full-width"><h3>Rider Score Formula</h3><p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p><div class="formula">Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100<br>÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]</div><p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively.<br>The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p></div>
+        <div class="panel full-width">
+          <h3>Rider Score Formula</h3>
+          <p>For each rider, only the three highest Level results are used to calculate the final score. The score is determined using the following formula:</p>
+          <div class="formula">
+Score = [(L₁/2 + 50)·1 + (L₂/2 + 50)·0.67 + (L₃/2 + 50)·0.33] × 100
+÷ [(100/2 + 50)·1 + (99/2 + 50)·0.67 + (99/2 + 50)·0.33]
+          </div>
+          <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively. The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
+        </div>
 
         <div class="panel"><h3>Team Score</h3><p>The final team score is determined by taking the simple average of the scores of its three highest-scoring riders.</p></div>
 
@@ -177,14 +188,12 @@
 
   </main>
 
-  <!-- Tiny JS fallback – forces the nav to stay on top if anything weird happens -->
+  <!-- Tiny JS fallback (optional) -->
   <script>
-    // If for any reason the nav loses its fixed state, re-apply it
     const nav = document.querySelector('.site-nav');
     window.addEventListener('scroll', () => {
       if (nav.getBoundingClientRect().top < 0) {
-        nav.style.position = 'fixed';
-        nav.style.top = '0';
+        nav.style.position = 'fixed'; nav.style.top = '0';
       }
     });
   </script>
