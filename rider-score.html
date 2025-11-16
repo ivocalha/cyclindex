@@ -190,11 +190,11 @@
               ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
               : country;
 
-            // Format Score with comma as decimal separator (up to 8 decimals)
+            // Format Score: exactly 2 decimal places, rounded properly
             const scoreNum = parseFloat((row.Score || '').toString().replace(',', '.'));
             const formattedScore = isNaN(scoreNum) ? '' : scoreNum.toLocaleString('pt-PT', {
               minimumFractionDigits: 2,
-              maximumFractionDigits: 8
+              maximumFractionDigits: 2
             });
 
             return [
@@ -261,7 +261,10 @@
           scrollCollapse: true,
           colReorder: true,
           dom: 'frtip',
-          language: { search: "Search riders:", lengthMenu: "Show _MENU_ riders" },
+          language: { 
+            search: "Filter:", 
+            lengthMenu: "Show _MENU_ riders" 
+          },
           autoWidth: false,
           columnDefs: [
             { width: "60px",  targets: 0 },
@@ -288,7 +291,7 @@
             { width: "62px",  targets: 21 },
             { width: "88px",  targets: 22 },
             { width: "96px",  targets: 23 },
-            // Proper numeric sorting for Score (handles commas and up to 8 decimals)
+            // Numeric sorting for Score (handles comma & 2 decimals)
             {
               targets: 3,
               type: 'num',
