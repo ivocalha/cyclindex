@@ -7,17 +7,62 @@
   <title>Nation Score – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    h1 { font-family: 'Suissnord', sans-serif; font-size: clamp(4.5rem, 9vw, 7rem); text-align:center; padding:10rem 0 4rem; background:linear-gradient(to bottom,#1e3a8a,#0f172a); text-shadow:0 8px 40px #000; margin:0; }
-    .container { padding:2rem 2vw 12rem; max-width:100%; margin:0 auto; }
+
+    /* Navigation Bar */
+    .nav-bar { 
+      background: rgba(15,23,42,0.9); 
+      backdrop-filter: blur(12px); 
+      padding: 1rem 2rem; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+    }
+    .nav-links { 
+      display: flex; 
+      justify-content: center; 
+      gap: 2rem; 
+      flex-wrap: wrap; 
+    }
+    .nav-links a { 
+      color: white; 
+      font-family: 'Suissnord', sans-serif; 
+      font-size: 1.1rem; 
+      text-decoration: none; 
+      padding: 0.5rem 1rem; 
+      border-radius: 0.8rem; 
+      transition: all 0.3s; 
+    }
+    .nav-links a:hover { 
+      background: rgba(59,130,246,0.4); 
+      transform: translateY(-2px); 
+    }
+    .nav-links a.active {
+      background: rgba(59,130,246,0.4);
+    }
+
+    /* Table Container */
+    .container { padding:0 2vw 12rem; max-width:100%; margin:0 auto; }
+    .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
     #nationTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); font-size:0.92rem; }
-    #nationTable thead th { background:#1e40af !important; font-family:'Suissnord',sans-serif; font-size:1.15rem !important; padding:1rem 0.5rem !important; text-align:center; font-weight:bold; }
+    #nationTable thead th { 
+      background:#1e40af !important; 
+      font-family: system-ui, -apple-system, sans-serif !important; 
+      font-size:1.15rem !important; 
+      padding:1rem 0.5rem !important; 
+      text-align:center; 
+      font-weight:600; 
+      position: sticky; 
+      top: 0; 
+      z-index: 10; 
+    }
     #nationTable tbody td { padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; font-size:0.92rem; }
     #nationTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
-    .flag-img { width:28px; height:21px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
+
+    .flag-img { width:24px; height:18px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
     .flag-img:hover { transform:scale(2.2); }
     .tooltip { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.94); color:white; padding:6px 10px; border-radius:6px; font-size:0.84rem; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .2s; margin-bottom:6px; z-index:1000; }
     .flag-container:hover .tooltip { opacity:1; }
@@ -26,30 +71,40 @@
 </head>
 <body>
 
-  <h1>NATION SCORE</h1>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results-log.html">Results Log</a>
+      <a href="rider-score.html">Rider Score</a>
+      <a href="team-score.html">Team Score</a>
+      <a href="nation-score.html" class="active">Nation Score</a>
+      <a href="how-it-works.html">How It Works</a>
+    </div>
+  </nav>
 
+  <!-- Table directly under navigation -->
   <div class="container">
-    <table id="nationTable" class="display nowrap" style="width:100%">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Nation</th>
-          <th>Confed</th>
-          <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
-          <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
-          <th>Rider 3</th><th>Rk3</th><th>Sc3</th>
-          <th>Total Score</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-wrapper">
+      <table id="nationTable" class="display nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Nation</th>
+            <th>Confed</th>
+            <th>Score</th>
+            <th>Rider 1</th><th>Rk1</th><th>Sc1</th>
+            <th>Rider 2</th><th>Rk2</th><th>Sc2</th>
+            <th>Rider 3</th><th>Rk3</th><th>Sc3</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
@@ -59,21 +114,24 @@
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
       "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
       "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
-      "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo (Brazzaville)":"cg","Congo (Kinshasa)":"cd",
-      "Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do",
-      "Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi",
-      "France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn",
-      "Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq",
-      "Ireland":"ie","Israel":"il","Italy":"it","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk",
-      "Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt",
-      "Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Mauritania":"mr","Mauritius":"mu","Mexico":"mx",
-      "Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nepal":"np","Netherlands":"nl",
-      "New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palestine":"ps","Panama":"pa",
-      "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saudi Arabia":"sa",
-      "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","South Africa":"za","South Korea":"kr","Spain":"es",
-      "Sri Lanka":"lk","Sweden":"se","Switzerland":"ch","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Trinidad and Tobago":"tt",
-      "Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb","Scotland":"gb","Wales":"gb",
-      "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+      "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr",
+      "Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg",
+      "El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga",
+      "Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy",
+      "Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il",
+      "Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw",
+      "Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu",
+      "Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx",
+      "Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr",
+      "Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk",
+      "Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa",
+      "Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm",
+      "Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si",
+      "Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
+      "Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to",
+      "Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae",
+      "United Kingdom":"gb","Great Britain":"gb","England":"gb","Scotland":"gb","Wales":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
+      "Vatican":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Réunion":"re","Isle of Man":"im"
     };
 
     fetch(CSV_URL)
@@ -91,23 +149,31 @@
           transform: v => v ? v.trim() : ""
         });
 
-        const tableData = parsed.data.map(row => {
-          const country = row["Country"] || "";
-          const code = countryFlags[country] || "";
-          const flagHtml = code 
-            ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
-            : country;
+        const tableData = parsed.data
+          .map(row => {
+            const country = row["Country"] || "";
+            const code = countryFlags[country] || "";
+            const flagHtml = code 
+              ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
+              : country;
 
-          return [
-            row["Rank"] ?? "",
-            flagHtml,
-            row["Confederation"] ?? "",
-            row["Rider1"] ?? "", row["Rank1"] ?? "", formatScore(row["Score1"]),
-            row["Rider2"] ?? "", row["Rank2"] ?? "", formatScore(row["Score2"]),
-            row["Rider3"] ?? "", row["Rank3"] ?? "", formatScore(row["Score3"]),
-            formatScore(row["Score"])
-          ];
-        });
+            const rawScore = row["Score"]?.toString().replace(',', '.') || "0";
+            const scoreNum = parseFloat(rawScore);
+            const formattedScore = isNaN(scoreNum) ? "" : scoreNum.toFixed(2);
+
+            if (scoreNum < 41) return null; // Filter out rows with Score < 41.00
+
+            return [
+              row["Rank"] ?? "",
+              flagHtml,
+              row["Confederation"] ?? "",
+              formattedScore,
+              row["Rider1"] ?? "", row["Rank1"] ?? "", formatScore(row["Score1"]),
+              row["Rider2"] ?? "", row["Rank2"] ?? "", formatScore(row["Score2"]),
+              row["Rider3"] ?? "", row["Rank3"] ?? "", formatScore(row["Score3"])
+            ];
+          })
+          .filter(row => row !== null); // Remove filtered rows
 
         function formatScore(val) {
           if (!val) return "";
@@ -122,10 +188,10 @@
             { title: "Rank" },
             { title: "Nation" },
             { title: "Confed" },
+            { title: "Score" },
             { title: "Rider 1" }, { title: "Rk1" }, { title: "Sc1" },
             { title: "Rider 2" }, { title: "Rk2" }, { title: "Sc2" },
-            { title: "Rider 3" }, { title: "Rk3" }, { title: "Sc3" },
-            { title: "Total Score" }
+            { title: "Rider 3" }, { title: "Rk3" }, { title: "Sc3" }
           ],
           pageLength: 50,
           lengthMenu: [25, 50, 100],
@@ -133,23 +199,22 @@
           scrollX: false,
           autoWidth: false,
           responsive: true,
-          dom: 'Bfrtip',
-          buttons: ['colvis', {extend:'csv', text:'Export CSV'}, 'copy'],
-          language: { search: "Filter nations:", lengthMenu: "Show _MENU_ nations" },
+          dom: 'frtip',
+          language: { search: "Filter:", lengthMenu: "Show _MENU_ nations" },
           columnDefs: [
             { width: "60px",  targets: 0 },
             { width: "90px",  targets: 1 },
             { width: "80px",  targets: 2 },
-            { width: "200px", targets: 3 },
-            { width: "50px",  targets: 4 },
-            { width: "72px",  targets: 5 },
-            { width: "200px", targets: 6 },
-            { width: "50px",  targets: 7 },
-            { width: "72px",  targets: 8 },
-            { width: "200px", targets: 9 },
-            { width: "50px",  targets: 10 },
-            { width: "72px",  targets: 11 },
-            { width: "100px", targets: 12 }
+            { width: "90px",  targets: 3 },
+            { width: "200px", targets: 4 },
+            { width: "50px",  targets: 5 },
+            { width: "72px",  targets: 6 },
+            { width: "200px", targets: 7 },
+            { width: "50px",  targets: 8 },
+            { width: "72px",  targets: 9 },
+            { width: "200px", targets: 10 },
+            { width: "50px",  targets: 11 },
+            { width: "72px",  targets: 12 }
           ]
         });
       });
