@@ -7,80 +7,34 @@
   <title>Results Log – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-
-    /* Navigation */
-    .nav-bar { 
-      background: rgba(15,23,42,0.9); backdrop-filter: blur(12px); 
-      padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; 
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
-    }
-    .nav-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-    .nav-links a { 
-      color: white; font-family: 'Suissnord', sans-serif; font-size: 1.1rem; 
-      text-decoration: none; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: all 0.3s; 
-    }
-    .nav-links a:hover { background: rgba(59,130,246,0.4); transform: translateY(-2px); }
-    .nav-links a.active { background: rgba(59,130,246,0.4); }
-
-    /* Table */
+    
+    /* Fixed header container */
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
-    #resultsTable { 
-      background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); 
-      border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); 
-    }
-    /* Remove blue background from header but keep text */
+    #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); }
     #resultsTable thead th { 
-      background: transparent !important; 
-      color: white; 
-      font-family: 'Suissnord', sans-serif; 
-      font-size: 1.15rem; 
-      padding: 1rem 0.5rem !important; 
-      text-align: center; 
-      font-weight: bold; 
-      position: sticky; top: 0; z-index: 10; 
-      border-bottom: 2px solid rgba(59,130,246,0.5);
+      background:#1e40af !important; 
+      font-family:'Suissnord',sans-serif; 
+      font-size:1.15rem !important; 
+      padding:1rem 0.5rem !important; 
+      text-align:center; 
+      font-weight:bold; 
+      position: sticky; 
+      top: 0; 
+      z-index: 10; 
     }
     #resultsTable tbody td { 
-      padding:0.7rem 0.4rem !important; text-align:center; vertical-align:middle; 
-      font-size:0.89rem; line-height:1.2; 
+      padding:0.7rem 0.4rem !important; 
+      text-align:center; 
+      vertical-align:middle; 
+      font-size:0.89rem; 
+      line-height:1.2; 
     }
     #resultsTable tbody tr:hover { background:rgba(59,130,246,0.28) !important; }
 
-    /* Filter box under nav */
-    .top-left {
-      padding: 1.2rem 2rem;
-      background: rgba(15,23,42,0.95);
-      backdrop-filter: blur(12px);
-      margin-bottom: 1rem;
-      border-radius: 0 0 1.4rem 1.4rem;
-      text-align: left;
-    }
-    .top-left .dataTables_filter input {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      color: white;
-      width: 380px;
-      max-width: 100%;
-    }
-    .top-left .dataTables_filter input:focus {
-      outline: none;
-      background: rgba(255,255,255,0.22);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
-    }
-    .top-left label {
-      font-family: 'Suissnord', sans-serif;
-      font-size: 1.15rem;
-      color: white;
-      margin-right: 1rem;
-    }
-
-    /* Flags */
     .flag-img { width:23px; height:17px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.6); transition:transform .2s; }
     .flag-img:hover { transform:scale(2.2); }
     .tooltip { 
@@ -91,11 +45,44 @@
     }
     .flag-container:hover .tooltip { opacity:1; }
     .flag-container { position:relative; display:inline-block; cursor:help; }
+
+    /* Navigation Bar */
+    .nav-bar { 
+      background: rgba(15,23,42,0.9); 
+      backdrop-filter: blur(12px); 
+      padding: 1rem 2rem; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+    }
+    .nav-links { 
+      display: flex; 
+      justify-content: center; 
+      gap: 2rem; 
+      flex-wrap: wrap; 
+    }
+    .nav-links a { 
+      color: white; 
+      font-family: 'Suissnord', sans-serif; 
+      font-size: 1.1rem; 
+      text-decoration: none; 
+      padding: 0.5rem 1rem; 
+      border-radius: 0.8rem; 
+      transition: all 0.3s; 
+    }
+    .nav-links a:hover { 
+      background: rgba(59,130,246,0.4); 
+      transform: translateY(-2px); 
+    }
+    .nav-links a.active {
+      background: rgba(59,130,246,0.4);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Navigation – Results Log between Home and Rider Score -->
   <nav class="nav-bar">
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -107,10 +94,7 @@
     </div>
   </nav>
 
-  <!-- Filter box under navigation -->
-  <div class="top-left" id="filterContainer"></div>
-
-  <!-- Table -->
+  <!-- Table directly under navigation – header inside blue row -->
   <div class="container mx-auto px-4 pt-4 pb-12">
     <div class="table-wrapper">
       <table id="resultsTable" class="display nowrap" style="width:100%">
@@ -129,7 +113,6 @@
             <th>RSRR</th>
           </tr>
         </thead>
-        <tbody></tbody>
       </table>
     </div>
   </div>
@@ -137,12 +120,43 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.tailwindcss.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.tailwindcss.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
     const CSV_URL = 'results-log.csv';
 
-    const countryFlags = { /* your huge flag object stays unchanged */ };
+    const countryFlags = {
+      "Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at",
+      "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm",
+      "Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","British Virgin Islands":"vg","Brunei":"bn","Bulgaria":"bg",
+      "Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf",
+      "Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Cook Islands":"ck","Costa Rica":"cr","Croatia":"hr","Cuba":"cu",
+      "Curaçao":"cw","Cyprus":"cy","Czechia":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg",
+      "El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Falkland Islands":"fk","Faroe Islands":"fo",
+      "Fiji":"fj","Finland":"fi","France":"fr","French Guiana":"gf","French Polynesia":"pf","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de",
+      "Ghana":"gh","Gibraltar":"gi","Greece":"gr","Greenland":"gl","Grenada":"gd","Guadeloupe":"gp","Guatemala":"gt","Guernsey":"gg","Guinea":"gn",
+      "Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id",
+      "Iran":"ir","Iraq":"iq","Ireland":"ie","Isle of Man":"im","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jersey":"je",
+      "Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb",
+      "Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Macau":"mo","Madagascar":"mg","Malawi":"mw",
+      "Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Martinique":"mq","Mauritania":"mr","Mauritius":"mu","Mayotte":"yt",
+      "Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Montserrat":"ms","Morocco":"ma","Mozambique":"mz",
+      "Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Caledonia":"nc","New Zealand":"nz","Nicaragua":"ni","Niger":"ne",
+      "Nigeria":"ng","Niue":"nu","Norfolk Island":"nf","North Korea":"kp","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw",
+      "Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Puerto Rico":"pr",
+      "Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Helena":"sh","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc",
+      "Samoa":"ws","San Marino":"sm","São Tomé and Príncipe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl",
+      "Singapore":"sg","Sint Maarten":"sx","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
+      "South Georgia and the South Sandwich Islands":"gs","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
+      "Svalbard and Jan Mayen":"sj","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th",
+      "Timor-Leste":"tl","Togo":"tg","Tokelau":"tk","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm",
+      "Turks and Caicos Islands":"tc","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb",
+      "United States":"us","United States Minor Outlying Islands":"um","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve",
+      "Vietnam":"vn","Virgin Islands (British)":"vg","Virgin Islands (U.S.)":"vi","Wallis and Futuna":"wf","Western Sahara":"eh","Yemen":"ye",
+      "Zambia":"zm","Zimbabwe":"zw"
+    };
 
     fetch(CSV_URL)
       .then(r => r.text())
@@ -170,7 +184,10 @@
               ? `<div class="flag-container"><img src="https://flagcdn.com/48x36/${code}.png" class="flag-img" alt="${country}" loading="lazy"><div class="tooltip">${country}</div></div>`
               : country;
 
-            return columnsToShow.map(col => (col === "Country" ? flagHtml : row[col] ?? ""));
+            return columnsToShow.map(col => {
+              if (col === "Country") return flagHtml;
+              return row[col] ?? "";
+            });
           });
 
         $('#resultsTable').DataTable({
@@ -190,19 +207,14 @@
           ],
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
-          order: [[0, 'desc']],
+          order: [[0, 'desc']],               // newest to oldest
           scrollX: true,
-          scrollY: '68vh',
+          scrollY: '60vh',
           scrollCollapse: true,
-          dom: '<"top-left"f>rtip',   // filter moved to our custom div
-          initComplete: function () {
-            // Move the generated filter into our styled container
-            $(".top-left").append($("#resultsTable_filter"));
-          },
-          language: { 
-            search: "Filter results:", 
-            lengthMenu: "Show _MENU_ rows" 
-          },
+          colReorder: true,
+          dom: 'Bfrtip',
+          buttons: ['colvis'],
+          language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
             { width: "88px",  targets: 0 },
@@ -216,7 +228,10 @@
             { width: "62px",  targets: 8 },
             { width: "52px",  targets: 9 },
             { width: "54px",  targets: 10 },
-            { targets: 0, type: 'date',
+            // TRUE DATE SORTING (DD/MM/YYYY to YYYY-MM-DD)
+            {
+              targets: 0,
+              type: 'date',
               render: function(data, type, row) {
                 if (type === 'sort' || type === 'type') {
                   const [d, m, y] = data.split('/');
