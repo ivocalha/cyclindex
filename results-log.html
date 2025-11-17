@@ -11,16 +11,23 @@
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
-    
-    /* Top bar containing Filter + Pagination */
-    .dt-top {
+
+    /* Bottom bar containing Filter + Pagination (placed below table) */
+    .dt-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 0.8rem;
-      padding-top: 0.8rem;
-      flex-wrap: wrap;
       gap: 1rem;
+      padding-top: 0.8rem;
+      padding-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* When screen is narrow, stack controls */
+    @media (max-width: 640px) {
+      .dt-bottom { flex-direction: column-reverse; align-items: stretch; }
+      .dt-bottom .dataTables_filter { order: 2; width: 100%; }
+      .dt-bottom .dataTables_paginate { order: 1; }
     }
 
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
@@ -124,6 +131,8 @@
         <tbody></tbody>
       </table>
     </div>
+
+    <!-- The custom bottom container will be injected by DataTables (class "dt-bottom") -->
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -218,8 +227,12 @@
           scrollCollapse: true,
           colReorder: true,
 
-          /* NEW: Filter + Pagination together */
-          dom: '<"dt-top"fp>rtip',
+          /* PLACE FILTER + PAGINATION together BELOW the table.
+             'r' = processing, 't' = table. The custom div "dt-bottom"
+             contains f (filter) and p (pagination) only once. */
+          dom: 'rt<"dt-bottom"fp>',
+
+          /* no column visibility button */
           buttons: [],
 
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
