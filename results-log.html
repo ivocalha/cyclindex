@@ -7,7 +7,6 @@
   <title>Results Log – Cyclindex</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.tailwindcss.css">
   <style>
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
@@ -78,6 +77,21 @@
     .nav-links a.active {
       background: rgba(59,130,246,0.4);
     }
+
+    /* Bottom layout for filter and pagination */
+    .bottom {
+      padding: 1rem 0;
+      clear: both;
+    }
+    .bottom .left {
+      float: left;
+    }
+    .bottom .right {
+      float: right;
+    }
+    .dataTables_filter {
+      margin-right: 1rem; /* Space between filter and info if needed */
+    }
   </style>
 </head>
 <body>
@@ -113,43 +127,47 @@
             <th>RSRR</th>
           </tr>
         </thead>
-        <tbody></tbody>
       </table>
     </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.tailwindcss.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
+    const CSV_URL = 'results-log.csv';
 
     const countryFlags = {
-      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
-      "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
-      "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
-      "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr",
-      "Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg",
-      "El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga",
-      "Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy",
-      "Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il",
-      "Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw",
-      "Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu",
-      "Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx",
-      "Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr",
-      "Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk",
-      "Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa",
-      "Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm",
-      "Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si",
-      "Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Georgia and the South Sandwich Islands":"gs","South Korea":"kr","South Sudan":"ss",
-      "Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Svalbard and Jan Mayen":"sj","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj",
-      "Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tokelau":"tk","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm",
-      "Turks and Caicos Islands":"tc","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","United States":"us",
-      "United States Minor Outlying Islands":"um","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Virgin Islands (British)":"vg",
-      "Virgin Islands (U.S.)":"vi","Wallis and Futuna":"wf","Western Sahara":"eh","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+      "Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Aruba":"aw","Australia":"au","Austria":"at",
+      "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm",
+      "Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","British Virgin Islands":"vg","Brunei":"bn","Bulgaria":"bg",
+      "Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf",
+      "Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Cook Islands":"ck","Costa Rica":"cr","Croatia":"hr","Cuba":"cu",
+      "Curaçao":"cw","Cyprus":"cy","Czechia":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg",
+      "El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Falkland Islands":"fk","Faroe Islands":"fo",
+      "Fiji":"fj","Finland":"fi","France":"fr","French Guiana":"gf","French Polynesia":"pf","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de",
+      "Ghana":"gh","Gibraltar":"gi","Greece":"gr","Greenland":"gl","Grenada":"gd","Guadeloupe":"gp","Guatemala":"gt","Guernsey":"gg","Guinea":"gn",
+      "Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id",
+      "Iran":"ir","Iraq":"iq","Ireland":"ie","Isle of Man":"im","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jersey":"je",
+      "Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb",
+      "Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Macau":"mo","Madagascar":"mg","Malawi":"mw",
+      "Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Martinique":"mq","Mauritania":"mr","Mauritius":"mu","Mayotte":"yt",
+      "Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Montserrat":"ms","Morocco":"ma","Mozambique":"mz",
+      "Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Caledonia":"nc","New Zealand":"nz","Nicaragua":"ni","Niger":"ne",
+      "Nigeria":"ng","Niue":"nu","Norfolk Island":"nf","North Korea":"kp","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw",
+      "Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Puerto Rico":"pr",
+      "Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Helena":"sh","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc",
+      "Samoa":"ws","San Marino":"sm","São Tomé and Príncipe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl",
+      "Singapore":"sg","Sint Maarten":"sx","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
+      "South Georgia and the South Sandwich Islands":"gs","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
+      "Svalbard and Jan Mayen":"sj","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th",
+      "Timor-Leste":"tl","Togo":"tg","Tokelau":"tk","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm",
+      "Turks and Caicos Islands":"tc","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb",
+      "United States":"us","United States Minor Outlying Islands":"um","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve",
+      "Vietnam":"vn","Virgin Islands (British)":"vg","Virgin Islands (U.S.)":"vi","Wallis and Futuna":"wf","Western Sahara":"eh","Yemen":"ye",
+      "Zambia":"zm","Zimbabwe":"zw"
     };
 
     fetch(CSV_URL)
@@ -206,8 +224,7 @@
           scrollY: '60vh',
           scrollCollapse: true,
           colReorder: true,
-          dom: 'Bfrtip',
-          buttons: ['colvis'],
+          dom: 'rt<"bottom"<"left"fi><"right"p>><"clear">',
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
           columnDefs: [
