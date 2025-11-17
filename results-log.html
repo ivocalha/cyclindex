@@ -12,6 +12,17 @@
     @font-face { font-family: 'Suissnord'; src: url('Suissnord.otf') format('opentype'); font-display: swap; }
     body { background:#0f172a; color:white; margin:0; padding:0; }
     
+    /* Top bar containing Filter + Pagination */
+    .dt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.8rem;
+      padding-top: 0.8rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
     .table-wrapper { position: relative; max-height: 80vh; overflow: auto; }
     #resultsTable { background:rgba(255,255,255,0.08); backdrop-filter:blur(24px); border-radius:2rem; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.95); }
     #resultsTable thead th { 
@@ -163,9 +174,12 @@
           transform: v => v ? v.trim() : ""
         });
 
-        const columnsToShow = ["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
+        const columnsToShow = [
+          "Date","Country","Rider","Team","Competition","Class",
+          "Rank","Result Type","UCI Points","Level","Season Result Rank"
+        ];
 
-         const tableData = parsed.data
+        const tableData = parsed.data
           .filter(r => r.Date && r.Rider)
           .map(row => {
             const country = row["Country"] || "";
@@ -195,6 +209,7 @@
             { title: "Level" },
             { title: '<span title="Rider&#39;s Season Result Rank">RSRR</span>' }
           ],
+
           pageLength: 100,
           lengthMenu: [50, 100, 250, 500],
           order: [[0, 'desc']],
@@ -203,12 +218,13 @@
           scrollCollapse: true,
           colReorder: true,
 
-          /* Removed column visibility */
-          dom: 'frtip',
+          /* NEW: Filter + Pagination together */
+          dom: '<"dt-top"fp>rtip',
           buttons: [],
 
           language: { search: "Filter:", lengthMenu: "Show _MENU_ rows" },
           autoWidth: false,
+
           columnDefs: [
             { width: "88px",  targets: 0 },
             { width: "40px",  targets: 1 },
@@ -222,7 +238,6 @@
             { width: "52px",  targets: 9 },
             { width: "54px",  targets: 10 },
 
-            /* Date sorting fix */
             {
               targets: 0,
               type: 'date',
