@@ -22,7 +22,7 @@
       background: #0f172a;
       color: white;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow: hidden; /* dashboard layout */
+      overflow: hidden; /* dashboard mode */
     }
 
     /* NAVBAR */
@@ -40,7 +40,6 @@
       align-items: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-
     .nav-links {
       display: flex;
       width: 100%;
@@ -75,7 +74,6 @@
       z-index: 2900;
       box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
     }
-
     .footer-left,
     .footer-center,
     .footer-right {
@@ -83,16 +81,11 @@
       align-items: center;
       gap: 8px;
     }
-
     .footer-center { flex: 1; justify-content: center; }
     .footer-left { min-width: 200px; }
     .footer-right { min-width: 220px; justify-content: flex-end; }
 
-    .search-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .search-wrap { display: flex; align-items: center; gap: 8px; }
     .search-wrap input {
       width: 220px;
       padding: 6px 10px;
@@ -115,16 +108,16 @@
       overflow: hidden;
     }
 
-    /* CORRECT DATATABLES v2 SCROLL CLASS */
+    /* CORRECT DATATABLES v2 SCROLL CLASS — FINAL HEIGHT FIX */
     .dt-scroll-body {
       position: relative !important;
       overflow-y: auto !important;
       overflow-x: auto !important;
-      height: calc(100vh - 71px - 64px - 20px) !important;
-      max-height: calc(100vh - 71px - 64px - 20px) !important;
+      height: calc(100vh - 71px - 64px - 40px) !important;
+      max-height: calc(100vh - 71px - 64px - 40px) !important;
     }
 
-    /* HIDES CLONED HEADER ROW */
+    /* Remove duplicate DT header rows */
     #resultsTable thead tr:not(:first-child) {
       display: none !important;
     }
@@ -137,7 +130,6 @@
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
       backdrop-filter: blur(18px);
     }
-
     #resultsTable thead th {
       background: #1e40af !important;
       font-family: 'Suissnord', sans-serif;
@@ -149,14 +141,12 @@
       white-space: nowrap;
       text-align: center;
     }
-
     #resultsTable tbody td {
       padding: .55rem .4rem !important;
       font-size: .89rem;
       white-space: nowrap;
       text-align: center;
     }
-
     #resultsTable tbody tr:hover {
       background: rgba(59,130,246,0.12) !important;
     }
@@ -249,7 +239,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    /* Full world flag map */
+    /* World flags */
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao",
       "Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
@@ -298,23 +288,24 @@
       "Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
     };
 
-    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
+    const CSV_URL =
+      "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    /* Pagination builder (D style) */
+    /* Pagination builder (style D) */
     function buildPagination(container, info, table) {
       container.innerHTML = "";
       const pages = info.pages;
       const page = info.page;
       const last = pages - 1;
 
-      function btn(label, disabled, targetPage, active=false) {
-        const e = document.createElement("button");
-        e.textContent = label;
-        e.className = "px-2 py-1 rounded text-sm hover:bg-white/5";
-        if (active) e.classList.add("bg-white/10","font-semibold");
-        if (!disabled) e.onclick = ()=>table.page(targetPage).draw("page");
-        if (disabled) e.disabled = true;
-        return e;
+      function btn(label, disabled, pageTarget, active=false) {
+        const b=document.createElement("button");
+        b.textContent=label;
+        b.className="px-2 py-1 rounded text-sm hover:bg-white/5";
+        if (active) b.classList.add("bg-white/10","font-semibold");
+        if (disabled) b.disabled=true;
+        else b.onclick=()=>table.page(pageTarget).draw("page");
+        return b;
       }
 
       /* Previous */
@@ -331,10 +322,9 @@
         container.appendChild(s);
       }
 
-      /* Page-1, Page, Page+1 */
+      /* Middle pages */
       const start = Math.max(1, page-1);
       const end   = Math.min(last-1, page+1);
-
       for (let i=start;i<=end;i++){
         container.appendChild(btn(String(i+1), false, i, i===page));
       }
@@ -348,7 +338,8 @@
       }
 
       /* Last */
-      if (pages>1) container.appendChild(btn(String(last+1), false, last, page===last));
+      if (pages>1)
+        container.appendChild(btn(String(last+1), false, last, page===last));
 
       /* Next */
       container.appendChild(btn("Next", page===last, page+1));
@@ -361,29 +352,29 @@
 
     /* MAIN INIT */
     fetch(CSV_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      .then(r=>r.text())
+      .then(text=>{
+        if (text.charCodeAt(0)===0xFEFF) text=text.slice(1);
 
-        const parsed = Papa.parse(text, {
-          header: true,
-          skipEmptyLines: true,
-          dynamicTyping: true,
-          delimiter: ";",
-          trimHeaders: true,
-          transformHeader: h => h.trim(),
-          transform: v => v ? v.trim() : ""
+        const parsed = Papa.parse(text,{
+          header:true,
+          skipEmptyLines:true,
+          dynamicTyping:true,
+          delimiter:";",
+          trimHeaders:true,
+          transformHeader:h=>h.trim(),
+          transform:v=>v ? v.trim():""
         });
 
-        const fields = [
+        const fields=[
           "Date","Country","Rider","Team","Competition","Class",
           "Rank","Result Type","UCI Points","Level","Season Result Rank"
         ];
 
-        const tableData = parsed.data
-          .filter(r => r.Date && r.Rider)
-          .map(r => {
-            const c = r["Country"];
+        const tableData=parsed.data
+          .filter(r=>r.Date && r.Rider)
+          .map(r=>{
+            const c=r["Country"];
             const flag = countryFlags[c]
               ? `<div class="flag-container">
                    <img class="flag-img" src="https://flagcdn.com/${countryFlags[c]}.svg">
@@ -391,10 +382,10 @@
                  </div>`
               : c;
 
-            return fields.map(f => f==="Country" ? flag : (r[f]||""));
+            return fields.map(f=>f==="Country"?flag:(r[f]||""));
           });
 
-        /* DataTables v2 — Must specify scrollY pixels */
+        /* DataTables v2 */
         const table = $('#resultsTable').DataTable({
           data: tableData,
           dom: "t",
@@ -404,14 +395,14 @@
           scrollCollapse: true,
 
           pageLength: 100,
-          order: [[0, "desc"]],
-          autoWidth: false,
+          order: [[0,"desc"]],
+          autoWidth:false,
 
-          columnDefs: [{
-            targets: 0,
-            type: "date",
-            render: (d,t) => {
-              if ((t==="sort"||t==="type") && d.includes("/")) {
+          columnDefs:[{
+            targets:0,
+            type:"date",
+            render:(d,t)=>{
+              if ((t==="sort"||t==="type") && d.includes("/")){
                 const [dd,mm,yy]=d.split("/");
                 return `${yy}-${mm.padStart(2,"0")}-${dd.padStart(2,"0")}`;
               }
@@ -420,30 +411,29 @@
           }]
         });
 
-        const pag = document.getElementById("pagContainer");
-        const info = document.getElementById("infoContainer");
-        const search = document.getElementById("footerSearch");
+        const pag=document.getElementById("pagContainer");
+        const info=document.getElementById("infoContainer");
+        const search=document.getElementById("footerSearch");
 
-        search.addEventListener("input", ()=>table.search(search.value).draw());
+        search.addEventListener("input",()=>table.search(search.value).draw());
 
-        /* Draw footer elements */
-        table.on("draw", ()=>{
-          const meta = table.page.info();
+        table.on("draw",()=>{
+          const meta=table.page.info();
           buildPagination(pag, meta, table);
           updateInfo(info, meta);
         });
 
         table.draw(false);
 
-        /* OVERRIDE v2 SCROLL HEIGHT */
+        /* FINAL HEIGHT FIX */
         setTimeout(()=>{
-          const body = document.querySelector(".dt-scroll-body");
+          const body=document.querySelector(".dt-scroll-body");
           if (body) {
-            body.style.height = "calc(100vh - 71px - 64px - 20px)";
-            body.style.maxHeight = "calc(100vh - 71px - 64px - 20px)";
+            body.style.height="calc(100vh - 71px - 64px - 40px)";
+            body.style.maxHeight="calc(100vh - 71px - 64px - 40px)";
           }
           table.columns.adjust();
-        }, 300);
+        },300);
 
       });
   </script>
