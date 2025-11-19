@@ -73,6 +73,7 @@
       padding: 0 1.25rem;
       z-index: 2900;
       box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
+      font-family: inherit; /* REMOVE SUISSNORD */
     }
 
     .footer-left,
@@ -81,6 +82,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-family: inherit !important; /* just in case */
     }
 
     .footer-center { flex: 1; justify-content: center; }
@@ -92,6 +94,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-family: inherit;
     }
     .search-wrap input {
       width: 220px;
@@ -102,9 +105,10 @@
       outline: none;
       color: white;
       font-size: 0.95rem;
+      font-family: inherit !important;
     }
 
-    /* Neon blue search icon */
+    /* Neon search icon */
     .magnifier {
       width: 20px;
       height: 20px;
@@ -123,7 +127,7 @@
       overflow: hidden;
     }
 
-    /* CORRECT DATATABLES V2 SCROLL CLASS — FINAL HEIGHT FIX */
+    /* CORRECT DATATABLES V2 SCROLL HEIGHT */
     .dt-scroll-body {
       position: relative !important;
       overflow-y: auto !important;
@@ -132,8 +136,8 @@
       max-height: calc(100vh - 71px - 64px - 40px) !important;
     }
 
-    /* Remove duplicate DT header rows */
-    #resultsTable thead tr:not(:first-child) {
+    /* FIX: REMOVE FIRST HEADER ROW (EMPTY CLONED HEADER) */
+    #resultsTable thead tr:first-child {
       display: none !important;
     }
 
@@ -194,7 +198,7 @@
     }
     .flag-container:hover .tooltip { opacity:1; }
 
-    /* PAGINATION active button styling = EXACT navbar pill */
+    /* ACTIVE pagination pill */
     .pagination-pill {
       background: rgba(59,130,246,0.35);
       border-radius: 0.7rem;
@@ -202,13 +206,13 @@
       font-weight: 600;
     }
 
-    /* Total entries pill */
+    /* Total entries pill (navbar style) */
     .entries-pill {
       background: rgba(59,130,246,0.35);
       padding: 6px 14px;
       border-radius: 0.7rem;
-      font-family: 'Suissnord', sans-serif;
       font-size: 0.95rem;
+      font-family: inherit !important;
     }
   </style>
 </head>
@@ -231,6 +235,10 @@
   <div class="table-wrapper">
     <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
+        <!-- THIS CLONED EMPTY HEADER WILL BE HIDDEN BY CSS -->
+        <tr></tr>
+
+        <!-- REAL HEADER BELOW THIS -->
         <tr>
           <th>Date</th>
           <th>Nation</th>
@@ -313,16 +321,18 @@
       "Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz",
       "Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt",
       "Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua",
-      "United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb",
-      "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
-      "Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm",
-      "Zimbabwe":"zw","Hong Kong":"hk"
+      "United Arab Emirates":"ae","United Kingdom":"gb",
+      "Great Britain":"gb","United States":"us",
+      "Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
+      "Vatican City":"va","Venezuela":"ve","Vietnam":"vn",
+      "Yemen":"ye","Zambia":"zm","Zimbabwe":"zw",
+      "Hong Kong":"hk"
     };
 
     const CSV_URL =
       "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    /* Pagination builder */
+    /* Pagination builder (active page gets pill) */
     function buildPagination(container, info, table) {
       container.innerHTML = "";
       const pages = info.pages;
@@ -330,23 +340,23 @@
       const last = pages - 1;
 
       function btn(label, disabled, pageTarget, active=false) {
-        const b = document.createElement("button");
-        b.textContent = label;
-        b.className = "px-2 py-1 rounded text-sm hover:bg-white/5";
+        const b=document.createElement("button");
+        b.textContent=label;
+        b.className="px-2 py-1 rounded text-sm hover:bg-white/5";
         if (active) b.classList.add("pagination-pill");
-        if (disabled) b.disabled = true;
-        else b.onclick = () => table.page(pageTarget).draw("page");
+        if (disabled) b.disabled=true;
+        else b.onclick=()=>table.page(pageTarget).draw("page");
         return b;
       }
 
-      container.appendChild(btn("Previous", page === 0, page - 1));
+      container.appendChild(btn("Previous", page===0, page-1));
 
-      container.appendChild(btn("1", false, 0, page === 0));
+      container.appendChild(btn("1", false, 0, page===0));
 
       if (page > 2) {
-        const s = document.createElement("span");
-        s.textContent = "…";
-        s.className = "px-2";
+        const s=document.createElement("span");
+        s.textContent="…";
+        s.className="px-2";
         container.appendChild(s);
       }
 
@@ -358,9 +368,9 @@
       }
 
       if (page < last - 2) {
-        const s = document.createElement("span");
-        s.textContent = "…";
-        s.className = "px-2";
+        const s=document.createElement("span");
+        s.textContent="…";
+        s.className="px-2";
         container.appendChild(s);
       }
 
@@ -453,7 +463,7 @@
 
         table.draw(false);
 
-        /* Override v2 scroll height */
+        /* FINAL HEIGHT FIX */
         setTimeout(() => {
           const body = document.querySelector(".dt-scroll-body");
           if (body) {
@@ -462,6 +472,7 @@
           }
           table.columns.adjust();
         }, 300);
+
       });
   </script>
 
