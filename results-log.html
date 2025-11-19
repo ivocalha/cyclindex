@@ -11,139 +11,127 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
 
   <style>
-    /* Keep Suissnord only for top navbar. Everything else uses system font. */
+    /* Keep Suissnord only for top nav; everything else system font */
     @font-face {
       font-family: 'Suissnord';
       src: url('Suissnord.otf') format('opentype');
       font-display: swap;
     }
 
-    :root {
-      --nav-height: 71px;
-      --footer-height: 64px;
-      --wrapper-vertical-padding: 20px; /* 10 top + 10 bottom */
-      --extra-scrollbar: 24px; /* increased to ensure last row fully visible */
+    :root{
+      --nav-height:71px;
+      --footer-height:64px;
+      --wrapper-vertical-padding:20px; /* 10 top + 10 bottom */
+      --extra-scrollbar:24px; /* ensures last row fully visible */
       --pill-bg: rgba(59,130,246,0.35);
       --pill-radius: 0.7rem;
       --neon-blue: #3b82f6;
     }
 
-    html, body { height: 100%; margin: 0; }
-    body {
-      margin: 0;
-      background: #0f172a;
-      color: white;
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:#0f172a;
+      color:white;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow: hidden;
+      overflow:hidden;
     }
 
-    /* NAVBAR (Suissnord only here) */
-    .nav-bar {
+    /* NAV (Suissnord) */
+    .nav-bar{
       background: rgba(15,23,42,0.9);
       backdrop-filter: blur(12px);
       padding: 1rem 2rem;
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top:0; left:0; right:0;
       height: var(--nav-height);
-      z-index: 3000;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index:3000;
+      display:flex; align-items:center;
+      box-shadow:0 4px 20px rgba(0,0,0,0.5);
     }
-    .nav-links { display:flex; width:100%; justify-content:center; gap:2rem; }
-    .nav-links a {
-      color: white;
+    .nav-links{ display:flex; width:100%; justify-content:center; gap:2rem; }
+    .nav-links a{
+      color:white;
       font-family: 'Suissnord', sans-serif;
-      font-size: 1.05rem;
-      padding: 0.45rem 0.9rem;
-      border-radius: var(--pill-radius);
-      text-decoration: none;
+      font-size:1.05rem;
+      padding:0.45rem 0.9rem;
+      border-radius:var(--pill-radius);
+      text-decoration:none;
       transition: all .18s;
     }
-    .nav-links a:hover { background: var(--pill-bg); transform: translateY(-2px); }
-    .nav-links a.active { background: var(--pill-bg); }
+    .nav-links a:hover{ background:var(--pill-bg); transform:translateY(-2px); }
+    .nav-links a.active{ background:var(--pill-bg); }
 
-    /* Table wrapper fills between nav and footer */
-    .table-wrapper {
+    /* TABLE WRAPPER: native scroll container (final height in CSS) */
+    .table-wrapper{
       position: fixed;
       top: var(--nav-height);
-      left: 0;
-      right: 0;
+      left:0; right:0;
       bottom: var(--footer-height);
       padding: 10px 18px;
-      overflow: hidden;
+      overflow: auto;           /* <-- native vertical scroll here */
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* DataTables v2 scroll body — final height is provided by CSS so DT computes widths on init */
-    .dt-scroll-body {
-      position: relative !important;
-      overflow-y: auto !important;
-      overflow-x: auto !important;
-      height: calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar)) !important;
-      max-height: calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar)) !important;
-    }
-
-    /* Hide only the first cloned header row that DT inserts */
-    #resultsTable thead tr:first-child { display: none !important; }
-
-    /* Force table width to 100% so DT calculates sizes consistently */
+    /* Force table width to 100% to help browser calc widths */
     table.dataTable { width: 100% !important; }
 
-    /* Table styling */
-    #resultsTable {
-      width: 100%;
+    /* TABLE STYLING */
+    #resultsTable{
+      width:100%;
+      border-collapse: collapse;
       background: rgba(255,255,255,0.06);
       border-radius: 1rem;
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
       backdrop-filter: blur(18px);
-      border-collapse: separate;
+      table-layout: auto; /* let browser size columns naturally */
     }
 
-    /* Header: system font, semi-bold, centered, keep padding */
-    #resultsTable thead th {
+    /* Hide any cloned header if created (safe, but DT shouldn't create clones now) */
+    #resultsTable thead tr:first-child { display: none !important; }
+
+    /* HEADER styling: system font, semi-bold, centered */
+    #resultsTable thead th{
       background: #1e40af !important;
       font-size: 1.02rem !important;
       font-weight: 600 !important;
       padding: 0.85rem .5rem !important;
       white-space: nowrap;
       text-align: center;
-      position: sticky;
+      position: sticky;  /* sticky within .table-wrapper scrolling container */
       top: 0;
       z-index: 60;
-      font-family: inherit !important; /* remove Suissnord from table header */
+      font-family: inherit !important;
     }
 
-    /* Body rows: keep spacing */
-    #resultsTable tbody td {
+    /* Body cells */
+    #resultsTable tbody td{
       padding: .55rem .4rem !important;
       font-size: .89rem;
       white-space: nowrap;
       text-align: center;
     }
-    #resultsTable tbody tr:hover { background: rgba(59,130,246,0.12) !important; }
+    #resultsTable tbody tr:hover{ background: rgba(59,130,246,0.12) !important; }
 
-    /* Footer: no Suissnord */
-    .fixed-bottom-bar {
+    /* FOOTER (no Suissnord) */
+    .fixed-bottom-bar{
       position: fixed;
-      left: 0; right: 0; bottom: 0;
+      left:0; right:0; bottom:0;
       height: var(--footer-height);
       background: rgba(15,23,42,0.95);
       backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display:flex; align-items:center; justify-content:space-between;
       padding: 0 1.25rem;
-      z-index: 2900;
-      box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
+      z-index:2900;
+      box-shadow:0 -6px 20px rgba(0,0,0,0.45);
       font-family: inherit;
     }
-    .footer-left, .footer-center, .footer-right {
-      display: flex; align-items: center; gap: 8px; font-family: inherit;
+    .footer-left, .footer-center, .footer-right{
+      display:flex; align-items:center; gap:8px; font-family: inherit;
     }
-    .footer-center { flex: 1; justify-content: center; }
+    .footer-center{ flex:1; justify-content:center; }
 
-    /* Entries pill */
-    .entries-pill {
+    .entries-pill{
       background: var(--pill-bg);
       padding: 6px 14px;
       border-radius: var(--pill-radius);
@@ -151,44 +139,39 @@
       font-family: inherit;
     }
 
-    /* Pagination active pill */
-    .pagination-pill {
+    .pagination-pill{
       background: var(--pill-bg);
       border-radius: var(--pill-radius);
       padding: 4px 9px;
       font-weight: 600;
     }
 
-    /* Search wrapper: icon left (18x18) */
-    .search-wrap { display:flex; align-items:center; gap:8px; }
-    .search-wrap svg { flex: none; width: 18px; height: 18px; display:block; }
+    /* SEARCH: icon left (18x18) */
+    .search-wrap{ display:flex; align-items:center; gap:8px; }
+    .search-wrap svg{ flex: none; width:18px; height:18px; display:block; }
     .search-wrap svg circle, .search-wrap svg line { stroke: var(--neon-blue); stroke-width: 2; }
-    .search-wrap input {
-      width: 220px;
-      padding: 6px 10px;
+    .search-wrap input{
+      width:220px;
+      padding:6px 10px;
       border-radius: var(--pill-radius);
       background: rgba(255,255,255,0.08);
-      border: none;
-      outline: none;
-      color: white;
-      font-size: 0.95rem;
+      border:none;
+      outline:none;
+      color:white;
+      font-size:0.95rem;
       font-family: inherit;
     }
 
     /* Flags */
-    .flag-img { width: 22px; height: 16px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.35); transition: transform .18s; }
-    .flag-img:hover { transform: scale(2.0); }
-    .flag-container { position: relative; display: inline-block; }
-    .flag-container .tooltip {
-      position:absolute; bottom:100%; left:50%; transform:translateX(-50%);
-      background: rgba(0,0,0,0.9); color:white; padding:6px 10px; border-radius:6px;
-      white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s; margin-bottom:6px; z-index:3000;
-    }
-    .flag-container:hover .tooltip { opacity:1; }
+    .flag-img{ width:22px; height:16px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.35); transition:transform .18s; }
+    .flag-img:hover{ transform: scale(2.0); }
+    .flag-container{ position:relative; display:inline-block; }
+    .flag-container .tooltip{ position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.9); color:white; padding:6px 10px; border-radius:6px; opacity:0; transition:opacity .15s; white-space:nowrap; pointer-events:none; margin-bottom:6px; z-index:3000;}
+    .flag-container:hover .tooltip{ opacity:1; }
 
     /* small screen tweak */
     @media (max-width:720px) {
-      .search-wrap input { width: 140px; }
+      .search-wrap input{ width:140px; }
     }
   </style>
 </head>
@@ -206,8 +189,8 @@
     </div>
   </nav>
 
-  <!-- TABLE WRAPPER -->
-  <div class="table-wrapper">
+  <!-- TABLE WRAPPER (native scroll) -->
+  <div class="table-wrapper" id="tableWrapper">
     <table id="resultsTable" class="display nowrap" style="width:100%">
       <thead>
         <tr>
@@ -249,7 +232,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    /* Full world flags mapping including Hong Kong */
+    /* flags incl. Hong Kong */
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao",
       "Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
@@ -300,10 +283,8 @@
 
     const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    /* small helper for ellipsis span */
-    function smallSpan(txt) { const s = document.createElement('span'); s.textContent = txt; s.className = 'px-2'; return s; }
+    function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
 
-    /* build pagination (active pill only) */
     function buildPagination(container, info, table) {
       container.innerHTML = "";
       const pages = info.pages;
@@ -319,16 +300,16 @@
         return b;
       }
 
-      container.appendChild(mk('Previous', page === 0, page - 1));
-      container.appendChild(mk('1', false, 0, page === 0));
-      if (page > 2) container.appendChild(smallSpan('…'));
+      container.appendChild(mk('Previous', page===0, page-1));
+      container.appendChild(mk('1', false, 0, page===0));
+      if (page>2) container.appendChild(smallSpan('…'));
 
-      const start = Math.max(1, page - 1);
-      const end = Math.min(last - 1, page + 1);
-      for (let i = start; i <= end; i++) container.appendChild(mk(String(i + 1), false, i, i === page));
-      if (page < last - 2) container.appendChild(smallSpan('…'));
-      if (pages > 1) container.appendChild(mk(String(last + 1), false, last, page === last));
-      container.appendChild(mk('Next', page === last, page + 1));
+      const start = Math.max(1, page-1);
+      const end = Math.min(last-1, page+1);
+      for (let i=start;i<=end;i++) container.appendChild(mk(String(i+1), false, i, i===page));
+      if (page<last-2) container.appendChild(smallSpan('…'));
+      if (pages>1) container.appendChild(mk(String(last+1), false, last, page===last));
+      container.appendChild(mk('Next', page===last, page+1));
     }
 
     function updateInfo(container, info) {
@@ -337,47 +318,44 @@
 
     (function init(){
       fetch(CSV_URL)
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        .then(r=>r.text())
+        .then(text=>{
+          if (text.charCodeAt(0)===0xFEFF) text=text.slice(1);
 
           const parsed = Papa.parse(text, {
-            header: true,
-            skipEmptyLines: true,
-            dynamicTyping: true,
-            delimiter: ";",
-            trimHeaders: true,
-            transformHeader: h => h.trim(),
-            transform: v => v ? v.trim() : ""
+            header:true, skipEmptyLines:true, dynamicTyping:true,
+            delimiter:";", trimHeaders:true,
+            transformHeader:h=>h.trim(),
+            transform:v=>v? v.trim() : ""
           });
 
-          const cols = ["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
+          const cols=["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
 
-          const tableData = parsed.data.filter(r => r.Date && r.Rider).map(r => {
+          const data = parsed.data.filter(r=>r.Date && r.Rider).map(r=>{
             const c = r["Country"];
             const code = countryFlags[c];
             const flag = code ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${c}</div></div>` : c;
-            return cols.map(f => f === "Country" ? flag : (r[f] || ""));
+            return cols.map(f => f==="Country" ? flag : (r[f]||""));
           });
 
           const $table = $('#resultsTable');
 
-          // DataTables v2 init: vertical scroll only (no horizontal scroll)
+          // Initialize DataTable WITHOUT scrollY/scrollX — native .table-wrapper will scroll
           const table = $table.DataTable({
-            data: tableData,
+            data: data,
             dom: 't',
-            scrollY: '200px',    // pixel value required so DT creates scroll wrappers
             scrollX: false,
-            scrollCollapse: true,
+            scrollY: false,
+            scrollCollapse: false,
             pageLength: 100,
             order: [[0,'desc']],
             autoWidth: false,
             columnDefs: [{
               targets: 0,
               type: 'date',
-              render: (d,t) => {
-                if ((t === 'sort' || t === 'type') && typeof d === 'string' && d.includes('/')) {
-                  const [dd,mm,yy] = d.split('/');
+              render: (d,t)=>{
+                if ((t==='sort'||t==='type') && typeof d==='string' && d.includes('/')){
+                  const [dd,mm,yy]=d.split('/');
                   return `${yy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`;
                 }
                 return d;
@@ -388,59 +366,48 @@
           const pag = document.getElementById('pagContainer');
           const info = document.getElementById('infoContainer');
           const search = document.getElementById('footerSearch');
+          const wrapper = document.getElementById('tableWrapper');
 
-          search.addEventListener('input', () => table.search(search.value).draw());
+          // Footer search
+          search.addEventListener('input', ()=> table.search(search.value).draw());
 
-          table.on('draw', () => {
+          // Rebuild footer on draw
+          table.on('draw', ()=>{
             const meta = table.page.info();
             buildPagination(pag, meta, table);
             updateInfo(info, meta);
-          });
 
-          // FINAL alignment fix — ensure widths are recalculated after layout stabilizes
-          const realign = () => {
-            const body = document.querySelector('.dt-scroll-body');
-            if (body) {
-              // lock body height to its rendered clientHeight (final pixel height) before recalculation
-              try { body.style.height = body.clientHeight + 'px'; } catch(e) {}
-            }
-            try { table.columns.adjust(); } catch(e) {}
-          };
-
-          // multiple timed runs increase reliability across browsers
-          setTimeout(realign, 50);
-          setTimeout(realign, 150);
-          setTimeout(realign, 350);
-          setTimeout(realign, 700);
-
-          // also call after draw to be safe
-          table.on('draw.dt', () => { setTimeout(realign, 80); });
-
-          // run on resize (debounced)
-          let rt = null;
-          window.addEventListener('resize', () => {
-            if (rt) clearTimeout(rt);
-            rt = setTimeout(() => { realign(); }, 120);
-          });
-
-          // mutation observer: if DT modifies wrappers later, re-run
-          const wrapper = document.querySelector('.table-wrapper');
-          if (wrapper) {
-            const mo = new MutationObserver((mutations) => {
-              for (const m of mutations) {
-                if (m.addedNodes && m.addedNodes.length) {
-                  setTimeout(realign, 60);
-                }
+            // ensure last row visible: if wrapper's scrollTop scrolled to bottom, nudge it to fully show last row
+            // (use requestAnimationFrame to ensure DOM painted)
+            requestAnimationFrame(()=>{
+              // if scrolled to bottom (or very near), ensure exact bottom
+              const maxScroll = wrapper.scrollHeight - wrapper.clientHeight;
+              if (Math.abs(wrapper.scrollTop - maxScroll) < 5) {
+                wrapper.scrollTop = maxScroll;
               }
             });
-            mo.observe(wrapper, { childList: true, subtree: true });
-          }
+          });
 
-          // initial adjust as well
-          setTimeout(() => { try { table.columns.adjust(); table.draw(false); } catch(e){} }, 120);
+          // After init: ensure header/body alignment by letting browser compute sizes
+          // We call columns.adjust once (safe) and then allow native scrolling; header is sticky and will align
+          setTimeout(()=> {
+            try { table.columns.adjust(); } catch(e) {}
+          }, 80);
 
-        })
-        .catch(err => console.error('CSV load error:', err));
+          // When wrapper resizes (window resize), ask DT to adjust
+          let rt = null;
+          window.addEventListener('resize', ()=>{
+            if (rt) clearTimeout(rt);
+            rt = setTimeout(()=>{ try{ table.columns.adjust(); }catch(e){} }, 160);
+          });
+
+          // Ensure wrapper initially scrolled to top
+          wrapper.scrollTop = 0;
+
+          // initial draw
+          table.draw(false);
+
+        }).catch(err=>console.error('CSV load error', err));
     })();
   </script>
 </body>
