@@ -6,148 +6,101 @@
   <title>Results Log – Cyclindex</title>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
 
-  <!-- TailwindCSS + DataTables v2 CSS -->
+  <!-- Tailwind + DataTables v2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
 
   <style>
+    /* Keep Suissnord only for nav; everything else system font */
     @font-face {
       font-family: 'Suissnord';
       src: url('Suissnord.otf') format('opentype');
       font-display: swap;
     }
 
+    :root {
+      --nav-height: 71px;
+      --footer-height: 64px;
+      --wrapper-vertical-padding: 20px; /* 10 top + 10 bottom */
+      --extra-scrollbar: 20px; /* to avoid clipping last row */
+      --pill-bg: rgba(59,130,246,0.35);
+      --pill-radius: 0.7rem;
+      --neon-blue: #3b82f6;
+    }
+
+    html,body { height:100%; }
     body {
       margin: 0;
       background: #0f172a;
       color: white;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow: hidden;
+      overflow: hidden; /* dashboard mode */
     }
 
-    /* NAVBAR (Suissnord allowed ONLY here) */
+    /* NAVBAR (uses Suissnord) */
     .nav-bar {
       background: rgba(15,23,42,0.9);
       backdrop-filter: blur(12px);
       padding: 1rem 2rem;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 71px;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
       z-index: 3000;
-      display: flex;
-      align-items: center;
+      display:flex; align-items:center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .nav-links {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      gap: 2rem;
-    }
+    .nav-links { display:flex; width:100%; justify-content:center; gap:2rem; }
     .nav-links a {
       color: white;
       font-family: 'Suissnord', sans-serif;
       font-size: 1.05rem;
       padding: 0.45rem 0.9rem;
-      border-radius: 0.7rem;
-      text-decoration: none;
+      border-radius: var(--pill-radius);
+      text-decoration:none;
       transition: all .18s;
     }
-    .nav-links a:hover { background: rgba(59,130,246,0.35); transform: translateY(-2px); }
-    .nav-links a.active { background: rgba(59,130,246,0.35); }
+    .nav-links a:hover { background: var(--pill-bg); transform: translateY(-2px); }
+    .nav-links a.active { background: var(--pill-bg); }
 
-    /* FOOTER (NO Suissnord here) */
-    .fixed-bottom-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 64px;
-      background: rgba(15,23,42,0.95);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1.25rem;
-      z-index: 2900;
-      box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
-      font-family: inherit !important;
-    }
-
-    .footer-left,
-    .footer-center,
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: inherit !important;
-    }
-    .footer-center { flex: 1; justify-content: center; }
-    .footer-left { min-width: 200px; }
-    .footer-right { min-width: 220px; justify-content: flex-end; }
-
-    .entries-pill {
-      background: rgba(59,130,246,0.35);
-      padding: 6px 14px;
-      border-radius: 0.7rem;
-      font-size: 0.95rem;
-      font-family: inherit !important;
-    }
-
-    /* SEARCH INPUT & ICON */
-    .search-wrap input {
-      width: 220px;
-      padding: 6px 10px;
-      border-radius: 0.7rem;
-      background: rgba(255,255,255,0.08);
-      border: none;
-      outline: none;
-      color: white;
-      font-size: 0.95rem;
-    }
-    .magnifier {
-      width: 20px;
-      height: 20px;
-      stroke: #3b82f6;
-      filter: drop-shadow(0 0 4px #3b82f6);
-    }
-
-    /* TABLE WRAPPER */
+    /* TABLE WRAPPER fills between nav and footer */
     .table-wrapper {
       position: fixed;
-      top: 71px;
-      bottom: 64px;
-      left: 0;
-      right: 0;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      bottom: var(--footer-height);
       padding: 10px 18px;
       overflow: hidden;
     }
 
-    /* DATATABLES SCROLL BODY HEIGHT */
+    /* DataTables v2 scroll body (final height accounting for scrollbar) */
     .dt-scroll-body {
       position: relative !important;
       overflow-y: auto !important;
       overflow-x: auto !important;
-      height: calc(100vh - 71px - 64px - 40px) !important;
-      max-height: calc(100vh - 71px - 64px - 40px) !important;
+      height: calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar)) !important;
+      max-height: calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar)) !important;
     }
 
-    /* FIX: Hide cloned header (FIRST <tr>) */
-    #resultsTable thead tr:first-child {
-      display: none !important;
-    }
+    /* Hide only the cloned/extra header row inserted by DT (first TR) */
+    #resultsTable thead tr:first-child { display: none !important; }
 
     /* TABLE STYLING */
     #resultsTable {
-      width: 100%;
+      width:100%;
       background: rgba(255,255,255,0.06);
       border-radius: 1rem;
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
       backdrop-filter: blur(18px);
+      border-collapse: separate; /* keep spacing consistent */
     }
 
+    /* Header settings per your answers:
+       - font-size: 1.02rem
+       - font-weight: 600 (semi-bold)
+       - padding preserved
+       - centered
+       - no Suissnord (inherit)
+    */
     #resultsTable thead th {
       background: #1e40af !important;
       font-size: 1.02rem !important;
@@ -157,59 +110,90 @@
       text-align: center;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 60;
       font-family: inherit !important;
     }
 
+    /* Keep rows same padding */
     #resultsTable tbody td {
       padding: .55rem .4rem !important;
       font-size: .89rem;
       white-space: nowrap;
       text-align: center;
     }
+    #resultsTable tbody tr:hover { background: rgba(59,130,246,0.12) !important; }
 
-    #resultsTable tbody tr:hover {
-      background: rgba(59,130,246,0.12) !important;
+    /* Footer (no Suissnord) */
+    .fixed-bottom-bar {
+      position: fixed;
+      left:0; right:0; bottom:0;
+      height: var(--footer-height);
+      background: rgba(15,23,42,0.95);
+      backdrop-filter: blur(12px);
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 1.25rem;
+      z-index: 2900;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
+      font-family: inherit;
+    }
+    .footer-left, .footer-center, .footer-right {
+      display:flex; align-items:center; gap:8px;
+      font-family: inherit;
+    }
+    .footer-center { flex:1; justify-content:center; }
+
+    /* Entries pill (same as nav active) */
+    .entries-pill {
+      background: var(--pill-bg);
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      font-size: 0.95rem;
+      font-family: inherit;
     }
 
-    /* FLAGS */
-    .flag-img {
-      width: 22px;
-      height: 16px;
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-      transition: transform .18s;
-    }
-    .flag-img:hover { transform: scale(2.0); }
-    .flag-container { position: relative; display: inline-block; }
-    .flag-container .tooltip {
-      position:absolute;
-      bottom:100%;
-      left:50%;
-      transform:translateX(-50%);
-      background:rgba(0,0,0,.9);
-      color:white;
-      padding:6px 10px;
-      border-radius:6px;
-      opacity:0;
-      transition:opacity .15s;
-      white-space:nowrap;
-      pointer-events:none;
-      margin-bottom:6px;
-      z-index:3000;
-    }
-    .flag-container:hover .tooltip { opacity:1; }
-
-    /* PAGINATION ACTIVE BUTTON STYLE */
+    /* Pagination active pill */
     .pagination-pill {
-      background: rgba(59,130,246,0.35);
-      border-radius: 0.7rem;
+      background: var(--pill-bg);
+      border-radius: var(--pill-radius);
       padding: 4px 9px;
       font-weight: 600;
     }
+
+    /* SEARCH wrapper: icon left, input right (you chose A) */
+    .search-wrap {
+      display:flex; align-items:center; gap:8px;
+    }
+    .search-wrap svg { flex: 0 0 auto; display:block; }
+    .search-wrap input {
+      display:block;
+      width:220px;
+      padding:6px 10px;
+      border-radius: var(--pill-radius);
+      background: rgba(255,255,255,0.08);
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    /* Flags */
+    .flag-img { width:22px; height:16px; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,0.35); transition:transform .18s; }
+    .flag-img:hover { transform: scale(2.0); }
+    .flag-container { position:relative; display:inline-block; }
+    .flag-container .tooltip {
+      position:absolute; bottom:100%; left:50%; transform:translateX(-50%);
+      background: rgba(0,0,0,0.9); color:white; padding:6px 10px; border-radius:6px;
+      white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s; margin-bottom:6px; z-index:3000;
+    }
+    .flag-container:hover .tooltip { opacity:1; }
+
+    /* Small responsive tweak */
+    @media (max-width:720px) {
+      .search-wrap input { width: 140px; }
+    }
   </style>
 </head>
-
 <body>
 
   <!-- NAV -->
@@ -252,11 +236,12 @@
     <div class="footer-center"><span id="infoContainer" class="entries-pill"></span></div>
     <div class="footer-right">
       <div class="search-wrap">
-        <svg class="magnifier" viewBox="0 0 24 24" fill="none">
-          <circle cx="11" cy="11" r="7" stroke="#3b82f6" stroke-width="2"/>
-          <line x1="16.65" y1="16.65" x2="21" y2="21" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+        <!-- neon-blue search icon (left) -->
+        <svg class="magnifier" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7" stroke="var(--neon-blue)" stroke-width="2"></circle>
+          <line x1="16.65" y1="16.65" x2="21" y2="21" stroke="var(--neon-blue)" stroke-width="2" stroke-linecap="round"></line>
         </svg>
-        <input id="footerSearch" placeholder="Search…" />
+        <input id="footerSearch" placeholder="Search…" aria-label="Search" />
       </div>
     </div>
   </div>
@@ -267,7 +252,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    /* Countries including Hong Kong */
+    /* Flags map including Hong Kong */
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao",
       "Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
@@ -316,132 +301,170 @@
       "Zimbabwe":"zw","Hong Kong":"hk"
     };
 
-    const CSV_URL =
-      "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
+    const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
+    /* Utility: build a small span */
+    function smallSpan(txt){ const s = document.createElement('span'); s.textContent = txt; s.className='px-2'; return s; }
+
+    /* Pagination builder (active page highlighted) */
     function buildPagination(container, info, table) {
       container.innerHTML = "";
       const pages = info.pages;
       const page = info.page;
       const last = pages - 1;
 
-      function btn(label, disabled, target, active=false) {
-        const b=document.createElement("button");
-        b.textContent=label;
-        b.className="px-2 py-1 rounded text-sm hover:bg-white/5";
-        if (active) b.classList.add("pagination-pill");
-        if (disabled) b.disabled=true;
-        else b.onclick=()=>table.page(target).draw("page");
+      function makeBtn(label, disabled, target, active=false) {
+        const b = document.createElement('button');
+        b.textContent = label;
+        b.className = 'px-2 py-1 rounded text-sm hover:bg-white/5';
+        if (active) b.classList.add('pagination-pill');
+        if (disabled) b.disabled = true;
+        else b.onclick = () => table.page(target).draw('page');
         return b;
       }
 
-      container.appendChild(btn("Previous", page===0, page-1));
-      container.appendChild(btn("1", false, 0, page===0));
+      container.appendChild(makeBtn('Previous', page===0, page-1));
+      container.appendChild(makeBtn('1', false, 0, page===0));
 
-      if (page > 2) container.appendChild(span("…"));
+      if (page > 2) container.appendChild(smallSpan('…'));
 
-      function span(t){const s=document.createElement("span");s.textContent=t;s.className="px-2";return s;}
+      const start = Math.max(1, page-1);
+      const end = Math.min(last-1, page+1);
 
-      const start=Math.max(1,page-1);
-      const end=Math.min(last-1,page+1);
+      for (let i = start; i <= end; i++) container.appendChild(makeBtn(String(i+1), false, i, i===page));
 
-      for(let i=start;i<=end;i++)
-        container.appendChild(btn(String(i+1),false,i,i===page));
+      if (page < last-2) container.appendChild(smallSpan('…'));
 
-      if(page<last-2) container.appendChild(span("…"));
-
-      if(pages>1) container.appendChild(btn(String(last+1),false,last,page===last));
-
-      container.appendChild(btn("Next", page===last, page+1));
+      if (pages>1) container.appendChild(makeBtn(String(last+1), false, last, page===last));
+      container.appendChild(makeBtn('Next', page===last, page+1));
     }
 
     function updateInfo(container, info) {
-      container.textContent =
-        `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`;
+      container.textContent = `Showing ${info.start + 1} to ${info.end} of ${info.recordsDisplay} entries`;
     }
 
-    fetch(CSV_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+    /* MAIN INIT */
+    (function init() {
+      // Load CSV
+      fetch(CSV_URL)
+        .then(r=>r.text())
+        .then(text=>{
+          // remove BOM if present
+          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
-        const parsed = Papa.parse(text,{
-          header:true,
-          skipEmptyLines:true,
-          dynamicTyping:true,
-          delimiter:";",
-          trimHeaders:true,
-          transformHeader:h=>h.trim(),
-          transform:v=>v?v.trim():""
-        });
-
-        const cols=[
-          "Date","Country","Rider","Team","Competition","Class",
-          "Rank","Result Type","UCI Points","Level","Season Result Rank"
-        ];
-
-        const tableData=parsed.data
-          .filter(r=>r.Date && r.Rider)
-          .map(r=>{
-            const c=r["Country"];
-            const code=countryFlags[c];
-            const flag = code
-              ? `<div class="flag-container">
-                   <img class="flag-img" src="https://flagcdn.com/${code}.svg">
-                   <div class="tooltip">${c}</div>
-                 </div>`
-              : c;
-
-            return cols.map(f => f==="Country"?flag:(r[f]||""));
+          const parsed = Papa.parse(text, {
+            header: true, skipEmptyLines: true, dynamicTyping: true,
+            delimiter: ";", trimHeaders: true,
+            transformHeader: h => h.trim(),
+            transform: v => v ? v.trim() : ""
           });
 
-        const table=$('#resultsTable').DataTable({
-          data:tableData,
-          dom:"t",
-          scrollY:"200px",
-          scrollX:true,
-          scrollCollapse:true,
-          pageLength:100,
-          order:[[0,"desc"]],
-          autoWidth:false,
-          columnDefs:[{
-            targets:0,
-            type:"date",
-            render:(d,t)=>{
-              if((t==="sort"||t==="type") && d.includes("/")){
-                const[dd,mm,yy]=d.split("/");
-                return `${yy}-${mm.padStart(2,"0")}-${dd.padStart(2,"0")}`;
+          const fields = [
+            "Date","Country","Rider","Team","Competition","Class",
+            "Rank","Result Type","UCI Points","Level","Season Result Rank"
+          ];
+
+          const data = parsed.data
+            .filter(r => r.Date && r.Rider)
+            .map(r => {
+              const c = r["Country"];
+              const code = countryFlags[c];
+              const flag = code ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${c}</div></div>` : c;
+              return fields.map(f => f === "Country" ? flag : (r[f] || ""));
+            });
+
+          // Prepare table element (no manual empty <tr> — let DataTables do its work)
+          const $table = $('#resultsTable');
+
+          // Create DataTable (give pixel scrollY so DT creates scroll wrappers)
+          const table = $table.DataTable({
+            data: data,
+            dom: 't',
+            scrollY: '200px', // dummy pixel height so DT creates scroll wrappers
+            scrollX: true,
+            scrollCollapse: true,
+            pageLength: 100,
+            order: [[0,'desc']],
+            autoWidth: false,
+            columnDefs: [{
+              targets: 0,
+              type: 'date',
+              render: (d, t) => {
+                if ((t === 'sort' || t === 'type') && typeof d === 'string' && d.includes('/')) {
+                  const [dd, mm, yy] = d.split('/');
+                  return `${yy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`;
+                }
+                return d;
               }
-              return d;
+            }]
+          });
+
+          const pag = document.getElementById('pagContainer');
+          const info = document.getElementById('infoContainer');
+          const search = document.getElementById('footerSearch');
+
+          // Footer search input (icon left)
+          search.addEventListener('input', () => table.search(search.value).draw());
+
+          // On table draw -> rebuild pagination & info
+          table.on('draw', () => {
+            const meta = table.page.info();
+            buildPagination(pag, meta, table);
+            updateInfo(info, meta);
+          });
+
+          // Setup function that sets final scroll height and triggers adjustments.
+          function finalizeSizingAndAdjust() {
+            const body = document.querySelector('.dt-scroll-body');
+            if (body) {
+              // set final height (accounts for wrapper padding + scrollbar)
+              body.style.height = 'calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar))';
+              body.style.maxHeight = 'calc(100vh - var(--nav-height) - var(--footer-height) - var(--wrapper-vertical-padding) - var(--extra-scrollbar))';
             }
-          }]
-        });
 
-        const pag=document.getElementById("pagContainer");
-        const info=document.getElementById("infoContainer");
-        const search=document.getElementById("footerSearch");
-
-        search.addEventListener("input",()=>table.search(search.value).draw());
-
-        table.on("draw",()=>{
-          const meta=table.page.info();
-          buildPagination(pag,meta,table);
-          updateInfo(info,meta);
-        });
-
-        table.draw(false);
-
-        setTimeout(()=>{
-          const body=document.querySelector(".dt-scroll-body");
-          if(body){
-            body.style.height="calc(100vh - 71px - 64px - 40px)";
-            body.style.maxHeight="calc(100vh - 71px - 64px - 40px)";
+            // ask DT to recalc column widths
+            try {
+              table.columns.adjust();
+              table.draw(false);
+            } catch (e) {
+              // ignore
+              console.warn('adjust/draw error', e);
+            }
           }
-          table.columns.adjust();
-        },300);
 
-      });
+          // Run finalize after short delays to catch DT initial layout and browser reflow
+          setTimeout(finalizeSizingAndAdjust, 80);
+          setTimeout(finalizeSizingAndAdjust, 300);
+          setTimeout(finalizeSizingAndAdjust, 700);
+
+          // Also finalize on window resize (debounced)
+          let resizeTimer = null;
+          window.addEventListener('resize', () => {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              finalizeSizingAndAdjust();
+            }, 200);
+          });
+
+          // If DT inserts scroll wrappers dynamically later, observe and adjust
+          const wrapper = document.querySelector('.table-wrapper');
+          if (wrapper) {
+            const mo = new MutationObserver((mutations) => {
+              for (const m of mutations) {
+                if (m.addedNodes && m.addedNodes.length) {
+                  // re-run adjustments (small delay to allow DOM)
+                  setTimeout(finalizeSizingAndAdjust, 60);
+                }
+              }
+            });
+            mo.observe(wrapper, { childList:true, subtree:true });
+          }
+
+          // initial draw
+          table.draw(false);
+        })
+        .catch(err => console.error('CSV load error:', err));
+    })();
   </script>
-
 </body>
 </html>
