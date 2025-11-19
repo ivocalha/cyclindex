@@ -22,7 +22,7 @@
       background: #0f172a;
       color: white;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow: hidden; /* dashboard mode */
+      overflow: hidden;
     }
 
     /* NAVBAR */
@@ -74,6 +74,7 @@
       z-index: 2900;
       box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
     }
+
     .footer-left,
     .footer-center,
     .footer-right {
@@ -81,21 +82,35 @@
       align-items: center;
       gap: 8px;
     }
+
     .footer-center { flex: 1; justify-content: center; }
     .footer-left { min-width: 200px; }
     .footer-right { min-width: 220px; justify-content: flex-end; }
 
-    .search-wrap { display: flex; align-items: center; gap: 8px; }
+    /* SEARCH WRAPPER */
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .search-wrap input {
       width: 220px;
       padding: 6px 10px;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.06);
+      border-radius: 0.7rem;
+      background: rgba(255,255,255,0.08);
       border: none;
       outline: none;
       color: white;
+      font-size: 0.95rem;
     }
-    .magnifier { width: 18px; height: 18px; filter: invert(1); }
+
+    /* Neon blue search icon */
+    .magnifier {
+      width: 20px;
+      height: 20px;
+      stroke: #3b82f6;
+      filter: drop-shadow(0 0 4px #3b82f6);
+    }
 
     /* TABLE WRAPPER */
     .table-wrapper {
@@ -108,7 +123,7 @@
       overflow: hidden;
     }
 
-    /* CORRECT DATATABLES v2 SCROLL CLASS — FINAL HEIGHT FIX */
+    /* CORRECT DATATABLES V2 SCROLL CLASS — FINAL HEIGHT FIX */
     .dt-scroll-body {
       position: relative !important;
       overflow-y: auto !important;
@@ -178,6 +193,23 @@
       z-index:3000;
     }
     .flag-container:hover .tooltip { opacity:1; }
+
+    /* PAGINATION active button styling = EXACT navbar pill */
+    .pagination-pill {
+      background: rgba(59,130,246,0.35);
+      border-radius: 0.7rem;
+      padding: 4px 9px;
+      font-weight: 600;
+    }
+
+    /* Total entries pill */
+    .entries-pill {
+      background: rgba(59,130,246,0.35);
+      padding: 6px 14px;
+      border-radius: 0.7rem;
+      font-family: 'Suissnord', sans-serif;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 
@@ -220,18 +252,17 @@
   <!-- FOOTER -->
   <div class="fixed-bottom-bar">
     <div class="footer-left" id="pagContainer"></div>
-    <div class="footer-center" id="infoContainer"></div>
+    <div class="footer-center"><span id="infoContainer" class="entries-pill"></span></div>
     <div class="footer-right">
       <div class="search-wrap">
-        <svg class="magnifier" viewBox="0 0 24 24">
-          <path d="M11 19a8 8 0 1 1 5.293-14.293A8 8 0 0 1 11 19zm8.707 3.707L18 18"
-            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="magnifier" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="7" stroke="#3b82f6" stroke-width="2"/>
+          <line x1="16.65" y1="16.65" x2="21" y2="21" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <input id="footerSearch" placeholder="Search…" />
       </div>
     </div>
   </div>
-
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -239,7 +270,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    /* World flags */
+    /* World flags including Hong Kong */
     const countryFlags = {
       "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao",
       "Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
@@ -277,21 +308,21 @@
       "San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa",
       "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl",
       "Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb",
-      "Somalia":"so","South Africa":"za","South Korea":"kr",
-      "South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
-      "Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj",
-      "Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to",
-      "Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm",
-      "Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae",
-      "United Kingdom":"gb","Great Britain":"gb","United States":"us",
-      "Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va",
-      "Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+      "Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss",
+      "Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se",
+      "Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz",
+      "Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt",
+      "Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua",
+      "United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb",
+      "United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
+      "Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm",
+      "Zimbabwe":"zw","Hong Kong":"hk"
     };
 
     const CSV_URL =
       "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-    /* Pagination builder (style D) */
+    /* Pagination builder */
     function buildPagination(container, info, table) {
       container.innerHTML = "";
       const pages = info.pages;
@@ -299,50 +330,45 @@
       const last = pages - 1;
 
       function btn(label, disabled, pageTarget, active=false) {
-        const b=document.createElement("button");
-        b.textContent=label;
-        b.className="px-2 py-1 rounded text-sm hover:bg-white/5";
-        if (active) b.classList.add("bg-white/10","font-semibold");
-        if (disabled) b.disabled=true;
-        else b.onclick=()=>table.page(pageTarget).draw("page");
+        const b = document.createElement("button");
+        b.textContent = label;
+        b.className = "px-2 py-1 rounded text-sm hover:bg-white/5";
+        if (active) b.classList.add("pagination-pill");
+        if (disabled) b.disabled = true;
+        else b.onclick = () => table.page(pageTarget).draw("page");
         return b;
       }
 
-      /* Previous */
-      container.appendChild(btn("Previous", page===0, page-1));
+      container.appendChild(btn("Previous", page === 0, page - 1));
 
-      /* First */
-      container.appendChild(btn("1", false, 0, page===0));
+      container.appendChild(btn("1", false, 0, page === 0));
 
-      /* Left ellipsis */
       if (page > 2) {
-        const s=document.createElement("span");
-        s.textContent="…";
-        s.className="px-2";
+        const s = document.createElement("span");
+        s.textContent = "…";
+        s.className = "px-2";
         container.appendChild(s);
       }
 
-      /* Middle pages */
-      const start = Math.max(1, page-1);
-      const end   = Math.min(last-1, page+1);
-      for (let i=start;i<=end;i++){
-        container.appendChild(btn(String(i+1), false, i, i===page));
+      const start = Math.max(1, page - 1);
+      const end   = Math.min(last - 1, page + 1);
+
+      for (let i = start; i <= end; i++) {
+        container.appendChild(btn(String(i + 1), false, i, i === page));
       }
 
-      /* Right ellipsis */
-      if (page < last-2) {
-        const s=document.createElement("span");
-        s.textContent="…";
-        s.className="px-2";
+      if (page < last - 2) {
+        const s = document.createElement("span");
+        s.textContent = "…";
+        s.className = "px-2";
         container.appendChild(s);
       }
 
-      /* Last */
-      if (pages>1)
-        container.appendChild(btn(String(last+1), false, last, page===last));
+      if (pages > 1) {
+        container.appendChild(btn(String(last + 1), false, last, page === last));
+      }
 
-      /* Next */
-      container.appendChild(btn("Next", page===last, page+1));
+      container.appendChild(btn("Next", page === last, page + 1));
     }
 
     function updateInfo(container, info) {
@@ -352,40 +378,40 @@
 
     /* MAIN INIT */
     fetch(CSV_URL)
-      .then(r=>r.text())
-      .then(text=>{
-        if (text.charCodeAt(0)===0xFEFF) text=text.slice(1);
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
-        const parsed = Papa.parse(text,{
-          header:true,
-          skipEmptyLines:true,
-          dynamicTyping:true,
-          delimiter:";",
-          trimHeaders:true,
-          transformHeader:h=>h.trim(),
-          transform:v=>v ? v.trim():""
+        const parsed = Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: true,
+          delimiter: ";",
+          trimHeaders: true,
+          transformHeader: h => h.trim(),
+          transform: v => v ? v.trim() : ""
         });
 
-        const fields=[
+        const fields = [
           "Date","Country","Rider","Team","Competition","Class",
           "Rank","Result Type","UCI Points","Level","Season Result Rank"
         ];
 
-        const tableData=parsed.data
-          .filter(r=>r.Date && r.Rider)
-          .map(r=>{
-            const c=r["Country"];
-            const flag = countryFlags[c]
+        const tableData = parsed.data
+          .filter(r => r.Date && r.Rider)
+          .map(row => {
+            const c = row["Country"];
+            const code = countryFlags[c];
+            const flag = code
               ? `<div class="flag-container">
-                   <img class="flag-img" src="https://flagcdn.com/${countryFlags[c]}.svg">
+                   <img class="flag-img" src="https://flagcdn.com/${code}.svg">
                    <div class="tooltip">${c}</div>
                  </div>`
               : c;
 
-            return fields.map(f=>f==="Country"?flag:(r[f]||""));
+            return fields.map(f => f === "Country" ? flag : (row[f] || ""));
           });
 
-        /* DataTables v2 */
         const table = $('#resultsTable').DataTable({
           data: tableData,
           dom: "t",
@@ -395,15 +421,15 @@
           scrollCollapse: true,
 
           pageLength: 100,
-          order: [[0,"desc"]],
-          autoWidth:false,
+          order: [[0, "desc"]],
+          autoWidth: false,
 
-          columnDefs:[{
-            targets:0,
-            type:"date",
-            render:(d,t)=>{
-              if ((t==="sort"||t==="type") && d.includes("/")){
-                const [dd,mm,yy]=d.split("/");
+          columnDefs: [{
+            targets: 0,
+            type: "date",
+            render: (d, t) => {
+              if ((t === "sort" || t === "type") && d.includes("/")) {
+                const [dd, mm, yy] = d.split("/");
                 return `${yy}-${mm.padStart(2,"0")}-${dd.padStart(2,"0")}`;
               }
               return d;
@@ -411,30 +437,31 @@
           }]
         });
 
-        const pag=document.getElementById("pagContainer");
-        const info=document.getElementById("infoContainer");
-        const search=document.getElementById("footerSearch");
+        const pagContainer = document.getElementById("pagContainer");
+        const infoContainer = document.getElementById("infoContainer");
+        const searchInput = document.getElementById("footerSearch");
 
-        search.addEventListener("input",()=>table.search(search.value).draw());
+        searchInput.addEventListener("input", () => {
+          table.search(searchInput.value).draw();
+        });
 
-        table.on("draw",()=>{
-          const meta=table.page.info();
-          buildPagination(pag, meta, table);
-          updateInfo(info, meta);
+        table.on("draw", () => {
+          const info = table.page.info();
+          buildPagination(pagContainer, info, table);
+          updateInfo(infoContainer, info);
         });
 
         table.draw(false);
 
-        /* FINAL HEIGHT FIX */
-        setTimeout(()=>{
-          const body=document.querySelector(".dt-scroll-body");
+        /* Override v2 scroll height */
+        setTimeout(() => {
+          const body = document.querySelector(".dt-scroll-body");
           if (body) {
-            body.style.height="calc(100vh - 71px - 64px - 40px)";
-            body.style.maxHeight="calc(100vh - 71px - 64px - 40px)";
+            body.style.height = "calc(100vh - 71px - 64px - 40px)";
+            body.style.maxHeight = "calc(100vh - 71px - 64px - 40px)";
           }
           table.columns.adjust();
-        },300);
-
+        }, 300);
       });
   </script>
 
