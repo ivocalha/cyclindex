@@ -83,7 +83,6 @@
       border-radius: var(--header-radius);
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
       backdrop-filter: blur(18px);
-      table-layout: auto;
     }
 
     #riderTable thead th {
@@ -92,23 +91,16 @@
       position: sticky;
       top: 0 !important;
       z-index: 50;
-
-      font-size: 1.02rem !important;
+      font-size: 0.98rem !important;
       font-weight: 600 !important;
       text-align: center;
       white-space: nowrap;
       padding: 0.85rem 0.5rem !important;
-      font-family: inherit !important;
-
-      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
-      opacity: 0;
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
     .dataTables_scrollHead,
-    .dataTables_scrollHeadInner table {
-      margin-top: 0 !important;
-    }
+    .dataTables_scrollHeadInner table { margin-top: 0 !important; }
 
     #riderTable thead th:first-child { border-top-left-radius: var(--header-radius); }
     #riderTable thead th:last-child  { border-top-right-radius: var(--header-radius); }
@@ -119,8 +111,7 @@
     }
 
     #riderTable tbody td {
-      font-size: .89rem;
-      white-space: nowrap;
+      font-size: .88rem;
       text-align: center;
       padding: 0.55rem 0.5rem !important;
     }
@@ -159,15 +150,9 @@
     .search-wrap {
       display: flex; align-items: center; gap: 8px;
     }
-    .search-wrap svg {
-      width: 18px; height: 18px;
-      flex: none;
-    }
+    .search-wrap svg { width: 18px; height: 18px; }
     .search-wrap svg circle,
-    .search-wrap svg line {
-      stroke: var(--neon-blue);
-      stroke-width: 2;
-    }
+    .search-wrap svg line { stroke: var(--neon-blue); stroke-width: 2; }
     .search-wrap input {
       width: 220px;
       padding: 6px 10px;
@@ -176,7 +161,6 @@
       border: none;
       outline: none;
       color: white;
-      font-family: inherit;
     }
 
     .flag-img {
@@ -204,9 +188,7 @@
     }
     .flag-container:hover .tooltip { opacity: 1; }
 
-    @media(max-width:720px) {
-      .search-wrap input { width: 140px; }
-    }
+    @media(max-width:720px) { .search-wrap input { width: 140px; } }
   </style>
 </head>
 <body>
@@ -227,19 +209,29 @@
     <thead>
       <tr>
         <th>Rank</th>
-        <th>Nation</th>
+        <th>Country</th>
         <th>Rider</th>
-        <th>Team</th>
         <th>Score</th>
-        <th>Age</th>
-        <th>U23</th>
-        <th>Best Result</th>
-        <th>BR Pts</th>
-        <th>2nd Best</th>
-        <th>2B Pts</th>
-        <th>3rd Best</th>
-        <th>3B Pts</th>
-        <th>Total Results</th>
+        <th>Date1</th>
+        <th>Team1</th>
+        <th>Event1</th>
+        <th>Rank1</th>
+        <th>Type1</th>
+        <th>Level1</th>
+        <th>Date2</th>
+        <th>Team2</th>
+        <th>Event2</th>
+        <th>Rank2</th>
+        <th>Type2</th>
+        <th>Level2</th>
+        <th>Date3</th>
+        <th Team3</th>
+        <th>Event3</th>
+        <th>Rank3</th>
+        <th>Type3</th>
+        <th>Level3</th>
+        <th>Team Rank</th>
+        <th>Country Rank</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -257,7 +249,7 @@
         <circle cx="11" cy="11" r="7"/>
         <line x1="16.65" y1="16.65" x2="21" y2="21" stroke-linecap="round"/>
       </svg>
-      <input id="footerSearch" placeholder="Search…">
+      <input id="footerSearch" placeholder="Search riders…">
     </div>
   </div>
 </div>
@@ -267,7 +259,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-const countryFlags = {
+const countryFlags = { /* your full list – unchanged */ 
   "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
   "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
   "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
@@ -334,7 +326,13 @@ fetch(CSV_URL)
       transform: v => v ? v.toString().trim() : ""
     });
 
-    const cols = ["Rank","Country","Rider","Team","Score","Age","U23","Best Result","BR Pts","2nd Best","2B Pts","3rd Best","3B Pts","Total Results"];
+    const displayColumns = [
+      "Rank","Country","Rider","Score",
+      "Date1","Team1","Event1","Rank1","Results_Type1","Level1",
+      "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
+      "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
+      "rider_team_rank","rider_country_rank"
+    ];
 
     const data = parsed.data.map(row => {
       const country = row["Country"] || "";
@@ -343,10 +341,10 @@ fetch(CSV_URL)
         ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${country}</div></div>`
         : country;
 
-      return cols.map(col => {
+      return displayColumns.map(col => {
         if (col === "Country") return flag;
         let val = row[col] ?? "";
-        if (["Score","BR Pts","2B Pts","3B Pts"].includes(col)) {
+        if (col === "Score") {
           if (typeof val === "string") val = val.replace(",", ".");
           const num = parseFloat(val);
           val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
@@ -359,6 +357,7 @@ fetch(CSV_URL)
       data: data,
       dom: 't',
       pageLength: 100,
+      lengthMenu: [50, 100, 200, 500],
       order: [[0, 'asc']],
       autoWidth: false,
       scrollX: true,
