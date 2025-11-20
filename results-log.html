@@ -24,7 +24,7 @@
       --pill-radius: 0.7rem;
       --pill-bg: rgba(59,130,246,0.35);
       --neon-blue: #3b82f6;
-      --header-blue: #1a2f55; /* exact sampled color */
+      --header-blue: #1a2f55;
       --header-radius: 14px;
       --fade-duration: 0.4s;
     }
@@ -98,7 +98,7 @@
       background: var(--header-blue) !important;
       color: white;
       position: sticky;
-      top: 0 !important;                     /* ← CHANGED FROM var(--nav-height) */
+      top: 0 !important;                /* ← changed */
       z-index: 50;
 
       font-size: 1.02rem !important;
@@ -113,20 +113,17 @@
 
       font-family: inherit !important;
 
-      /* Rounded only on outer header cells */
       transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
       opacity: 0;
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
-    /* ONLY CHANGE #2 & #3 – prevents header width shrink */
-    .dataTables_scrollHeadInner,
+    /* ONLY CHANGE #2 – prevents header shrink */
     .dataTables_scrollHeadInner,
     .dataTables_scrollHeadInner table {
       width: 100% !important;
     }
 
-    /* Rounded top-left and top-right ONLY on header */
     #resultsTable thead th:first-child {
       border-top-left-radius: var(--header-radius);
     }
@@ -144,7 +141,6 @@
       font-size: .89rem;
       white-space: nowrap;
       text-align: center;
-
       padding-left: 0.5rem !important;
       padding-right: 0.5rem !important;
       padding-top: .55rem !important;
@@ -410,16 +406,14 @@ fetch(CSV_URL)
       return cols.map(f => f==="Country" ? flag : (r[f]||""));  
     });
 
-    const table = $('#resultsTable').DataTable').DataTable({
+    const table = $('#resultsTable').DataTable({        /* ← fixed the typo here (was duplicated) */
       data: data,
       dom: 't',
       pageLength: 100,
       autoWidth: false,
       order: [[0,'desc']],
-      /* ONLY CHANGES #4 & #5 – these two lines added */
-      scrollY:        'calc(100vh - var(--nav-height) - var(--footer-height) - 20px)',
-      scrollCollapse: true,
-      /* end of changes */
+      scrollY: 'calc(100vh - var(--nav-height) - var(--footer-height) - 20px)',   /* ← #4 */
+      scrollCollapse: true,                                                      /* ← #5 */
       columnDefs: [{
         targets: 0,
         type: 'date',
