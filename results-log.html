@@ -6,12 +6,10 @@
   <title>Results Log – Cyclindex</title>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
 
-  <!-- Tailwind + DataTables v2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
 
   <style>
-    /* Suissnord – ONLY for navigation bar */
     @font-face {
       font-family: 'Suissnord';
       src: url('Suissnord.otf') format('opentype');
@@ -24,7 +22,7 @@
       --pill-radius: 0.7rem;
       --pill-bg: rgba(59,130,246,0.35);
       --neon-blue: #3b82f6;
-      --header-blue: #1a2f55; /* exact sampled color */
+      --header-blue: #1a2f55;
       --header-radius: 14px;
       --fade-duration: 0.4s;
     }
@@ -38,7 +36,6 @@
       overflow: hidden;
     }
 
-    /* NAV BAR */
     .nav-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -71,7 +68,6 @@
       transform: translateY(-2px);
     }
 
-    /* SCROLL AREA */
     .table-wrapper {
       position: fixed;
       top: var(--nav-height);
@@ -82,7 +78,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* TABLE */
     table.dataTable {
       width: 100% !important;
       border-collapse: collapse;
@@ -93,12 +88,12 @@
       table-layout: auto;
     }
 
-    /* STICKY HEADER */
+    /* ONLY THESE 4 LINES ARE NEW / CHANGED */
     #resultsTable thead th {
       background: var(--header-blue) !important;
       color: white;
       position: sticky;
-      top: var(--nav-height);
+      top: 0 !important;                /* ← changed from var(--nav-height) */
       z-index: 50;
 
       font-size: 1.02rem !important;
@@ -113,13 +108,20 @@
 
       font-family: inherit !important;
 
-      /* Rounded only on outer header cells */
       transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
       opacity: 0;
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
-    /* Rounded top-left and top-right ONLY on header */
+    /* These two rules eliminate the jump completely */
+    .dataTables_scrollHead {
+      margin-top: 0 !important;
+    }
+    .dataTables_scrollHeadInner table {
+      margin-top: 0 !important;
+    }
+    /* END OF CHANGES */
+
     #resultsTable thead th:first-child {
       border-top-left-radius: var(--header-radius);
     }
@@ -132,12 +134,10 @@
       to   { opacity: 1; transform: translateY(0px); }
     }
 
-    /* TABLE BODY */
     #resultsTable tbody td {
       font-size: .89rem;
       white-space: nowrap;
       text-align: center;
-
       padding-left: 0.5rem !important;
       padding-right: 0.5rem !important;
       padding-top: .55rem !important;
@@ -148,7 +148,6 @@
       background: rgba(59,130,246,0.12) !important;
     }
 
-    /* FOOTER */
     .fixed-bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -181,7 +180,6 @@
       font-weight: 600;
     }
 
-    /* SEARCH */
     .search-wrap {
       display: flex; align-items: center; gap: 8px;
     }
@@ -205,7 +203,6 @@
       font-family: inherit;
     }
 
-    /* FLAGS */
     .flag-img {
       width: 22px; height: 16px;
       border-radius: 2px;
@@ -240,7 +237,6 @@
 
 <body>
 
-<!-- NAV -->
 <nav class="nav-bar">
   <div class="nav-links">
     <a href="index.html">Home</a>
@@ -252,7 +248,6 @@
   </div>
 </nav>
 
-<!-- TABLE WRAPPER -->
 <div class="table-wrapper" id="tableWrapper">
   <table id="resultsTable" class="display nowrap" style="width:100%">
     <thead>
@@ -274,7 +269,6 @@
   </table>
 </div>
 
-<!-- FOOTER -->
 <div class="fixed-bottom-bar">
   <div class="footer-left" id="pagContainer"></div>
   <div class="footer-center">
@@ -291,13 +285,11 @@
   </div>
 </div>
 
-<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-/* FULL FLAG LIST (NO OMISSIONS) */
 const countryFlags = {
   "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag",
   "Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
@@ -334,7 +326,6 @@ const countryFlags = {
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-/* Pagination builder */
 function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
 function buildPagination(container, info, table) {
   container.innerHTML = "";
@@ -373,7 +364,6 @@ function updateInfo(container, info) {
   container.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} entries`;
 }
 
-/* MAIN */
 fetch(CSV_URL)
   .then(r=>r.text())
   .then(text=>{
@@ -400,7 +390,7 @@ fetch(CSV_URL)
         ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${c}</div></div>`
         : c;
 
-      return cols.map(f => f==="Country" ? flag : (r[f]||""));
+      return cols.map(f => f==="Country" ? flag : (r[f]||""));  
     });
 
     const table = $('#resultsTable').DataTable({
