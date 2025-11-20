@@ -6,87 +6,241 @@
   <title>Results Log – Cyclindex</title>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
 
-  <!-- CSS -->
+  <!-- Tailwind + DataTables v2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.dataTables.min.css">
 
   <style>
-    @font-face {font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-display:swap;}
-    :root{
-      --nav-height:71px;--footer-height:64px;--pill-radius:0.7rem;--pill-bg:rgba(59,130,246,0.35);
-      --neon-blue:#3b82f6;--header-blue:#1a2f55;--header-radius:14px;
+    /* Suissnord – ONLY for navigation bar */
+    @font-face {
+      font-family: 'Suissnord';
+      src: url('Suissnord.otf') format('opentype');
+      font-display: swap;
     }
-    html,body{height:100%;margin:0;background:#0f172a;color:white;overflow:hidden;}
-    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
 
-    /* NAV */
-    .nav-bar{position:fixed;top:0;left:0;right:0;height:var(--nav-height);background:rgba(15,23,42,0.9);
-      backdrop-filter:blur(12px);display:flex;align-items:center;padding:1rem 2rem;z-index:3000;
-      box-shadow:0 4px 20px rgba(0,0,0,0.5);}
-    .nav-links{display:flex;gap:2rem;width:100%;justify-content:center;}
-    .nav-links a{font-family:'Suissnord',sans-serif;text-decoration:none;font-size:1.05rem;color:white;
-      padding:0.45rem 0.9rem;border-radius:var(--pill-radius);transition:all .18s;}
-    .nav-links a.active,.nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
+    :root {
+      --nav-height: 71px;
+      --footer-height: 64px;
+      --pill-radius: 0.7rem;
+      --pill-bg: rgba(59,130,246,0.35);
+      --neon-blue: #3b82f6;
+      --header-blue: #1a2f55; /* exact sampled color */
+      --header-radius: 14px;
+      --fade-duration: 0.4s;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: white;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      overflow: hidden;
+    }
+
+    /* NAV BAR */
+    .nav-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center;
+      padding: 1rem 2rem;
+      z-index: 3000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .nav-links a {
+      font-family: 'Suissnord', sans-serif;
+      text-decoration: none;
+      font-size: 1.05rem;
+      color: white;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--pill-radius);
+      transition: all .18s;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: var(--pill-bg);
+      transform: translateY(-2px);
+    }
 
     /* SCROLL AREA */
-    .table-wrapper{
-      position:fixed;top:var (--nav-height);left:0;right:0;bottom:var(--footer-height);
-      padding:10px 18px;overflow:auto;-webkit-overflow-scrolling:touch;
+    .table-wrapper {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      bottom: var(--footer-height);
+      padding: 10px 18px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* TABLE */
-    table.dataTable{
-      width:100% !important;border-collapse:separate;border-spacing:0;
-      background:rgba(255,255,255,0.06);border-radius:var(--header-radius);
-      box-shadow:0 30px 90px rgba(0,0,0,0.85);backdrop-filter:blur(18px);
+    table.dataTable {
+      width: 100% !important;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--header-radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+      backdrop-filter: blur(18px);
+      table-layout: auto;
     }
-    table.dataTable thead th{
-      background:var(--header-blue) !important;color:white !important;
-      font-size:1.02rem !important;font-weight:600 !important;text-align:center;white-space:nowrap;
-      padding:0.85rem 0.5rem !important;
-    }
-    table.dataTable thead th:first-child{border-top-left-radius:var(--header-radius);}
-    table.dataTable thead th:last-child{border-top-right-radius:var(--header-radius);}
 
-    #resultsTable tbody td{
-      font-size:.89rem;white-space:nowrap;text-align:center;
-      padding:.55rem 0.5rem !important;
-    }
-    #resultsTable tbody tr:hover{background:rgba(59,130,246,0.12) !important;}
+    /* STICKY HEADER */
+    #resultsTable thead th {
+      background: var(--header-blue) !important;
+      color: white;
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 50;
 
-    /* BOTTOM BAR */
-    .fixed-bottom-bar{
-      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
-      background:rgba(15,23,42,0.95);backdrop-filter:blur(12px);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.25rem;box-shadow:0 -6px 20px rgba(0,0,0,0.45);z-index:2900;
-    }
-    .entries-pill{background:var(--pill-bg);padding:6px 14px;border-radius:var(--pill-radius);font-size:0.95rem;}
+      font-size: 1.02rem !important;
+      font-weight: 600 !important;
+      text-align: center;
+      white-space: nowrap;
 
-    /* SEARCH – perfectly aligned */
-    .search-wrap{display:flex;align-items:center;gap:10px;}
-    .search-wrap svg{width:20px;height:20px;flex-shrink:0;stroke:var(--neon-blue);stroke-width:2;fill:none;}
-    .search-wrap input{
-      width:220px;padding:8px 12px;border-radius:var(--pill-radius);
-      background:rgba(255,255,255,0.08);border:none;outline:none;color:white;font-size:0.95rem;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      padding-top: 0.85rem !important;
+      padding-bottom: 0.85rem !important;
+
+      font-family: inherit !important;
+
+      /* Rounded only on outer header cells */
+      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
+      opacity: 0;
+      animation: fadeInHeader var(--fade-duration) ease forwards;
     }
-    @media(max-width:720px){.search-wrap input{width:140px;}}
+
+    /* Rounded top-left and top-right ONLY on header */
+    #resultsTable thead th:first-child {
+      border-top-left-radius: var(--header-radius);
+    }
+    #resultsTable thead th:last-child {
+      border-top-right-radius: var(--header-radius);
+    }
+
+    @keyframes fadeInHeader {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0px); }
+    }
+
+    /* TABLE BODY */
+    #resultsTable tbody td {
+      font-size: .89rem;
+      white-space: nowrap;
+      text-align: center;
+
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      padding-top: .55rem !important;
+      padding-bottom: .55rem !important;
+    }
+
+    #resultsTable tbody tr:hover {
+      background: rgba(59,130,246,0.12) !important;
+    }
+
+    /* FOOTER */
+    .fixed-bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--footer-height);
+      background: rgba(15,23,42,0.95);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
+      z-index: 2900;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .footer-center { flex: 1; justify-content: center; }
+
+    .entries-pill {
+      background: var(--pill-bg);
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      font-size: 0.95rem;
+    }
+
+    .pagination-pill {
+      background: var(--pill-bg);
+      border-radius: var(--pill-radius);
+      padding: 4px 9px;
+      font-weight: 600;
+    }
+
+    /* SEARCH */
+    .search-wrap {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .search-wrap svg {
+      width: 18px; height: 18px;
+      flex: none; display: block;
+    }
+    .search-wrap svg circle,
+    .search-wrap svg line {
+      stroke: var(--neon-blue);
+      stroke-width: 2;
+    }
+    .search-wrap input {
+      width: 220px;
+      padding: 6px 10px;
+      border-radius: var(--pill-radius);
+      background: rgba(255,255,255,0.08);
+      border: none;
+      outline: none;
+      color: white;
+      font-family: inherit;
+    }
 
     /* FLAGS */
-    .flag-img{width:22px;height:16px;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,0.35);transition:transform .18s;}
-    .flag-img:hover{transform:scale(2);}
-    .flag-container{position:relative;display:inline-block;}
-    .flag-container .tooltip{
-      position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
-      background:rgba(0,0,0,0.9);color:white;padding:6px 10px;border-radius:6px;
-      white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none;margin-bottom:6px;z-index:3000;
+    .flag-img {
+      width: 22px; height: 16px;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+      transition: transform .18s;
     }
-    .flag-container:hover .tooltip{opacity:1;}
+    .flag-img:hover { transform: scale(2); }
+
+    .flag-container { position: relative; display: inline-block; }
+    .flag-container .tooltip {
+      position: absolute;
+      bottom: 100%; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .15s;
+      pointer-events: none;
+      margin-bottom: 6px;
+      z-index: 3000;
+    }
+    .flag-container:hover .tooltip { opacity: 1; }
+
+    @media(max-width:720px) {
+      .search-wrap input { width: 140px; }
+    }
   </style>
 </head>
+
 <body>
 
+<!-- NAV -->
 <nav class="nav-bar">
   <div class="nav-links">
     <a href="index.html">Home</a>
@@ -98,12 +252,21 @@
   </div>
 </nav>
 
+<!-- TABLE WRAPPER -->
 <div class="table-wrapper" id="tableWrapper">
   <table id="resultsTable" class="display nowrap" style="width:100%">
     <thead>
       <tr>
-        <th>Date</th><th>Nation</th><th>Rider</th><th>Team</th><th>Race</th>
-        <th>Class</th><th>Rank</th><th>Type</th><th>UCI Pts</th><th>Level</th>
+        <th>Date</th>
+        <th>Nation</th>
+        <th>Rider</th>
+        <th>Team</th>
+        <th>Race</th>
+        <th>Class</th>
+        <th>Rank</th>
+        <th>Type</th>
+        <th>UCI Pts</th>
+        <th>Level</th>
         <th title="Rider's Season Result Rank">RSRR</th>
       </tr>
     </thead>
@@ -111,12 +274,18 @@
   </table>
 </div>
 
+<!-- FOOTER -->
 <div class="fixed-bottom-bar">
   <div class="footer-left" id="pagContainer"></div>
-  <div class="footer-center"><span id="infoContainer" class="entries-pill"></span></div>
+  <div class="footer-center">
+    <span id="infoContainer" class="entries-pill"></span>
+  </div>
   <div class="footer-right">
     <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7"/><line x1="16.65" y1="16.65" x2="21" y2="21" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.65" y1="16.65" x2="21" y2="21" stroke-linecap="round"/>
+      </svg>
       <input id="footerSearch" placeholder="Search…">
     </div>
   </div>
@@ -125,71 +294,161 @@
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/4.0.1/js/fixedHeader.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-const countryFlags = { /* ← your full object unchanged → */
+/* FULL FLAG LIST (NO OMISSIONS) */
+const countryFlags = {
   "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag",
   "Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs",
   "Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj",
-  /* ... all the rest exactly as before ... */
+  "Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn",
+  "Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh","Cameroon":"cm",
+  "Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co",
+  "Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz",
+  "Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg",
+  "El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et",
+  "Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de",
+  "Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy",
+  "Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir",
+  "Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp",
+  "Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg",
+  "Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li",
+  "Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv",
+  "Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx",
+  "Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma",
+  "Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl",
+  "New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no",
+  "Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg",
+  "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro",
+  "Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc",
+  "Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs",
+  "Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb",
+  "Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk",
+  "Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj",
+  "Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt",
+  "Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae",
   "United Kingdom":"gb","Great Britain":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu",
   "Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Hong Kong":"hk"
 };
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv";
 
-function buildPagination(c,i,t){c.innerHTML="";const p=i.page,l=i.pages-1;
-  const b=(txt,dis,page,act=false)=>{const el=document.createElement('button');el.textContent=txt;
-    el.className='px-2 py-1 rounded text-sm hover:bg-white/5';if(act)el.classList.add('pagination-pill');
-    if(!dis)el.onclick=()=>t.page(page).draw('page');else el.disabled=true;return el;};
-  c.appendChild(b('Previous',p===0,p-1));
-  c.appendChild(b('1',false,0,p===0)); if(p>2)c.appendChild(document.createTextNode(' … '));
-  for(let x=Math.max(1,p-1);x<=Math.min(l-1,p+1);x++)c.appendChild(b(String(x+1),false,x,x===p));
-  if(p<l-2)c.appendChild(document.createTextNode(' … '));
-  if(i.pages>1)c.appendChild(b(String(l+1),false,l,p===l));
-  c.appendChild(b('Next',p===l,p+1));
+/* Pagination builder */
+function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
+function buildPagination(container, info, table) {
+  container.innerHTML = "";
+  const page = info.page;
+  const last = info.pages - 1;
+
+  function mk(label, disabled, target, active=false) {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.className = 'px-2 py-1 rounded text-sm hover:bg-white/5';
+    if (active) b.classList.add('pagination-pill');
+    if (disabled) b.disabled = true;
+    else b.onclick = () => table.page(target).draw('page');
+    return b;
+  }
+
+  container.appendChild(mk('Previous', page===0, page-1));
+  container.appendChild(mk('1', false, 0, page===0));
+
+  if (page>2) container.appendChild(smallSpan('…'));
+
+  const start = Math.max(1, page-1);
+  const end = Math.min(last-1, page+1);
+  for (let i=start; i<=end; i++)
+    container.appendChild(mk(String(i+1), false, i, i===page));
+
+  if (page<last-2) container.appendChild(smallSpan('…'));
+
+  if (info.pages>1)
+    container.appendChild(mk(String(last+1), false, last, page===last));
+
+  container.appendChild(mk('Next', page===last, page+1));
 }
-function updateInfo(c,i){c.textContent=`Showing ${i.start+1} to ${i.end} of ${i.recordsDisplay} entries`;}
 
-fetch(CSV_URL).then(r=>r.text()).then(text=>{
-  if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-  const parsed=Papa.parse(text,{header:true,skipEmptyLines:true,dynamicTyping:true,delimiter:";",transformHeader:h=>h.trim(),transform:v=>v?v.trim():""});
-  const cols=["Date","Country","Rider","Team","Competition","Class","Rank","Result Type","UCI Points","Level","Season Result Rank"];
-  const data=parsed.data.filter(r=>r.Date&&r.Rider).map(r=>{
-    const code=countryFlags[r.Country]||"";
-    const flag=code?`<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${r.Country}</div></div>`:r.Country;
-    return cols.map(f=>f==="Country"?flag:(r[f]||""));
+function updateInfo(container, info) {
+  container.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} entries`;
+}
+
+/* MAIN */
+fetch(CSV_URL)
+  .then(r=>r.text())
+  .then(text=>{
+    if (text.charCodeAt(0)===0xFEFF) text = text.slice(1);
+
+    const parsed = Papa.parse(text, {
+      header:true,
+      skipEmptyLines:true,
+      dynamicTyping:true,
+      delimiter:";",
+      transformHeader:h=>h.trim(),
+      transform:v=>v?v.trim():""
+    });
+
+    const cols = [
+      "Date","Country","Rider","Team","Competition","Class","Rank",
+      "Result Type","UCI Points","Level","Season Result Rank"
+    ];
+
+    const data = parsed.data.filter(r=>r.Date && r.Rider).map(r=>{
+      const c=r["Country"];
+      const code=countryFlags[c];
+      const flag = code
+        ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${c}</div></div>`
+        : c;
+
+      return cols.map(f => f==="Country" ? flag : (r[f]||""));
+    });
+
+    const table = $('#resultsTable').DataTable({
+      data: data,
+      dom: 't',
+      pageLength: 100,
+      autoWidth: false,
+      order: [[0,'desc']],
+      columnDefs: [{
+        targets: 0,
+        type: 'date',
+        render:(d,t)=>{
+          if ((t==='sort'||t==='type') && d.includes('/')){
+            const [dd,mm,yy]=d.split('/');
+            return `${yy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`;
+          }
+          return d;
+        }
+      }]
+    });
+
+    const pag = document.getElementById('pagContainer');
+    const info = document.getElementById('infoContainer');
+    const search = document.getElementById('footerSearch');
+    const wrapper = document.getElementById('tableWrapper');
+
+    search.addEventListener('input',()=>table.search(search.value).draw());
+
+    table.on('draw',()=>{
+      const meta = table.page.info();
+      buildPagination(pag, meta, table);
+      updateInfo(info, meta);
+
+      requestAnimationFrame(()=>{
+        const max = wrapper.scrollHeight - wrapper.clientHeight;
+        if (Math.abs(wrapper.scrollTop - max) < 6) wrapper.scrollTop = max;
+      });
+    });
+
+    setTimeout(()=>{ try{table.columns.adjust();}catch(e){} }, 80);
+
+    window.addEventListener('resize',()=>{
+      setTimeout(()=>{ try{table.columns.adjust();}catch(e){} },160);
+    });
+
+    table.draw(false);
   });
-
-  const table = $('#resultsTable').DataTable({
-    data: data,
-    dom: 't',
-    pageLength: 100,
-    autoWidth: false,
-    order: [[0,'desc']],
-    fixedHeader: {
-      header: true,
-      headerOffset: 71                     // height of your fixed nav
-    },
-    // THIS IS THE FINAL FIX:
-    initComplete: function () {
-      this.api().fixedHeader.enable();   // force FixedHeader to attach to body, not the scrolling div
-    }
-  });
-
-  const pag = document.getElementById('pagContainer');
-  const info = document.getElementById('infoContainer');
-  const search = document.getElementById('footerSearch');
-
-  search.addEventListener('input',()=>table.search(search.value).draw());
-  table.on('draw',()=>{const i=table.page.info();buildPagination(pag,i,table);updateInfo(info,i);});
-
-  setTimeout(()=>table.columns.adjust(), 150);
-  window.addEventListener('resize',()=>setTimeout(()=>table.columns.adjust(), 160));
-  table.draw(false);
-});
 </script>
+
 </body>
 </html>
