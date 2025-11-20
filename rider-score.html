@@ -34,7 +34,6 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    /* TOP NAVBAR */
     .nav-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -67,7 +66,6 @@
       transform: translateY(-2px);
     }
 
-    /* TABLE AREA – WITH HORIZONTAL SCROLL SUPPORT */
     .table-wrapper {
       position: fixed;
       top: var(--nav-height);
@@ -88,7 +86,6 @@
       table-layout: auto;
     }
 
-    /* HEADER – NO JUMP, PERFECT STICKY */
     #riderTable thead th {
       background: var(--header-blue) !important;
       color: white;
@@ -131,7 +128,6 @@
       background: rgba(59,130,246,0.12) !important;
     }
 
-    /* BOTTOM BAR */
     .fixed-bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -365,8 +361,7 @@ fetch(CSV_URL)
       pageLength: 100,
       order: [[0, 'asc']],
       autoWidth: false,
-      scrollX: true,           // Enables horizontal scrolling
-      scrollY: false,
+      scrollX: true,
       scrollCollapse: true
     });
 
