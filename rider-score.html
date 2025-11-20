@@ -92,20 +92,17 @@
       position: sticky;
       top: 0 !important;
       z-index: 50;
-
       font-size: 1.02rem !important;
       font-weight: 600 !important;
       text-align: center;
       white-space: nowrap;
       padding: 0.85rem 0.5rem !important;
       font-family: inherit !important;
-
       transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
       opacity: 0;
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
-    /* THESE TWO LINES ARE THE SAME AS IN team-score.html AND results-log.html */
     .dataTables_scrollHead,
     .dataTables_scrollHeadInner table {
       margin-top: 0 !important;
@@ -154,15 +151,9 @@
     .search-wrap {
       display: flex; align-items: center; gap: 8px;
     }
-    .search-wrap svg {
-      width: 18px; height: 18px;
-      flex: none;
-    }
+    .search-wrap svg { width: 18px; height: 18px; flex: none; }
     .search-wrap svg circle,
-    .search-wrap svg line {
-      stroke: var(--neon-blue);
-      stroke-width: 2;
-    }
+    .search-wrap svg line { stroke: var(--neon-blue); stroke-width: 2; }
     .search-wrap input {
       width: 220px;
       padding: 6px 10px;
@@ -171,7 +162,6 @@
       border: none;
       outline: none;
       color: white;
-      font-family: inherit;
     }
 
     .flag-img {
@@ -272,11 +262,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-const countryFlags = { /* unchanged full list */ };
+const countryFlags = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
+  "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
+  "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
+  "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr",
+  "Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do",
+  "Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj",
+  "Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt",
+  "Guinea":"gn",
+  "Guyana":"gy","Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il",
+  "Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw",
+  "Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu",
+  "Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu",
+  "Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm",
+  "Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk",
+  "Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe",
+  "Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn",
+  "Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa",
+  "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb",
+  "Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
+  "Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl",
+  "Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua",
+  "United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz",
+  "Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Hong Kong":"hk"
+};
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
 function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
+
 function buildPagination(c, info, table) {
   c.innerHTML = "";
   const page = info.page;
@@ -326,14 +341,14 @@ fetch(CSV_URL)
     ];
 
     const data = parsed.data.map(row => {
-      const country = row["Country"] || "";
-      const code = countryFlags[country] || "";
-      const flag = code
-        ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${country}</div></div>`
-        : country;
+      const countryName = row["Country"] || "";
+      const code = countryFlags[countryName] || "";
+      const flagHTML = code
+        ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg" alt="${countryName}"><div class="tooltip">${countryName}</div></div>`
+        : countryName;
 
       return displayColumns.map(col => {
-        if (col === "Country") return flag;
+        if (col === "Country") return flagHTML;
         let val = row[col] ?? "";
         if (col === "Score") {
           if (typeof val === "string") val = val.replace(",", ".");
@@ -351,7 +366,7 @@ fetch(CSV_URL)
       lengthMenu: [50, 100, 200, 500],
       order: [[0, 'asc']],
       autoWidth: false
-      // scrollX removed → no blank header row, perfect sticky header
+      // no scrollX → no duplicate header → perfect sticky header
     });
 
     const pag = document.getElementById('pagContainer');
