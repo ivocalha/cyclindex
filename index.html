@@ -84,30 +84,40 @@
       white-space: normal;
       max-width: 100%;
       letter-spacing: 0.03em;
-      opacity: 1 !important;
     }
     .icon {
       width: 28px;
       height: 28px;
       fill: currentColor;
-      opacity: 1 !important;
     }
     .icon-img {
       width: 28px;
       height: 28px;
       object-fit: contain;
-      opacity: 1 !important;
       display: block;
       margin: 0 auto;
-      loading: eager;
     }
-    .results, .how {
+    .results, .how, .upcoming {
       background: rgba(15, 23, 42, 0.25);
       color: white;
     }
     .rider, .team, .nation {
       background: rgba(255, 255, 255, 0.25);
       color: white;
+    }
+    .upcoming ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      width: 100%;
+      text-align: left;
+    }
+    .upcoming li {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     @media (max-width: 768px) {
       .blocks-container { flex-direction: column; align-items: center; }
@@ -126,7 +136,7 @@
       <h1 class="title">Cyclindex</h1>
     </div>
 
-    <!-- 5 Blocks -->
+    <!-- Blocks -->
     <div class="blocks-container">
       <!-- Results Log -->
       <a href="results-log.html" class="block results">
@@ -154,14 +164,66 @@
         <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
       </a>
 
-      <!-- How It Works – QUESTION MARK ICON RESTORED -->
+      <!-- How It Works -->
       <a href="how-it-works.html" class="block how">
         <h3 class="block-title">How It<br>Works</h3>
         <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
         </svg>
       </a>
+
+      <!-- Upcoming Races (Dynamic) -->
+      <div class="block upcoming">
+        <h3 class="block-title">Upcoming<br>Races</h3>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+        </svg>
+        <ul id="upcoming-list">
+          <li>Loading races...</li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <!-- Dynamic Upcoming Races Script -->
+  <script>
+    const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
+
+    fetch(CALENDAR_URL)
+      .then(response => response.text())
+      .then(csv => {
+        const lines = csv.trim().split('\n').slice(1); // skip header
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const upcoming = [];
+
+        for (const line of lines) {
+          const [dateStr, country, race] = line.split(';');
+          if (!dateStr || !country || !race) continue;
+
+          const [day, month, year] = dateStr.split('/');
+          const raceDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+          raceDate.setHours(0, 0, 0, 0);
+
+          if (raceDate >= today) {
+            const raceName = race.split('|')[0].trim();
+            upcoming.push(`${dateStr} – ${raceName} (${country})`);
+            if (upcoming.length >= 5) break;
+          }
+        }
+
+        const listEl = document.getElementById('upcoming-list');
+        if (upcoming.length === 0) {
+          listEl.innerHTML = '<li>No upcoming races</li>';
+        } else {
+          listEl.innerHTML = upcoming.map(r => `<li>${r}</li>`).join('');
+        }
+      })
+      .catch(err => {
+        document.getElementById('upcoming-list').innerHTML = '<li>Error loading races</li>';
+        console.error('Failed to load calendar:', err);
+      });
+  </script>
 </body>
 </html>
