@@ -106,7 +106,7 @@
       color: white;
     }
 
-    /* Upcoming Races Horizontal Block – Vertical List Inside */
+    /* Upcoming Races Block */
     .upcoming-horizontal {
       width: 100%;
       max-width: 1400px;
@@ -146,6 +146,14 @@
       color: white;
       font-size: 1rem;
     }
+    .upcoming-table th {
+      text-align: left;
+      padding-bottom: 0.5rem;
+      font-weight: 600;
+      opacity: 0.8;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
     .upcoming-table td {
       padding: 0.75rem 0;
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -153,16 +161,14 @@
     .upcoming-table tr:last-child td {
       border-bottom: none;
     }
-    .upcoming-table .date {
-      width: 110px;
-      font-weight: 600;
-    }
-    .upcoming-table .country {
-      width: 150px;
-      opacity: 0.9;
-    }
-    .upcoming-table .race {
-      font-weight: 500;
+    .upcoming-table .date { width: 110px; font-weight: 600; }
+    .upcoming-table .country { width: 140px; opacity: 0.9; }
+    .upcoming-table .race { font-weight: 500; }
+    .upcoming-table .class {
+      text-align: right;
+      font-family: monospace;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     @media (max-width: 768px) {
@@ -173,8 +179,8 @@
       .block-title { font-size: 1.25rem; }
       .upcoming-horizontal { padding: 1.5rem; }
       .upcoming-title { font-size: 1.4rem; }
-      .upcoming-table { font-size: 0.95rem; }
-      .upcoming-table .date { width: 100px; }
+      .upcoming-table th, .upcoming-table td { font-size: 0.9rem; }
+      .upcoming-table .class { text-align: left; margin-top: 0.25rem; }
     }
   </style>
 </head>
@@ -218,7 +224,7 @@
       </a>
     </div>
 
-    <!-- Upcoming Races – Full Width, Vertical List -->
+    <!-- Upcoming Races – Full Width Table with Full Race Name + Class -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <svg class="upcoming-calendar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -228,19 +234,29 @@
       </div>
 
       <table class="upcoming-table" id="upcoming-table">
-        <tr><td colspan="3">Loading races from calendar...</td></tr>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Country</th>
+            <th>Race</th>
+            <th>Class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4">Loading races...</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Dynamic Script – Loads calendar.csv and displays next 5 races -->
+  <!-- Dynamic Script – Shows full race name and class -->
   <script>
     const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
 
     fetch(CALENDAR_URL)
       .then(r => r.text())
       .then(csv => {
-        const lines = csv.trim().split('\n').slice(1); // skip header
+        const lines = csv.trim().split('\n').slice(1);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -248,11 +264,12 @@
 
         for (const line of lines) {
           const parts = line.split(';');
-          if (parts.length < 3) continue;
+          if (parts.length < 5) continue;
+
           const dateStr = parts[0].trim();
           const country = parts[1].trim();
-          const raceFull = parts[2].trim();
-          const race = raceFull.split('|')[0].trim();
+          const fullRace = parts[2].trim();  // This includes |Stage 1 etc.
+          const uciClass = parts[4].trim();  // class column
 
           const [day, month, year] = dateStr.split('/');
           const raceDate = new Date(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
@@ -260,28 +277,29 @@
           raceDate.setHours(0, 0, 0, 0);
 
           if (raceDate >= today) {
-            upcoming.push({ date: dateStr, country, race });
+            upcoming.push({ date: dateStr, country, race: fullRace, class: uciClass });
             if (upcoming.length >= 5) break;
           }
         }
 
-        const table = document.getElementById('upcoming-table');
+        const tbody = document.querySelector('#upcoming-table tbody');
         if (upcoming.length === 0) {
-          table.innerHTML = '<tr><td colspan="3">No upcoming races found</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="4">No upcoming races found</td></tr>';
         } else {
-          table.innerHTML = upcoming.map(r => `
+          tbody.innerHTML = upcoming.map(r => `
             <tr>
               <td class="date">${r.date}</td>
               <td class="country">${r.country}</td>
               <td class="race">${r.race}</td>
+              <td class="class">${r.class}</td>
             </tr>
           `).join('');
         }
       })
       .catch(err => {
-        document.getElementById('upcoming-table').innerHTML = 
-          '<tr><td colspan="3">Error loading calendar</td></tr>';
-        console.error('Failed to load calendar:', err);
+        document.querySelector('#upcoming-table tbody').innerHTML = 
+          '<tr><td colspan="4">Error loading calendar</td></tr>';
+        console.error(err);
       });
   </script>
 </body>
