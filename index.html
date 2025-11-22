@@ -92,7 +92,7 @@
     .upcoming-block {
       width: 100%;
       max-width: 1400px;
-      background: rgba(15, 23, 42, 0.3);
+      background: rgba(15, 23, 42, 0.32);
       backdrop-filter: blur(10px);
       border-radius: 1.5rem;
       padding: 1.25rem 2rem;
@@ -134,14 +134,15 @@
       padding: 0.6rem 0;
       vertical-align: middle;
     }
-    .upcoming-table .flag {
+    .upcoming-table tr:last-child td { border-bottom: none; }
+    .upcoming-table .date { width: 100px; font-weight: 600; }
+    .upcoming-table .class { width: 80px; text-align: center; font-family: monospace; font-size: 0.9rem; opacity: 0.9; }
+    .upcoming-table .flag img {
       width: 28px;
       height: 20px;
       border-radius: 3px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.4);
     }
-    .upcoming-table .date { width: 100px; font-weight: 600; }
-    .upcoming-table .class { width: 80px; text-align: center; font-family: monospace; font-size: 0.9rem; opacity: 0.9; }
     .upcoming-table .race { font-weight: 500; }
 
     @media (max-width: 768px) {
@@ -160,7 +161,7 @@
   <div class="hero">
     <!-- Logo + Title -->
     <div class="logo-title">
-      <img src="cycl_logo.png" alt="Cyclindex Logo" class="logo-img">
+      <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
       <h1 class="title">Cyclindex</h1>
     </div>
 
@@ -192,7 +193,7 @@
       </a>
     </div>
 
-    <!-- Compact Upcoming Races with Flags + Class after Date -->
+    <!-- Compact Upcoming Races Block with Flags + Class after Date -->
     <div class="upcoming-block">
       <div class="upcoming-header">
         <svg class="upcoming-calendar-icon" viewBox="0 0 24 24">
@@ -206,7 +207,7 @@
           <tr>
             <th>Date</th>
             <th>Class</th>
-            <th></th> <!-- flag -->
+            <th></th>
             <th>Race</th>
           </tr>
         </thead>
@@ -220,13 +221,14 @@
   <script>
     const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
 
-    // Simple country → flag filename mapping (same as used in results-log.html)
+    // Country → flag filename (same as used in results-log.html)
     const flagMap = {
       "Australia": "au", "Saudi Arabia": "sa", "Spain": "es", "France": "fr",
       "Italy": "it", "Belgium": "be", "Netherlands": "nl", "Switzerland": "ch",
       "Germany": "de", "United Arab Emirates": "ae", "Portugal": "pt",
       "Colombia": "co", "Argentina": "ar", "Japan": "jp", "China": "cn",
-      // add more if needed – the script will fall back to text if flag not found
+      "Malaysia": "my", "Oman": "om", "Rwanda": "rw", "Türkiye": "tr"
+      // Add more if needed – fallback to lowercase code works for most
     };
 
     fetch(CALENDAR_URL)
@@ -241,38 +243,41 @@
         for (const line of lines) {
           const p = line.split(';');
           if (p.length < 5) continue;
+
           const date = p[0].trim();
           const country = p[1].trim();
-          const race = p[2].trim();        // full name with |Stage
+          const race = p[2].trim();           // full name with |Stage
           const uciClass = p[4].trim();
 
-          const [d,m,y] = date.split('/');
+          const [d, m, y] = date.split('/');
           const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
           if (isNaN(raceDate)) continue;
           raceDate.setHours(0,0,0,0);
 
           if (raceDate >= today) {
-            const flagCode = flagMap[country] || country.toLowerCase().slice(0,2);
-            upcoming.push({date, uciClass, flagCode, country, race});
+            const code = flagMap[country] || country.toLowerCase().split(' ').pop().slice(0,2);
+            upcoming.push({ date, uciClass, flagCode: code.toLowerCase(), country, race });
             if (upcoming.length === 5) break;
           }
         }
 
         const tbody = document.querySelector('#upcoming-table tbody');
-        tbody.innerHTML = upcoming.length
-          ? upcoming.map(r => `
+        if (!upcoming.length) {
+          tbody.innerHTML = '<tr><td colspan="4">No upcoming races</td></tr>';
+        } else {
+          tbody.innerHTML = upcoming.map(r => `
             <tr>
               <td class="date">${r.date}</td>
               <td class="class">${r.uciClass}</td>
-              <td><img src="flags/${r.flagCode}.png" alt="${r.country}" class="flag" onerror="this.style.display='none';this.nextSibling.style.display='inline';"
-                       <span style="display:none;">${r.country}</span></td>
+              <td class="flag"><img src="flags/${r.flagCode}.png" alt="${r.country}"
+                   onerror="this.style.display='none'; this.parentNode.innerHTML='${r.country}'"></td>
               <td class="race">${r.race}</td>
             </tr>
-          `).join('')
-          : '<tr><td colspan="4">No upcoming races</td></tr>';
+          `).join('');
+        }
       })
       .catch(() => {
-        document.querySelector('#upcoming-table tbody').innerHTML = 
+        document.querySelector('#upcoming-table tbody').innerHTML =
           '<tr><td colspan="4">Error loading calendar</td></tr>';
       });
   </script>
