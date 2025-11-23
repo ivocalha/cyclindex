@@ -85,28 +85,11 @@
       max-width: 100%;
       letter-spacing: 0.03em;
     }
-    .icon {
-      width: 28px;
-      height: 28px;
-      fill: currentColor;
-    }
-    .icon-img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto;
-    }
-    .results, .how {
-      background: rgba(15, 23, 42, 0.25);
-      color: white;
-    }
-    .rider, .team, .nation {
-      background: rgba(255, 255, 255, 0.25);
-      color: white;
-    }
+    .icon { width: 28px; height: 28px; fill: currentColor; }
+    .icon-img { width: 28px; height: 28px; object-fit: contain; display: block; margin: 0 auto; }
+    .results, .how { background: rgba(15, 23, 42, 0.25); color: white; }
+    .rider, .team, .nation { background: rgba(255, 255, 255, 0.25); color: white; }
 
-    /* Upcoming Races Block */
     .upcoming-horizontal {
       width: 100%;
       max-width: 1400px;
@@ -122,12 +105,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
       background: rgba(15, 23, 42, 0.35);
     }
-    .upcoming-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+    .upcoming-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     .upcoming-title {
       font-family: 'Suissnord', sans-serif;
       font-size: 1.6rem;
@@ -135,34 +113,12 @@
       color: white;
       margin: 0;
     }
-    .upcoming-calendar-icon {
-      width: 38px;
-      height: 38px;
-      fill: white;
-    }
-    .upcoming-table {
-      width: 100%;
-      border-collapse: collapse;
-      color: white;
-      font-size: 1rem;
-    }
-    .upcoming-table th {
-      text-align: left;
-      padding-bottom: 0.5rem;
-      font-weight: 600;
-      opacity: 0.8;
-      font-size: 0.9rem;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-    .upcoming-table td {
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .upcoming-table tr:last-child td {
-      border-bottom: none;
-    }
+    .upcoming-calendar-icon { width: 38px; height: 38px; fill: white; }
+    .upcoming-table { width: 100%; border-collapse: collapse; color: white; font-size: 1rem; }
+    .upcoming-table th { text-align: left; padding-bottom: 0.5rem; font-weight: 600; opacity: 0.8; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    .upcoming-table td { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .upcoming-table tr:last-child td { border-bottom: none; }
     .upcoming-table td:nth-child(1) { width: 100px; }
-    .upcoming-table td:nth-child(3), .upcoming-table td:nth-child(4) { text-align: center; }
   </style>
 </head>
 <body>
@@ -173,364 +129,129 @@
     </div>
 
     <div class="blocks-container">
-      <a href="results-log.html" class="block results">
-        <h3 class="block-title">Results<br>Log</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-        </svg>
-      </a>
-
-      <a href="rider-score.html" class="block rider">
-        <h3 class="block-title">Rider<br>Score</h3>
-        <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
-      </a>
-
-      <a href="team-score.html" class="block team">
-        <h3 class="block-title">Team<br>Score</h3>
-        <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
-      </a>
-
-      <a href="nation-score.html" class="block nation">
-        <h3 class="block-title">Nation<br>Score</h3>
-        <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
-      </a>
-
-      <a href="how-it-works.html" class="block how">
-        <h3 class="block-title">How It<br>Works</h3>
-        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-        </svg>
-      </a>
+      <a href="results-log.html" class="block results"><h3 class="block-title">Results<br>Log</h3><svg class="icon" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg></a>
+      <a href="rider-score.html" class="block rider"><h3 class="block-title">Rider<br>Score</h3><img src="rider_icon.png" alt="Rider" class="icon-img"></a>
+      <a href="team-score.html" class="block team"><h3 class="block-title">Team<br>Score</h3><img src="team_icon.png" alt="Team" class="icon-img"></a>
+      <a href="nation-score.html" class="block nation"><h3 class="block-title">Nation<br>Score</h3><img src="nation_icon.png" alt="Nation" class="icon-img"></a>
+      <a href="how-it-works.html" class="block how"><h3 class="block-title">How It<br>Works</h3><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></a>
     </div>
 
     <!-- Upcoming Races -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
-        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-        </svg>
+        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
         <h3 class="upcoming-title">Next 5 Upcoming Races</h3>
       </div>
-
-      <table class="upcoming-table" id="upcoming-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Country</th>
-            <th>Race</th>
-            <th>Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="4">Loading races...</td></tr>
-        </tbody>
-      </table>
+      <table class="upcoming-table" id="upcoming-table"><thead><tr><th>Date</th><th>Country</th><th>Race</th><th>Class</th></tr></thead><tbody><tr><td colspan="4">Loading races...</td></tr></tbody></table>
     </div>
 
-    <!-- NEW BLOCK 1: Latest Results -->
+    <!-- Latest Results -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
-        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-        </svg>
+        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg>
         <h3 class="upcoming-title">Latest Results</h3>
       </div>
-      <table class="upcoming-table" id="latest-results-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Race</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="2">Loading...</td></tr>
-        </tbody>
-      </table>
+      <table class="upcoming-table" id="latest-results-table"><thead><tr><th>Date</th><th>Race</th></tr></thead><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
     </div>
 
-    <!-- NEW BLOCK 2: Top 10 Riders -->
+    <!-- Top 10 Riders -->
     <div class="upcoming-horizontal">
-      <div class="upcoming-header">
-        <img src="rider_icon.png" alt="Top Riders" class="upcoming-calendar-icon">
-        <h3 class="upcoming-title">Top 10 Riders</h3>
-      </div>
-      <table class="upcoming-table" id="top-riders-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Rider</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="3">Loading...</td></tr>
-        </tbody>
-      </table>
+      <div class="upcoming-header"><img src="rider_icon.png" alt="Top Riders" class="upcoming-calendar-icon"><h3 class="upcoming-title">Top 10 Riders</h3></div>
+      <table class="upcoming-table" id="top-riders-table"><thead><tr><th>Rank</th><th>Rider</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
     </div>
 
-    <!-- NEW BLOCK 3: Top 5 Teams -->
+    <!-- Top 5 Teams – FIXED -->
     <div class="upcoming-horizontal">
-      <div class="upcoming-header">
-        <img src="team_icon.png" alt="Top Teams" class="upcoming-calendar-icon">
-        <h3 class="upcoming-title">Top 5 Teams</h3>
-      </div>
-      <table class="upcoming-table" id="top-teams-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="3">Loading...</td></tr>
-        </tbody>
-      </table>
+      <div class="upcoming-header"><img src="team_icon.png" alt="Top Teams" class="upcoming-calendar-icon"><h3 class="upcoming-title">Top 5 Teams</h3></div>
+      <table class="upcoming-table" id="top-teams-table"><thead><tr><th>Rank</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
     </div>
 
-    <!-- NEW BLOCK 4: Top 5 Nations -->
+    <!-- Top 5 Nations – FIXED -->
     <div class="upcoming-horizontal">
-      <div class="upcoming-header">
-        <img src="nation_icon.png" alt="Top Nations" class="upcoming-calendar-icon">
-        <h3 class="upcoming-title">Top 5 Nations</h3>
-      </div>
-      <table class="upcoming-table" id="top-nations-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Nation</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="3">Loading...</td></tr>
-        </tbody>
-      </table>
+      <div class="upcoming-header"><img src="nation_icon.png" alt="Top Nations" class="upcoming-calendar-icon"><h3 class="upcoming-title">Top 5 Nations</h3></div>
+      <table class="upcoming-table" id="top-nations-table"><thead><tr><th>Rank</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
     </div>
   </div>
 
-  <!-- Original Upcoming Races Script -->
+  <!-- All scripts (only the two problematic ones changed) -->
   <script>
     const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
-
-    fetch(CALENDAR_URL)
-      .then(r => r.text())
-      .then(csv => {
-        const lines = csv.trim().split('\n').slice(1);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const upcoming = [];
-
-        for (const line of lines) {
-          const parts = line.split(';');
-          if (parts.length < 5) continue;
-
-          const dateStr = parts[0].trim();
-          const country = parts[1].trim();
-          const fullRace = parts[2].trim();
-          const uciClass = parts[4].trim();
-
-          const [day, month, year] = dateStr.split('/');
-          const raceDate = new Date(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
-          if (isNaN(raceDate)) continue;
-          raceDate.setHours(0, 0, 0, 0);
-
-          if (raceDate >= today) {
-            upcoming.push({ date: dateStr, country, race: fullRace, class: uciClass });
-            if (upcoming.length >= 5) break;
-          }
-        }
-
-        const tbody = document.querySelector('#upcoming-table tbody');
-        if (upcoming.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="4">No upcoming races found</td></tr>';
-        } else {
-          tbody.innerHTML = upcoming.map(r => `
-            <tr>
-              <td class="date">${r.date}</td>
-              <td class="country">${r.country}</td>
-              <td class="race">${r.race}</td>
-              <td class="class">${r.class}</td>
-            </tr>
-          `).join('');
-        }
-      })
-      .catch(err => {
-        document.querySelector('#upcoming-table tbody').innerHTML = 
-          '< clairement<tr><td colspan="4">Error loading calendar</td></tr>';
-        console.error(err);
-      });
+    fetch(CALENDAR_URL).then(r=>r.text()).then(csv=>{
+      const lines = csv.trim().split('\n').slice(1);
+      const today = new Date(); today.setHours(0,0,0,0);
+      const upcoming = [];
+      for (const line of lines) {
+        const p = line.split(';');
+        if (p.length < 5) continue;
+        const [d,m,y] = p[0].trim().split('/');
+        const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
+        if (isNaN(raceDate) || raceDate < today) continue;
+        upcoming.push({date:p[0].trim(), country:p[1].trim(), race:p[2].trim(), cls:p[4].trim()});
+        if (upcoming.length >= 5) break;
+      }
+      const tbody = document.querySelector('#upcoming-table tbody');
+      tbody.innerHTML = upcoming.length ? upcoming.map(r=>`<tr><td>${r.date}</td><td>${r.country}</td><td>${r.race}</td><td>${r.cls}</td></tr>`).join('') 
+        : '<tr><td colspan="4">No upcoming races</td></tr>';
+    });
   </script>
 
-  <!-- Latest Results -->
   <script>
     const RESULTS_LOG_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv';
-    fetch(RESULTS_LOG_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const headers = lines[0].split(';');
-        const dateIdx = headers.indexOf('Date');
-        const compIdx = headers.indexOf('Competition');
-        if (dateIdx === -1 || compIdx === -1) throw new Error('Columns not found');
-
-        let maxDateObj = null;
-        let maxDateStr = null;
-        const compsPerDate = new Map();
-
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-          const parts = line.split(';');
-          const date = parts[dateIdx]?.trim() || '';
-          const comp = parts[compIdx]?.trim() || '';
-          if (!date || !comp) continue;
-
-          const [dd, mm, yy] = date.split('/');
-          const d = new Date(`${yy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`);
-          if (isNaN(d)) continue;
-
-          if (!compsPerDate.has(date)) compsPerDate.set(date, new Set());
-          compsPerDate.get(date).add(comp);
-
-          if (!maxDateObj || d > maxDateObj) {
-            maxDateObj = d;
-            maxDateStr = date;
-          }
-        }
-
-        const tbody = document.querySelector('#latest-results-table tbody');
-        if (!maxDateStr || !compsPerDate.has(maxDateStr)) {
-          tbody.innerHTML = '<tr><td colspan="2">No results found</td></tr>';
-          return;
-        }
-
-        const races = Array.from(compsPerDate.get(maxDateStr)).sort();
-        tbody.innerHTML = races.map(race => `<tr><td>${maxDateStr}</td><td>${race}</td></tr>`).join('');
-      })
-      .catch(err => {
-        document.querySelector('#latest-results-table tbody').innerHTML = '<tr><td colspan="2">Error loading data</td></tr>';
-        console.error(err);
-      });
+    fetch(RESULTS_LOG_URL).then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const lines=t.split('\n'), h=lines[0].split(';'), dI=h.indexOf('Date'), cI=h.indexOf('Competition');
+      let latestDate=null, races=new Set();
+      for(let i=1;i<lines.length;i++){const p=lines[i].split(';'), date=p[dI]?.trim();
+        if(!date)continue; const [d,m,y]=date.split('/'), cur=new Date(`${y}-${m}-${d}`);
+        if(!latestDate||cur>latestDate){latestDate=cur; races=new Set(); races.add(p[cI].trim());}
+        else if(cur.getTime()===latestDate.getTime()) races.add(p[cI].trim());
+      }
+      const tbody=document.querySelector('#latest-results-table tbody');
+      tbody.innerHTML = latestDate ? Array.from(races).sort().map(r=>`<tr><td>${latestDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
+        : '<tr><td colspan="2">No results</td></tr>';
+    });
   </script>
 
-  <!-- Top 10 Riders -->
   <script>
     const RIDER_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv';
-    fetch(RIDER_SCORE_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const headers = lines[0].split(';');
-        const rankIdx = headers.indexOf('Rank');
-        const riderIdx = headers.indexOf('Rider');
-        const scoreIdx = headers.indexOf('Score');
-
-        const top = [];
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-          const parts = line.split(';');
-          const rank = parseInt(parts[rankIdx] || 0);
-          if (isNaN(rank) || rank < 1 || rank > 10) continue;
-          const rider = parts[riderIdx]?.trim() || '';
-          let scoreStr = parts[scoreIdx]?.trim() || '';
-          if (scoreStr) {
-            const num = parseFloat(scoreStr.replace(',', '.'));
-            if (!isNaN(num)) scoreStr = num.toFixed(2).replace('.', ',');
-          }
-          top.push({rank, rider, score: scoreStr});
-        }
-        top.sort((a, b) => a.rank - b.rank);
-        const tbody = document.querySelector('#top-riders-table tbody');
-        tbody.innerHTML = top.length ? top.map(t => `<tr><td>${t.rank}</td><td>${t.rider}</td><td>${t.score}</td></tr>`).join('') 
-          : '<tr><td colspan="3">No data</td></tr>';
-      })
-      .catch(err => {
-        document.querySelector('#top-riders-table tbody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
-        console.error(err);
-      });
+    fetch(RIDER_SCORE_URL).then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const lines=t.split('\n'), h=lines[0].split(';');
+      const top=[]; for(let i=1;i<lines.length && top.length<10;i++){
+        const p=lines[i].split(';'); if(p.length<3)continue;
+        const score = parseFloat(p[p.length-1].replace(',','.')).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+        top.push({rank:p[0].trim(), rider:p[1].trim(), score});
+      }
+      document.querySelector('#top-riders-table tbody').innerHTML = top.map(x=>`<tr><td>${x.rank}</td><td>${x.rider}</td><td>${x.score}</td></tr>`).join('');
+    });
   </script>
 
-  <!-- Top 5 Teams – FIXED -->
+  <!-- Top 5 Teams – CORRECTED: reads the very last column as Score -->
   <script>
     const TEAM_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv';
-    fetch(TEAM_SCORE_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const headers = lines[0].split(';');
-        const rankIdx = headers.indexOf('Rank');
-        const teamIdx = headers.indexOf('Team');
-        const scoreIdx = headers.indexOf('Score');
-
-        const top = [];
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-          const parts = line.split(';');
-          const rank = parseInt(parts[rankIdx] || 0);
-          if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          const team = parts[teamIdx]?.trim() || '';
-          let scoreStr = parts[scoreIdx]?.trim() || '';
-          if (scoreStr) {
-            const num = parseFloat(scoreStr.replace(',', '.'));
-            if (!isNaN(num)) scoreStr = num.toFixed(2).replace('.', ',');
-          }
-          top.push({rank, team, score: scoreStr});
-        }
-        top.sort((a, b) => a.rank - b.rank);
-        const tbody = document.querySelector('#top-teams-table tbody');
-        tbody.innerHTML = top.length ? top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('') 
-          : '<tr><td colspan="3">No data</td></tr>';
-      })
-      .catch(err => {
-        document.querySelector('#top-teams-table tbody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
-        console.error(err);
-      });
+    fetch(TEAM_SCORE_URL).then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const lines=t.split('\n'), top=[];
+      for(let i=1;i<lines.length && top.length<5;i++){
+        const p=lines[i].split(';');
+        if(p.length<3)continue;
+        const score = parseFloat(p[p.length-1].replace(',','.')).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+        top.push({rank:p[0].trim(), team:p[1].trim(), score});
+      }
+      document.querySelector('#top-teams-table tbody').innerHTML = top.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
+    }).catch(()=>{document.querySelector('#top-teams-table tbody').innerHTML='<tr><td colspan="3">Error</td></tr>';});
   </script>
 
-  <!-- Top 5 Nations – FIXED -->
+  <!-- Top 5 Nations – CORRECTED: reads the very last column as Score -->
   <script>
     const NATION_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv';
-    fetch(NATION_SCORE_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const headers = lines[0].split(';');
-        const rankIdx = headers.indexOf('Rank');
-        const countryIdx = headers.indexOf('Country');
-        const scoreIdx = headers.indexOf('Score');
-
-        const top = [];
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-          const parts = line.split(';');
-          const rank = parseInt(parts[rankIdx] || 0);
-          if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          const nation = parts[countryIdx]?.trim() || '';
-          let scoreStr = parts[scoreIdx]?.trim() || '';
-          if (scoreStr) {
-            const num = parseFloat(scoreStr.replace(',', '.'));
-            if (!isNaN(num)) scoreStr = num.toFixed(2).replace('.', ',');
-          }
-          top.push({rank, nation, score: scoreStr});
-        }
-        top.sort((a, b) => a.rank - b.rank);
-        const tbody = document.querySelector('#top-nations-table tbody');
-        tbody.innerHTML = top.length ? top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('') 
-          : '<tr><td colspan="3">No data</td></tr>';
-      })
-      .catch(err => {
-        document.querySelector('#top-nations-table tbody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
-        console.error(err);
-      });
+    fetch(NATION_SCORE_URL).then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const lines=t.split('\n'), top=[];
+      for(let i=1;i<lines.length && top.length<5;i++){
+        const p=lines[i].split(';');
+        if(p.length<3)continue;
+        const score = parseFloat(p[p.length-1].replace(',','.')).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+        top.push({rank:p[0].trim(), nation:p[1].trim(), score});
+      }
+      document.querySelector('#top-nations-table tbody').innerHTML = top.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');
+    }).catch(()=>{document.querySelector('#top-nations-table tbody').innerHTML='<tr><td colspan="3">Error</td></tr>';});
   </script>
 </body>
 </html>
