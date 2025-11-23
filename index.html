@@ -278,7 +278,7 @@
       });
   </script>
 
-  <!-- Top 10 Riders – YOUR ORIGINAL PERFECT VERSION -->
+  <!-- Top 10 Riders – YOUR ORIGINAL PERFECT VERSION (unchanged) -->
   <script>
     const RIDER_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv';
     fetch(RIDER_SCORE_URL)
@@ -317,54 +317,60 @@
       });
   </script>
 
-  <!-- Top 5 Teams – FINAL CORRECTED VERSION -->
+  <!-- Top 5 Teams – FIXED & FINAL (reads last column) -->
   <script>
     const TEAM_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv';
     fetch(TEAM_SCORE_URL)
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
+        const lines = text.split('\n').slice(1); // skip header
         const top = [];
-        for (let i = 1; i < lines.length && top.length < 5; i++) {
-          const parts = lines[i].split(';');
+        for (let i = 0; i < lines.length && top.length < 5; i++) {
+          const line = lines[i].trim();
+          if (!line) continue;
+          const parts = line.split(';');
           if (parts.length < 3) continue;
           const rank = parseInt(parts[0].trim(), 10);
           if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          let scoreStr = parts[parts.length - 1].trim();
-          const num = parseFloat(scoreStr.replace(',', '.'));
-          if (!isNaN(num)) scoreStr = num.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-          top.push({rank, team: parts[1].trim(), score: scoreStr});
+          let scoreRaw = parts[parts.length - 1].trim();
+          const scoreNum = parseFloat(scoreRaw.replace(',', '.'));
+          const score = isNaN(scoreNum) ? scoreRaw : scoreNum.toFixed(2).replace('.', ',');
+          top.push({ rank, team: parts[1].trim(), score });
         }
-        document.querySelector('#top-teams-table tbody').innerHTML = 
-          top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('') ||
-          '<tr><td colspan="3">No data</td></tr>';
+        const tbody = document.querySelector('#top-teams-table tbody');
+        tbody.innerHTML = top.length 
+          ? top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('')
+          : '<tr><td colspan="3">No data</td></tr>';
       })
       .catch(() => document.querySelector('#top-teams-table tbody').innerHTML = '<tr><td colspan="3">Error</td></tr>');
   </script>
 
-  <!-- Top 5 Nations – FINAL CORRECTED VERSION -->
+  <!-- Top 5 Nations – FIXED & FINAL (reads last column) -->
   <script>
     const NATION_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv';
     fetch(NATION_SCORE_URL)
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
+        const lines = text.split('\n').slice(1); // skip header
         const top = [];
-        for (let i = 1; i < lines.length && top.length < 5; i++) {
-          const parts = lines[i].split(';');
+        for (let i = 0; i < lines.length && top.length < 5; i++) {
+          const line = lines[i].trim();
+          if (!line) continue;
+          const parts = line.split(';');
           if (parts.length < 3) continue;
           const rank = parseInt(parts[0].trim(), 10);
           if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          let scoreStr = parts[parts.length - 1].trim();
-          const num = parseFloat(scoreStr.replace(',', '.'));
-          if (!isNaN(num)) scoreStr = num.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-          top.push({rank, nation: parts[1].trim(), score: scoreStr});
+          let scoreRaw = parts[parts.length - 1].trim();
+          const scoreNum = parseFloat(scoreRaw.replace(',', '.'));
+          const score = isNaN(scoreNum) ? scoreRaw : scoreNum.toFixed(2).replace('.', ',');
+          top.push({ rank, nation: parts[1].trim(), score });
         }
-        document.querySelector('#top-nations-table tbody').innerHTML = 
-          top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('') ||
-          '<tr><td colspan="3">No data</td></tr>';
+        const tbody = document.querySelector('#top-nations-table tbody');
+        tbody.innerHTML = top.length 
+          ? top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('')
+          : '<tr><td colspan="3">No data</td></tr>';
       })
       .catch(() => document.querySelector('#top-nations-table tbody').innerHTML = '<tr><td colspan="3">Error</td></tr>');
   </script>
