@@ -85,24 +85,42 @@
       max-width: 100%;
       letter-spacing: 0.03em;
     }
-    .icon { width: 28px; height: 28px; fill: currentColor; }
-    .icon-img { width: 28px; height: 28px; object-fit: contain; display: block; margin: 0 auto; }
+    .icon {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+    }
+    .icon-img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .results, .how {
+      background: rgba(15, 23, 42, 0.25);
+      color: white;
+    }
+    .rider, .team, .nation {
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
 
-    /* Clean & Elegant Upcoming Block */
+    /* Upcoming Races Block */
     .upcoming-horizontal {
       width: 100%;
       max-width: 1400px;
-      background: rgba(15, 23, 42, 0.28);
+      background: rgba(15, 23, 42, 0.25);
       backdrop-filter: blur(10px);
       border-radius: 1.5rem;
-      padding: 1.4rem 2rem;
+      padding: 1.5rem 2rem;
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
       transition: all 0.3s ease;
     }
     .upcoming-horizontal:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      background: rgba(15, 23, 42, 0.38);
+      background: rgba(15, 23, 42, 0.35);
     }
     .upcoming-header {
       display: flex;
@@ -130,74 +148,86 @@
     }
     .upcoming-table th {
       text-align: left;
-      padding: 0 0 0.6rem;
+      padding-bottom: 0.5rem;
       font-weight: 600;
+      opacity: 0.8;
       font-size: 0.9rem;
-      opacity: 0.85;
-      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
     .upcoming-table td {
       padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .upcoming-table tr:last-child td { border-bottom: none; }
-    .upcoming-table .date { width: 105px; font-weight: 600; }
-    .upcoming-table .class { width: 80px; text-align: center; font-family: monospace; font-size: 0.9rem; opacity: 0.9; }
-    .upcoming-table .flag img {
-      width: 32px;
-      height: 22px;
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-      display: block;
+    .upcoming-table tr:last-child td {
+      border-bottom: none;
     }
-    .upcoming-table .race { font-weight: 500; padding-left: 12px; }
+    .upcoming-table .date { width: 110px; font-weight: 600; }
+    .upcoming-table .country { width: 140px; opacity: 0.9; }
+    .upcoming-table .race { font-weight: 500; }
+    .upcoming-table .class {
+      text-align: right;
+      font-family: monospace;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
 
     @media (max-width: 768px) {
       .blocks-container { flex-direction: column; align-items: center; }
       .block { max-width: 320px; }
       .title { font-size: 2.5rem; }
       .logo-img { height: 50px; }
-      .upcoming-horizontal { padding: 1.4rem; }
+      .block-title { font-size: 1.25rem; }
+      .upcoming-horizontal { padding: 1.5rem; }
       .upcoming-title { font-size: 1.4rem; }
-      .upcoming-table { font-size: 0.94rem; }
-      .upcoming-table .flag img { width: 28px; height: 19px; }
+      .upcoming-table th, .upcoming-table td { font-size: 0.9rem; }
+      .upcoming-table .class { text-align: left; margin-top: 0.25rem; }
     }
   </style>
 </head>
 <body>
   <div class="hero">
+    <!-- Logo + Title -->
     <div class="logo-title">
       <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="logo-img">
       <h1 class="title">Cyclindex</h1>
     </div>
 
+    <!-- Five Main Blocks -->
     <div class="blocks-container">
       <a href="results-log.html" class="block results">
         <h3 class="block-title">Results<br>Log</h3>
-        <svg class="icon" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+        </svg>
       </a>
+
       <a href="rider-score.html" class="block rider">
         <h3 class="block-title">Rider<br>Score</h3>
-        <img src="rider_icon.png" alt="Rider Icon" class="icon-img">
+        <img src="rider_icon.png" alt="Rider Icon" class="icon-img" loading="eager">
       </a>
+
       <a href="team-score.html" class="block team">
         <h3 class="block-title">Team<br>Score</h3>
-        <img src="team_icon.png" alt="Team Icon" class="icon-img">
+        <img src="team_icon.png" alt="Team Icon" class="icon-img" loading="eager">
       </a>
+
       <a href="nation-score.html" class="block nation">
         <h3 class="block-title">Nation<br>Score</h3>
-        <img src="nation_icon.png" alt="Nation Icon" class="icon-img">
+        <img src="nation_icon.png" alt="Nation Icon" class="icon-img" loading="eager">
       </a>
+
       <a href="how-it-works.html" class="block how">
         <h3 class="block-title">How It<br>Works</h3>
-        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+        </svg>
       </a>
     </div>
 
-    <!-- Upcoming Races — Clean, Elegant, with Flags -->
+    <!-- Upcoming Races – Full Width Table with Full Race Name + Class -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
-        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24">
+        <svg class="upcoming-calendar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
         </svg>
         <h3 class="upcoming-title">Next 5 Upcoming Races</h3>
@@ -207,9 +237,9 @@
         <thead>
           <tr>
             <th>Date</th>
-            <th>Class</th>
-            <th></th>
+            <th>Country</th>
             <th>Race</th>
+            <th>Class</th>
           </tr>
         </thead>
         <tbody>
@@ -219,62 +249,57 @@
     </div>
   </div>
 
+  <!-- Dynamic Script – Shows full race name and class -->
   <script>
     const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
-
-    // Country → flag code (same as your results-log.html)
-    const flagMap = {
-      "Australia": "au", "Saudi Arabia": "sa", "Spain": "es", "France": "fr",
-      "Italy": "it", "Belgium": "be", "Netherlands": "nl", "Switzerland": "ch",
-      "Germany": "de", "United Arab Emirates": "ae", "Portugal": "pt",
-      "Colombia": "co", "Argentina": "ar", "Japan": "jp", "China": "cn",
-      "Malaysia": "my", "Oman": "om", "Rwanda": "rw", "Türkiye": "tr", "Turkey": "tr"
-    };
 
     fetch(CALENDAR_URL)
       .then(r => r.text())
       .then(csv => {
         const lines = csv.trim().split('\n').slice(1);
-        const today = new Date(); today.setHours(0,0,0,0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
         const upcoming = [];
 
         for (const line of lines) {
-          const p = line.split(';');
-          if (p.length < 5) continue;
+          const parts = line.split(';');
+          if (parts.length < 5) continue;
 
-          const date = p[0].trim();
-          const country = p[1].trim();
-          const race = p[2].trim();
-          const uciClass = p[4].trim();
+          const dateStr = parts[0].trim();
+          const country = parts[1].trim();
+          const fullRace = parts[2].trim();  // This includes |Stage 1 etc.
+          const uciClass = parts[4].trim();  // class column
 
-          const [d, m, y] = date.split('/');
-          const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
+          const [day, month, year] = dateStr.split('/');
+          const raceDate = new Date(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
           if (isNaN(raceDate)) continue;
-          raceDate.setHours(0,0,0,0);
+          raceDate.setHours(0, 0, 0, 0);
 
           if (raceDate >= today) {
-            const flagCode = (flagMap[country] || country.toLowerCase().slice(0,2)).toLowerCase();
-            upcoming.push({ date, uciClass, flagCode, race });
-            if (upcoming.length === 5) break;
+            upcoming.push({ date: dateStr, country, race: fullRace, class: uciClass });
+            if (upcoming.length >= 5) break;
           }
         }
 
         const tbody = document.querySelector('#upcoming-table tbody');
-        tbody.innerHTML = upcoming.length === 0
-          ? '<tr><td colspan="4">No upcoming races</td></tr>'
-          : upcoming.map(r => `
+        if (upcoming.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4">No upcoming races found</td></tr>';
+        } else {
+          tbody.innerHTML = upcoming.map(r => `
             <tr>
               <td class="date">${r.date}</td>
-              <td class="class">${r.uciClass}</td>
-              <td class="flag"><img src="flags/${r.flagCode}.png" alt="${country}" 
-                   onerror="this.style.display='none'; this.parentNode.innerHTML='${country}'"></td>
+              <td class="country">${r.country}</td>
               <td class="race">${r.race}</td>
+              <td class="class">${r.class}</td>
             </tr>
           `).join('');
+        }
       })
-      .catch(() => {
-        document.querySelector('#upcoming-table tbody').innerHTML =
+      .catch(err => {
+        document.querySelector('#upcoming-table tbody').innerHTML = 
           '<tr><td colspan="4">Error loading calendar</td></tr>';
+        console.error(err);
       });
   </script>
 </body>
