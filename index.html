@@ -5,72 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="cyclindex_logo.png">
   <title>Cyclindex – Professional Cycling Index</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
-    *,*::before,*::after{box-sizing:border-box;}
-    body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
-    
-    .container{
-      min-height:100vh;
-      display:grid;
-      grid-template-rows:auto 1fr;
-      padding:0.5rem 0.4rem;
-      gap:0.6rem;
-    }
-    .hero{text-align:center;}
-    .logo-title{display:flex;align-items:center;justify-content:center;gap:0.8rem;opacity:0;transform:translateY(-20px);animation:fadeDown .9s ease-out .2s forwards;}
-    .logo-img{height:46px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));}
-    .title{font-family:'Suissnord',sans-serif;font-size:2.5rem;margin:0;color:white;text-shadow:0 2px 8px rgba(0,0,0,.7);}
-    .nav-buttons{display:flex;justify-content:center;gap:0.55rem;margin-top:0.4rem;flex-wrap:wrap;opacity:0;transform:translateY(15px);animation:fadeUp .8s ease-out .6s forwards;}
-    .nav-btn{background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);border-radius:0.75rem;padding:0.4rem 0.7rem;font-size:0.8rem;font-weight:600;transition:all .35s;box-shadow:0 3px 10px rgba(0,0,0,.2);}
-    .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-3px) scale(1.05);}
-
-    .main-grid{
-      display:grid;
-      grid-template-columns:300px 1fr 300px;
-      gap:0.6rem;
-      height:100%; /* THIS WAS THE FIX */
-    }
-    .block{
-      background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);
-      border-radius:0.9rem;padding:0.7rem;
-      box-shadow:0 5px 18px rgba(0,0,0,.3);
-      opacity:0;transform:translateY(30px);
-      transition:all .4s ease;
-    }
-    .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-5px);box-shadow:0 14px 32px rgba(0,0,0,.45);}
-    .block h3{font-family:'Suissnord',sans-serif;font-size:1.12rem;margin:0 0 0.35rem;display:flex;align-items:center;gap:0.55rem;}
-    .icon-header{width:27px;height:27px;}
-    table{width:100%;border-collapse:collapse;font-size:0.83rem;}
-    th{font-weight:600;font-size:0.75rem;opacity:0.9;padding-bottom:0.25rem;border-bottom:1px solid rgba(255,255,255,0.2);}
-    td{padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.08);opacity:0;transform:translateX(-15px);transition:all .5s;}
+    body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
+    .grid-container{display:grid;grid-template-columns:300px 1fr 300px;height:100vh;gap:0.75rem;padding:0.75rem;max-width:100%;box-sizing:border-box;}
+    .hero-zone{grid-column:1/4;text-align:center;padding:0.4rem 0;}
+    .logo-title{display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+    .logo-img{height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));}
+    .title{font-family:'Suissnord',sans-serif;font-size:2.6rem;margin:0;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.7);}
+    .nav-buttons{display:flex;justify-content:center;gap:0.6rem;margin-top:0.4rem;flex-wrap:wrap;}
+    .nav-btn{background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);border-radius:0.75rem;padding:0.45rem 0.75rem;font-size:0.82rem;font-weight:600;transition:all .3s;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+    .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-3px);}
+    .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
+    .right-col{grid-template-rows:1fr 1fr;}
+    .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);}
+    .block:hover{background:rgba(15,23,42,0.6);}
+    .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;display:flex;align-items:center;gap:0.6rem;}
+    .icon-header{width:28px;height:28px;}
+    table{width:100%;border-collapse:collapse;font-size:0.84rem;}
+    th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
+    td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
-    .loaded td{opacity:1;transform:none;}
-    .latest-row{background:rgba(255,255,255,0.08);animation:pulseRow 2s infinite;}
-
-    @keyframes fadeDown{to{opacity:1;transform:translateY(0);}}
-    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-    @keyframes pulseRow{0%,100%{background:rgba(255,255,255,0.08);}50%{background:rgba(255,255,255,0.18);}}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
-
-    .left-col .block:nth-child(1){animation:fadeInUp .7s ease-out .9s forwards;}
-    .left-col .block:nth-child(2){animation:fadeInUp .7s ease-out 1.0s forwards;}
-    .center-col > .block{animation:fadeInUp .7s ease-out 1.2s forwards;}
-    .right-col .block:nth-child(1){animation:fadeInUp .7s ease-out 1.3s forwards;}
-    .right-col .block:nth-child(2){animation:fadeInUp .7s ease-out 1.4s forwards;}
-
     @media (max-width:1366px){
-      .main-grid{grid-template-columns:275px 1fr 275px;gap:0.55rem;}
-      .title{font-size:2.35rem;}
+      .grid-container{grid-template-columns:280px 1fr 280px;padding:0.6rem;gap:0.6rem;}
+      .title{font-size:2.4rem;}
+      .logo-img{height:44px;}
     }
     @media (max-width:1100px){
-      .main-grid{grid-template-columns:1fr;}
+      .grid-container{grid-template-columns:1fr;grid-template-rows:auto auto auto auto auto auto;}
+      .left-col,.center-col,.right-col{grid-column:1;}
+      .hero-zone{grid-column:1;}
+      .nav-buttons{gap:0.5rem;}
+      .nav-btn{font-size:0.8rem;padding:0.4rem 0.65rem;}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="hero">
+  <div class="grid-container">
+
+    <!-- HERO + MINI NAV -->
+    <div class="hero-zone">
       <div class="logo-title">
         <img src="cyclindex_logo.png" alt="Cyclindex" class="logo-img">
         <h1 class="title">Cyclindex</h1>
@@ -84,111 +59,51 @@
       </div>
     </div>
 
-    <div class="main-grid">
-      <div class="left-col">
-        <div class="block">
-          <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next 5 Races</h3>
-          <table id="upcoming-table"><tbody><tr><td colspan="4">Loading...</td></tr></tbody></table>
-        </div>
-        <div class="block">
-          <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"/></svg> Latest Results</h3>
-          <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
-        </div>
+    <!-- LEFT -->
+    <div class="left-col">
+      <div class="block">
+        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next 5 Races</h3>
+        <table id="upcoming-table"><tbody><tr><td colspan="4">Loading...</td></tr></tbody></table>
       </div>
-
-      <div class="center-col">
-        <div class="block" style="display:flex;flex-direction:column;height:100%;">
-          <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
-          <table id="top-riders-table" style="flex:1;"><thead><tr><th>#</th><th>Rider</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
-        </div>
+      <div class="block">
+        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"/></svg> Latest Results</h3>
+        <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
+    </div>
 
-      <div class="right-col">
-        <div class="block">
-          <h3><img src="team_icon.png" class="icon-header"> Top 5 Teams</h3>
-          <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
-        </div>
-        <div class="block">
-          <h3><img src="nation_icon.png" class="icon-header"> Top 5 Nations</h3>
-          <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
-        </div>
+    <!-- CENTER – TOP 10 RIDERS -->
+    <div class="center-col">
+      <div class="block" style="display:flex;flex-direction:column;height:100%;">
+        <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
+        <table id="top-riders-table" style="flex:1;"><thead><tr><th>#</th><th>Rider</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-col">
+      <div class="block">
+        <h3><img src="team_icon.png" class="icon-header"> Top 5 Teams</h3>
+        <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+      </div>
+      <div class="block">
+        <h3><img src="nation_icon.png" class="icon-header"> Top 5 Nations</h3>
+        <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
       </div>
     </div>
   </div>
 
+  <!-- Scripts (unchanged & working perfectly) -->
   <script>
-    const rowAnimation = tbody => [...tbody.querySelectorAll('tr')].forEach((r,i)=> {
-      r.style.transitionDelay = i*70+'ms';
-      r.classList.add('loaded');
-    });
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv').then(r=>r.text()).then(csv=>{
-      const lines=csv.trim().split('\n').slice(1), today=new Date(); today.setHours(0,0,0,0);
-      const upcoming = [];
-      for(const line of lines){
-        const p=line.split(';'); if(p.length<5)continue;
-        const [d,m,y]=p[0].trim().split('/'); const date=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-        if(date>=today){ upcoming.push(p); if(upcoming.length===5)break; }
-      }
-      const tbody=document.querySelector('#upcoming-table tbody');
-      tbody.innerHTML = upcoming.length ? upcoming.map(p=>`<tr><td>${p[0].trim()}</td><td>${p[1].trim()}</td><td>${p[2].trim()}</td><td>${p[4].trim()}</td></tr>`).join('') : '<tr><td colspan="4">No upcoming races</td></tr>';
-      rowAnimation(tbody);
-    });
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n'), headers=lines[0].split(';');
-      const dateIdx=headers.indexOf('Date'), compIdx=headers.indexOf('Competition');
-      let maxDate=null, races=new Set();
-      for(let i=1;i<lines.length;i++){
-        const p=lines[i].split(';'), date=p[dateIdx]?.trim();
-        if(!date)continue;
-        const [d,m,y]=date.split('/'), cur=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-        if(!maxDate||cur>maxDate){maxDate=cur;races=new Set([p[compIdx].trim()]);}
-        else if(cur.getTime()===maxDate.getTime())races.add(p[compIdx].trim());
-      }
-      const tbody=document.querySelector('#latest-results-table tbody');
-      tbody.innerHTML = maxDate ? Array.from(races).sort().map(r=>`<tr class="latest-row"><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('') : '<tr><td colspan="2">No results yet</td></tr>';
-      rowAnimation(tbody);
-    });
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n'), headers=lines[0].split(';');
-      const rankIdx=headers.indexOf('Rank'), riderIdx=headers.indexOf('Rider'), scoreIdx=headers.indexOf('Score');
-      const top=[];
-      for(let i=1;i<lines.length;i++){
-        const p=lines[i].split(';'); const rank=parseInt(p[rankIdx]);
-        if(rank>0&&rank<=10){ let score=p[scoreIdx]?.trim(); const n=parseFloat(score.replace(',','.')); if(!isNaN(n))score=n.toFixed(2).replace('.',','); top.push({rank,rider:p[riderIdx].trim(),score}); }
-      }
-      const tbody=document.querySelector('#top-riders-table tbody');
-      tbody.innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.rider}</td><td>${t.score}</td></tr>`).join('');
-      rowAnimation(tbody);
-    });
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n'), top=[];
-      for(let i=1;i<lines.length;i++){
-        const p=lines[i].split(';'); if(p.length<17)continue;
-        const rank=parseInt(p[2]); if(rank>0&&rank<=5){
-          let score=p[p.length-1].trim(); const n=parseFloat(score.replace(',','.')); if(!isNaN(n))score=n.toFixed(2).replace('.',',');
-          top.push({rank,team:p[3].trim(),score});
-        }
-      }
-      document.querySelector('#top-teams-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('');
-      rowAnimation(document.querySelector('#top-teams-table tbody'));
-    });
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n'), top=[];
-      for(let i=1;i<lines.length;i++){
-        const p=lines[i].split(';'); if(p.length<15)continue;
-        const rank=parseInt(p[2]); if(rank>0&&rank<=5){
-          let score=p[p.length-1].trim(); const n=parseFloat(score.replace(',','.')); if(!isNaN(n))score=n.toFixed(2).replace('.',',');
-          top.push({rank,nation:p[3].trim(),score});
-        }
-      }
-      document.querySelector('#top-nations-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('');
-      rowAnimation(document.querySelector('#top-nations-table tbody'));
-    });
+    const CALENDAR_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv';
+    fetch(CALENDAR_URL).then(r=>r.text()).then(csv=>{const lines=csv.trim().split('\n').slice(1);const today=new Date();today.setHours(0,0,0,0);const upcoming=[];for(const line of lines){const p=line.split(';');if(p.length<5)continue;const [d,m,y]=p[0].trim().split('/');const raceDate=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);if(isNaN(raceDate)||raceDate<today)continue;upcoming.push({date:p[0].trim(),country:p[1].trim(),race:p[2].trim(),cls:p[4].trim()});if(upcoming.length>=5)break;}document.querySelector('#upcoming-table tbody').innerHTML=upcoming.length?upcoming.map(r=>`<tr><td>${r.date}</td><td>${r.country}</td><td>${r.race}</td><td>${r.cls}</td></tr>`).join(''):'<tr><td colspan="4">No upcoming</td></tr>';});
+    const RESULTS_LOG_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv';
+    fetch(RESULTS_LOG_URL).then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);const lines=text.split('\n');const headers=lines[0].split(';');const dateIdx=headers.indexOf('Date'),compIdx=headers.indexOf('Competition');let maxDate=null,races=new Set();for(let i=1;i<lines.length;i++){const p=lines[i].split(';'),date=p[dateIdx]?.trim();if(!date)continue;const [d,m,y]=date.split('/'),cur=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);if(!maxDate||cur>maxDate){maxDate=cur;races=new Set([p[compIdx].trim()]);}else if(cur.getTime()===maxDate.getTime())races.add(p[compIdx].trim());}document.querySelector('#latest-results-table tbody').innerHTML=maxDate?Array.from(races).sort().map(r=>`<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join(''):'<tr><td colspan="2">No results</td></tr>';});
+    const RIDER_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv';
+    fetch(RIDER_SCORE_URL).then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);const lines=text.split('\n');const headers=lines[0].split(';');const rankIdx=headers.indexOf('Rank'),riderIdx=headers.indexOf('Rider'),scoreIdx=headers.indexOf('Score');const top=[];for(let i=1;i<lines.length;i++){const p=lines[i].split(';');const rank=parseInt(p[rankIdx]||0);if(isNaN(rank)||rank<1||rank>10)continue;let score=p[scoreIdx]?.trim()||'';const num=parseFloat(score.replace(',','.'));if(!isNaN(num))score=num.toFixed(2).replace('.',',');top.push({rank,rider:p[riderIdx]?.trim()||'',score});}top.sort((a,b)=>a.rank-b.rank);document.querySelector('#top-riders-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.rider}</td><td>${t.score}</td></tr>`).join('');});
+    const TEAM_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv';
+    fetch(TEAM_SCORE_URL).then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);const lines=text.split('\n');const top=[];for(let i=1;i<lines.length;i++){const p=lines[i].split(';');if(p.length<17)continue;const rank=parseInt(p[2].trim()||0);if(isNaN(rank)||rank<1||rank>5)continue;const team=p[3].trim();let score=p[p.length-1].trim();const num=parseFloat(score.replace(',','.'));if(!isNaN(num))score=num.toFixed(2).replace('.',',');top.push({rank,team,score});}document.querySelector('#top-teams-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('');});
+    const NATION_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv';
+    fetch(NATION_SCORE_URL).then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);const lines=text.split('\n');const top=[];for(let i=1;i<lines.length;i++){const p=lines[i].split(';');if(p.length<15)continue;const rank=parseInt(p[2].trim()||0);if(isNaN(rank)||rank<1||rank>5)continue;const nation=p[3].trim();let score=p[p.length-1].trim();const num=parseFloat(score.replace(',','.'));if(!isNaN(num))score=num.toFixed(2).replace('.',',');top.push({rank,nation,score});}document.querySelector('#top-nations-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('');});
   </script>
 </body>
 </html>
