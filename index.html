@@ -8,57 +8,94 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
-    body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
-    .grid-container{display:grid;grid-template-columns:300px 1fr 300px;height:100vh;gap:0.75rem;padding:0.75rem;box-sizing:border-box;}
-    .hero-zone{grid-column:1/4;text-align:center;padding:0.4rem 0;}
-    .logo-title{display:flex;align-items:center;justify-content:center;gap:0.8rem;opacity:0;transform:translateY(-30px);animation:fadeDown 0.9s ease-out 0.2s forwards;}
-    .logo-img{height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));animation:pulse 4s infinite ease-in-out 1.5s;}
-    .title{font-family:'Suissnord',sans-serif;font-size:2.6rem;margin:0;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.7);}
-    .nav-buttons{display:flex;justify-content:center;gap:0.6rem;margin-top:0.4rem;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s ease-out 0.6s forwards;}
-    .nav-btn{background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);border-radius:0.75rem;padding:0.45rem 0.75rem;font-size:0.82rem;font-weight:600;transition:all .35s;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
-    .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-4px) scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.4);}
-    .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
-    .right-col{grid-template-rows:1fr 1fr;}
-    .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);opacity:0;transform:translateY(30px);transition:all .4s ease;}
-    .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,0.45);}
-    .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;display:flex;align-items:center;gap:0.6rem;}
-    .icon-header{width:28px;height:28px;}
-    table{width:100%;border-collapse:collapse;font-size:0.84rem;}
-    th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
-    td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);opacity:0;transform:translateX(-20px);transition:opacity .5s,transform .5s;}
+    *,*::before,*::after{box-sizing:border-box;}
+    body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;font-family:system-ui,-apple-system,sans-serif;}
+    
+    .container{
+      min-height:100vh;
+      display:grid;
+      grid-template-rows:auto 1fr;
+      padding:0.5rem;
+      gap:0.6rem;
+    }
+    .hero{
+      text-align:center;
+      padding:0.3rem 0;
+    }
+    .logo-title{
+      display:flex;align-items:center;justify-content:center;gap:0.8rem;
+      opacity:0;transform:translateY(-20px);
+      animation:fadeDown 0.9s ease-out 0.2s forwards;
+    }
+    .logo-img{height:46px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));}
+    .title{font-family:'Suissnord',sans-serif;font-size:2.5rem;margin:0;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.7);}
+    
+    .nav-buttons{
+      display:flex;justify-content:center;gap:0.55rem;margin-top:0.4rem;flex-wrap:wrap;
+      opacity:0;transform:translateY(15px);
+      animation:fadeUp 0.8s ease-out 0.6s forwards;
+    }
+    .nav-btn{
+      background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);
+      border-radius:0.75rem;padding:0.4rem 0.7rem;font-size:0.8rem;font-weight:600;
+      transition:all .35s;box-shadow:0 3px 10px rgba(0,0,0,0.2);
+    }
+    .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-3px) scale(1.05);}
+    
+    .main-grid{
+      display:grid;
+      grid-template-columns:300px 1fr 300px;
+      gap:0.6rem;
+      align-content:start;
+    }
+    .block{
+      background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);
+      border-radius:0.9rem;padding:0.7rem;
+      box-shadow:0 5px 18px rgba(0,0,0,0.3);
+      opacity:0;transform:translateY(30px);
+      transition:all .4s ease;
+    }
+    .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-5px);box-shadow:0 14px 32px rgba(0,0,0,0.45);}
+    .block h3{
+      font-family:'Suissnord',sans-serif;font-size:1.12rem;margin:0 0 0.35rem;
+      display:flex;align-items:center;gap:0.55rem;
+    }
+    .icon-header{width:27px;height:27px;}
+    
+    table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+    th{font-weight:600;font-size:0.75rem;opacity:0.9;padding-bottom:0.25rem;
+       border-bottom:1px solid rgba(255,255,255,0.2);}
+    td{padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.08);
+       opacity:0;transform:translateX(-15px);transition:all .5s;}
     tr:last-child td{border:none;}
     .loaded td{opacity:1;transform:none;}
     .latest-row{background:rgba(255,255,255,0.08);animation:pulseRow 2s infinite;}
 
     @keyframes fadeDown{to{opacity:1;transform:translateY(0);}}
     @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-    @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
     @keyframes pulseRow{0%,100%{background:rgba(255,255,255,0.08);}50%{background:rgba(255,255,255,0.18);}}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
 
     .left-col .block:nth-child(1){animation:fadeInUp 0.7s ease-out 0.9s forwards;}
     .left-col .block:nth-child(2){animation:fadeInUp 0.7s ease-out 1.0s forwards;}
     .center-col .block{animation:fadeInUp 0.7s ease-out 1.2s forwards;}
     .right-col .block:nth-child(1){animation:fadeInUp 0.7s ease-out 1.3s forwards;}
     .right-col .block:nth-child(2){animation:fadeInUp 0.7s ease-out 1.4s forwards;}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
 
     @media (max-width:1366px){
-      .grid-container{grid-template-columns:280px 1fr 280px;padding:0.6rem;gap:0.6rem;}
-      .title{font-size:2.4rem;}
-      .logo-img{height:44px;}
+      .main-grid{grid-template-columns:275px 1fr 275px;gap:0.55rem;}
+      .title{font-size:2.35rem;}
+      .container{padding:0.4rem;}
     }
     @media (max-width:1100px){
-      .grid-container{grid-template-columns:1fr;}
-      .left-col,.center-col,.right-col{grid-column:1;}
-      .hero-zone{grid-column:1;}
+      .main-grid{grid-template-columns:1fr;}
+      .container{grid-template-rows:auto auto auto auto auto auto;}
     }
   </style>
 </head>
 <body>
-  <div class="grid-container">
-
-    <!-- HERO + NAV -->
-    <div class="hero-zone">
+  <div class="container">
+    <div class="hero">
       <div class="logo-title">
         <img src="cyclindex_logo.png" alt="Cyclindex" class="logo-img">
         <h1 class="title">Cyclindex</h1>
@@ -72,35 +109,34 @@
       </div>
     </div>
 
-    <!-- LEFT -->
-    <div class="left-col">
-      <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next 5 Races</h3>
-        <table id="upcoming-table"><tbody><tr><td colspan="4">Loading...</td></tr></tbody></table>
+    <div class="main-grid">
+      <div class="left-col">
+        <div class="block">
+          <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next 5 Races</h3>
+          <table id="upcoming-table"><tbody><tr><td colspan="4">Loading...</td></tr></tbody></table>
+        </div>
+        <div class="block">
+          <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"/></svg> Latest Results</h3>
+          <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
+        </div>
       </div>
-      <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"/></svg> Latest Results</h3>
-        <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
-      </div>
-    </div>
 
-    <!-- CENTER -->
-    <div class="center-col">
-      <div class="block" style="display:flex;flex-direction:column;height:100%;">
-        <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
-        <table id="top-riders-table" style="flex:1;"><thead><tr><th>#</th><th>Rider</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+      <div class="center-col">
+        <div class="block" style="display:flex;flex-direction:column;height:100%;">
+          <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
+          <table id="top-riders-table" style="flex:1;"><thead><tr><th>#</th><th>Rider</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+        </div>
       </div>
-    </div>
 
-    <!-- RIGHT -->
-    <div class="right-col">
-      <div class="block">
-        <h3><img src="team_icon.png" class="icon-header"> Top 5 Teams</h3>
-        <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
-      </div>
-      <div class="block">
-        <h3><img src="nation_icon.png" class="icon-header"> Top 5 Nations</h3>
-        <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+      <div class="right-col">
+        <div class="block">
+          <h3><img src="team_icon.png" class="icon-header"> Top 5 Teams</h3>
+          <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+        </div>
+        <div class="block">
+          <h3><img src="nation_icon.png" class="icon-header"> Top 5 Nations</h3>
+          <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
+        </div>
       </div>
     </div>
   </div>
@@ -114,6 +150,7 @@
       });
     };
 
+    // All your working fetches (exactly the same as before)
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv').then(r=>r.text()).then(csv=>{
       const lines=csv.trim().split('\n').slice(1);const today=new Date();today.setHours(0,0,0,0);const upcoming=[];
       for(const line of lines){const p=line.split(';');if(p.length<5)continue;const [d,m,y]=p[0].trim().split('/');const raceDate=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);if(raceDate>=today){upcoming.push(p);if(upcoming.length>=5)break;}}
