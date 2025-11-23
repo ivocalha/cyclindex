@@ -150,7 +150,7 @@
       </a>
     </div>
 
-    <!-- Upcoming Races -->
+    <!-- Upcoming Races – Full Width Table with Full Race Name + Class -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <svg class="upcoming-calendar-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
@@ -162,7 +162,7 @@
       </table>
     </div>
 
-    <!-- Latest Results -->
+    <!-- NEW BLOCK 1: Latest Results -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <svg class="upcoming-calendar-icon" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg>
@@ -174,7 +174,7 @@
       </table>
     </div>
 
-    <!-- Top 10 Riders -->
+    <!-- NEW BLOCK 2: Top 10 Riders -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <img src="rider_icon.png" alt="Top Riders" class="upcoming-calendar-icon">
@@ -186,7 +186,7 @@
       </table>
     </div>
 
-    <!-- Top 5 Teams -->
+    <!-- NEW BLOCK 3: Top 5 Teams -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <img src="team_icon.png" alt="Top Teams" class="upcoming-calendar-icon">
@@ -198,7 +198,7 @@
       </table>
     </div>
 
-    <!-- Top 5 Nations -->
+    <!-- NEW BLOCK 4: Top 5 Nations -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <img src="nation_icon.png" alt="Top Nations" class="upcoming-calendar-icon">
@@ -218,7 +218,8 @@
       .then(r => r.text())
       .then(csv => {
         const lines = csv.trim().split('\n').slice(1);
-        const today = new Date(); today.setHours(0,0,0,0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const upcoming = [];
         for (const line of lines) {
           const parts = line.split(';');
@@ -227,30 +228,49 @@
           const [day, month, year] = dateStr.split('/');
           const raceDate = new Date(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
           if (isNaN(raceDate)) continue;
-          raceDate.setHours(0,0,0,0);
+          raceDate.setHours(0, 0, 0, 0);
           if (raceDate >= today) {
             upcoming.push({ date: dateStr, country: parts[1].trim(), race: parts[2].trim(), class: parts[4].trim() });
             if (upcoming.length >= 5) break;
           }
         }
         const tbody = document.querySelector('#upcoming-table tbody');
-        tbody.innerHTML = upcoming.length ? upcoming.map(r => `<tr><td>${r.date}</td><td>${r.country}</td><td>${r.race}</td><td>${r.class}</td></tr>`).join('') 
-          : '<tr><td colspan="4">No upcoming races found</td></tr>';
+        if (upcoming.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4">No upcoming races found</td></tr>';
+        } else {
+          tbody.innerHTML = upcoming.map(r => `
+            <tr>
+              <td class="date">${r.date}</td>
+              <td class="country">${r.country}</td>
+              <td class="race">${r.race}</td>
+              <td class="class">${r.class}</td>
+            </tr>
+          `).join('');
+        }
+      })
+      .catch(err => {
+        document.querySelector('#upcoming-table tbody').innerHTML = 
+          '<tr><td colspan="4">Error loading calendar</td></tr>';
+        console.error(err);
       });
   </script>
 
   <script>
     const RESULTS_LOG_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv';
     fetch(RESULTS_LOG_URL)
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      .then(r=>r.text())
+      .then(text=>{
+        if (text.charCodeAt(0)===0xFEFF) text = text.slice(1);
         const lines = text.split('\n');
         const headers = lines[0].split(';');
         const dateIdx = headers.indexOf('Date');
         const compIdx = headers.indexOf('Competition');
-        let maxDateObj = null, maxDateStr = null;
+        if (dateIdx === -1 || compIdx === -1) throw new Error('Columns not found');
+
+        let maxDateObj = null;
+        let maxDateStr = null;
         const compsPerDate = new Map();
+
         for (let i = 1; i < lines.length; i++) {
           const line = lines[i].trim();
           if (!line) continue;
@@ -258,27 +278,35 @@
           const date = parts[dateIdx]?.trim() || '';
           const comp = parts[compIdx]?.trim() || '';
           if (!date || !comp) continue;
+
           const [dd, mm, yy] = date.split('/');
           const d = new Date(`${yy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`);
           if (isNaN(d)) continue;
+
           if (!compsPerDate.has(date)) compsPerDate.set(date, new Set());
           compsPerDate.get(date).add(comp);
+
           if (!maxDateObj || d > maxDateObj) {
             maxDateObj = d;
             maxDateStr = date;
           }
         }
+
         const tbody = document.querySelector('#latest-results-table tbody');
         if (!maxDateStr || !compsPerDate.has(maxDateStr)) {
           tbody.innerHTML = '<tr><td colspan="2">No results found</td></tr>';
           return;
         }
+
         const races = Array.from(compsPerDate.get(maxDateStr)).sort();
         tbody.innerHTML = races.map(race => `<tr><td>${maxDateStr}</td><td>${race}</td></tr>`).join('');
+      })
+      .catch(err => {
+        document.querySelector('#latest-results-table tbody').innerHTML = '<tr><td colspan="2">Error loading data</td></tr>';
+        console.error(err);
       });
   </script>
 
-  <!-- Top 10 Riders – YOUR ORIGINAL PERFECT VERSION (unchanged) -->
   <script>
     const RIDER_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv';
     fetch(RIDER_SCORE_URL)
@@ -317,62 +345,70 @@
       });
   </script>
 
-  <!-- Top 5 Teams – FIXED & FINAL (reads last column) -->
+  <!-- Top 5 Teams – FINAL FIXED: Reads columns 3 (Rank), 4 (Team), last (Score) -->
   <script>
     const TEAM_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv';
     fetch(TEAM_SCORE_URL)
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n').slice(1); // skip header
+        const lines = text.split('\n');
         const top = [];
-        for (let i = 0; i < lines.length && top.length < 5; i++) {
+        for (let i = 1; i < lines.length; i++) {
           const line = lines[i].trim();
           if (!line) continue;
           const parts = line.split(';');
-          if (parts.length < 3) continue;
-          const rank = parseInt(parts[0].trim(), 10);
+          if (parts.length < 17) continue; // Ensure full row
+          const rank = parseInt(parts[2].trim() || 0);
           if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          let scoreRaw = parts[parts.length - 1].trim();
-          const scoreNum = parseFloat(scoreRaw.replace(',', '.'));
-          const score = isNaN(scoreNum) ? scoreRaw : scoreNum.toFixed(2).replace('.', ',');
-          top.push({ rank, team: parts[1].trim(), score });
+          const team = parts[3].trim() || '';
+          let scoreStr = parts[parts.length - 1].trim() || '';
+          const num = parseFloat(scoreStr.replace(',', '.'));
+          if (!isNaN(num)) scoreStr = num.toFixed(2).replace('.', ',');
+          top.push({rank, team, score: scoreStr});
         }
+        top.sort((a, b) => a.rank - b.rank);
         const tbody = document.querySelector('#top-teams-table tbody');
-        tbody.innerHTML = top.length 
-          ? top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('')
+        tbody.innerHTML = top.length ? top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('') 
           : '<tr><td colspan="3">No data</td></tr>';
       })
-      .catch(() => document.querySelector('#top-teams-table tbody').innerHTML = '<tr><td colspan="3">Error</td></tr>');
+      .catch(err => {
+        document.querySelector('#top-teams-table tbody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
+        console.error(err);
+      });
   </script>
 
-  <!-- Top 5 Nations – FIXED & FINAL (reads last column) -->
+  <!-- Top 5 Nations – FINAL FIXED: Reads columns 3 (Rank), 4 (Country), last (Score) -->
   <script>
     const NATION_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv';
     fetch(NATION_SCORE_URL)
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n').slice(1); // skip header
+        const lines = text.split('\n');
         const top = [];
-        for (let i = 0; i < lines.length && top.length < 5; i++) {
+        for (let i = 1; i < lines.length; i++) {
           const line = lines[i].trim();
           if (!line) continue;
           const parts = line.split(';');
-          if (parts.length < 3) continue;
-          const rank = parseInt(parts[0].trim(), 10);
+          if (parts.length < 15) continue; // Ensure full row
+          const rank = parseInt(parts[2].trim() || 0);
           if (isNaN(rank) || rank < 1 || rank > 5) continue;
-          let scoreRaw = parts[parts.length - 1].trim();
-          const scoreNum = parseFloat(scoreRaw.replace(',', '.'));
-          const score = isNaN(scoreNum) ? scoreRaw : scoreNum.toFixed(2).replace('.', ',');
-          top.push({ rank, nation: parts[1].trim(), score });
+          const nation = parts[3].trim() || '';
+          let scoreStr = parts[parts.length - 1].trim() || '';
+          const num = parseFloat(scoreStr.replace(',', '.'));
+          if (!isNaN(num)) scoreStr = num.toFixed(2).replace('.', ',');
+          top.push({rank, nation, score: scoreStr});
         }
+        top.sort((a, b) => a.rank - b.rank);
         const tbody = document.querySelector('#top-nations-table tbody');
-        tbody.innerHTML = top.length 
-          ? top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('')
+        tbody.innerHTML = top.length ? top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('') 
           : '<tr><td colspan="3">No data</td></tr>';
       })
-      .catch(() => document.querySelector('#top-nations-table tbody').innerHTML = '<tr><td colspan="3">Error</td></tr>');
+      .catch(err => {
+        document.querySelector('#top-nations-table tbody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
+        console.error(err);
+      });
   </script>
 </body>
 </html>
