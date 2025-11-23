@@ -203,7 +203,7 @@
       </a>
     </div>
 
-    <!-- Upcoming Races – Full Width Table with Full Race Name + Class -->
+    <!-- Upcoming Races -->
     <div class="upcoming-horizontal">
       <div class="upcoming-header">
         <svg class="upcoming-calendar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -358,12 +358,12 @@
       })
       .catch(err => {
         document.querySelector('#upcoming-table tbody').innerHTML = 
-          '<tr><td colspan="4">Error loading calendar</td></tr>';
+          '< clairement<tr><td colspan="4">Error loading calendar</td></tr>';
         console.error(err);
       });
   </script>
 
-  <!-- NEW SCRIPT 1: Latest Results -->
+  <!-- Latest Results -->
   <script>
     const RESULTS_LOG_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv';
     fetch(RESULTS_LOG_URL)
@@ -416,7 +416,7 @@
       });
   </script>
 
-  <!-- NEW SCRIPT 2: Top 10 Riders -->
+  <!-- Top 10 Riders -->
   <script>
     const RIDER_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv';
     fetch(RIDER_SCORE_URL)
@@ -455,7 +455,7 @@
       });
   </script>
 
-  <!-- NEW SCRIPT 3: Top 5 Teams -->
+  <!-- Top 5 Teams – FIXED -->
   <script>
     const TEAM_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv';
     fetch(TEAM_SCORE_URL)
@@ -494,7 +494,7 @@
       });
   </script>
 
-  <!-- NEW SCRIPT 4: Top 5 Nations -->
+  <!-- Top 5 Nations – FIXED -->
   <script>
     const NATION_SCORE_URL = 'https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv';
     fetch(NATION_SCORE_URL)
