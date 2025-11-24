@@ -9,7 +9,7 @@
   <style>
     @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
     body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
-    .grid-container{display:grid;grid-template-columns:300px 1fr 300px;height:100vh;gap:0.75rem;padding:0.75rem;max-width:100%;box-sizing:border-box;}
+    .grid-container{display:grid;grid-template-columns:300px 1fr 300px;height:100vh;gap:0.75rem;padding:0.75rem;box-sizing:border-box;}
     .hero-zone{grid-column:1/4;text-align:center;padding:0.4rem 0;}
     .logo-title{display:flex;align-items:center;justify-content:center;gap:0.8rem;}
     .logo-img{height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));}
@@ -19,17 +19,17 @@
     .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-4px);}
     .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
     .right-col{grid-template-rows:1fr 1fr;}
-    .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);transition:all .4s ease;}
+    .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);transition:all .4s;}
     .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,0.45);}
     .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;display:flex;align-items:center;gap:0.6rem;}
     .icon-header{width:28px;height:28px;}
     table{width:100%;border-collapse:collapse;font-size:0.82rem;}
     th{text-align:left;font-weight:600;font-size:0.74rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
-    td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+    td{padding:0.26rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
-    #top-riders-table th:last-child, #top-riders-table td:last-child,
-    #top-teams-table th:last-child, #top-teams-table td:last-child,
-    #top-nations-table th:last-child, #top-nations-table td:last-child {text-align:right;}
+    #top-riders-table th:last-child,#top-riders-table td:last-child,
+    #top-teams-table th:last-child,#top-teams-table td:last-child,
+    #top-nations-table th:last-child,#top-nations-table td:last-child {text-align:right;}
     @media (max-width:1366px){
       .grid-container{grid-template-columns:280px 1fr 280px;padding:0.6rem;gap:0.6rem;}
       .title{font-size:2.4rem;}.logo-img{height:44px;}
@@ -39,7 +39,6 @@
 </head>
 <body>
   <div class="grid-container">
-
     <div class="hero-zone">
       <div class="logo-title">
         <img src="cyclindex_logo.png" alt="Cyclindex" class="logo-img">
@@ -99,76 +98,129 @@
   </div>
 
   <script>
-    // Next 5 Races – Date + Race only
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv').then(r=>r.text()).then(csv=>{
-      const lines=csv.trim().split('\n').slice(1);const today=new Date();today.setHours(0,0,0,0);const upcoming=[];
-      for(const line of lines){const p=line.split(';');if(p.length<5)continue;const [d,m,y]=p[0].trim().split('/');const raceDate=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);if(raceDate>=today){upcoming.push(p);if(upcoming.length>=5)break;}}
-      document.querySelector('#upcoming-table tbody').innerHTML=upcoming.length?upcoming.map(p=>`<tr><td>${p[0].trim()}</td><td>${p[2].trim()}</td></tr>`).join(''):'<tr><td colspan="2">No upcoming</td></tr>';
-    });
+    // Helper to format numbers with 2 decimals (or dash if empty)
+    const fmt = v => v?.trim() ? parseFloat(v.replace(',','.')).toFixed(2) : '–';
+
+    // Next 5 Races (Date + Race only)
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
+      .then(r => r.text())
+      .then(csv => {
+        const lines = csv.trim().split('\n').slice(1);
+        const today = new Date(); today.setHours(0,0,0,0);
+        const upcoming = [];
+        for (const line of lines) {
+          const p = line.split(';');
+          if (p.length < 5) continue;
+          const [d,m,y] = p[0].trim().split('/');
+          const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
+          if (raceDate >= today) {
+            upcoming.push(p);
+            if (upcoming.length === 5) break;
+          }
+        }
+        document.querySelector('#upcoming-table tbody').innerHTML = upcoming.length
+          ? upcoming.map(p => `<tr><td>${p[0].trim()}</td><td>${p[2].trim()}</td></tr>`).join('')
+          : '<tr><td colspan="2">No upcoming races</td></tr>';
+      });
 
     // Latest Results
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n');const headers=lines[0].split(';');const dateIdx=headers.indexOf('Date'),compIdx=headers.indexOf('Competition');let maxDate=null,races=new Set();
-      for(let i=1;i<lines.length;i++){const p=lines[i].split(';');const date=p[dateIdx]?.trim();if(!date)continue;const [d,m,y]=date.split('/');const cur=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);if(!maxDate||cur>maxDate){maxDate=cur;races=new Set([p[compIdx].trim()]);}else if(cur.getTime()===maxDate.getTime())races.add(p[compIdx].trim());}
-      document.querySelector('#latest-results-table tbody').innerHTML=maxDate?Array.from(races).sort().map(r=>`<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join(''):'<tr><td colspan="2">No results</td></tr>';
-    });
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        const lines = text.split('\n');
+        const headers = lines[0].split(';');
+        const dateIdx = headers.indexOf('Date'), compIdx = headers.indexOf('Competition');
+        let maxDate = null, races = new Set();
+        for (let i = 1; i < lines.length; i++) {
+          const p = lines[i].split(';');
+          const date = p[dateIdx]?.trim();
+          if (!date) continue;
+          const [d,m,y] = date.split('/');
+          const cur = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
+          if (!maxDate || cur > maxDate) { maxDate = cur; races = new Set([p[compIdx].trim()]); }
+          else if (cur.getTime() === maxDate.getTime()) races.add(p[compIdx].trim());
+        }
+        document.querySelector('#latest-results-table tbody').innerHTML = maxDate
+          ? Array.from(races).sort().map(r => `<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
+          : '<tr><td colspan="2">No results yet</td></tr>';
+      });
 
-    // Top 10 Riders – FULL DETAIL (Best/2nd/3rd from columns 16,22,28)
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n');if(lines.length<2)return;
-      const top=[];
-      for(let i=1;i<lines.length;i++){
-        const p=lines[i].split(';');
-        if(p.length<30)continue;
-        const rank=parseInt(p[0]); // Rank is column 1 (index 0)
-        if(isNaN(rank)||rank<1||rank>10)continue;
+    // Top 10 Riders – full detail (columns 16,22,28 = Best/2nd/3rd)
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        const lines = text.split('\n');
+        const rows = [];
+        for (let i = 1; i < lines.length; i++) {
+          const p = lines[i].split(';');
+          if (p.length < 30) continue;
+          const rank = parseInt(p[0], 10);
+          if (isNaN(rank) || rank < 1 || rank >10) continue;
 
-        const formatScore = val => {
-          if(!val || val.trim()==='') return '–';
-          const n=parseFloat(val.replace(',','.'));
-          return isNaN(n) ? val.trim() : n.toFixed(2);
-        };
-
-        top.push({
-          rank,
-          nation: p[4]?.trim()||'',
-          rider: p[5]?.trim()||'',
-          team: p[6]?.trim()||'',
-          best: formatScore(p[15]),   // Level 1 → column 16 (index 15)
-          second: formatScore(p[21]), // Level 2 → column 22 (index 21)
-          third: formatScore(p[27]),  // Level 3 → column 28 (index 27)
-          score: formatScore(p[p.length-1])
-        });
-      }
-      top.sort((a,b)=>a.rank-b.rank);
-      document.querySelector('#top-riders-table tbody').innerHTML=top.map(t=>`
-        <tr>
-          <td>${t.rank}</td>
-          <td>${t.nation}</td>
-          <td>${t.rider}</td>
-          <td>${t.team}</td>
-          <td>${t.best}</td>
-          <td>${t.second}</td>
-          <td>${t.third}</td>
-          <td>${t.score}</td>
-        </tr>`).join('') || '<tr><td colspan="8">No data</td></tr>';
-    });
+          rows.push({
+            rank,
+            nation: p[4]?.trim() || '',
+            rider: p[5]?.trim() || '',
+            team: p[6]?.trim() || '',
+            best: fmt(p[15]),   // column 16
+            second: fmt(p[21]),  // column 22
+            third: fmt(p[27]),  // column 28
+            score: fmt(p[p.length-1])
+          });
+        }
+        rows.sort((a,b) => a.rank - b.rank);
+        document.querySelector('#top-riders-table tbody').innerHTML = rows.map(t => `
+          <tr>
+            <td>${t.rank}</td>
+            <td>${t.nation}</td>
+            <td>${t.rider}</td>
+            <td>${t.team}</td>
+            <td>${t.best}</td>
+            <td>${t.second}</td>
+            <td>${t.third}</td>
+            <td>${t.score}</td>
+          </tr>`).join('');
+      });
 
     // Top 5 Teams
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n');const top=[];
-      for(let i=1;i<lines.length;i++){const p=lines[i].split(';');if(p.length<17)continue;const rank=parseInt(p[2]);if(isNaN(rank)||rank<1||rank>5)continue;const team=p[3].trim();let score=p[p.length-1].trim();const num=parseFloat(score.replace(',','.'));if(!isNaN(num))score=num.toFixed(2);top.push({rank,team,score});}
-      top.sort((a,b)=>a.rank-b.rank);
-      document.querySelector('#top-teams-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('');
-    });
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        const lines = text.split('\n');
+        const top = [];
+        for (let i = 1; i < lines.length; i++) {
+          const p = lines[i].split(';');
+          if (p.length < 17) continue;
+          const rank = parseInt(p[2], 10);
+          if (isNaN(rank) || rank <1 || rank >5) continue;
+          const score = parseFloat(p[p.length-1].replace(',','.')).toFixed(2);
+          top.push({rank, team: p[3].trim(), score});
+        }
+        top.sort((a,b)=>a.rank-b.rank);
+        document.querySelector('#top-teams-table tbody').innerHTML = top.map(t => `<tr><td>${t.rank}</td><td>${t.team}</td><td>${t.score}</td></tr>`).join('');
+      });
 
     // Top 5 Nations
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv').then(r=>r.text()).then(text=>{if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
-      const lines=text.split('\n');const top=[];
-      for(let i=1;i<lines.length;i++){const p=lines[i].split(';');if(p.length<15)continue;const rank=parseInt(p[2]);if(isNaN(rank)||rank<1||rank>5)continue;const nation=p[3].trim();let score=p[p.length-1].trim();const num=parseFloat(score.replace(',','.'));if(!isNaN(num))score=num.toFixed(2);top.push({rank,nation,score});}
-      top.sort((a,b)=>a.rank-b.rank);
-      document.querySelector('#top-nations-table tbody').innerHTML=top.map(t=>`<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('');
-    });
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
+      .then(r => r.text())
+      .then(text => {
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        const lines = text.split('\n');
+        const top = [];
+        for (let i = 1; i < lines.length; i++) {
+          const p = lines[i].split(';');
+          if (p.length < 15) continue;
+          const rank = parseInt(p[2], 10);
+          if (isNaN(rank) || rank <1 || rank >5) continue;
+          const score = parseFloat(p[p.length-1].replace(',','.')).toFixed(2);
+          top.push({rank, nation: p[3].trim(), score});
+        }
+        top.sort((a,b)=>a.rank-b.rank);
+        document.querySelector('#top-nations-table tbody').innerHTML = top.map(t => `<tr><td>${t.rank}</td><td>${t.nation}</td><td>${t.score}</td></tr>`).join('');
+      });
   </script>
 </body>
 </html>
