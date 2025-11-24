@@ -27,19 +27,25 @@
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
-    /* Column widths & alignment for Top 10 Riders */
+    /* Top 10 Riders column layout */
     #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1) {width:5%; text-align:center;}
-    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:10%;} /* Nation */
-    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:28%; font-weight:600;} /* Rider */
+    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:8%; text-align:center;} /* Flag */
+    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:30%; font-weight:600;} /* Rider */
     #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4) {width:28%;} /* Team */
     #top-riders-table th:nth-child(5), #top-riders-table td:nth-child(5),
     #top-riders-table th:nth-child(6), #top-riders-table td:nth-child(6),
     #top-riders-table th:nth-child(7), #top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8) {text-align:right; width:7.25%;}
+    .flag{width:26px;height:18px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,0.4);transition:transform .2s;}
+    .flag:hover{transform:scale(1.4);z-index:10;}
+    .flag-name{position:absolute;background:rgba(0,0,0,0.85);color:white;font-size:11px;padding:3px 6px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;}
+    .flag-container{position:relative;display:inline-block;}
+    .flag-container:hover .flag-name{opacity:1;}
     @media (max-width:1366px){
       .grid-container{grid-template-columns:280px 1fr 280px;padding:0.6rem;gap:0.6rem;}
       .title{font-size:2.4rem;}.logo-img{height:44px;}
       table{font-size:0.82rem;} th{font-size:0.74rem;}
+      .flag{width:24px;height:16px;}
     }
   </style>
 </head>
@@ -77,7 +83,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nation</th>
+              <th></th> <!-- Flag column -->
               <th>Rider</th>
               <th>Team</th>
               <th>Best Result</th>
@@ -104,6 +110,40 @@
   </div>
 
   <script>
+    // Full flag list (same as rider-score.html)
+    const flags = {
+      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
+      "Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj",
+      "Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf",
+      "Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl",
+      "China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk",
+      "Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee",
+      "Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr",
+      "Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is",
+      "India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo",
+      "Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls",
+      "Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml",
+      "Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me",
+      "Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne",
+      "Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg",
+      "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn",
+      "Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn",
+      "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
+      "South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw",
+      "Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr",
+      "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng",
+      "Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn",
+      "Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+    };
+
+    const flagImg = country => {
+      const code = flags[country] || 'xx';
+      return `<div class="flag-container">
+                <img src="https://flagcdn.com/48x36/${code}.png" srcset="https://flagcdn.com/96x72/${code}.png 2x" width="26" height="18" alt="${country}" class="flag">
+                <div class="flag-name">${country}</div>
+              </div>`;
+    };
+
     const fmt = v => v?.trim() ? parseFloat(v.replace(',', '.'))?.toFixed(2) || v.trim() : '–';
 
     // Next 5 Races
@@ -151,7 +191,7 @@
           : '<tr><td colspan="2">No results</td></tr>';
       });
 
-    // Top 10 Riders – Perfect layout: Rider + Team separate + results next to Score
+    // Top 10 Riders – Now with FLAGS + hover tooltip (exact same style as rider-score.html)
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -178,7 +218,7 @@
         document.querySelector('#top-riders-table tbody').innerHTML = top.map(t => `
           <tr>
             <td>${t.rank}</td>
-            <td>${t.nation}</td>
+            <td>${flagImg(t.nation)}</td>
             <td>${t.rider}</td>
             <td>${t.team}</td>
             <td>${t.best}</td>
