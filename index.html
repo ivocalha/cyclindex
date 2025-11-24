@@ -14,9 +14,25 @@
     .logo-title{display:flex;align-items:center;justify-content:center;gap:0.8rem;}
     .logo-img{height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));}
     .title{font-family:'Suissnord',sans-serif;font-size:2.6rem;margin:0;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.7);}
-    .nav-buttons{display:flex;justify-content:center;gap:0.6rem;margin-top:0.4rem;flex-wrap:wrap;}
-    .nav-btn{background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);border-radius:0. 0.75rem;padding:0.45rem 0.75rem;font-size:0.82rem;font-weight:600;transition:all .3s;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
-    .nav-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-4px);}
+    /* Navbar buttons – exact same style as rider-score.html */
+    .nav-buttons{display:flex;justify-content:center;gap:1rem;margin-top:0.6rem;flex-wrap:wrap;}
+    .nav-btn{
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(10px);
+      border-radius:0.9rem;
+      padding:0.55rem 1.1rem;
+      font-size:0.88rem;
+      font-weight:700;
+      letter-spacing:0.5px;
+      transition:all .35s ease;
+      box-shadow:0 4px 15px rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.18);
+    }
+    .nav-btn:hover{
+      background:rgba(255,255,255,0.28);
+      transform:translateY(-5px);
+      box-shadow:0 12px 25px rgba(0,0,0,0.4);
+    }
     .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
     .right-col{grid-template-rows:1fr 1fr;}
     .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);transition:all .4s ease;}
@@ -27,6 +43,11 @@
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
+    /* Consistent spacing for Latest Results & Next Races */
+    #latest-results-table td:first-child,
+    #upcoming-table td:first-child{width:28%;text-align:left;}
+    #latest-results-table td:last-child,
+    #upcoming-table td:last-child{width:72%;text-align:left;}
     /* Top 10 Riders */
     #top-riders-table th:nth-child(1),#top-riders-table td:nth-child(1){width:5%;text-align:center;}
     #top-riders-table th:nth-child(2),#top-riders-table td:nth-child(2){width:8%;text-align:center;}
@@ -36,7 +57,11 @@
     #top-riders-table th:nth-child(6),#top-riders-table td:nth-child(6),
     #top-riders-table th:nth-child(7),#top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8),#top-riders-table td:nth-child(8){text-align:right;width:7.25%;}
-    /* Teams & Nations score alignment */
+    /* Teams & Nations – identical first-two-column spacing */
+    #top-teams-table th:nth-child(1),#top-teams-table td:nth-child(1),
+    #top-nations-table th:nth-child(1),#top-nations-table td:nth-child(1){width:12%;text-align:center;}
+    #top-teams-table th:nth-child(2),#top-teams-table td:nth-child(2),
+    #top-nations-table th:nth-child(2),#top-nations-table td:nth-child(2){width:58%;}
     #top-teams-table th:nth-child(3),#top-teams-table td:nth-child(3),
     #top-nations-table th:nth-child(3),#top-nations-table td:nth-child(3){text-align:right;width:30%;}
     .flag{width:26px;height:18px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,0.4);transition:transform .2s;}
@@ -49,6 +74,7 @@
       .title{font-size:2.4rem;}.logo-img{height:44px;}
       table{font-size:0.82rem;}th{font-size:0.74rem;}
       .flag{width:24px;height:16px;}
+      .nav-btn{font-size:0.84rem;padding:0.5rem 0.95rem;}
     }
   </style>
 </head>
@@ -74,7 +100,7 @@
         <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
       <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next 5 Races</h3>
+        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next Races</h3>
         <table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
     </div>
@@ -130,7 +156,7 @@
       "Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg",
       "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn",
       "Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn",
-      "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
+      "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singpore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
       "South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw",
       "Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr",
       "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng",
@@ -152,7 +178,7 @@
       return isNaN(n) ? v.trim() : n.toFixed(2).replace('.', ',');
     };
 
-    // Next 5 Races
+    // Next Races
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
       .then(r => r.text())
       .then(csv => {
@@ -235,7 +261,7 @@
         `).join('');
       });
 
-    // Top 5 Teams
+    // Top 5 trusted Teams & Nations
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
       .then(r => r.text())
       .then(t => {
@@ -251,7 +277,6 @@
         document.querySelector('#top-teams-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
       });
 
-    // Top 5 Nations
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
       .then(r => r.text())
       .then(t => {
