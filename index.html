@@ -27,18 +27,22 @@
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
-    /* Top 10 Riders column layout */
+    /* Top 10 Riders */
     #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1) {width:5%; text-align:center;}
-    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:8%; text-align:center;} /* Flag */
-    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:30%; font-weight:600;} /* Rider */
-    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4) {width:28%;} /* Team */
+    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:8%; text-align:center;}
+    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:30%; font-weight:600;}
+    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4) {width:28%;}
     #top-riders-table th:nth-child(5), #top-riders-table td:nth-child(5),
     #top-riders-table th:nth-child(6), #top-riders-table td:nth-child(6),
     #top-riders-table th:nth-child(7), #top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8) {text-align:right; width:7.25%;}
+    /* Teams & Nations score alignment */
+    #top-teams-table th:nth-child(3), #top-teams-table td:nth-child(3),
+    #top-nations-table th:nth-child(3), #top-nations-table td:nth-child(3) {text-align:right; width:30%;}
+    /* Flag style – static (non-waving) + tooltip */
     .flag{width:26px;height:18px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,0.4);transition:transform .2s;}
-    .flag:hover{transform:scale(1.4);z-index:10;}
-    .flag-name{position:absolute;background:rgba(0,0,0,0.85);color:white;font-size:11px;padding:3px 6px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;}
+    .flag:hover{transform:scale(1.5);z-index:10;}
+    .flag-name{position:absolute;background:rgba(0,0,0,0.9);color:white;font-size:11px;padding:3px 6px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;}
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
     @media (max-width:1366px){
@@ -83,7 +87,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th></th> <!-- Flag column -->
+              <th></th>
               <th>Rider</th>
               <th>Team</th>
               <th>Best Result</th>
@@ -139,12 +143,17 @@
     const flagImg = country => {
       const code = flags[country] || 'xx';
       return `<div class="flag-container">
-                <img src="https://flagcdn.com/48x36/${code}.png" srcset="https://flagcdn.com/96x72/${code}.png 2x" width="26" height="18" alt="${country}" class="flag">
+                <img src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${country}" class="flag">
                 <div class="flag-name">${country}</div>
               </div>`;
     };
 
-    const fmt = v => v?.trim() ? parseFloat(v.replace(',', '.'))?.toFixed(2) || v.trim() : '–';
+    // Format number with comma as decimal separator
+    const fmt = v => {
+      if (!v || v.trim() === '') return '–';
+      const n = parseFloat(v.replace(',', '.'));
+      return isNaN(n) ? v.trim() : n.toFixed(2).replace('.', ',');
+    };
 
     // Next 5 Races
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
@@ -166,7 +175,7 @@
         document.querySelector('#upcoming-table tbody').innerHTML = upcoming.length
           ? upcoming.map(p => `<tr><td>${p[0].trim()}</td><td>${p[2].trim()}</td></tr>`).join('')
           : '<tr><td colspan="2">No upcoming races</td></tr>';
-      });
+     tà);
 
     // Latest Results
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
@@ -191,7 +200,7 @@
           : '<tr><td colspan="2">No results</td></tr>';
       });
 
-    // Top 10 Riders – Now with FLAGS + hover tooltip (exact same style as rider-score.html)
+    // Top 10 Riders – static flags + comma decimals
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -229,9 +238,33 @@
         `).join('');
       });
 
-    // Top 5 Teams & Nations (unchanged)
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv').then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);const l=t.split('\n'),out=[];for(let i=1;i<l.length;i++){const p=l[i].split(';');if(p.length<17)continue;const r=parseInt(p[2]);if(r>0&&r<=5)out.push({rank:r,team:p[3].trim(),score:fmt(p[16])});}out.sort((a,b)=>a.rank-b.rank);document.querySelector('#top-teams-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');});
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv').then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);const l=t.split('\n'),out=[];for(let i=1;i<l.length;i++){const p=l[i].split(';');if(p.length<15)continue;const r=parseInt(p[2]);if(r>0&&r<=5)out.push({rank:r,nation:p[3].trim(),score:fmt(p[14])});}out.sort((a,b)=>a.rank-b.rank);document.querySelector('#top-nations-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');});
+    // Top 5 Teams – comma decimals
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv').then(r=>r.text()).then(t=>{
+      if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const l=t.split('\n'),out=[];
+      for(let i=1;i<l.length;i++){
+        const p=l[i].split(';');
+        if(p.length<17)continue;
+        const r=parseInt(p[2]);
+        if(r>0&&r<=5)out.push({rank:r,team:p[3].trim(),score:fmt(p[16])});
+      }
+      out.sort((a,b)=>a.rank-b.rank);
+      document.querySelector('#top-teams-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
+    });
+
+    // Top 5 Nations – comma decimals + score aligned
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv').then(r=>r.text()).then(t=>{
+      if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+      const l=t.split('\n'),out=[];
+      for(let i=1;i<l.length;i++){
+        const p=l[i].split(';');
+        if(p.length<15)continue;
+        const r=parseInt(p[2]);
+        if(r>0&&r<=5)out.push({rank:r,nation:p[3].trim(),score:fmt(p[14])});
+      }
+      out.sort((a,b)=>a.rank-b.rank);
+      document.querySelector('#top-nations-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');
+    });
   </script>
 </body>
 </html>
