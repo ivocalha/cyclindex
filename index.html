@@ -11,47 +11,106 @@
     body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
 
     /* Fixed navbar – identical to results-log.html */
-    :root{--nav-height:71px;--pill-radius:0.7rem;--pill-bg:rgba(59,130,246,0.35);}
-    .nav-bar{
-      position:fixed;top:0;left:0;right:0;height:var(--nav-height);
-      background:rgba(15,23,42,0.9);backdrop-filter:blur(12px);
-      display:flex;align-items:center;justify-content:center;
-      padding:0 2rem;z-index:3000;
-      box-shadow:0 4px 20px rgba(0,0,0,0.5);
+    :root {
+      --nav-height: 71px;
+      --pill-radius: 0.7rem;
+      --pill-bg: rgba(59,130,246,0.35);
     }
-    .nav-links{display:flex;gap:2rem;}
-    .nav-links a{
-      font-family:'Suissnord',sans-serif;text-decoration:none;
-      font-size:1.05rem;color:white;padding:0.45rem 0.9rem;
-      border-radius:var(--pill-radius);transition:all .18s;
+    .nav-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem;
+      z-index: 3000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-family: 'Suissnord', sans-serif;
+      text-decoration: none;
+      font-size: 1.05rem;
+      color: white;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--pill-radius);
+      transition: all .18s;
+    }
+    .nav-links a:hover {
+      background: var(--pill-bg);
+      transform: translateY(-2px);
+    }
 
-    /* Hero below navbar */
-    .hero-zone{padding:calc(var(--nav-height) + 1rem) 0 1.5rem;text-align:center;}
-    .logo-title{display:flex;align-items:center;justify-content:center;gap:0.9rem;}
-    .logo-img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));}
-    .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 3px 10px rgba(0,0,0,0.7);}
-
-    /* Main grid */
-    .grid-container{
-      display:grid;grid-template-columns:300px 1fr 300px;
-      gap:0.75rem;padding:0 0.75rem 0.75rem;
-      height:calc(100vh - var(--nav-height) - 140px);
-      box-sizing:border-box;
+    /* Hero zone – below navbar */
+    .hero-zone {
+      padding-top: calc(var(--nav-height) + 1rem);
+      padding-bottom: 1rem;
+      text-align: center;
     }
+    .logo-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+    .logo-img {
+      height: 52px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+    }
+    .title {
+      font-family: 'Suissnord', sans-serif;
+      font-size: 2.8rem;
+      margin: 0;
+      color: white;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+    }
+
+    /* Grid – starts below hero */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 300px 1fr 300px;
+      gap: 0.75rem;
+      padding: 0 0.75rem 0.75rem;
+      height: calc(100vh - var(--nav-height) - 140px);
+      box-sizing: border-box;
+    }
+
     .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
     .right-col{grid-template-rows:1fr 1fr;}
-    .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);transition:all .4s ease;}
-    .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,0.45);}
-    .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;display:flex;align-items:center;gap:0.6rem;}
+    .block{
+      background:rgba(15,23,42,0.45);
+      backdrop-filter:blur(12px);
+      border-radius:0.9rem;
+      padding:0.75rem;
+      box-shadow:0 5px 18px rgba(0,0,0,0.3);
+      transition:all .4s ease;
+    }
+    .block:hover{
+      background:rgba(15,23,42,0.65);
+      transform:translateY(-6px);
+      box-shadow:0 15px 35px rgba(0,0,0,0.45);
+    }
+    .block h3{
+      font-family:'Suissnord',sans-serif;
+      font-size:1.15rem;
+      margin:0 0 0.4rem;
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+    }
     .icon-header{width:28px;height:28px;}
     table{width:100%;border-collapse:collapse;font-size:0.84rem;}
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
 
-    /* Column widths */
+    /* Top 10 Riders */
     #top-riders-table th:nth-child(1),#top-riders-table td:nth-child(1){width:5%;text-align:center;}
     #top-riders-table th:nth-child(2),#top-riders-table td:nth-child(2){width:8%;text-align:center;}
     #top-riders-table th:nth-child(3),#top-riders-table td:nth-child(3){width:30%;font-weight:600;}
@@ -61,15 +120,24 @@
     #top-riders-table th:nth-child(7),#top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8),#top-riders-table td:nth-child(8){text-align:right;width:7.25%;}
 
+    /* Teams & Nations score alignment */
     #top-teams-table th:nth-child(3),#top-teams-table td:nth-child(3),
     #top-nations-table th:nth-child(3),#top-nations-table td:nth-child(3){text-align:right;width:30%;}
 
     /* Uniform rounded flags */
-    .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
+    .flag{
+      width:26px;height:18px;
+      border-radius:4px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.5);
+      object-fit:cover;
+      transition:transform .2s;
+    }
     .flag:hover{transform:scale(1.6);z-index:10;}
-    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
+    .flag-name{
+      position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;
+    }
     .flag-container{position:relative;display:inline-block;}
-    .flag-container:hover .flag-name{opacity:1;}
+    .flag-container:hover .flag-name{opacity:76;}
 
     @media (max-width:1366px){
       .title{font-size:2.4rem;}.logo-img{height:46px;}
@@ -107,7 +175,7 @@
         <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
       <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8H14z"/></svg> Next Races</h3>
+        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next Races</h3>
         <table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
     </div>
@@ -117,7 +185,16 @@
         <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
         <table id="top-riders-table" style="flex:1;">
           <thead>
-            <tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best Result</th><th>2nd Best</th><th>3rd Best</th><th>Score</th></tr>
+            <tr>
+              <th>#</th>
+              <th></th>
+              <th>Rider</th>
+              <th>Team</th>
+              <th>Best Result</th>
+              <th>2nd Best</th>
+              <th>3rd Best</th>
+              <th>Score</th>
+            </tr>
           </thead>
           <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
         </table>
@@ -157,10 +234,8 @@
       "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
       "South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw",
       "Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr",
-      "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"
-
-      /* ... rest of your full flags object ... */
-
+      "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng",
+      "Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn",
       "Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
     };
 
@@ -178,10 +253,7 @@
       return isNaN(n) ? v.trim() : n.toFixed(2).replace('.', ',');
     };
 
-    /* === ALL FETCHES 100% INTACT FROM YOUR LAST WORKING VERSION === */
-    // Next Races / Latest Results / Top 10 Riders / Top 5 Teams / Top 5 Nations
-    // (exactly the same code you had before – nothing removed)
-
+    // Next Races
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
       .then(r => r.text())
       .then(csv => {
@@ -203,6 +275,7 @@
           : '<tr><td colspan="2">No upcoming races</td></tr>';
       });
 
+    // Latest Results
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -225,6 +298,7 @@
           : '<tr><td colspan="2">No results</td></tr>';
       });
 
+    // Top 10 Riders
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -262,8 +336,37 @@
         `).join('');
       });
 
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv').then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);const l=t.split('\n'),out=[];for(let i=1;i<l.length;i++){const p=l[i].split(';');if(p.length<17)continue;const r=parseInt(p[2]);if(r>0&&r<=5)out.push({rank:r,team:p[3].trim(),score:fmt(p[16])});}out.sort((a,b)=>a.rank-b.rank);document.querySelector('#top-teams-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');});
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv').then(r=>r.text()).then(t=>{if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);const l=t.split('\n'),out=[];for(let i=1;i<l.length;i++){const p=l[i].split(';');if(p.length<15)continue;const r=parseInt(p[2]);if(r>0&&r<=5)out.push({rank:r,nation:p[3].trim(),score:fmt(p[14])});}out.sort((a,b)=>a.rank-b.rank);document.querySelector('#top-nations-table tbody').innerHTML=out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');});
+    // Top 5 Teams
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
+      .then(r => r.text())
+      .then(t => {
+        if (t.charCodeAt(0) === 0xFEFF) t = t.slice(1);
+        const l = t.split('\n'), out = [];
+        for (let i = 1; i < l.length; i++) {
+          const p = l[i].split(';');
+          if (p.length < 17) continue;
+          const r = parseInt(p[2]);
+          if (r > 0 && r <= 5) out.push({rank:r, team:p[3].trim(), score:fmt(p[16])});
+        }
+        out.sort((a,b)=>a.rank-b.rank);
+        document.querySelector('#top-teams-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
+      });
+
+    // Top 5 Nations
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
+      .then(r => r.text())
+      .then(t => {
+        if (t.charCodeAt(0) === 0xFEFF) t = t.slice(1);
+        const l = t.split('\n'), out = [];
+        for (let i = 1; i < l.length; i++) {
+          const p = l[i].split(';');
+          if (p.length < 15) continue;
+          const r = parseInt(p[2);
+          if (r > 0 && r <= 5) out.push({rank:r, nation:p[3].trim(), score:fmt(p[14])});
+        }
+        out.sort((a,b)=>a.rank-b.rank);
+        document.querySelector('#top-nations-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');
+      });
   </script>
 </body>
 </html>
