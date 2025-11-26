@@ -41,7 +41,6 @@
     .block{background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.75rem;box-shadow:0 5px 18px rgba(0,0,0,0.3);transition:all .4s ease;}
     .block:hover{background:rgba(15,23,42,0.65);transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,0.45);}
     .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;display:flex;align-items:center;gap:0.6rem;}
-    .icon-header{width:28px;height:28px;}
     table{width:100%;border-collapse:collapse;font-size:0.84rem;}
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
@@ -56,9 +55,6 @@
     #top-riders-table th:nth-child(7),#top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8),#top-riders-table td:nth-child(8){text-align:right;width:7.25%;}
 
-    #top-teams-table th:nth-child(3),#top-teams-table td:nth-child(3),
-    #top-nations-table th:nth-child(3),#top-nations-table td:nth-child(3){text-align:right;width:30%;}
-
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
     .flag:hover{transform:scale(1.6);z-index:10;}
     .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
@@ -67,40 +63,36 @@
 
     .result-cell{position:relative;display:inline-block;width:100%;text-align:right;cursor:help;}
     .result-tooltip{
-      position:absolute;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);color:white;font-size:0.88rem;padding:0.75rem 0.9rem;border-radius:0.7rem;border:1px solid rgba(59,130,246,0.4);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s;z-index:1000;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;box-shadow:0 8px 25px rgba(0,0,0,0.6);
+      position:absolute;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);color:white;font-size:0.88rem;padding:0.75rem 0.9rem;border-radius:0.7rem;
+      border:1px solid rgba(59,130,246,0.4);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s;z-index:1000;
+      bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;box-shadow:0 8px 25px rgba(0,0,0,0.6);
     }
     .result-cell:hover .result-tooltip{opacity:1;}
     .tooltip-title{font-weight:600;color:#60a5fa;margin-bottom:0.4rem;}
     .tooltip-line{margin:0.15rem 0;}
 
+    /* Bottom navbar – clean & professional */
     .bottom-nav{
       position:fixed;bottom:0;left:0;right:0;height:var(--bottom-nav-height);
       background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);
       display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;z-index:3000;
-      box-shadow:0 -
-
-6px 20px rgba(0,0,0,0.6);
+      padding:0 2rem;z-index:3000;box-shadow:0 -6px 20px rgba(0,0,0,0.6);
     }
-    .bottom-left{display:flex;align-items:center;gap:1rem;}
-    .bottom-logo-title{display:flex;align-items:center;gap:0.7rem;}
-    .bottom-logo-img{height:34px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
-    .bottom-title{font-family:'Suissnord',sans-serif;font-size:1.35rem;color:white;}
+    .social-icons{display:flex;gap:1.4rem;align-items:center;}
+    .social-icon{width:30px;height:30px;transition:transform .2s;}
+    .social-icon:hover{transform:scale(1.2);}
     .login-form{display:flex;align-items:center;gap:0.7rem;}
     .login-input{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.5rem 0.9rem;color:white;font-size:0.9rem;outline:none;transition:all .2s;}
     .login-input::placeholder{color:rgba(255,255,255,0.6);}
     .login-input:focus{border-color:#3b82f6;background:rgba(255,255,255,0.22);}
     .login-btn{background:#3b82f6;color:white;font-weight:600;padding:0.5rem 1.2rem;border-radius:0.5rem;transition:all .2s;cursor:pointer;}
     .login-btn:hover{background:#2563eb;transform:translateY(-2px);}
-    .ig-icon{width:32px;height:32px;transition:transform .2s;}
-    .ig-icon:hover{transform:scale(1.2);}
+    .copyright{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);font-size:0.7rem;opacity:0.6;z-index:3000;}
 
     @media (max-width:1366px){
       .title{font-size:2.4rem;}.logo-img{height:46px;}
-      .grid-container{grid-template-columns:280px 1fr 280px;gap:0.6rem;padding:0 0.6rem 0.6rem;}
-      .flag{width:24px;height:16px;}
-      .bottom-title{font-size:1.2rem;}
-      .ig-icon{width:28px;height:28px;}
+      .grid-container{grid-template-columns:280px 1fr 280px;gap:0.6rem;padding:0 0.6rem;}
+      .social-icon{width:28px;height:28px;}
     }
   </style>
 </head>
@@ -125,12 +117,10 @@
 
   <div class="grid-container">
     <div class="left-col">
-      <div class="block">
-        <h3>Latest Results</h3>
+      <div class="block"><h3>Latest Results</h3>
         <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
-      <div class="block">
-        <h3>Next Races</h3>
+      <div class="block"><h3>Next Races</h3>
         <table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
     </div>
@@ -140,16 +130,7 @@
         <h3>Top 10 Riders</h3>
         <table id="top-riders-table" style="flex:1;">
           <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Rider</th>
-              <th>Team</th>
-              <th>Best Result</th>
-              <th>2nd Best</th>
-              <th>3rd Best</th>
-              <th>Score</th>
-            </tr>
+            <tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best Result</th><th>2nd Best</th><th>3rd Best</th><th>Score</th></tr>
           </thead>
           <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
         </table>
@@ -157,24 +138,23 @@
     </div>
 
     <div class="right-col">
-      <div class="block">
-        <h3>Top 5 Teams</h3>
+      <div class="block"><h3>Top 5 Teams</h3>
         <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
       </div>
-      <div class="block">
-        <h3>Top 5 Nations</h3>
+      <div class="block"><h3>Top 5 Nations</h3>
         <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVBAR - EXACTLY AS YOU REQUESTED -->
+  <!-- CLEAN FINAL BOTTOM NAVBAR -->
   <div class="bottom-nav">
-    <div class="bottom-left">
-      <div class="bottom-logo-title">
-        <img src="cyclindex_logo.png" alt="Cyclindex" class="bottom-logo-img">
-        <span class="bottom-title">Cyclindex</span>
-      </div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/cyclindex/" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="white">
+          <path d="M7.8,2h8.4C19.4,2,22,4.6,22,7.8v8.4a5.8,5.8,0,0,1-5.8,5.8H7.8C4.6,22,2,19.4,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2m-.2,2A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8a3.6,3.6,0,0,0,3.6-3.6V7.6A3.6,3.6,0,0,0,16.4,4Z M18.6,6.5a1.25,1.25,0,1,1-1.25-1.25A1.25,1.25,0,0,1,18.6,6.5ZM12,7a5,5,0,1,1-5,5A5,5,0,0,1,12,7m0,2a3,3,0,1,0,3,3A3,3,0,0,0,12,9Z"/>
+        </svg>
+      </a>
     </div>
 
     <form class="login-form" onsubmit="alert('Login coming soon'); return false;">
@@ -182,39 +162,12 @@
       <input type="password" placeholder="Password" class="login-input" required>
       <button type="submit" class="login-btn">Login</button>
     </form>
-
-    <a href="https://www.instagram.com/cyclindex/" target="_blank">
-      <svg class="ig-icon" viewBox="0 0 24 24" fill="white">
-        <path d="M7.8,2h8.4C19.4,2,22,4.6,22,7.8v8.4a5.8,5.8,0,0,1-5.8,5.8H7.8C4.6,22,2,19.4,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2m-.2,2A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8a3.6,3.6,0,0,0,3.6-3.6V7.6A3.6,3.6,0,0,0,16.4,4Z M18.6,6.5a1.25,1.25,0,1,1-1.25-1.25A1.25,1.25,0,0,1,18.6,6.5ZM12,7a5,5,0,1,1-5,5A5,5,0,0,1,12,7m0,2a3,3,0,1,0,3,3A3,3,0,0,0,12,9Z"/>
-      </svg>
-    </a>
   </div>
 
+  <div class="copyright">© 2025 Cyclindex</div>
+
   <script>
-    const flags = {
-      "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au",
-      "Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj",
-      "Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf",
-      "Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl",
-      "China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk",
-      "Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee",
-      "Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr",
-      "Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is",
-      "India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo",
-      "Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls",
-      "Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml",
-      "Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me",
-      "Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne",
-      "Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg",
-      "Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn",
-      "Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn",
-      "Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za",
-      "South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw",
-      "Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr",
-      "Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng",
-      "Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn",
-      "Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
-    };
+    const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
     const flagImg = country => {
       const code = flags[country] || 'xx';
@@ -226,6 +179,7 @@
 
     const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
 
+    /* Upcoming races */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
       .then(r => r.text())
       .then(csv => {
@@ -237,16 +191,14 @@
           if (p.length < 5) continue;
           const [d,m,y] = p[0].trim().split('/');
           const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-          if (raceDate >= today) {
-            upcoming.push(p);
-            if (upcoming.length === 5) break;
-          }
+          if (raceDate >= today) { upcoming.push(p); if (upcoming.length === 5) break; }
         }
         document.querySelector('#upcoming-table tbody').innerHTML = upcoming.length
           ? upcoming.map(p => `<tr><td>${p[0].trim()}</td><td>${p[2].trim()}</td></tr>`).join('')
           : '<tr><td colspan="2">No upcoming races</td></tr>';
       });
 
+    /* Latest results */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -269,6 +221,7 @@
           : '<tr><td colspan="2">No results</td></tr>';
       });
 
+    /* Top 10 Riders + tooltip */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -320,6 +273,7 @@
         `).join('');
       });
 
+    /* Top 5 Teams */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
       .then(r => r.text())
       .then(t => {
@@ -335,6 +289,7 @@
         document.querySelector('#top-teams-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
       });
 
+    /* Top 5 Nations */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
       .then(r => r.text())
       .then(t => {
