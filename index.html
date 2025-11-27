@@ -240,7 +240,7 @@
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
+        const lines = text.split('\n';
         const top = [];
         for (let i = 1; i < lines.length; i++) {
           const p = lines[i].split(';');
@@ -305,5 +305,21 @@
         document.querySelector('#top-nations-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');
       });
   </script>
+
+  <!-- INVISIBLE COUNTER – ONLY YOU CAN SEE IT -->
+  <script>
+  // Cyclindex private invisible counter – only you can see it
+  (async () => {
+    const total = await (await fetch('https://api.countapi.xyz/hit/cyclindex/total')).json();
+    const month = await (await fetch('https://api.countapi.xyz/hit/cyclindex/' + new Date().toISOString().slice(0,7))).json();
+    const today = await (await fetch('https://api.countapi.xyz/hit/cyclindex/' + new Date().toISOString().slice(0,10))).json();
+
+    console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:bold;');
+    console.log('Lifetime :', total.value);
+    console.log('This month:', month.value);
+    console.log('Today     :', today.value);
+  })();
+  </script>
+
 </body>
 </html>
