@@ -28,17 +28,19 @@
     .hero-zone{padding-top:calc(var(--nav-height) + 1rem);padding-bottom:1rem;text-align:center;}
     .logo-title{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;}
     .logo-img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));}
-    .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 0 3px 10px rgba(0,0,0,0.7);}
+    .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 3px 10px rgba(0,0,0,0.7);}
 
-    /* Instagram icon in hero – white → color on hover */
+    /* Instagram icon – clean white → full color on hover */
     .ig-hero{
-      width:42px;height:42px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png') center/contain no-repeat;
+      width:44px;height:44px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg') center/contain no-repeat;
+      background-size:100%;
       filter: brightness(0) invert(1);
       transition: filter .25s ease;
     }
     .ig-hero:hover{
       filter: none;
+      transform:scale(1.08);
     }
 
     .grid-container{
@@ -84,7 +86,7 @@
     .tooltip-line{margin:0.15rem 0;}
 
     @media (max-width:1366px){
-      .title{font-size:2.4rem;}.logo-img{height:46px;}
+      .title{font-size:2.4rem;}.logo-img{height:46px;}.ig-hero{width:40px;height:40px;}
       .grid-container{grid-template-columns:280px 1fr 280px;}
     }
   </style>
@@ -101,12 +103,12 @@
     </div>
   </div>
 
-  <!-- HERO WITH INSTAGRAM ICON -->
+  <!-- HERO WITH CLEAN INSTAGRAM ICON -->
   <div class="hero-zone">
     <div class="logo-title">
       <img src="cyclindex_logo.png" alt="Cyclindex" class="logo-img">
       <h1 class="title">Cyclindex</h1>
-      <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Follow us on Instagram">
+      <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Follow Cyclindex on Instagram">
         <div class="ig-hero"></div>
       </a>
     </div>
