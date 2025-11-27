@@ -11,70 +11,70 @@
     body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
 
     :root{
-      --nav-height:80px;
-      --footer-height:60px;
+      --nav-height:78px;
+      --footer-height:56px;
       --pill-radius:0.7rem;
       --pill-bg:rgba(59,130,246,0.35);
     }
 
+    /* Fixed navbar */
     .nav-bar{
       position:fixed;top:0;left:0;right:0;height:var(--nav-height);
-      background:rgba(15,23,42,0.9);backdrop-filter:blur(12px);
-      display:flex;align-items:center;justify-content:space-between;padding:0 2rem;
-      z-index:3000;box-shadow:0 4px 20px rgba(0,0,0,0.5);
+      background:rgba(15,23,42,0.92);backdrop-filter:blur(14px);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 2rem;z-index:3000;
+      box-shadow:0 4px 20px rgba(0,0,0,0.5);
     }
 
     .nav-left{
-      display:flex;align-items:center;gap:1.5rem;
+      display:flex;align-items:center;gap:1rem;
     }
-    .nav-logo{
-      height:48px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));
-    }
+    .nav-logo{height:40px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
     .nav-title{
-      font-family:'Suissnord',sans-serif;font-size:2.1rem;margin:0;color:white;
-      text-shadow:0 2px 8px rgba(0,0,0,0.7);
+      font-family:'Suissnord',sans-serif;font-size:1.75rem;margin:0;
+      color:white;text-shadow:0 1px 6px rgba(0,0,0,0.6);
     }
 
-    .nav-links{
-      display:flex;gap:2rem;
-    }
+    .nav-links{display:flex;gap:1.8rem;align-items:center;}
     .nav-links a{
       font-family:'Suissnord',sans-serif;text-decoration:none;
-      font-size:1.05rem;color:white;padding:0.45rem 0.9rem;
+      font-size:1rem;color:white;padding:0.45rem 0.9rem;
       border-radius:var(--pill-radius);transition:all .18s;
     }
-    .nav-links a:hover{
-      background:var(--pill-bg);transform:translateY(-2px);
-    }
+    .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
 
     .ig-nav{
-      width:40px;height:40px;
+      width:36px;height:36px;
       background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;
-      transition:transform 0.25s ease;
+      transition:transform .25s ease;
     }
-    .ig-nav:hover{
-      transform:scale(1.15) rotate(8deg);
-    }
+    .ig-nav:hover{transform:scale(1.18) rotate(8deg);}
 
+    /* Main area – perfectly vertically centered, never covered */
     .main-wrapper{
       height:calc(100vh - var(--nav-height) - var(--footer-height));
-      padding:1.5rem 0.75rem 1rem;
+      display:flex;
+      align-items:center;     /* vertical centering */
+      justify-content:center; /* horizontal centering (grid will handle) */
+      padding:1rem 0.75rem;
       box-sizing:border-box;
     }
     .grid-container{
       display:grid;
-      grid-template-columns:300px 1fr 300px;
-      gap:0.75rem;
+      grid-template-columns:310px 1fr 310px;
+      gap:1rem;
+      width:100%;
+      max-width:1900px;
       height:100%;
     }
-    .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
+    .left-col,.center-col,.right-col{display:grid;gap:1rem;}
     .right-col{grid-template-rows:1fr 1fr;}
 
     .block{
       background:rgba(15,23,42,0.45);
       backdrop-filter:blur(12px);
       border-radius:0.9rem;
-      padding:0.75rem;
+      padding:0.85rem;
       box-shadow:0 5px 18px rgba(0,0,0,0.3);
       transition:all .4s ease;
       overflow:hidden;
@@ -86,13 +86,13 @@
     }
     .block h3{
       font-family:'Suissnord',sans-serif;
-      font-size:1.15rem;
-      margin:0 0 0.4rem;
+      font-size:1.18rem;
+      margin:0 0 0.5rem;
     }
 
-    table{width:100%;border-collapse:collapse;font-size:0.84rem;}
-    th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
-    td{padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+    table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+    th{text-align:left;font-weight:600;font-size:0.78rem;opacity:0.9;padding-bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.2);}
+    td{padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
 
     #top-riders-table th:nth-child(1),#top-riders-table td:nth-child(1){width:5%;text-align:center;}
@@ -111,29 +111,23 @@
     .flag-container:hover .flag-name{opacity:1;}
 
     footer{
-      position:fixed;bottom:0;left:0;right:0;
-      height:var(--footer-height);
-      background:rgba(15,23,42,0.9);
-      backdrop-filter:blur(12px);
+      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
+      background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);
       display:flex;align-items:center;justify-content:center;
-      font-family:'Suissnord',sans-serif;
-      font-size:0.9rem;
-      color:rgba(255,255,255,0.7);
-      border-top:1px solid rgba(255,255,255,0.1);
+      font-family:'Suissnord',sans-serif;font-size:0.88rem;
+      color:rgba(255,255,255,0.7);border-top:1px solid rgba(255,255,255,0.1);
       z-index:2000;
     }
 
-    @media (max-width:1366px){
-      .nav-title{font-size:1.8rem;}
-      .nav-logo{height:42px;}
-      .ig-nav{width:36px;height:36px;}
+    @media (max-width:1460px){
       .grid-container{grid-template-columns:280px 1fr 280px;}
+      .nav-title{font-size:1.6rem;}
+      .nav-logo{height:38px;}
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar now contains logo + title + Instagram icon -->
   <div class="nav-bar">
     <div class="nav-left">
       <img src="cyclindex_logo.png" alt="Cyclindex" class="nav-logo">
@@ -148,12 +142,11 @@
       <a href="how-it-works.html">How It Works</a>
     </div>
 
-    <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Follow Cyclindex on Instagram">
+    <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Instagram">
       <div class="ig-nav"></div>
     </a>
   </div>
 
-  <!-- Main content – now has maximum vertical space -->
   <div class="main-wrapper">
     <div class="grid-container">
       <div class="left-col">
@@ -178,10 +171,9 @@
     </div>
   </div>
 
-  <footer>
-    <!-- Empty footer – always visible, never covers content -->
-  </footer>
+  <footer></footer>
 
+  <!-- Same script as before (unchanged) -->
   <script>
     const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
