@@ -10,7 +10,13 @@
     @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
     body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
 
-    :root{--nav-height:71px;--footer-height:60px;--pill-radius:0.7rem;--pill-bg:rgba(59,130,246,0.35);}
+    :root{
+      --nav-height:71px;
+      --footer-height:60px;
+      --pill-radius:0.7rem;
+      --pill-bg:rgba(59,130,246,0.35);
+    }
+
     .nav-bar{
       position:fixed;top:0;left:0;right:0;height:var(--nav-height);
       background:rgba(15,23,42,0.9);backdrop-filter:blur(12px);
@@ -36,7 +42,7 @@
     .logo-img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));}
     .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 3px 10px rgba(0,0,0,0.7);}
 
-    /* Instagram icon – back in hero, subtle hover animation (no color change) */
+    /* Instagram icon – subtle hover animation, no color change */
     .ig-hero{
       width:44px;height:44px;
       background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;
@@ -46,20 +52,28 @@
       transform:scale(1.12) rotate(6deg);
     }
 
-    .main-content{
+    /* Main area – exactly fits between fixed nav and fixed footer */
+    .main-wrapper{
       height:calc(100vh - var(--nav-height) - var(--footer-height));
-      overflow:hidden;
+      padding-top:calc(var(--nav-height) + 90px); /* hero zone height */
+      padding-bottom:20px;
+      box-sizing:border-box;
     }
     .grid-container{
-      display:grid;grid-template-columns:300px 1fr 300px;
-      gap:0.75rem;padding:0 0.75rem;
+      display:grid;
+      grid-template-columns:300px 1fr 300px;
+      gap:0.75rem;
+      padding:0 0.75rem;
       height:100%;
     }
     .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
     .right-col{grid-template-rows:1fr 1fr;}
+
     .block{
-      background:rgba(15,23,42,0.45);backdrop-filter:blur(12px);
-      border-radius:0.9rem;padding:0.75rem;
+      background:rgba(15,23,42,0.45);
+      backdrop-filter:blur(12px);
+      border-radius:0.9rem;
+      padding:0.75rem;
       box-shadow:0 5px 18px rgba(0,0,0,0.3);
       transition:all .4s ease;
       overflow:hidden;
@@ -69,7 +83,11 @@
       transform:translateY(-6px);
       box-shadow:0 15px 35px rgba(0,0,0,0.45);
     }
-    .block h3{font-family:'Suissnord',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;}
+    .block h3{
+      font-family:'Suissnord',sans-serif;
+      font-size:1.15rem;
+      margin:0 0 0.4rem;
+    }
 
     table{width:100%;border-collapse:collapse;font-size:0.84rem;}
     th{text-align:left;font-weight:600;font-size:0.76rem;opacity:0.9;padding-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.2);}
@@ -92,7 +110,8 @@
     .flag-container:hover .flag-name{opacity:1;}
 
     footer{
-      position:fixed;bottom:0;left:0;right:0;
+      position:fixed;
+      bottom:0;left:0;right:0;
       height:var(--footer-height);
       background:rgba(15,23,42,0.9);
       backdrop-filter:blur(12px);
@@ -132,7 +151,8 @@
     </div>
   </div>
 
-  <div class="main-content">
+  <!-- Main content area – now perfectly fits without being covered by footer -->
+  <div class="main-wrapper">
     <div class="grid-container">
       <div class="left-col">
         <div class="block"><h3>Latest Results</h3><table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
@@ -157,7 +177,7 @@
   </div>
 
   <footer>
-    <!-- Empty footer – always visible -->
+    <!-- Empty footer – always visible, never covers content -->
   </footer>
 
   <script>
