@@ -82,25 +82,26 @@
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
-    /* FOOTER */
+    /* FOOTER – normal system font */
     footer{
       position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
       background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
       border-top:1px solid rgba(255,255,255,0.1);z-index:2000;
       display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;font-family:'Suissnord',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.55);
+      padding:0 1.8rem;
+      font-size:0.85rem;color:rgba(255,255,255,0.55);
+      /* ← Suissnord removed here on purpose */
     }
     .footer-left,.footer-center,.footer-right{flex:1;}
     .footer-left{text-align:left;}
     .footer-center{text-align:center;}
     .footer-right{text-align:right;}
 
-    /* Season dropdown */
+    /* Season dropdown – also normal font */
     #season-select{
       background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
       border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
-      font-family:'Suissnord',sans-serif;outline:none;cursor:pointer;
-      transition:all .2s;
+      outline:none;cursor:pointer;transition:all .2s;
     }
     #season-select:hover{border-color:#3b82f6;}
     #season-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
@@ -143,7 +144,7 @@
         <div class="block" style="display:flex;flex-direction:column;height:100%;">
           <h3>Top 10 Riders</h3>
           <table id="top-riders-table" style="flex:1;">
-            <thead><tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best</th><th>2nd</th><th>3rd</th><th>Score</th></tr></thead>
+            <thead><tr><th>#</th><th></th>Rider</th><th>Team</th><th>Best</th><th>2nd</th><th>3rd</th><th>Score</th></tr></thead>
             <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
           </table>
         </div>
@@ -204,7 +205,6 @@
           select.appendChild(opt);
         });
 
-        // Fallback if current year not present
         if (!seasonArray.includes(currentYear) && seasonArray.length > 0) {
           select.options[0].selected = true;
         }
