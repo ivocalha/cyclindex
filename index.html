@@ -298,37 +298,5 @@
       });
   </script>
 
-  <!-- INVISIBLE COUNTER (reliable version) -->
-  <script>
-  (async () => {
-    const keys = {
-      total: 'cyclindex-total-2025',
-      month: 'cyclindex-' + new Date().toISOString().slice(0,7),
-      today: 'cyclindex-' + new Date().toISOString().slice(0,10)
-    };
-    const services = [
-      'https://api.countapi.xyz/hit',
-      'https://counter.digibel.be/hit',
-      'https://counter1.freecounterstat.com/hit'
-    ];
-    for (const base of services) {
-      try {
-        const [t, m, d] = await Promise.all([
-          fetch(`${base}/${keys.total}`).then(r => r.json()),
-          fetch(`${base}/${keys.month}`).then(r => r.json()),
-          fetch(`${base}/${keys.today}`).then(r => r.json())
-        ].map(p => p.catch(() => ({value: '–'}))));
-        console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:bold;');
-        console.log('Lifetime  :', t.value ?? '–');
-        console.log('This month:', m.value ?? '–');
-        console.log('Today     :', d.value ?? '–');
-        return;
-      } catch(e) {}
-    }
-    console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;');
-    console.log('All counter services temporarily unreachable');
-  })();
-  </script>
-
 </body>
 </html>
