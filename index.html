@@ -10,7 +10,7 @@
     @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
     body,html{height:100%;margin:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;}
 
-    :root{--nav-height:71px;--pill-radius:0.7rem;--pill-bg:rgba(59,130,246,0.35);--bottom-nav-height:64px;}
+    :root{--nav-height:71px;--pill-radius:0.7rem;--pill-bg:rgba(59,130,246,0.35);}
     .nav-bar{
       position:fixed;top:0;left:0;right:0;height:var(--nav-height);
       background:rgba(15,23,42,0.9);backdrop-filter:blur(12px);
@@ -26,14 +26,25 @@
     .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
 
     .hero-zone{padding-top:calc(var(--nav-height) + 1rem);padding-bottom:1rem;text-align:center;}
-    .logo-title{display:flex;align-items:center;justify-content:center;gap:0.9rem;}
+    .logo-title{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;}
     .logo-img{height:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));}
-    .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 3px 10px rgba(0,0,0,0.7);}
+    .title{font-family:'Suissnord',sans-serif;font-size:2.8rem;margin:0;color:white;text-shadow:0 0 3px 10px rgba(0,0,0,0.7);}
+
+    /* Instagram icon in hero – white → color on hover */
+    .ig-hero{
+      width:42px;height:42px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png') center/contain no-repeat;
+      filter: brightness(0) invert(1);
+      transition: filter .25s ease;
+    }
+    .ig-hero:hover{
+      filter: none;
+    }
 
     .grid-container{
       display:grid;grid-template-columns:300px 1fr 300px;
       gap:0.75rem;padding:0 0.75rem;
-      height:calc(100vh - var(--nav-height) - var(--bottom-nav-height) - 140px);box-sizing:border-box;
+      height:calc(100vh - var(--nav-height) - 140px);box-sizing:border-box;
     }
     .left-col,.center-col,.right-col{display:grid;gap:0.75rem;}
     .right-col{grid-template-rows:1fr 1fr;}
@@ -55,53 +66,26 @@
     #top-riders-table th:nth-child(7),#top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8),#top-riders-table td:nth-child(8){text-align:right;width:7.25%;}
 
-    #top-teams-table th:nth-child(3),#top-teams-table td:nth-child(3),
-    #top-nations-table th:nth-child(3),#top-nations-table td:nth-child(3){text-align:right;width:30%;}
-
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
-    .flag:hover{transform:scale(1.6);z-index:10;}
-    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
+    .flag:hover{transform:scale(1.6);}
+    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
     .result-cell{position:relative;display:inline-block;width:100%;text-align:right;cursor:help;}
     .result-tooltip{
-      position:absolute;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);color:white;font-size:0.88rem;padding:0.75rem 0.9rem;border-radius:0.7rem;border:1px solid rgba(59,130,246,0.4);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s;z-index:1000;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;box-shadow:0 8px 25px rgba(0,0,0,0.6);
+      position:absolute;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);color:white;font-size:0.88rem;
+      padding:0.75rem 0.9rem;border-radius:0.7rem;border:1px solid rgba(59,130,246,0.4);white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity .25s;z-index:1000;bottom:100%;left:50%;
+      transform:translateX(-50%);margin-bottom:8px;box-shadow:0 8px 25px rgba(0,0,0,0.6);
     }
     .result-cell:hover .result-tooltip{opacity:1;}
     .tooltip-title{font-weight:600;color:#60a5fa;margin-bottom:0.4rem;}
     .tooltip-line{margin:0.15rem 0;}
 
-    .bottom-nav{
-      position:fixed;bottom:0;left:0;right:0;height:var(--bottom-nav-height);
-      background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;z-index:3000;box-shadow:0 -6px 20px rgba(0,0,0,0.6);
-    }
-    .bottom-left{display:flex;align-items:center;gap:1rem;}
-    .bottom-logo-title{display:flex;align-items:center;gap:0.7rem;}
-    .bottom-logo-img{height:34px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
-    .bottom-title{font-family:'Suissnord',sans-serif;font-size:1.35rem;color:white;}
-    .social-icons{display:flex;gap:1.1rem;align-items:center;}
-    .social-icon{width:28px;height:28px;transition:transform .2s;filter:brightness(0) invert(1);}
-    .social-icon:hover{transform:scale(1.2);}
-    .login-form{display:flex;align-items:center;gap:0.7rem;}
-    .login-input{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.5rem 0.9rem;color:white;font-size:0.9rem;outline:none;transition:all .2s;}
-    .login-input::placeholder{color:rgba(255,255,255,0.6);}
-    .login-input:focus{border-color:#3b82f6;background:rgba(255,255,255,0.22);}
-    .login-btn{background:#3b82f6;color:white;font-weight:600;padding:0.5rem 1.2rem;border-radius:0.5rem;transition:all .2s;cursor:pointer;}
-    .login-btn:hover{background:#2563eb;transform:translateY(-2px);}
-
-    .copyright{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);font-size:0.7rem;opacity:0.6;z-index:3000;}
-
     @media (max-width:1366px){
       .title{font-size:2.4rem;}.logo-img{height:46px;}
-      .grid-container{grid-template-columns:280px 1fr 280px;gap:0.6rem;padding:0 0.6rem 0.6rem;}
-      .flag{width:24px;height:16px;}
-      .bottom-title{font-size:1.2rem;}
-      .social-icon{width:26px;height:26px;}
-      .login-input{padding:0.4rem 0.8rem;}
-      .login-btn{padding:0.4rem 1rem;}
+      .grid-container{grid-template-columns:280px 1fr 280px;}
     }
   </style>
 </head>
@@ -117,40 +101,35 @@
     </div>
   </div>
 
+  <!-- HERO WITH INSTAGRAM ICON -->
   <div class="hero-zone">
     <div class="logo-title">
       <img src="cyclindex_logo.png" alt="Cyclindex" class="logo-img">
       <h1 class="title">Cyclindex</h1>
+      <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Follow us on Instagram">
+        <div class="ig-hero"></div>
+      </a>
     </div>
   </div>
 
   <div class="grid-container">
     <div class="left-col">
       <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"/></svg> Latest Results</h3>
+        <h3>Latest Results</h3>
         <table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
       <div class="block">
-        <h3><svg class="icon-header" viewBox="0 0 24 24"><path fill="white" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14z"/></svg> Next Races</h3>
+        <h3>Next Races</h3>
         <table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table>
       </div>
     </div>
 
     <div class="center-col">
       <div class="block" style="display:flex;flex-direction:column;height:100%;">
-        <h3><img src="rider_icon.png" class="icon-header"> Top 10 Riders</h3>
+        <h3>Top 10 Riders</h3>
         <table id="top-riders-table" style="flex:1;">
           <thead>
-            <tr>
-              <th>#</th>
-              <th></th>
-              <th>Rider</th>
-              <th>Team</th>
-              <th>Best Result</th>
-              <th>2nd Best</th>
-              <th>3rd Best</th>
-              <th>Score</th>
-            </tr>
+            <tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best Result</th><th>2nd Best</th><th>3rd Best</th><th>Score</th></tr>
           </thead>
           <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
         </table>
@@ -159,43 +138,18 @@
 
     <div class="right-col">
       <div class="block">
-        <h3><img src="team_icon.png" class="icon-header"> Top 5 Teams</h3>
+        <h3>Top 5 Teams</h3>
         <table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
       </div>
       <div class="block">
-        <h3><img src="nation_icon.png" class="icon-header"> Top 5 Nations</h3>
+        <h3>Top 5 Nations</h3>
         <table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table>
       </div>
     </div>
   </div>
 
-  <!-- Bottom navbar – compact login -->
-  <div class="bottom-nav">
-    <form class="login-form" onsubmit="alert('Login coming soon'); return false;">
-      <input type="text" placeholder="Username" class="login-input" required>
-      <input type="password" placeholder="Password" class="login-input" required>
-      <button type="submit" class="login-btn">Login</button>
-    </form>
-  </div>
-
-  <!-- Cookie banner (EU-compliant, dismissible) -->
-  <div id="cookie-banner" style="display:none">
-    <div>We use cookies to improve your experience. <a href="cookie-policy.html" target="_blank">Learn more</a></div>
-    <button id="cookie-accept">Accept</button>
-  </div>
-
-  <div class="copyright">© 2025 Cyclindex</div>
-
   <script>
-    if (!localStorage.getItem('cookies-accepted')) {
-      document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    document.getElementById('cookie-accept').addEventListener('click', () => {
-      localStorage.setItem('cookies-accepted', 'true');
-      document.getElementById('cookie-banner').style.display = 'none';
-    });
-
-    const flags = { /* full flags list – unchanged */ };
+    const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
     const flagImg = country => {
       const code = flags[country] || 'xx';
@@ -207,7 +161,6 @@
 
     const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
 
-    // All your fetch functions – 100 % unchanged
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
       .then(r => r.text())
       .then(csv => {
