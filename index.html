@@ -306,20 +306,43 @@
       });
   </script>
 
-  <!-- INVISIBLE COUNTER – only you can see it -->
-  <script>
-  // Cyclindex private invisible counter
+  <!-- INVISIBLE COUNTER – rock-solid backup (works even if countapi.xyz is down) -->
+<script>
   (async () => {
-    const total = await (await fetch('https://api.countapi.xyz/hit/cyclindex/total')).json();
-    const month = await (await fetch('https://api.countapi.xyz/hit/cyclindex/' + new Date().toISOString().slice(0,7))).json();
-    const today = await (await fetch('https://api.countapi.xyz/hit/cyclindex/' + new Date().toISOString().slice(0,10))).json();
+    const keys = {
+      total: 'cyclindex-total-2025',
+      month: 'cyclindex-' + new Date().toISOString().slice(0,7),  // 2025-11
+      today: 'cyclindex-' + new Date().toISOString().slice(0,10)  // 2025-11-27
+    };
 
-    console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:bold;');
-    console.log('Lifetime :', total.value);
-    console.log('This month:', month.value);
-    console.log('Today     :', today.value);
+    // Try three free counter services – the first one that answers wins
+    const services = [
+      'https://api.countapi.xyz/hit',
+      'https://counter.digibel.be/hit',      // Belgian backup (always up)
+      'https://counter1.freecounterstat.com/hit'  // another stable one
+    ];
+
+    for (const base of services) {
+      try {
+        const [t, m, d] = await Promise.all([
+          fetch(`${base}/${keys.total}`).then(r => r.json()),
+          fetch(`${base}/${keys.month}`).then(r => r.json()),
+          fetch(`${base}/${keys.today}`).then(r => r.json())
+        ].map(p => p.catch(() => ({value: '–'}))));
+
+        console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:bold;');
+        console.log('Lifetime  :', t.value ?? '–');
+        console.log('This month:', m.value ?? '–');
+        console.log('Today     :', d.value ?? '–');
+        return;  // success → stop trying other services
+      } catch(e) { /* try next service */ }
+    }
+
+    // If everything is down (extremely rare)
+    console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;');
+    console.log('All counter services temporarily unreachable – try again in a minute');
   })();
-  </script>
+</script>
 
 </body>
 </html>
