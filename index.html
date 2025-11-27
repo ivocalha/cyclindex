@@ -37,8 +37,12 @@
 
     .nav-links{display:flex;gap:1.6rem;align-items:center;}
     .nav-links a{
-      font-family:'Suissnord',sans-serif;font-size:0.98rem;color:white;
-      padding:0.4rem 0.85rem;border-radius:0.7rem;text-decoration:none;
+      font-family:'Suissnord',sans-serif;
+      font-size:1.55rem;           /* ← same size as title */
+      color:white;
+      padding:0.4rem 0.85rem;
+      border-radius:0.7rem;
+      text-decoration:none;
       transition:all .18s;
     }
     .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
@@ -50,55 +54,35 @@
     }
     .ig-nav:hover{transform:scale(1.22) rotate(10deg);}
 
-    /* MAIN CONTENT - EXACTLY between navbar and footer */
+    /* MAIN CONTENT */
     .content-area{
       position:fixed;
       top:var(--nav-height);
       bottom:var(--footer-height);
-      left:0;
-      right:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      left:0;right:0;
+      display:flex;align-items:center;justify-content:center;
       padding:1.2rem;
     }
-
     .grid-container{
       display:grid;
       grid-template-columns:310px 1fr 310px;
       gap:1.4rem;
-      width:100%;
-      max-width:1920px;
-      height:100%;
+      width:100%;max-width:1920px;height:100%;
     }
     .left-col,.center-col,.right-col{display:grid;gap:1.4rem;}
     .right-col{grid-template-rows:1fr 1fr;}
-
     .block{
-      background:rgba(15,23,42,0.46);
-      backdrop-filter:blur(12px);
-      border-radius:0.9rem;
-      padding:0.95rem;
+      background:rgba(15,23,42,0.46);backdrop-filter:blur(12px);
+      border-radius:0.9rem;padding:0.95rem;
       box-shadow:0 5px 20px rgba(0,0,0,0.35);
-      transition:all .35s;
-      overflow:hidden;
+      transition:all .35s;overflow:hidden;
     }
-    .block:hover{
-      background:rgba(15,23,42,0.68);
-      transform:translateY(-7px);
-      box-shadow:0 16px 40px rgba(0,0,0,0.5);
-    }
-    .block h3{
-      font-family:'Suissnord',sans-serif;
-      font-size:1.22rem;
-      margin:0 0 0.5rem;
-    }
-
+    .block:hover{background:rgba(15,23,42,0.68);transform:translateY(-7px);box-shadow:0 16px 40px rgba(0,0,0,0.5);}
+    .block h3{font-family:'Suissnord',sans-serif;font-size:1.22rem;margin:0 0 0.5rem;}
     table{width:100%;border-collapse:collapse;font-size:0.85rem;}
-    th{text-align:left;font-weight:600;font-size:0.78rem;opacity:0.9;padding-bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.2);}
+    th{text-align:left;font-weight:600;font-size:0.78rem;opacity:0.9;padding/bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.2);}
     td{padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
-
     #top-riders-table th:nth-child(1),#top-riders-table td:nth-child(1){width:5%;text-align:center;}
     #top-riders-table th:nth-child(2),#top-riders-table td:nth-child(2){width:8%;text-align:center;}
     #top-riders-table th:nth-child(3),#top-riders-table td:nth-child(3){width:30%;font-weight:600;}
@@ -107,24 +91,16 @@
     #top-riders-table th:nth-child(6),#top-riders-table td:nth-child(6),
     #top-riders-table th:nth-child(7),#top-riders-table td:nth-child(7),
     #top-riders-table th:nth-child(8),#top-riders-table td:nth-child(8){text-align:right;width:7.25%;}
-
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
     .flag:hover{transform:scale(1.6);}
     .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
-
-    /* FOOTER - fixed at bottom */
     footer{
-      position:fixed;
-      bottom:0;left:0;right:0;
-      height:var(--footer-height);
-      background:rgba(15,23,42,0.96);
-      backdrop-filter:blur(12px);
-      border-top:1px solid rgba(255,255,255,0.1);
-      z-index:2000;
+      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
+      background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
+      border-top:1px solid rgba(255,255,255,0.1);z-index:2000;
     }
-
     @media (max-width:1460px){
       .grid-container{grid-template-columns:280px 1fr 280px;gap:1.2rem;}
       .content-area{padding:1rem;}
@@ -151,14 +127,13 @@
     </a>
   </div>
 
-  <!-- MAIN CONTENT - perfectly between navbar and footer -->
+  <!-- MAIN CONTENT -->
   <div class="content-area">
     <div class="grid-container">
       <div class="left-col">
         <div class="block"><h3>Latest Results</h3><table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
         <div class="block"><h3>Next Races</h3><table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
       </div>
-
       <div class="center-col">
         <div class="block" style="display:flex;flex-direction:column;height:100%;">
           <h3>Top 10 Riders</h3>
@@ -168,7 +143,6 @@
           </table>
         </div>
       </div>
-
       <div class="right-col">
         <div class="block"><h3>Top 5 Teams</h3><table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
         <div class="block"><h3>Top 5 Nations</h3><table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
@@ -176,10 +150,9 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer></footer>
 
-  <!-- FULL SCRIPT - unchanged -->
+  <!-- ALL ORIGINAL SCRIPT + INVISIBLE COUNTER (working version) -->
   <script>
     const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
@@ -247,7 +220,6 @@
           if (p.length < 31) continue;
           const rank = parseInt(p[2], 10);
           if (isNaN(rank) || rank < 1 || rank > 10) continue;
-
           top.push({
             rank,
             nation: p[4].trim(),
@@ -260,7 +232,6 @@
           });
         }
         top.sort((a,b) => a.rank - b.rank);
-
         document.querySelector('#top-riders-table tbody').innerHTML = top.map(t => `
           <tr>
             <td>${t.rank}</td>
@@ -305,5 +276,38 @@
         document.querySelector('#top-nations-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('');
       });
   </script>
+
+  <!-- INVISIBLE COUNTER (reliable version) -->
+  <script>
+  (async () => {
+    const keys = {
+      total: 'cyclindex-total-2025',
+      month: 'cyclindex-' + new Date().toISOString().slice(0,7),
+      today: 'cyclindex-' + new Date().toISOString().slice(0,10)
+    };
+    const services = [
+      'https://api.countapi.xyz/hit',
+      'https://counter.digibel.be/hit',
+      'https://counter1.freecounterstat.com/hit'
+    ];
+    for (const base of services) {
+      try {
+        const [t, m, d] = await Promise.all([
+          fetch(`${base}/${keys.total}`).then(r => r.json()),
+          fetch(`${base}/${keys.month}`).then(r => r.json()),
+          fetch(`${base}/${keys.today}`).then(r => r.json())
+        ].map(p => p.catch(() => ({value: '–'}))));
+        console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;font-weight:bold;');
+        console.log('Lifetime  :', t.value ?? '–');
+        console.log('This month:', m.value ?? '–');
+        console.log('Today     :', d.value ?? '–');
+        return;
+      } catch(e) {}
+    }
+    console.log('%c Cyclindex Visitors ','background:#1e40af;color:white;padding:6px 12px;border-radius:6px;font-size:15px;');
+    console.log('All counter services temporarily unreachable');
+  })();
+  </script>
+
 </body>
 </html>
