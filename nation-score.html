@@ -183,30 +183,11 @@
       font-family: inherit;
     }
 
-    .flag-img {
-      width: 22px; height: 16px;
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-      transition: transform .18s;
-    }
-    .flag-img:hover { transform: scale(2); }
-    .flag-container { position: relative; display: inline-block; }
-    .flag-container .tooltip {
-      position: absolute;
-      bottom: 100%; left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.9);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity .15s;
-      pointer-events: none;
-      margin-bottom: 6px;
-      z-index: 3000;
-    }
-    .flag-container:hover .tooltip { opacity: 1; }
+    .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
+    .flag:hover{transform:scale(1.6);}
+    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
+    .flag-container{position:relative;display:inline-block;}
+    .flag-container:hover .flag-name{opacity:1;}
 
     @media(max-width:720px) {
       .search-wrap input { width: 140px; }
@@ -218,10 +199,10 @@
 <nav class="nav-bar">
   <div class="nav-links">
     <a href="index.html">Home</a>
-    <a href="results-log.html">Results Log</a>
-    <a href="rider-score.html">Rider Score</a>
-    <a href="team-score.html">Team Score</a>
-    <a href="nation-score.html" class="active">Nation Score</a>
+    <a href="results-log.html">Results</a>
+    <a href="rider-score.html">Riders</a>
+    <a href="team-score.html">Teams</a>
+    <a href="nation-score.html" class="active">Nations</a>
     <a href="how-it-works.html">How It Works</a>
   </div>
 </nav>
@@ -348,7 +329,7 @@ fetch(CSV_URL)
         const country = row["Country"] || "";
         const code = countryFlags[country] || "";
         const flag = code
-          ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${country}</div></div>`
+          ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${country}"><div class="flag-name">${country}</div></div>`
           : country;
 
         const format = v => {
