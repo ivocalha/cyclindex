@@ -11,58 +11,24 @@
     *, *::before, *::after {box-sizing:border-box;}
     body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
 
-    :root{
-      --nav-height:72px;
-      --footer-height:50px;
-      --pill-bg:rgba(59,130,246,0.35);
-    }
+    :root{--nav-height:72px;--footer-height:50px;--pill-bg:rgba(59,130,246,0.35);}
 
-    .nav-bar{
-      position:fixed;top:0;left:0;right:0;height:var(--nav-height);
-      background:rgba(15,23,42,0.96);backdrop-filter:blur(16px);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;z-index:3000;
-      box-shadow:0 4px 20px rgba(0,0,0,0.5);
-    }
+    .nav-bar{position:fixed;top:0;left:0;left:0;right:0;height:var(--nav-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;z-index:3000;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
     .nav-left{display:flex;align-items:center;gap:0.9rem;}
     .nav-logo{height:36px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
     .nav-title{font-family:'Suissnord',sans-serif;font-size:1.55rem;margin:0;color:white;}
-
     .nav-links{display:flex;gap:1.6rem;align-items:center;}
-    .nav-links a{
-      font-family:'Suissnord',sans-serif;font-size:1.55rem;
-      color:white;padding:0.4rem 0.85rem;border-radius:0.7rem;
-      text-decoration:none;transition:all .18s;
-    }
+    .nav-links a{font-family:'Suissnord',sans-serif;font-size:1.55rem;color:white;padding:0.4rem 0.85rem;border-radius:0.7rem;text-decoration:none;transition:all .18s;}
     .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
-
-    .ig-nav{
-      width:34px;height:34px;
-      background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;
-      transition:transform .25s ease;
-    }
+    .ig-nav{width:34px;height:34px;background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;transition:transform .25s ease;}
     .ig-nav:hover{transform:scale(1.22) rotate(10deg);}
 
-    .content-area{
-      position:fixed;top:var(--nav-height);bottom:var(--footer-height);
-      left:0;right:0;display:flex;align-items:center;justify-content:center;
-      padding:1.2rem;overflow:hidden;
-    }
-
-    .grid-container{
-      display:grid;
-      grid-template-columns:280px 1fr 420px;
-      gap:1.4rem;width:100%;max-width:1920px;height:100%;
-    }
+    .content-area{position:fixed;top:var(--nav-height);bottom:var(--footer-height);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:1.2rem;overflow:hidden;}
+    .grid-container{display:grid;grid-template-columns:280px 1fr 420px;gap:1.4rem;width:100%;max-width:1920px;height:100%;}
     .left-col,.center-col,.right-col{display:grid;gap:1.4rem;}
     .right-col{grid-template-rows:1fr 1fr;}
 
-    .block{
-      background:rgba(15,23,42,0.46);backdrop-filter:blur(12px);
-      border-radius:0.9rem;padding:0.95rem;
-      box-shadow:0 5px 20px rgba(0,0,0,0.35);
-      transition:all .35s;overflow:hidden;
-    }
+    .block{background:rgba(15,23,42,0.46);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.95rem;box-shadow:0 5px 20px rgba(0,0,0,0.35);transition:all .35s;overflow:hidden;}
     .block:hover{background:rgba(15,23,42,0.68);transform:translateY(-7px);box-shadow:0 16px 40px rgba(0,0,0,0.5);}
     .block h3{font-family:'Suissnord',sans-serif;font-size:1.22rem;margin:0 0 0.5rem;}
 
@@ -71,27 +37,23 @@
     td{padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
 
-    #latest-results-table th:nth-child(1),
-    #upcoming-table th:nth-child(1) { width:90px; text-align:left; }
-    #latest-results-table th:nth-child(2),
-    #upcoming-table th:nth-child(2) { width:auto; text-align:left; }
-    #latest-results-table td:nth-child(1),
-    #upcoming-table td:nth-child(1) { width:90px; text-align:left; }
-    #upcoming-table td:nth-child(2) { text-align:left; }
+    #latest-results-table th:nth-child(1), #upcoming-table th:nth-child(1){width:90px;text-align:left;}
+    #latest-results-table th:nth-child(2), #upcoming-table th:nth-child(2){width:auto;text-align:left;}
+    #latest-results-table td:nth-child(1), #upcoming-table td:nth-child(1){width:90px;}
 
-    #top-teams-table th:nth-child(1), #top-nations-table th:nth-child(1) { width:40px; text-align:center; }
-    #top-teams-table td:nth-child(1), #top-nations-table td:nth-child(1) { text-align:center; }
-    #top-teams-table th:nth-child(3), #top-nations-table th:nth-child(3) { width:90px; text-align:right; }
-    #top-teams-table td:nth-child(3), #top-nations-table td:nth-child(3) { text-align:right; }
+    #top-teams-table th:nth-child(1), #top-nations-table th:nth-child(1){width:40px;text-align:center;}
+    #top-teams-table td:nth-child(1), #top-nations-table td:nth-child(1){text-align:center;}
+    #top-teams-table th:nth-child(3), #top-nations-table th:nth-child(3){width:90px;text-align:right;}
+    #top-teams-table td:nth-child(3), #top-nations-table td:nth-child(3){text-align:right;}
 
-    #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1) {width:5%; text-align:center;}
-    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:8%; text-align:center;}
-    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:30%; font-weight:600;}
-    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4) {width:26%;}
+    #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1){width:5%;text-align:center;}
+    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2){width:8%;text-align:center;}
+    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3){width:30%;font-weight:600;}
+    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4){width:26%;}
     #top-riders-table th:nth-child(5), #top-riders-table td:nth-child(5),
     #top-riders-table th:nth-child(6), #top-riders-table td:nth-child(6),
     #top-riders-table th:nth-child(7), #top-riders-table td:nth-child(7),
-    #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8) {text-align:right; width:7.5%;}
+    #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8){text-align:right;width:7.5%;}
 
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
     .flag:hover{transform:scale(1.6);}
@@ -99,23 +61,13 @@
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
-    footer{
-      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
-      background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
-      border-top:1px solid rgba(255,255,255,0.1);z-index:2000;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);
-    }
+    footer{position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.1);z-index:2000;display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);}
     .footer-left,.footer-center,.footer-right{flex:1;}
     .footer-left{text-align:left;}
     .footer-center{text-align:center;}
     .footer-right{text-align:right;}
 
-    #season-select{
-      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
-      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
-      outline:none;cursor:pointer;transition:all .2s;
-    }
+    #season-select{background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;outline:none;cursor:pointer;transition:all .2s;}
     #season-select:hover{border-color:#3b82f6;}
     #season-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
 
@@ -182,7 +134,7 @@
     const seasonSelect = document.getElementById('season-select');
     let currentSeason = new Date().getFullYear().toString();
 
-    const flags = { /* same as before – omitted for brevity, but keep the full list in your file */ };
+    const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
     const flagImg = country => {
       const code = flags[country] || 'xx';
@@ -194,7 +146,7 @@
 
     const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
 
-    // Load seasons and set default
+    // Seasons + initial load
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -220,7 +172,6 @@
       loadTopRiders(season);
       loadTopTeams(season);
       loadTopNations(season);
-      // Upcoming races are calendar-based, not season-filtered
       loadUpcomingRaces();
     }
 
@@ -235,6 +186,7 @@
           const compIdx = headers.indexOf('Competition');
           const seasonIdx = headers.indexOf('Season');
           let maxDate = null, races = new Set();
+
           for (let i = 1; i < lines.length; i++) {
             const cols = lines[i].split(';');
             if (cols.length <= Math.max(dateIdx, compIdx, seasonIdx)) continue;
@@ -250,6 +202,7 @@
               races.add(cols[compIdx].trim());
             }
           }
+
           const tbody = document.querySelector('#latest-results-table tbody');
           tbody.innerHTML = maxDate
             ? Array.from(races).sort().map(r => `<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
@@ -267,7 +220,7 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 31) continue;
-            if (p[1]?.trim() !== season) continue; // column B = Season
+            if (p[0]?.trim() !== season) continue; // Column A = Season
             const rank = parseInt(p[2], 10);
             if (rank >= 1 && rank <= 10) {
               top.push({
@@ -299,13 +252,13 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 17) continue;
-            if (p[1]?.trim() !== season) continue;
+            if (p[0]?.trim() !== season) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, team: p[3].trim(), score: fmt(p[16])});
           }
-          out.sort((a,b) => a.rank - b.rank);
+          out.sort((a,b)=>a.rank-b.rank);
           document.querySelector('#top-teams-table tbody').innerHTML = out.length
-            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('')
+            ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
         });
     }
@@ -320,13 +273,13 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 15) continue;
-            if (p[1]?.trim() !== season) continue;
+            if (p[0]?.trim() !== season) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, nation: p[3].trim(), score: fmt(p[14])});
           }
-          out.sort((a,b) => a.rank - b.rank);
+          out.sort((a,b)=>a.rank-b.rank);
           document.querySelector('#top-nations-table tbody').innerHTML = out.length
-            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('')
+            ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
         });
     }
@@ -354,7 +307,6 @@
         });
     }
 
-    // Initial load
     loadUpcomingRaces();
   </script>
 </body>
