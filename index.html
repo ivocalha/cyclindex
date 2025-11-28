@@ -17,6 +17,7 @@
       --pill-bg:rgba(59,130,246,0.35);
     }
 
+    /* NAVBAR */
     .nav-bar{
       position:fixed;top:0;left:0;right:0;height:var(--nav-height);
       background:rgba(15,23,42,0.96);backdrop-filter:blur(16px);
@@ -43,16 +44,17 @@
     }
     .ig-nav:hover{transform:scale(1.22) rotate(10deg);}
 
+    /* MAIN CONTENT */
     .content-area{
       position:fixed;top:var(--nav-height);bottom:var(--footer-height);
       left:0;right:0;display:flex;align-items:center;justify-content:center;
       padding:1.2rem;overflow:hidden;
     }
 
-    /* NEW GRID: wider right column, narrower center */
+    /* WIDER right column (Teams/Nations), narrower center (Riders) */
     .grid-container{
       display:grid;
-      grid-template-columns:280px 1fr 420px;   /* ← left 280px | center flexible | right 420px (was 310px) */
+      grid-template-columns:280px 1fr 420px;
       gap:1.4rem;width:100%;max-width:1920px;height:100%;
     }
     .left-col,.center-col,.right-col{display:grid;gap:1.4rem;}
@@ -72,27 +74,26 @@
     td{padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
     tr:last-child td{border:none;}
 
-    /* Latest Results & Next Races */
+    /* Latest Results & Next Races – IDENTICAL column spacing & alignment */
     #latest-results-table th:nth-child(1),
     #upcoming-table th:nth-child(1) { width:90px; text-align:left; }
     #latest-results-table th:nth-child(2),
-    #upcoming-table th:nth-child(2) { width:auto; }
+    #upcoming-table th:nth-child(2) { width:auto; text-align:left; }
 
-    /* Top Teams & Top Nations – perfect alignment + wider block = no wrap */
-    #top-teams-table th:nth-child(1),
-    #top-nations-table th:nth-child(1) { width:40px; text-align:center; }
-    #top-teams-table td:nth-child(1),
-    #top-nations-table td:nth-child(1) { text-align:center; }
+    #latest-results-table td:nth-child(1),
+    #upcoming-table td:nth-child(1) { width:90px; text-align:left; }
+    #latest-results-table td:nth-child(2),
+    #upcoming-table td:nth-child(2) { width:auto; text-align:left; }
 
-    #top-teams-table th:nth-child(2),
-    #top-nations-table th:nth-child(2) { width:auto; }
+    /* Top Teams & Top Nations – wider, no wrap, perfect alignment */
+    #top-teams-table th:nth-child(1), #top-nations-table th:nth-child(1) { width:40px; text-align:center; }
+    #top-teams-table td:nth-child(1), #top-nations-table td:nth-child(1) { text-align:center; }
 
-    #top-teams-table th:nth-child(3),
-    #top-nations-table th:nth-child(3) { width:90px; text-align:right; }
-    #top-teams-table td:nth-child(3),
-    #top-nations-table td:nth-child(3) { text-align:right; }
+    #top-teams-table th:nth-child(2), #top-nations-table th:nth-child(2) { width:auto; }
+    #top-teams-table th:nth-child(3), #top-nations-table th:nth-child(3) { width:90px; text-align:right; }
+    #top-teams-table td:nth-child(3), #top-nations-table td:nth-child(3) { text-align:right; }
 
-    /* Top Riders – slightly narrower but still perfect */
+    /* Top Riders – balanced in narrower center column */
     #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1) {width:5%; text-align:center;}
     #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2) {width:8%; text-align:center;}
     #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3) {width:30%; font-weight:600;}
@@ -108,6 +109,7 @@
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
+    /* FOOTER */
     footer{
       position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
       background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
@@ -228,6 +230,7 @@
 
     const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
 
+    /* Upcoming Races */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
       .then(r => r.text())
       .then(csv => {
@@ -249,6 +252,7 @@
           : '<tr><td colspan="2">No upcoming races</td></tr>';
       });
 
+    /* Latest Results */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -271,6 +275,7 @@
           : '<tr><td colspan="2">No results</td></tr>';
       });
 
+    /* Top Riders */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -308,6 +313,7 @@
         `).join('');
       });
 
+    /* Top Teams */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
       .then(r => r.text())
       .then(t => {
@@ -323,6 +329,7 @@
         document.querySelector('#top-teams-table tbody').innerHTML = out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('');
       });
 
+    /* Top Nations */
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
       .then(r => r.text())
       .then(t => {
