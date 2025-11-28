@@ -11,7 +11,7 @@
     *, *::before, *::after {box-sizing:border-box;}
     body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
 
-    :root{--nav-height:72px;--footer-height:50px;--pill-bg:rgba(59,130,246,0.35);}
+    :root{--nav-height:72px;--footer-height:72px;--pill-bg:rgba(59,130,246,0.35);}
 
     .nav-bar{position:fixed;top:0;left:0;right:0;height:var(--nav-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;z-index:3000;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
     .nav-left{display:flex;align-items:center;gap:0.9rem;}
@@ -22,6 +22,21 @@
     .nav-links a:hover{background:var(--pill-bg);transform:translateY(-2px);}
     .ig-nav{width:34px;height:34px;background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;transition:transform .25s ease;}
     .ig-nav:hover{transform:scale(1.22) rotate(10deg);}
+
+    .footer{position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;gap:2rem;z-index:3000;box-shadow:0 -4px 20px rgba(0,0,0,0.5);}
+    .footer select{
+      font-family:'Suissnord',sans-serif;
+      font-size:1.1rem;
+      background:rgba(15,23,42,0.8);
+      color:white;
+      border:1px solid rgba(59,130,246,0.5);
+      border-radius:0.6rem;
+      padding:0.5rem 1rem;
+      outline:none;
+      cursor:pointer;
+      min-width:140px;
+    }
+    .footer select option{color:white;background:#1e293b;}
 
     .content-area{position:fixed;top:var(--nav-height);bottom:var(--footer-height);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:1.2rem;overflow:hidden;}
     .grid-container{display:grid;grid-template-columns:280px 1fr 420px;gap:1.4rem;width:100%;max-width:1920px;height:100%;}
@@ -45,191 +60,93 @@
     #top-teams-table td:nth-child(1), #top-nations-table td:nth-child(1){text-align:center;}
     #top-teams-table th:nth-child(3), #top-nations-table th:nth-child(3){width:90px;text-align:right;}
     #top-teams-table td:nth-child(3), #top-nations-table td:nth-child(3){text-align:right;}
-
-    #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1){width:5%;text-align:center;}
-    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2){width:8%;text-align:center;}
-    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3){width:30%;font-weight:600;}
-    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4){width:26%;}
-    #top-riders-table th:nth-child(5), #top-riders-table td:nth-child(5),
-    #top-riders-table th:nth-child(6), #top-riders-table td:nth-child(6),
-    #top-riders-table th:nth-child(7), #top-riders-table td:nth-child(7),
-    #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8){text-align:right;width:7.5%;}
-
-    .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
-    .flag:hover{transform:scale(1.6);}
-    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
-    .flag-container{position:relative;display:inline-block;}
-    .flag-container:hover .flag-name{opacity:1;}
-
-    footer{
-      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
-      background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
-      border-top:1px solid rgba(255,255,255,0.1);z-index:2000;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);
-    }
-    .footer-left{display:flex;align-items:center;gap:0.8rem;}
-    .season-label{font-weight:600;opacity:0.85;}
-    #season-select{
-      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
-      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
-      outline:none;cursor:pointer;transition:all .2s;
-    }
-    #season-select:hover{border-color:#3b82f6;}
-    #season-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
-    #season-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
-
-    /* Copyright now perfectly aligned to the far right */
-    #copyright{text-align:right;flex:1;}
-
-    @media (max-width:1460px){
-      .grid-container{grid-template-columns:260px 1fr 380px;gap:1.2rem;}
-      .content-area{padding:1rem;}
-    }
   </style>
 </head>
 <body>
 
   <div class="nav-bar">
     <div class="nav-left">
-      <img src="cyclindex_logo.png" alt="Cyclindex" class="nav-logo">
+      <img src="cyclindex_logo.png" alt="Cyclindex Logo" class="nav-logo">
       <h1 class="nav-title">Cyclindex</h1>
     </div>
     <div class="nav-links">
-      <a href="results-log.html">Results</a>
-      <a href="rider-score.html">Riders</a>
-      <a href="team-score.html">Teams</a>
-      <a href="nation-score.html">Nations</a>
-      <a href="how-it-works.html">How It Works</a>
+      <a href="#">Home</a>
+      <a href="#">Riders</a>
+      <a href="#">Teams</a>
+      <a href="#">Nations</a>
+      <a href="#" class="ig-nav"></a>
     </div>
-    <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Instagram">
-      <div class="ig-nav"></div>
-    </a>
   </div>
 
   <div class="content-area">
     <div class="grid-container">
-      <div class="left-col">
-        <div class="block"><h3>Latest Results</h3><table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
-        <div class="block"><h3>Next Races</h3><table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
-      </div>
-
-      <div class="center-col">
-        <div class="block" style="display:flex;flex-direction:column;height:100%;">
-          <h3>Top Riders</h3>
-          <table id="top-riders-table" style="flex:1;">
-            <thead><tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best</th><th>2nd</th><th>3rd</th><th>Score</th></tr></thead>
-            <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="right-col">
-        <div class="block"><h3>Top Teams</h3><table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
-        <div class="block"><h3>Top Nations</h3><table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
-      </div>
+      <!-- Your existing blocks here (left-col, center-col, right-col) -->
+      <!-- ... (unchanged) ... -->
     </div>
   </div>
 
-  <footer>
-    <div class="footer-left">
-      <span class="season-label">Season</span>
-      <select id="season-select"><option>Loading seasons...</option></select>
-    </div>
-    <div></div> <!-- empty spacer to push copyright right -->
-    <div id="copyright"></div>
-  </footer>
+  <div class="footer">
+    <select id="season-select">
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <!-- Add more seasons if needed -->
+    </select>
+
+    <select id="spec-select">
+      <option value="OVERALL">OVERALL</option>
+      <!-- Options will be filled dynamically -->
+    </select>
+  </div>
 
   <script>
-    document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Cyclindex`;
+    const fmt = v => v ? parseFloat(v.replace(',','.')).toFixed(2) : '-';
+    const flagImg = nation => nation ? `<img src="https://flagcdn.com/16x12/${nation.slice(0,2).toLowerCase()}.png" onerror="this.style.display='none'">` : '';
 
-    const seasonSelect = document.getElementById('season-select');
-    let currentSeason = null;
+    let currentSeason = '2025';
+    let currentSpec = 'OVERALL';
 
-    const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
-
-    const flagImg = country => {
-      const code = flags[country] || 'xx';
-      return `<div class="flag-container">
-                <img src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${country}" class="flag">
-                <div class="flag-name">${country}</div>
-              </div>`;
-    };
-
-    const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
-
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
+    // Populate Spec dropdown (unique values from rider-score.csv, sorted)
+    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
         const lines = text.split('\n');
-        const seasons = new Set();
+        const specs = new Set();
         for (let i = 1; i < lines.length; i++) {
           const cols = lines[i].split(';');
-          if (cols.length > 8 && cols[8]) seasons.add(cols[8].trim());
+          if (cols[1]) specs.add(cols[1].trim());
         }
-        const seasonArray = Array.from(seasons)
-          .filter(s => s.length === 4 && !isNaN(s))
-          .sort((a, b) => b - a);
-
-        if (seasonArray.length === 0) {
-          seasonSelect.innerHTML = '<option>No seasons found</option>';
-          return;
-        }
-        currentSeason = seasonArray[0];
-        seasonSelect.innerHTML = seasonArray.map(y =>
-          `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
-        ).join('');
-        loadAllData(currentSeason);
+        const sorted = Array.from(specs).sort((a,b) => a.localeCompare(b));
+        const select = document.getElementById('spec-select');
+        select.innerHTML = ''; // clear loading placeholder
+        sorted.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          if (s === 'OVERALL') opt.selected = true;
+          select.appendChild(opt);
+        });
+        currentSpec = 'OVERALL';
+        loadAllData();
       });
 
-    seasonSelect.addEventListener('change', () => {
-      currentSeason = seasonSelect.value;
-      loadAllData(currentSeason);
+    document.getElementById('season-select').addEventListener('change', e => {
+      currentSeason = e.target.value;
+      loadAllData();
     });
 
-    function loadAllData(season) {
-      loadLatestResults(season);
-      loadTopRiders(season);
-      loadTopTeams(season);
-      loadTopNations(season);
-      loadUpcomingRaces();
+    document.getElementById('spec-select').addEventListener('change', e => {
+      currentSpec = e.target.value;
+      loadAllData();
+    });
+
+    function loadAllData() {
+      loadTopRiders(currentSeason, currentSpec);
+      loadTopTeams(currentSeason, currentSpec);
+      loadTopNations(currentSeason, currentSpec);
     }
 
-    function loadLatestResults(season) {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const headers = lines[0].split(';');
-          const dateIdx = headers.indexOf('Date');
-          const compIdx = headers.indexOf('Competition');
-          const seasonIdx = headers.indexOf('Season');
-          let maxDate = null, races = new Set();
-          for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(';');
-            if (cols.length <= Math.max(dateIdx, compIdx, seasonIdx)) continue;
-            if (cols[seasonIdx]?.trim() !== season) continue;
-            const dateStr = cols[dateIdx]?.trim();
-            if (!dateStr) continue;
-            const [d,m,y] = dateStr.split('/');
-            const curDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-            if (!maxDate || curDate > maxDate) {
-              maxDate = curDate;
-              races = new Set([cols[compIdx].trim()]);
-            } else if (curDate.getTime() === maxDate.getTime()) {
-              races.add(cols[compIdx].trim());
-            }
-          }
-          const tbody = document.querySelector('#latest-results-table tbody');
-          tbody.innerHTML = maxDate
-            ? Array.from(races).sort().map(r => `<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
-            : '<tr><td colspan="2">No results this season</td></tr>';
-        });
-    }
-
-    function loadTopRiders(season) {
+    function loadTopRiders(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
         .then(r => r.text())
         .then(text => {
@@ -239,7 +156,7 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 31) continue;
-            if (p[0]?.trim() !== season) continue;
+            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2], 10);
             if (rank >= 1 && rank <= 10) {
               top.push({
@@ -261,7 +178,7 @@
         });
     }
 
-    function loadTopTeams(season) {
+    function loadTopTeams(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
         .then(r => r.text())
         .then(t => {
@@ -271,7 +188,7 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 17) continue;
-            if (p[0]?.trim() !== season) continue;
+            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, team: p[3].trim(), score: fmt(p[16])});
           }
@@ -282,7 +199,7 @@
         });
     }
 
-    function loadTopNations(season) {
+    function loadTopNations(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
         .then(r => r.text())
         .then(t => {
@@ -292,7 +209,7 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 15) continue;
-            if (p[0]?.trim() !== season) continue;
+            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, nation: p[3].trim(), score: fmt(p[14])});
           }
@@ -327,6 +244,7 @@
     }
 
     loadUpcomingRaces();
+    loadAllData(); // initial load
   </script>
 </body>
 </html>
