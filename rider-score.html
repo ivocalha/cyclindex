@@ -54,217 +54,320 @@
     .nav-links a {
       font-family: 'Suissnord', sans-serif;
       text-decoration: none;
+      font-size: 1.05rem;
       color: white;
-      font-size: 1.55rem;
-      padding: 0.5rem 1rem;
+      padding: 0.45rem 0.9rem;
       border-radius: var(--pill-radius);
-      transition: all 0.25s ease;
+      transition: all .18s;
     }
+    .nav-links a.active,
     .nav-links a:hover {
       background: var(--pill-bg);
       transform: translateY(-2px);
     }
 
-    /* Exact same flag styling as index.html */
-    .flag-container {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-    }
-    .flag-img {
-      width: 28px;
-      height: 20px;
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.6);
-      object-fit: cover;
-      transition: transform 0.2s ease;
-    }
-    .flag-container:hover .flag-img {
-      transform: scale(1.7);
-    }
-    .tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.92);
-      color: white;
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      margin-bottom: 6px;
-      z-index: 100;
-    }
-    .flag-container:hover .tooltip {
-      opacity: 1;
-    }
-
-    .content {
+    .table-wrapper {
       position: fixed;
       top: var(--nav-height);
-      left: 0; right: 0; bottom: var(--footer-height);
+      left: 0; right: 0;
+      bottom: var(--footer-height);
+      padding: 10px 18px;
       overflow: auto;
-      padding: 2rem;
-    }
-    .table-container {
-      background: rgba(15,23,42,0.5);
-      backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      -webkit-overflow-scrolling: touch;
     }
 
-    footer {
+    table.dataTable {
+      width: 100% !important;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--header-radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+      backdrop-filter: blur(18px);
+      table-layout: auto;
+    }
+
+    #riderTable thead th {
+      background: var(--header-blue) !important;
+      color: white;
+      position: sticky;
+      top: 0 !important;
+      z-index: 50;
+      font-size: 1.02rem !important;
+      font-weight: 600 !important;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.85rem 0.5rem !important;
+      font-family: inherit !important;
+      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
+      opacity: 0;
+      animation: fadeInHeader var(--fade-duration) ease forwards;
+    }
+
+    .dataTables_scrollHead,
+    .dataTables_scrollHeadInner table {
+      margin-top: 0 !important;
+    }
+
+    #riderTable thead th:first-child { border-top-left-radius: var(--header-radius); }
+    #riderTable thead th:last-child  { border-top-right-radius: var(--header-radius); }
+
+    @keyframes fadeInHeader {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    #riderTable tbody td {
+      font-size: .89rem;
+      white-space: nowrap;
+      text-align: center;
+      padding: 0.55rem 0.5rem !important;
+    }
+    #riderTable tbody tr:hover {
+      background: rgba(59,130,246,0.12) !important;
+    }
+
+    .fixed-bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
       height: var(--footer-height);
       background: rgba(15,23,42,0.95);
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.7);
-      z-index: 2000;
+      padding: 0 1.25rem;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
+      z-index: 2900;
+    }
+    .footer-left, .footer-center, .footer-right { display: flex; align-items: center; gap: 8px; }
+    .footer-center { flex: 1; justify-content: center; }
+
+    .entries-pill {
+      background: var(--pill-bg);
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      font-size: 0.95rem;
+    }
+
+    .search-wrap {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .search-wrap svg { width: 18px; height: 18px; flex: none; }
+    .search-wrap svg circle,
+    .search-wrap svg line { stroke: var(--neon-blue); stroke-width: 2; }
+    .search-wrap input {
+      width: 220px;
+      padding: 6px 10px;
+      border-radius: var(--pill-radius);
+      background: rgba(255,255,255,0.08);
+      border: none;
+      outline: none;
+      color: white;
+    }
+
+    .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
+    .flag:hover{transform:scale(1.6);}
+    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
+    .flag-container{position:relative;display:inline-block;}
+    .flag-container:hover .flag-name{opacity:1;}
+
+    @media(max-width:720px) {
+      .search-wrap input { width: 140px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar with updated names -->
-  <div class="nav-bar">
-    <div class="nav-links">
-      <a href="results-log.html">Results</a>
-      <a href="rider-score.html">Riders</a>
-      <a href="team-score.html">Teams</a>
-      <a href="nation-score.html">Nations</a>
-      <a href="how-it-works.html">How It Works</a>
+<nav class="nav-bar">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="results-log.html">Results Log</a>
+    <a href="rider-score.html" class="active">Rider Score</a>
+    <a href="team-score.html">Team Score</a>
+    <a href="nation-score.html">Nation Score</a>
+    <a href="how-it-works.html">How It Works</a>
+  </div>
+</nav>
+
+<div class="table-wrapper" id="tableWrapper">
+  <table id="riderTable" class="display nowrap" style="width:100%">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Nation</th>
+        <th>Rider</th>
+        <th title="Rider Score">Score</th>
+        <th title="Best Result Date">Date1</th>
+        <th title="Best Result Team">Team1</th>
+        <th title="Best Result Race">Race1</th>
+        <th title="Best Result Rank">Rk1</th>
+        <th title="Best Result Type">T1</th>
+        <th title="Best Result Level">L1</th>
+        <th title="2ndBest Result Date">Date2</th>
+        <th title="2ndBest Result Team">Team2</th>
+        <th title="2ndBest Result Race">Race2</th>
+        <th title="2ndBest Result Rank">Rk2</th>
+        <th title="2ndBest Result Type">T2</th>
+        <th title="2ndBest Result Level">L2</th>
+        <th title="3rdBest Result Date">Date3</th>
+        <th title="3rdBest Result Team">Team3</th>
+        <th title="3rdBest Result Race">Race3</th>
+        <th title="3rdBest Result Rank">Rk3</th>
+        <th title="3rdBest Result Type">T3</th>
+        <th title="3rdBest Result Level">L3</th>
+        <th title="Rider's Team Rank">TRk</th>
+        <th title="Rider's Nation Rank">NRk</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div class="fixed-bottom-bar">
+  <div class="footer-left" id="pagContainer"></div>
+  <div class="footer-center">
+    <span id="infoContainer" class="entries-pill"></span>
+  </div>
+  <div class="footer-right">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.65" y1="16.65" x2="21" y2="21" stroke-linecap="round"/>
+      </svg>
+      <input id="footerSearch" placeholder="Search…">
     </div>
   </div>
+</div>
 
-  <div class="content">
-    <div class="table-container">
-      <table id="riderTable" class="display nowrap" style="width:100%">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Nation</th>
-            <th>Rider</th>
-            <th>Team</th>
-            <th>YOB</th>
-            <th>Best Result</th>
-            <th>2nd Best</th>
-            <th>3rd Best</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-  <footer>
-    <div id="infoContainer">Loading...</div>
-    <div id="pagContainer"></div>
-    <input type="text" id="footerSearch" placeholder="Search..." style="background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:0.5rem 1rem;color:white;outline:none;">
-  </footer>
+<script>
+const countryFlags = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at",
+  "Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bhutan":"bt",
+  "Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cabo Verde":"cv","Cambodia":"kh",
+  "Cameroon":"cm","Canada":"ca","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr",
+  "Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czechia":"cz","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do",
+  "Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj",
+  "Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt",
+  "Guinea":"gn",
+  "Guyana":"gy","Haiti":"ht","Honduras":"hn","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il",
+  "Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw",
+  "Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu",
+  "Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu",
+  "Mexico":"mx","Micronesia":"fm","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm",
+  "Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk",
+  "Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe",
+  "Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn",
+  "Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa",
+  "Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb",
+  "Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr",
+  "Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl",
+  "Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Uganda":"ug","Ukraine":"ua",
+  "United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","United States":"us","Uruguay":"uy","Uzbekistan":"uz",
+  "Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw","Hong Kong":"hk"
+};
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.tailwindcss.min.js"></script>
+const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
-  <script>
-    const countryFlags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
+function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
 
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const data = [];
-        const displayColumns = ["Rank","Country","Rider","Team","YOB","Best Result","2nd Best","3rd Best","Score"];
+function buildPagination(c, info, table) {
+  c.innerHTML = "";
+  const page = info.page;
+  const last = info.pages - 1;
+  const mk = (label, disabled, target, active=false) => {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.className = 'px-2 py-1 rounded text-sm hover:bg-white/5';
+    if (active) b.classList.add('pagination-pill');
+    if (!disabled) b.onclick = () => table.page(target).draw('page');
+    else b.disabled = true;
+    return b;
+  };
+  c.appendChild(mk('Previous', page===0, page-1));
+  c.appendChild(mk('1', false, 0, page===0));
+  if (page>2) c.appendChild(smallSpan('…'));
+  for (let i=Math.max(1,page-1); i<=Math.min(last-1,page+1); i++) c.appendChild(mk(String(i+1), false, i, i===page));
+  if (page<last-2) c.appendChild(smallSpan('…'));
+  if (info.pages>1) c.appendChild(mk(String(last+1), false, last, page===last));
+  c.appendChild(mk('Next', page===last, page+1));
+}
 
-        for (let i = 1; i < lines.length; i++) {
-          const cols = lines[i].split(';');
-          if (cols.length < 30) continue;
+function updateInfo(c, info) {
+  c.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} riders`;
+}
 
-          data.push({
-            "Rank": cols[2].trim(),
-            "Country": cols[4].trim(),
-            "Rider": cols[3].trim(),
-            "Team": cols[8].trim(),
-            "YOB": cols[6].trim(),
-            "Best Result": cols[15].trim() || "–",
-            "2nd Best": cols[21].trim() || "–",
-            "3rd Best": cols[27].trim() || "–",
-            "Score": cols[28].trim()
-          });
+fetch(CSV_URL)
+  .then(r => r.text())
+  .then(text => {
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+    const parsed = Papa.parse(text, {
+      header: true,
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      delimiter: ";",
+      transformHeader: h => h.trim(),
+      transform: v => v ? v.toString().trim() : ""
+    });
+
+    const displayColumns = [
+      "Rank","Country","Rider","Score",
+      "Date1","Team1","Event1","Rank1","Results_Type1","Level1",
+      "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
+      "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
+      "rider_team_rank","rider_country_rank"
+    ];
+
+    const data = parsed.data.map(row => {
+      const countryName = row["Country"] || "";
+      const code = countryFlags[countryName] || "";
+      const flagHTML = code
+        ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${countryName}"><div class="flag-name">${countryName}</div></div>`
+        : countryName;
+
+      return displayColumns.map(col => {
+        if (col === "Country") return flagHTML;
+        let val = row[col] ?? "";
+        if (col === "Score") {
+          if (typeof val === "string") val = val.replace(",", ".");
+          const num = parseFloat(val);
+          val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
         }
-
-        const buildRow = row => {
-          const countryName = row["Country"] || "";
-          const code = countryFlags[countryName] || "";
-          const flagHTML = code
-            ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg" alt="${countryName}"><div class="tooltip">${countryName}</div></div>`
-            : countryName;
-
-          return displayColumns.map(col => {
-            if (col === "Country") return flagHTML;
-            let val = row[col] ?? "";
-            if (col === "Score") {
-              if (typeof val === "string") val = val.replace(",", ".");
-              const num = parseFloat(val);
-              val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
-            }
-            return val;
-          });
-        });
-
-        const table = $('#riderTable').DataTable({
-          data: data,
-          dom: 't',
-          pageLength: 100,
-          lengthMenu: [50, 100, 200, 500],
-          order: [[0, 'asc']],
-          autoWidth: false,
-          columnDefs: [
-            { targets: [0,4], className: "text-center" },
-            { targets: 8, className: "font-medium" }
-          ]
-        });
-
-        table.on('draw', () => {
-          const meta = table.page.info();
-          document.getElementById('infoContainer').textContent = 
-            `Showing ${meta.start + 1} to ${meta.end} of ${meta.recordsTotal} riders`;
-        });
-
-        const pag = document.getElementById('pagContainer');
-        const info = document.getElementById('infoContainer');
-        const search = document.getElementById('footerSearch');
-
-        search.addEventListener('input', () => table.search(search.value).draw());
-
-        table.on('draw', () => {
-          const meta = table.page.info();
-          updateInfo(info, meta);
-        });
-
-        function updateInfo(container, info) {
-          container.textContent = `Showing ${info.start + 1}–${info.end} of ${info.recordsTotal} riders`;
-        }
-
-        setTimeout(() => table.columns.adjust(), 100);
-        window.addEventListener('resize', () => setTimeout(() => table.columns.adjust(), 160));
-
-        table.draw(false);
+        return val;
       });
-  </script>
+    });
+
+    const table = $('#riderTable').DataTable({
+      data: data,
+      dom: 't',
+      pageLength: 100,
+      lengthMenu: [50, 100, 200, 500],
+      order: [[0, 'asc']],
+      autoWidth: false
+      // no scrollX → no duplicate header → perfect sticky header
+    });
+
+    const pag = document.getElementById('pagContainer');
+    const info = document.getElementById('infoContainer');
+    const search = document.getElementById('footerSearch');
+
+    search.addEventListener('input', () => table.search(search.value).draw());
+
+    table.on('draw', () => {
+      const meta = table.page.info();
+      buildPagination(pag, meta, table);
+      updateInfo(info, meta);
+    });
+
+    setTimeout(() => table.columns.adjust(), 100);
+    window.addEventListener('resize', () => setTimeout(() => table.columns.adjust(), 160));
+
+    table.draw(false);
+  });
+</script>
+
 </body>
 </html>
