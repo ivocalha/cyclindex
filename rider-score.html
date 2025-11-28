@@ -37,12 +37,12 @@
     .pagination button{background:rgba(59,130,246,0.4);border:none;color:white;padding:0.4rem 0.8rem;margin:0 0.3rem;border-radius:0.4rem;cursor:pointer;}
     .pagination button:disabled{background:rgba(255,255,255,0.1);cursor:not-allowed;}
 
-    /* NEW: Season dropdown styling */
+    /* ADDED FOR SEASON DROPDOWN */
     .season-label{font-weight:600;opacity:0.85;margin-right:0.8rem;}
     #season-select{background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;outline:none;cursor:pointer;}
     #season-select option{background:white !important;color:black !important;}
 
-    /* NEW: Exact same flag styling as index.html */
+    /* ADDED: Exact same flag styling as index.html */
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
     .flag:hover{transform:scale(1.6);}
     .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;white-space:nowrap;z-index:20;}
@@ -75,7 +75,7 @@
     <div class="block">
       <h2 style="font-family:'Suissnord',sans-serif;font-size:1.8rem;margin:0 0 1.5rem;">Rider Rankings</h2>
 
-      <!-- MODIFIED: Controls row with Season dropdown on the left -->
+      <!-- MODIFIED: Added Season dropdown on the left, kept everything else exactly the same -->
       <div class="controls">
         <div style="display:flex;align-items:center;">
           <span class="season-label">Season</span>
@@ -171,10 +171,10 @@
 
     function filterData() {
       const query = searchInput.value.toLowerCase();
-      filteredRiders = allRiders.filter(r =>
+      filteredRiders = allRiders.filter(r => 
         r.season === currentSeason &&
-        (r.rider.toLowerCase().includes(query) ||
-         r.team.toLowerCase().includes(query) ||
+        (r.rider.toLowerCase().includes(query) || 
+         r.team.toLowerCase().includes(query) || 
          r.country.toLowerCase().includes(query))
       );
       currentPage = 1;
@@ -212,7 +212,7 @@
         const seasonArray = Array.from(seasons).filter(s => /^\d{4}$/.test(s)).sort((a,b) => b - a);
         currentSeason = seasonArray[0] || new Date().getFullYear().toString();
 
-        seasonSelect.innerHTML = seasonArray.map(y =>
+        seasonSelect.innerHTML = seasonArray.map(y => 
           `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
         ).join('');
 
