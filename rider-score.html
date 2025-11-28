@@ -37,10 +37,15 @@
     .pagination button{background:rgba(59,130,246,0.4);border:none;color:white;padding:0.4rem 0.8rem;margin:0 0.3rem;border-radius:0.4rem;cursor:pointer;}
     .pagination button:disabled{background:rgba(255,255,255,0.1);cursor:not-allowed;}
 
-    /* ADDED FOR SEASON DROPDOWN */
+    /* ADDED: Season dropdown styling - exactly like index.html */
     .season-label{font-weight:600;opacity:0.85;margin-right:0.8rem;}
-    #season-select{background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;outline:none;cursor:pointer;}
-    #season-select option{background:white !important;color:black !important;}
+    #season-select{
+      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
+      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
+      outline:none;cursor:pointer;transition:all .2s;
+    }
+    #season-select:hover{border-color:#3b82f6;}
+    #season-select option{background:white !important;color:black !important;font-size:0.95rem;}
 
     /* ADDED: Exact same flag styling as index.html */
     .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
@@ -75,9 +80,9 @@
     <div class="block">
       <h2 style="font-family:'Suissnord',sans-serif;font-size:1.8rem;margin:0 0 1.5rem;">Rider Rankings</h2>
 
-      <!-- MODIFIED: Added Season dropdown on the left, kept everything else exactly the same -->
+      <!-- MODIFIED: Added Season dropdown on the left, everything else 100% original -->
       <div class="controls">
-        <div style="display:flex;align-items:center;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
           <span class="season-label">Season</span>
           <select id="season-select"><option>Loading seasons...</option></select>
         </div>
