@@ -61,15 +61,13 @@
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
-    footer{position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.1);z-index:2000;display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);}
-    .footer-left,.footer-center,.footer-right{flex:1;}
-    .footer-left{text-align:left;}
-    .footer-center{text-align:center;}
-    .footer-right{text-align:right;}
-
+    footer{position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.1);z-index:2000;display:flex;align-items:center;padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);}
+    .footer-left{display:flex;align-items:center;gap:0.8rem;}
+    .season-label{font-weight:600;opacity:0.85;}
     #season-select{background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;outline:none;cursor:pointer;transition:all .2s;}
     #season-select:hover{border-color:#3b82f6;}
     #season-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
+    #season-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
 
     @media (max-width:1460px){
       .grid-container{grid-template-columns:260px 1fr 380px;gap:1.2rem;}
@@ -122,6 +120,7 @@
 
   <footer>
     <div class="footer-left">
+      <span class="season-label">Season</span>
       <select id="season-select"><option>Loading seasons...</option></select>
     </div>
     <div class="footer-center"></div>
@@ -132,7 +131,7 @@
     document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Cyclindex`;
 
     const seasonSelect = document.getElementById('season-select');
-    let currentSeason = null; // will be set to newest season automatically
+    let currentSeason = null;
 
     const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
 
@@ -146,35 +145,28 @@
 
     const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
 
-    // Load seasons → newest year becomes default
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
         const lines = text.split('\n');
         const seasons = new Set();
-
         for (let i = 1; i < lines.length; i++) {
           const cols = lines[i].split(';');
           if (cols.length > 8 && cols[8]) seasons.add(cols[8].trim());
         }
-
         const seasonArray = Array.from(seasons)
           .filter(s => s.length === 4 && !isNaN(s))
-          .sort((a, b) => b - a); // newest first
+          .sort((a, b) => b - a);
 
         if (seasonArray.length === 0) {
           seasonSelect.innerHTML = '<option>No seasons found</option>';
           return;
         }
-
-        // Set default to the newest season
         currentSeason = seasonArray[0];
-
         seasonSelect.innerHTML = seasonArray.map(y =>
           `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
         ).join('');
-
         loadAllData(currentSeason);
       });
 
@@ -202,7 +194,6 @@
           const compIdx = headers.indexOf('Competition');
           const seasonIdx = headers.indexOf('Season');
           let maxDate = null, races = new Set();
-
           for (let i = 1; i < lines.length; i++) {
             const cols = lines[i].split(';');
             if (cols.length <= Math.max(dateIdx, compIdx, seasonIdx)) continue;
@@ -218,7 +209,6 @@
               races.add(cols[compIdx].trim());
             }
           }
-
           const tbody = document.querySelector('#latest-results-table tbody');
           tbody.innerHTML = maxDate
             ? Array.from(races).sort().map(r => `<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
