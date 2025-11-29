@@ -141,18 +141,16 @@
   </div>
 
   <footer class="fixed-bottom-bar">
-    <div class="footer-left flex items-center gap-3">
-      <span class="font-semibold text-sm opacity-85">Season:</span>
-      <select id="season-select" class="bg-[rgba(59,130,246,0.35)] text-white text-sm px-3 py-1 rounded-[0.7rem] outline-none cursor-pointer transition-all hover:bg-[rgba(59,130,246,0.45)]">
+    <div class="footer-left">
+      <span>Season:</span>
+      <select id="season-select">
         <option value="2025">2025</option>
       </select>
-
-      <span class="font-semibold text-sm opacity-85">Spec:</span>
-      <select id="spec-select" class="bg-[rgba(59,130,246,0.35)] text-white text-sm px-3 py-1 rounded-[0.7rem] outline-none cursor-pointer transition-all hover:bg-[rgba(59,130,246,0.45)]">
-        <option value="OVERALL">OVERALL</option>
+      <span>Spec:</span>
+      <select id="spec-select">
       </select>
     </div>
-    <div class="footer-right flex items-center gap-2">
+    <div class="footer-right">
       <span>Follow us on Instagram</span>
       <a href="https://www.instagram.com/cyclindex/" target="_blank" class="footer-ig"></a>
     </div>
@@ -162,7 +160,6 @@
     const seasonSelect = document.getElementById('season-select');
     const specSelect = document.getElementById('spec-select');
 
-    // Load available Spec values from rider-score.csv
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
       .then(r => r.text())
       .then(text => {
@@ -170,23 +167,58 @@
         const lines = text.split('\n');
         const specs = new Set();
         for (let i = 1; i < lines.length; i++) {
-          const cols = lines[i].split(';');
-          if (cols[1]) specs.add(cols[1].trim());
+          const p = lines[i].split(';');
+          if (p[1]?.trim()) specs.add(p[1].trim());
         }
-        const sorted = Array.from(specs).sort();
-        specSelect.innerHTML = '';
-        sorted.forEach(s => {
-          const opt = document.createElement('option');
-          opt.value = s;
-          opt.textContent = s;
-          if (s === 'OVERALL') opt.selected = true;
-          specSelect.appendChild(opt);
+        const sortedSpecs = Array.from(specs).sort();
+        sortedSpecs.forEach(spec => {
+          const option = document.createElement('option');
+          option.value = spec;
+          option.textContent = spec;
+          specSelect.appendChild(option);
         });
+        specSelect.value = 'OVERALL';
       });
 
     function flagImg(nation) {
-      // (unchanged original function)
-      const codes = { /* ... original codes ... */ };
+      const codes = {
+        "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao", "Antigua and Barbuda": "ag",
+        "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bahamas": "bs",
+        "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb", "Belarus": "by", "Belgium": "be", "Belize": "bz",
+        "Benin": "bj", "Bhutan": "bt", "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br",
+        "Brunei": "bn", "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi", "Cambodia": "kh", "Cameroon": "cm",
+        "Canada": "ca", "Cape Verde": "cv", "Central African Republic": "cf", "Chad": "td", "Chile": "cl", "China": "cn",
+        "Colombia": "co", "Comoros": "km", "Congo": "cg", "Costa Rica": "cr", "Croatia": "hr", "Cuba": "cu",
+        "Cyprus": "cy", "Czech Republic": "cz", "Czechia": "cz", "Denmark": "dk", "Djibouti": "dj", "Dominica": "dm",
+        "Dominican Republic": "do", "DR Congo": "cd", "Ecuador": "ec", "Egypt": "eg", "El Salvador": "sv",
+        "Equatorial Guinea": "gq", "Eritrea": "er", "Estonia": "ee", "Eswatini": "sz", "Ethiopia": "et", "Fiji": "fj",
+        "Finland": "fi", "France": "fr", "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de", "Ghana": "gh",
+        "Greece": "gr", "Grenada": "gd", "Guatemala": "gt", "Guinea": "gn", "Guinea-Bissau": "gw", "Guyana": "gy",
+        "Haiti": "ht", "Honduras": "hn", "Hong Kong": "hk", "Hungary": "hu", "Iceland": "is", "India": "in",
+        "Indonesia": "id", "Iran": "ir", "Iraq": "iq", "Ireland": "ie", "Israel": "il", "Italy": "it", "Ivory Coast": "ci",
+        "Jamaica": "jm", "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki",
+        "Kosovo": "xk", "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lebanon": "lb",
+        "Lesotho": "ls", "Liberia": "lr", "Libya": "ly", "Liechtenstein": "li", "Lithuania": "lt", "Luxembourg": "lu",
+        "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my", "Maldives": "mv", "Mali": "ml", "Malta": "mt",
+        "Marshall Islands": "mh", "Mauritania": "mr", "Mauritius": "mu", "Mexico": "mx", "Micronesia": "fm",
+        "Moldova": "md", "Monaco": "mc", "Mongolia": "mn", "Montenegro": "me", "Morocco": "ma", "Mozambique": "mz",
+        "Myanmar": "mm", "Namibia": "na", "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "New Zealand": "nz",
+        "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng", "North Korea": "kp", "North Macedonia": "mk", "Norway": "no",
+        "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps", "Panama": "pa", "Papua New Guinea": "pg",
+        "Paraguay": "py", "Peru": "pe", "Philippines": "ph", "Poland": "pl", "Portugal": "pt", "Qatar": "qa",
+        "Romania": "ro", "Russia": "ru", "Rwanda": "rw", "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc",
+        "Saint Vincent and the Grenadines": "vc", "Samoa": "ws", "San Marino": "sm", "Sao Tome and Principe": "st",
+        "Saudi Arabia": "sa", "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc", "Sierra Leone": "sl",
+        "Singapore": "sg", "Slovakia": "sk", "Slovenia": "si", "Solomon Islands": "sb", "Somalia": "so",
+        "South Africa": "za", "South Korea": "kr", "South Sudan": "ss", "Spain": "es", "Sri Lanka": "lk",
+        "Sudan": "sd", "Suriname": "sr", "Sweden": "se", "Switzerland": "ch", "Syria": "sy", "Taiwan": "tw",
+        "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th", "Timor-Leste": "tl", "Togo": "tg", "Tonga": "to",
+        "Trinidad and Tobago": "tt", "Tunisia": "tn", "Turkey": "tr", "Turkmenistan": "tm", "Uganda": "ug",
+        "Ukraine": "ua", "United Arab Emirates": "ae", "United Kingdom": "gb", "Great Britain": "gb",
+        "United States": "us", "Uruguay": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Vatican City": "va",
+        "Venezuela": "ve", "Vietnam": "vn", "Yemen": "ye", "Zambia": "zm", "Zimbabwe": "zw", "Réunion": "re",
+        "Isle of Man": "im", "Hong Kong": "hk"
+      };
       const code = codes[nation] || '';
       return code ? `<img src="https://flagcdn.com/24x18/${code}.png" width="24" height="18" style="margin-right:4px;vertical-align:middle;">${nation}` : nation;
     }
@@ -195,7 +227,7 @@
       return val ? parseFloat(val.replace(',', '.')).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '0';
     }
 
-    function loadTopRiders(season) {
+    function loadTopRiders(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
         .then(r => r.text())
         .then(text => {
@@ -205,7 +237,8 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 31) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== specSelect.value) continue;
+            if (p[0]?.trim() !== season) continue;
+            if (p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2], 10);
             if (rank >= 1 && rank <= 10) {
               top.push({
@@ -227,7 +260,7 @@
         });
     }
 
-    function loadTopTeams(season) {
+    function loadTopTeams(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
         .then(r => r.text())
         .then(t => {
@@ -237,7 +270,8 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 17) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== specSelect.value) continue;
+            if (p[0]?.trim() !== season) continue;
+            if (p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, team: p[3].trim(), score: fmt(p[16])});
           }
@@ -248,7 +282,7 @@
         });
     }
 
-    function loadTopNations(season) {
+    function loadTopNations(season, spec) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
         .then(r => r.text())
         .then(t => {
@@ -258,7 +292,8 @@
           for (let i = 1; i < lines.length; i++) {
             const p = lines[i].split(';');
             if (p.length < 15) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== specSelect.value) continue;
+            if (p[0]?.trim() !== season) continue;
+            if (p[1]?.trim() !== spec) continue;
             const rank = parseInt(p[2]);
             if (rank > 0 && rank <= 5) out.push({rank, nation: p[3].trim(), score: fmt(p[14])});
           }
@@ -293,20 +328,20 @@
     }
 
     seasonSelect.addEventListener('change', () => {
-      loadTopRiders(seasonSelect.value);
-      loadTopTeams(seasonSelect.value);
-      loadTopNations(seasonSelect.value);
+      loadTopRiders(seasonSelect.value, specSelect.value);
+      loadTopTeams(seasonSelect.value, specSelect.value);
+      loadTopNations(seasonSelect.value, specSelect.value);
     });
 
     specSelect.addEventListener('change', () => {
-      loadTopRiders(seasonSelect.value);
-      loadTopTeams(seasonSelect.value);
-      loadTopNations(seasonSelect.value);
+      loadTopRiders(seasonSelect.value, specSelect.value);
+      loadTopTeams(seasonSelect.value, specSelect.value);
+      loadTopNations(seasonSelect.value, specSelect.value);
     });
 
-    loadTopRiders('2025');
-    loadTopTeams('2025');
-    loadTopNations('2025');
+    loadTopRiders('2025', 'OVERALL');
+    loadTopTeams('2025', 'OVERALL');
+    loadTopNations('2025', 'OVERALL');
     loadUpcomingRaces();
   </script>
 </body>
