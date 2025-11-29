@@ -170,6 +170,16 @@
     .flag-container{position:relative;display:inline-block;}
     .flag-container:hover .flag-name{opacity:1;}
 
+    .season-label{font-weight:600;opacity:0.85;}
+    #season-select, #spec-select{
+      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
+      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
+      outline:none;cursor:pointer;transition:all .2s;
+    }
+    #season-select:hover, #spec-select:hover{border-color:#3b82f6;}
+    #season-select:focus, #spec-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
+    #season-select option, #spec-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
+
     @media(max-width:720px) {
       .search-wrap input { width: 140px; }
     }
@@ -223,8 +233,14 @@
 </div>
 
 <div class="fixed-bottom-bar">
-  <div class="footer-left" id="pagContainer"></div>
+  <div class="footer-left" id="pagContainer">
+    <span class="season-label">Season</span>
+    <select id="season-select"><option>Loading seasons...</option></select>
+    <span class="season-label">Spec:</span>
+    <select id="spec-select"><option>Loading specs...</option></select>
+  </div>
   <div class="footer-center">
+    <div id="pagContainer"></div>
     <span id="infoContainer" class="entries-pill"></span>
   </div>
   <div class="footer-right">
@@ -299,6 +315,78 @@ function updateInfo(c, info) {
   c.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} riders`;
 }
 
+function loadTableData(season, spec) {
+  fetch(CSV_URL)
+    .then(r => r.text())
+    .then(text => {
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+      const parsed = Papa.parse(text, {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        delimiter: ";",
+        transformHeader: h => h.trim(),
+        transform: v => v ? v.toString().trim() : ""
+      });
+
+      const displayColumns = [
+        "Rank","Country","Rider","Score",
+        "Date1","Team1","Event1","Rank1","Results_Type1","Level1",
+        "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
+        "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
+        "rider_team_rank","rider_country_rank"
+      ];
+
+      const data = parsed.data
+        .filter(row => row["Season"] === season && row["Spec"] === spec)
+        .map(row => {
+          const countryName = row["Country"] || "";
+          const code = countryFlags[countryName] || "";
+          const flagHTML = code
+            ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${countryName}"><div class="flag-name">${countryName}</div></div>`
+            : countryName;
+
+          return displayColumns.map(col => {
+            if (col === "Country") return flagHTML;
+            let val = row[col] ?? "";
+            if (col === "Score") {
+              if (typeof val === "string") val = val.replace(",", ".");
+              const num = parseFloat(val);
+              val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
+            }
+            return val;
+          });
+        });
+
+      const table = $('#riderTable').DataTable({
+        data: data,
+        dom: 't',
+        pageLength: 100,
+        lengthMenu: [50, 100, 200, 500],
+        order: [[0, 'asc']],
+        autoWidth: false
+      });
+
+      const pag = document.getElementById('pagContainer');
+      const info = document.getElementById('infoContainer');
+      const search = document.getElementById('footerSearch');
+
+      search.addEventListener('input', () => table.search(search.value).draw());
+
+      table.on('draw', () => {
+        const meta = table.page.info();
+        buildPagination(pag, meta, table);
+        updateInfo(info, meta);
+      });
+
+      setTimeout(() => table.columns.adjust(), 100);
+      window.addEventListener('resize', () => setTimeout(() => table.columns.adjust(), 160));
+
+      table.draw(false);
+    });
+}
+
 fetch(CSV_URL)
   .then(r => r.text())
   .then(text => {
@@ -313,59 +401,39 @@ fetch(CSV_URL)
       transform: v => v ? v.toString().trim() : ""
     });
 
-    const displayColumns = [
-      "Rank","Country","Rider","Score",
-      "Date1","Team1","Event1","Rank1","Results_Type1","Level1",
-      "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
-      "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
-      "rider_team_rank","rider_country_rank"
-    ];
-
-    const data = parsed.data.map(row => {
-      const countryName = row["Country"] || "";
-      const code = countryFlags[countryName] || "";
-      const flagHTML = code
-        ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${countryName}"><div class="flag-name">${countryName}</div></div>`
-        : countryName;
-
-      return displayColumns.map(col => {
-        if (col === "Country") return flagHTML;
-        let val = row[col] ?? "";
-        if (col === "Score") {
-          if (typeof val === "string") val = val.replace(",", ".");
-          const num = parseFloat(val);
-          val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
-        }
-        return val;
-      });
+    const seasons = new Set();
+    const specs = new Set(['OVERALL']);
+    parsed.data.forEach(row => {
+      if (row["Season"]) seasons.add(row["Season"]);
+      if (row["Spec"]) specs.add(row["Spec"]);
     });
 
-    const table = $('#riderTable').DataTable({
-      data: data,
-      dom: 't',
-      pageLength: 100,
-      lengthMenu: [50, 100, 200, 500],
-      order: [[0, 'asc']],
-      autoWidth: false
-      // no scrollX → no duplicate header → perfect sticky header
+    const seasonArray = Array.from(seasons)
+      .filter(s => s.toString().length === 4 && !isNaN(s))
+      .sort((a, b) => b - a);
+    const specArray = Array.from(specs).sort();
+
+    const seasonSelect = document.getElementById('season-select');
+    const specSelect = document.getElementById('spec-select');
+
+    seasonSelect.innerHTML = seasonArray.length
+      ? seasonArray.map(s => `<option value="${s}" ${s === seasonArray[0] ? 'selected' : ''}>${s}</option>`).join('')
+      : '<option>No seasons found</option>';
+
+    specSelect.innerHTML = specArray.map(s => `<option value="${s}" ${s === 'OVERALL' ? 'selected' : ''}>${s}</option>`).join('');
+
+    const currentSeason = seasonArray[0] || '';
+    const currentSpec = 'OVERALL';
+
+    loadTableData(currentSeason, currentSpec);
+
+    seasonSelect.addEventListener('change', () => {
+      loadTableData(seasonSelect.value, specSelect.value);
     });
 
-    const pag = document.getElementById('pagContainer');
-    const info = document.getElementById('infoContainer');
-    const search = document.getElementById('footerSearch');
-
-    search.addEventListener('input', () => table.search(search.value).draw());
-
-    table.on('draw', () => {
-      const meta = table.page.info();
-      buildPagination(pag, meta, table);
-      updateInfo(info, meta);
+    specSelect.addEventListener('change', () => {
+      loadTableData(seasonSelect.value, specSelect.value);
     });
-
-    setTimeout(() => table.columns.adjust(), 100);
-    window.addEventListener('resize', () => setTimeout(() => table.columns.adjust(), 160));
-
-    table.draw(false);
   });
 </script>
 
