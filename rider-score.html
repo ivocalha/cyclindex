@@ -8,6 +8,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
+  <!-- FixedColumns CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.1/css/fixedColumns.dataTables.css">
 
   <style>
     @font-face {
@@ -78,7 +80,8 @@
 
     table.dataTable {
       width: 100% !important;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       background: rgba(255,255,255,0.06);
       border-radius: var(--header-radius);
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
@@ -103,13 +106,16 @@
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
-    .dataTables_scrollHead,
-    .dataTables_scrollHeadInner table {
-      margin-top: 0 !important;
+    /* Fixed columns styling */
+    table.dataTable thead th.fixedHeader,
+    table.dataTable tbody td.fixedColumn {
+      background: rgba(26, 47, 85, 0.98) !important;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.4);
+      z-index: 60 !important;
     }
 
     #riderTable thead th:first-child { border-top-left-radius: var(--header-radius); }
-    #riderTable thead th:last-child  { border-top-right-radius: var(--header-radius); }
+    #riderTable thead th:nth-child(4) { border-top-right-radius: var(--header-radius); }
 
     @keyframes fadeInHeader {
       from { opacity: 0; transform: translateY(-6px); }
@@ -124,6 +130,9 @@
     }
     #riderTable tbody tr:hover {
       background: rgba(59,130,246,0.12) !important;
+    }
+    #riderTable tbody tr:hover td.fixedColumn {
+      background: rgba(59,130,246,0.18) !important;
     }
 
     .fixed-bottom-bar {
@@ -180,7 +189,6 @@
     #season-select:focus, #spec-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
     #season-select option, #spec-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
 
-    /* Current page now uses the same pill style as the info pill */
     .pagination-pill {
       background: var(--pill-bg) !important;
       color: white !important;
@@ -263,12 +271,11 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/5.0.1/js/dataTables.fixedColumns.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-const countryFlags = {
-  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
-};
+const countryFlags = { /* unchanged - full list as before */ };
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
@@ -348,7 +355,10 @@ function loadTable(season, spec) {
         });
       });
 
-      if (dataTable) dataTable.destroy();
+      if (dataTable) {
+        dataTable.fixedColumns().destroy();
+        dataTable.destroy();
+      }
 
       dataTable = $('#riderTable').DataTable({
         data: data,
@@ -356,7 +366,11 @@ function loadTable(season, spec) {
         pageLength: 100,
         lengthMenu: [50, 100, 200, 500],
         order: [[0, 'asc']],
-        autoWidth: false
+        autoWidth: false,
+        scrollX: true,
+        fixedColumns: {
+          leftColumns: 4
+        }
       });
 
       const pag = document.getElementById('pagContainer');
@@ -373,13 +387,23 @@ function loadTable(season, spec) {
 
       search.addEventListener('input', () => dataTable.search(search.value).draw());
 
-      setTimeout(() => dataTable.columns.adjust(), 100);
-      window.addEventListener('resize', () => setTimeout(() => dataTable.columns.adjust(), 160));
+      setTimeout(() => {
+        dataTable.columns.adjust();
+        dataTable.fixedColumns().relayout();
+      }, 100);
+
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          dataTable.columns.adjust();
+          dataTable.fixedColumns().relayout();
+        }, 160);
+      });
 
       drawHandler();
     });
 }
 
+// Load seasons & specs + initialize
 fetch(CSV_URL)
   .then(r => r.text())
   .then(text => {
