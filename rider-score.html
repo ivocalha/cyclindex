@@ -8,8 +8,6 @@
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
-  <!-- FixedColumns CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.1/css/fixedColumns.dataTables.css">
 
   <style>
     @font-face {
@@ -80,12 +78,12 @@
 
     table.dataTable {
       width: 100% !important;
-      border-collapse: separate;
-      border-spacing: 0;
+      border-collapse: collapse;
       background: rgba(255,255,255,0.06);
       border-radius: var(--header-radius);
       box-shadow: 0 30px 90px rgba(0,0,0,0.85);
       backdrop-filter: blur(18px);
+      table-layout: auto;
     }
 
     #riderTable thead th {
@@ -103,6 +101,11 @@
       transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
       opacity: 0;
       animation: fadeInHeader var(--fade-duration) ease forwards;
+    }
+
+    .dataTables_scrollHead,
+    .dataTables_scrollHeadInner table {
+      margin-top: 0 !important;
     }
 
     #riderTable thead th:first-child { border-top-left-radius: var(--header-radius); }
@@ -123,14 +126,6 @@
       background: rgba(59,130,246,0.12) !important;
     }
 
-    /* Fixed columns styling */
-    table.dataTable thead th.dtfc-fixed-left,
-    table.dataTable tbody td.dtfc-fixed-left {
-      background: #0f172a !important;
-      box-shadow: 4px 0 12px rgba(0,0,0,0.6) !important;
-      z-index: 11 !important;
-    }
-
     .fixed-bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -141,7 +136,7 @@
       justify-content: space-between;
       padding: 0 1.25rem;
       box-shadow: 0 -6px 20px rgba(0,0,0,0.45);
-      z-Index: 2900;
+      z-index: 2900;
     }
     .footer-left, .footer-center, .footer-right { display: flex; align-items: center; gap: 12px; }
     .footer-center { flex: 1; justify-content: center; gap: 16px; }
@@ -185,6 +180,7 @@
     #season-select:focus, #spec-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
     #season-select option, #spec-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
 
+    /* Current page now uses the same pill style as the info pill */
     .pagination-pill {
       background: var(--pill-bg) !important;
       color: white !important;
@@ -267,7 +263,6 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/fixedcolumns/5.0.1/js/dataTables.fixedColumns.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
@@ -294,9 +289,9 @@ function buildPagination(c, info, table) {
   };
   c.appendChild(mk('Previous', page===0, page-1));
   c.appendChild(mk('1', false, 0, page===0));
-  if (page>3) c.appendChild(smallSpan('...'));
+  if (page>3) c.appendChild(smallSpan('…'));
   for (let i=Math.max(1,page-2); i<=Math.min(last-1,page+2); i++) c.appendChild(mk(String(i+1), false, i, i===page));
-  if (page<last-3) c.appendChild(smallSpan('...'));
+  if (page<last-3) c.appendChild(smallSpan('…'));
   if (info.pages>1) c.appendChild(mk(String(last+1), false, last, page===last));
   c.appendChild(mk('Next', page===last, page+1));
 }
@@ -361,11 +356,7 @@ function loadTable(season, spec) {
         pageLength: 100,
         lengthMenu: [50, 100, 200, 500],
         order: [[0, 'asc']],
-        autoWidth: false,
-        scrollX: true,                    // enable horizontal scrolling
-        fixedColumns: {                   // fix first 4 columns
-          left: 4
-        }
+        autoWidth: false
       });
 
       const pag = document.getElementById('pagContainer');
@@ -382,14 +373,13 @@ function loadTable(season, spec) {
 
       search.addEventListener('input', () => dataTable.search(search.value).draw());
 
-      setTimeout(() => dataTable.columns.adjust().draw(), 100);
-      window.addEventListener('resize', () => setTimeout(() => dataTable.columns.adjust().draw(), 160));
+      setTimeout(() => dataTable.columns.adjust(), 100);
+      window.addEventListener('resize', () => setTimeout(() => dataTable.columns.adjust(), 160));
 
       drawHandler();
     });
 }
 
-/* Load seasons & specs */
 fetch(CSV_URL)
   .then(r => r.text())
   .then(text => {
