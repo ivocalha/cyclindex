@@ -25,7 +25,6 @@
       --neon-blue: #3b82f6;
       --header-blue: #1a2f55;
       --header-radius: 14px;
-      --fade-duration: 0.4s;
     }
 
     html, body { height: 100%; margin: 0; overflow: hidden; }
@@ -78,15 +77,26 @@
     }
 
     table.dataTable {
-      { width: 100% !important; border-collapse: separate; border-spacing: 0; }
-    table.dataTable thead th { background: var(--header-blue); color: white; position: sticky; top: 0; z-index: 50; }
+      width: 100% !important;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--header-radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+      backdrop-filter: blur(18px);
+    }
 
-    /* Fixed columns styling */
-    table.dataTable th.DTFC_Cloned,
-    table.dataTable td.DTFC_Cloned {
-      background: rgba(26,47,85,0.98) !important;
-      box-shadow: 4px 0 12px rgba(0,0,0,0.4);
-      z-index: 60;
+    #riderTable thead th {
+      background: var(--header-blue) !important;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      font-size: 1.02rem;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.85rem 0.5rem !important;
     }
 
     #riderTable thead th:first-child { border-top-left-radius: var(--header-radius); }
@@ -99,6 +109,14 @@
       padding: 0.55rem 0.5rem !important;
     }
     #riderTable tbody tr:hover td { background: rgba(59,130,246,0.12) !important; }
+
+    /* Fixed columns */
+    table.dataTable td.DTFC_Cloned,
+    table.dataTable th.DTFC_Cloned {
+      background: rgba(26,47,85,0.98) !important;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.4) !important;
+      z-index: 60;
+    }
     #riderTable tbody tr:hover td.DTFC_Cloned { background: rgba(59,130,246,0.18) !important; }
 
     .fixed-bottom-bar {
@@ -186,26 +204,10 @@
         <th>Nation</th>
         <th>Rider</th>
         <th title="Rider Score">Score</th>
-        <th>Date1</th>
-        <th>Team1</th>
-        <th>Race1</th>
-        <th>Rk1</th>
-        <th>T1</th>
-        <th>L1</th>
-        <th>Date2</th>
-        <th>Team2</th>
-        <th>Race2</th>
-        <th>Rk2</th>
-        <th>T2</th>
-        <th>L2</th>
-        <th>Date3</th>
-        <th>Team3</th>
-        <th>Race3</th>
-        <th>Rk3</th>
-        <th>T3</th>
-        <th>L3</th>
-        <th>TRk</th>
-        <th>NRk</th>
+        <th>Date1</th><th>Team1</th><th>Race1</th><th>Rk1</th><th>T1</th><th>L1</th>
+        <th>Date2</th><th>Team2</th><th>Race2</th><th>Rk2</th><th>T2</th><th>L2</th>
+        <th>Date3</th><th>Team3</th><th>Race3</th><th>Rk3</th><th>T3</th><th>L3</th>
+        <th>TRk</th><th>NRk</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -215,9 +217,9 @@
 <div class="fixed-bottom-bar">
   <div class="footer-left">
     <span class="season-label">Season</span>
-    <select id="season-select"><option>Loading seasons...</option></select>
+    <select id="season-select"><option>Loading...</option></select>
     <span class="season-label">Spec:</span>
-    <select id="spec-select"><option>Loading specs...</option></select>
+    <select id="spec-select"><option>Loading...</option></select>
   </div>
   <div class="footer-center">
     <div id="pagContainer"></div>
@@ -268,147 +270,125 @@ const countryFlags = {
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
-function smallSpan(txt){ 
-  const s=document.createElement('span'); 
-  s.textContent=txt; 
-  s.className='px-2 opacity-60'; 
-  return s; 
-}
+let dataTable = null;
 
-function buildPagination(c, info, table) {
-  c.innerHTML = "";
+function buildPagination(container, info, table) {
+  container.innerHTML = "";
   const page = info.page;
   const last = info.pages - 1;
-  const mk = (label, disabled, target, active=false) => {
-    const b = document.createElement('button');
+  const mk = (label, disabled, target, active = false) => {
+    const b = document.createElement("button");
     b.textContent = label;
-    b.className = 'px-3 py-1.5 rounded text-sm transition-all hover:bg-white/10';
-    if (active) b.classList.add('pagination-pill');
-    if (!disabled) b.onclick = () => table.page(target).draw('page');
+    b.className = "px-3 py-1.5 rounded text-sm hover:bg-white/10 transition";
+    if (active) b.classList.add("pagination-pill");
+    if (!disabled) b.onclick = () => table.page(target).draw("page");
     else b.disabled = true;
     return b;
   };
-  c.appendChild(mk('Previous', page===0, page-1));
-  c.appendChild(mk('1', false, 0, page===0));
-  if (page>3) c.appendChild(smallSpan('...'));
-  for (let i=Math.max(1,page-2); i<=Math.min(last-1,page+2); i++) 
-    c.appendChild(mk(String(i+1), false, i, i===page));
-  if (page<last-3) c.appendChild(smallSpan('...'));
-  if (info.pages>1) c.appendChild(mk(String(last+1), false, last, page===last));
-  c.appendChild(mk('Next', page===last, page+1));
+  container.appendChild(mk("Previous", page===0, page-1));
+  container.appendChild(mk("1", false, 0, page===0));
+  if (page > 3) container.appendChild(document.createElement("span")).textContent = "...";
+  for (let i = Math.max(1, page-2); i <= Math.min(last-1, page+2); i++)
+    container.appendChild(mk(String(i+1), false, i, i===page));
+  if (page < last-3) container.appendChild(document.createElement("span")).textContent = "...";
+  if (info.pages > 1) container.appendChild(mk(String(last+1), false, last, page===last));
+  container.appendChild(mk("Next", page===last, page+1));
 }
 
-function updateInfo(c, info) {
-  c.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} riders`;
+function updateInfo(el, info) {
+  el.textContent = `Showing ${info.start+1} to ${info.end} of ${info.recordsDisplay} riders`;
 }
-
-let dataTable = null;
 
 function loadTable(season, spec) {
-  fetch(CSV_URL)
+  fetch(CSV_URL + "?t=" + Date.now()) // cache buster
     .then(r => r.text())
     .then(text => {
       if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-
       const parsed = Papa.parse(text, {
         header: true,
         skipEmptyLines: true,
         delimiter: ";",
         transformHeader: h => h.trim(),
-        transform: v => v ? v.toString().trim() : ""
+        transform: v => v ? v.trim() : ""
       });
 
-      const filtered = parsed.data.filter(row => 
-        String(row.Season) === String(season) && String(row.Spec) === String(spec)
+      const filtered = parsed.data.filter(r =>
+        String(r.Season) === String(season) && String(r.Spec) === String(spec)
       );
 
-      const displayColumns = ["Rank","Country","Rider","Score","Date1","Team1","Event1","Rank1","Results_Type1","Level1",
-        "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
-        "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
-        "rider_team_rank","rider_country_rank"];
+      const cols = ["Rank","Country","Rider","Score","Date1","Team1","Event1","Rank1","Results_Type1","Level1",
+                    "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
+                    "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
+                    "rider_team_rank","rider_country_rank"];
 
-      const data = filtered.map(row => {
-        const countryName = row.Country || "";
-        const code = countryFlags[countryName] || "";
-        const flagHTML = code 
-          ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" alt="${countryName}"><div class="flag-name">${countryName}</div></div>`
-          : countryName;
+      const data = filtered.map(r => {
+        const code = countryFlags[r.Country] || "";
+        const flag = code ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" alt="${r.Country}"><div class="flag-name">${r.Country}</div></div>` : r.Country;
 
-        return displayColumns.map(col => {
-          if (col === "Country") return flagHTML;
-          let val = row[col] ?? "";
-          if (col === "Score" && val) {
-            val = parseFloat(String(val).replace(",", ".")).toFixed(2).replace(".", ",");
-          }
-          return val;
+        return cols.map(col => {
+          if (col === "Country") return flag;
+          if (col === "Score" && r[col]) return parseFloat(r[col].replace(",",".")).toFixed(2).replace(".",",");
+          return r[col] || "";
         });
       });
 
-      // Destroy old instance completely
       if (dataTable) {
-        dataTable.fixedColumns().destroy();
+        dataTable.clear();
         dataTable.destroy();
       }
 
-      dataTable = $('#riderTable').DataTable({
+      dataTable = $("#riderTable").DataTable({
         data: data,
-        dom: 't',
+        columns: cols.map(() => ({ title: "" })),
+        dom: "t",
         pageLength: 100,
-        lengthMenu: [50, 100, 200, 500],
-        order: [[0, 'asc']],
+        lengthMenu: [50,100,200,500],
+        order: [[0, "asc"]],
         scrollX: true,
-        fixedColumns: {
-          left: 4
-        },
+        fixedColumns: { left: 4 },
         destroy: true
       });
 
-      const pag = document.getElementById('pagContainer');
-      const info = document.getElementById('infoContainer');
-      const search = document.getElementById('footerSearch');
+      const pag = document.getElementById("pagContainer");
+      const info = document.getElementById("infoContainer");
+      const search = document.getElementById("footerSearch");
       search.value = "";
 
-      dataTable.on('draw', () => {
-        const meta = dataTable.page.info();
-        buildPagination(pag, meta, dataTable);
-        updateInfo(info, meta);
+      dataTable.on("draw", () => {
+        buildPagination(pag, dataTable.page.info(), dataTable);
+        updateInfo(info, dataTable.page.info());
       });
 
-      search.addEventListener('input', () => dataTable.search(search.value).draw());
+      search.oninput = () => dataTable.search(search.value).draw();
 
-      // Ensure layout after load
-      setTimeout(() => dataTable.columns.adjust().fixedColumns().relayout(), 150);
-
+      setTimeout(() => dataTable.columns.adjust().fixedColumns().relayout(), 100);
       dataTable.draw();
     });
 }
 
-// Initialise seasons & specs
-fetch(CSV_URL)
+// Load seasons & specs
+fetch(CSV_URL + "?t=" + Date.now())
   .then(r => r.text())
   .then(text => {
     if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
     const parsed = Papa.parse(text, { header: true, delimiter: ";", skipEmptyLines: true });
 
-    const seasons = [...new Set(parsed.data.map(r => r.Season).filter(Boolean))]
-      .sort((a,b) => b - a);
+    const seasons = [...new Set(parsed.data.map(r => r.Season).filter(Boolean))].sort((a,b)=>b-a);
+    const specs = [...new Set(["OVERALL", ...parsed.data.map(r => r.Spec).filter(Boolean)])]
+                  .sort((a,b) => a==="OVERALL" ? -1 : b==="OVERALL" ? 1 : a.localeCompare(b));
 
-    const specs = [...new Set(['OVERALL', ...parsed.data.map(r => r.Spec).filter(Boolean)])]
-      .sort((a,b) => a==='OVERALL' ? -1 : b==='OVERALL' ? 1 : a.localeCompare(b));
+    const s1 = document.getElementById("season-select");
+    const s2 = document.getElementById("spec-select");
 
-    const seasonSelect = document.getElementById('season-select');
-    const specSelect = document.getElementById('spec-select');
+    s1.innerHTML = seasons.map(y => `<option value="${y}">${y}</option>`).join("");
+    s2.innerHTML = specs.map(x => `<option value="${x}" ${x==="OVERALL"?"selected":""}>${x}</option>`).join("");
 
-    seasonSelect.innerHTML = seasons.map(s => `<option value="${s}">${s}</option>`).join('');
-    specSelect.innerHTML = specs.map(s => `<option value="${s}" ${s==='OVERALL'?'selected':''}>${s}</option>`).join('');
+    s1.value = seasons[0];
+    loadTable(seasons[0], "OVERALL");
 
-    seasonSelect.value = seasons[0];
-    loadTable(seasons[0], 'OVERALL');
-
-    seasonSelect.onchange = () => loadTable(seasonSelect.value, specSelect.value);
-    specSelect.onchange = () => loadTable(seasonSelect.value, specSelect.value);
+    s1.onchange = () => loadTable(s1.value, s2.value);
+    s2.onchange = () => loadTable(s1.value, s2.value);
   });
 </script>
-
 </body>
 </html>
