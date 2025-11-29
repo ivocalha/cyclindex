@@ -178,7 +178,14 @@
     }
     #season-select:hover, #spec-select:hover{border-color:#3b82f6;}
     #season-select:focus, #spec-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
-    #season-select option, #spec-select option{background:white !important;color:black !important;}
+    #season-select option, #spec-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
+
+    /* Highlighted current page */
+    .pagination-pill {
+      background: #3b82f6 !important;
+      color: white !important;
+      font-weight: 600;
+    }
 
     @media(max-width:720px) {
       .search-wrap input { width: 140px; }
@@ -259,11 +266,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-const countryFlags = { /* ... same as before ... */ };
+const countryFlags = {
+  "Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"
+};
 
 const CSV_URL = "https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv";
 
-function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2'; return s; }
+function smallSpan(txt){ const s=document.createElement('span'); s.textContent=txt; s.className='px-2 opacity-60'; return s; }
 
 function buildPagination(c, info, table) {
   c.innerHTML = "";
@@ -272,7 +281,7 @@ function buildPagination(c, info, table) {
   const mk = (label, disabled, target, active=false) => {
     const b = document.createElement('button');
     b.textContent = label;
-    b.className = 'px-2 py-1 rounded text-sm hover:bg-white/5';
+    b.className = 'px-3 py-1.5 rounded text-sm transition-all hover:bg-white/10';
     if (active) b.classList.add('pagination-pill');
     if (!disabled) b.onclick = () => table.page(target).draw('page');
     else b.disabled = true;
@@ -280,9 +289,9 @@ function buildPagination(c, info, table) {
   };
   c.appendChild(mk('Previous', page===0, page-1));
   c.appendChild(mk('1', false, 0, page===0));
-  if (page>2) c.appendChild(smallSpan('…'));
-  for (let i=Math.max(1,page-1); i<=Math.min(last-1,page+1); i++) c.appendChild(mk(String(i+1), false, i, i===page));
-  if (page<last-2) c.appendChild(smallSpan('…'));
+  if (page>3) c.appendChild(smallSpan('…'));
+  for (let i=Math.max(1,page-2); i<=Math.min(last-1,page+2); i++) c.appendChild(mk(String(i+1), false, i, i===page));
+  if (page<last-3) c.appendChild(smallSpan('…'));
   if (info.pages>1) c.appendChild(mk(String(last+1), false, last, page===last));
   c.appendChild(mk('Next', page===last, page+1));
 }
@@ -308,24 +317,39 @@ function loadTable(season, spec) {
         transform: v => v ? v.toString().trim() : ""
       });
 
-      const filtered = parsed.data.filter(row => row.Season == season && row.Spec == spec);
+      const filtered = parsed.data.filter(row => 
+        String(row["Season"]) === String(season) && String(row["Spec"]) === String(spec)
+      );
 
-      const displayColumns = ["Rank","Country","Rider","Score","Date1","Team1","Event1","Rank1","Results_Type1","Level1","Date2","Team2","Event2","Rank2","Results_Type2","Level2","Date3","Team3","Event3","Rank3","Results_Type3","Level3","rider_team_rank","rider_country_rank"];
+      const displayColumns = [
+        "Rank","Country","Rider","Score",
+        "Date1","Team1","Event1","Rank1","Results_Type1","Level1",
+        "Date2","Team2","Event2","Rank2","Results_Type2","Level2",
+        "Date3","Team3","Event3","Rank3","Results_Type3","Level3",
+        "rider_team_rank","rider_country_rank"
+      ];
 
       const data = filtered.map(row => {
-        const countryName = row.Country || "";
+        const countryName = row["Country"] || "";
         const code = countryFlags[countryName] || "";
-        const flagHTML = code ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${countryName}"><div class="flag-name">${countryName}</div></div>` : countryName;
+        const flagHTML = code
+          ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${countryName}"><div class="flag-name">${countryName}</div></div>`
+          : countryName;
 
         return displayColumns.map(col => {
           if (col === "Country") return flagHTML;
           let val = row[col] ?? "";
-          if (col === "Score") val = (parseFloat(String(val).replace(",", ".")) || 0).toFixed(2).replace(".", ",");
+          if (col === "Score") {
+            if (typeof val === "string") val = val.replace(",", ".");
+            const num = parseFloat(val);
+            val = isNaN(num) ? "" : num.toFixed(2).replace(".", ",");
+          }
           return val;
         });
       });
 
       if (dataTable) dataTable.destroy();
+
       dataTable = $('#riderTable').DataTable({
         data: data,
         dom: 't',
@@ -339,17 +363,20 @@ function loadTable(season, spec) {
       const info = document.getElementById('infoContainer');
       const search = document.getElementById('footerSearch');
       search.value = "";
-      search.addEventListener('input', () => dataTable.search(search.value).draw());
 
-      dataTable.on('draw', () => {
+      const drawHandler = () => {
         const meta = dataTable.page.info();
         buildPagination(pag, meta, dataTable);
         updateInfo(info, meta);
-      });
+      };
+      dataTable.on('draw', drawHandler);
+
+      search.addEventListener('input', () => dataTable.search(search.value).draw());
 
       setTimeout(() => dataTable.columns.adjust(), 100);
       window.addEventListener('resize', () => setTimeout(() => dataTable.columns.adjust(), 160));
-      dataTable.draw(false);
+
+      drawHandler();
     });
 }
 
@@ -357,23 +384,42 @@ fetch(CSV_URL)
   .then(r => r.text())
   .then(text => {
     if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-    const parsed = Papa.parse(text, { header: true, delimiter: ";", skipEmptyLines: true });
-    const seasons = [...new Set(parsed.data.map(r => r.Season).filter(Boolean))].sort((a,b)=>b-a);
-    const specs = ['OVERALL', ...new Set(parsed.data.map(r => r.Spec).filter(Boolean))].sort();
+
+    const parsed = Papa.parse(text, {
+      header: true,
+      skipEmptyLines: true,
+      delimiter: ";",
+      transformHeader: h => h.trim(),
+      transform: v => v ? v.toString().trim() : ""
+    });
+
+    const seasons = [...new Set(parsed.data.map(r => r["Season"]).filter(Boolean))]
+      .filter(s => s.toString().length === 4 && !isNaN(s))
+      .sort((a, b) => b - a);
+
+    const specs = [...new Set(['OVERALL', ...parsed.data.map(r => r["Spec"]).filter(Boolean)])]
+      .sort((a, b) => a === 'OVERALL' ? -1 : b === 'OVERALL' ? 1 : a.localeCompare(b));
 
     const seasonSelect = document.getElementById('season-select');
     const specSelect = document.getElementById('spec-select');
 
     seasonSelect.innerHTML = seasons.map(s => `<option value="${s}">${s}</option>`).join('');
-    specSelect.innerHTML = specs.map(s => `<option value="${s}" ${s==='OVERALL'?'selected':''}>${s}</option>`).join('');
+    specSelect.innerHTML = specs.map(s => 
+      `<option value="${s}" ${s === 'OVERALL' ? 'selected' : ''}>${s}</option>`
+    ).join('');
 
-    seasonSelect.value = seasons[0];
-    specSelect.value = 'OVERALL';
+    if (seasons.length > 0) {
+      seasonSelect.value = seasons[0];
+      loadTable(seasons[0], 'OVERALL');
+    }
 
-    loadTable(seasons[0], 'OVERALL');
+    seasonSelect.addEventListener('change', () => {
+      loadTable(seasonSelect.value, specSelect.value);
+    });
 
-    seasonSelect.addEventListener('change', () => loadTable(seasonSelect.value, specSelect.value));
-    specSelect.addEventListener('change', () => loadTable(seasonSelect.value, specSelect.value));
+    specSelect.addEventListener('change', () => {
+      loadTable(seasonSelect.value, specSelect.value);
+    });
   });
 </script>
 
