@@ -203,31 +203,41 @@
       font-family: inherit;
     }
 
-    .flag-img {
-      width: 22px; height: 16px;
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-      transition: transform .18s;
+    /* === NEW FLAG STYLE – identical to rider-score.html === */
+    .flag{
+      width:26px;
+      height:18px;
+      border-radius:4px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.5);
+      object-fit:cover;
+      transition:transform .2s;
     }
-    .flag-img:hover { transform: scale(2); }
-
-    .flag-container { position: relative; display: inline-block; }
-    .flag-container .tooltip {
-      position: absolute;
-      bottom: 100%; left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.9);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity .15s;
-      pointer-events: none;
-      margin-bottom: 6px;
-      z-index: 3000;
+    .flag:hover{
+      transform:scale(1.6);
     }
-    .flag-container:hover .tooltip { opacity: 1; }
+    .flag-name{
+      position:absolute;
+      background:rgba(0,0,0,0.92);
+      color:white;
+      font-size:11px;
+      padding:3px 7px;
+      border-radius:4px;
+      opacity:0;
+      transition:opacity .2s;
+      bottom:100%;
+      left:50%;
+      transform:translateX(-50%);
+      margin-bottom:6px;
+      white-space:nowrap;
+    }
+    .flag-container{
+      position:relative;
+      display:inline-block;
+    }
+    .flag-container:hover .flag-name{
+      opacity:1;
+    }
+    /* ==================================================== */
 
     @media(max-width:720px) {
       .search-wrap input { width: 140px; }
@@ -387,7 +397,7 @@ fetch(CSV_URL)
       const c=r["Country"];
       const code=countryFlags[c];
       const flag = code
-        ? `<div class="flag-container"><img class="flag-img" src="https://flagcdn.com/${code}.svg"><div class="tooltip">${c}</div></div>`
+        ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" alt="${c}"><div class="flag-name">${c}</div></div>`
         : c;
 
       return cols.map(f => f==="Country" ? flag : (r[f]||""));  
