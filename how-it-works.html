@@ -134,6 +134,8 @@
       .formula { font-size:1rem; padding:0.7rem 1rem; line-height:1.5; }
     }
   </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -182,7 +184,10 @@
 </div>
           <p>Where: • L₁, L₂, and Lₙ are the rider’s highest, second-highest, and n-highest Levels, respectively.</p>
 		  <p>       • C₂, and Cₙ are the rider’s second-highest, and n-highest Levels Contributions, respectively.</p>
-		  <p>       • C_k = \frac{C_2}{2^{k-2}} \quad (k=2,3,\dots,n), \qquad \sum_{k=2}^{n} C_k = 1 </p>
+		  <p>• The contribution of each subsequent result is halved:
+  $$ C_k = \frac{C_2}{2^{k-2}} \quad \text{for } k=2,3,\dots,n $$
+  and the total weight from the 2nd to the nth best result is normalised to 1:
+  $$ \sum_{k=2}^{n} C_k = 1 $$</p>
 		  <p>       • HL₁, HL₂, and HLₙ are the highest, second-highest, and n-highest Possible Levels, respectively.</p>
 		  <p>The maximum possible score is <strong>100</strong></p>
         </div>
