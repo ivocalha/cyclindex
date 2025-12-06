@@ -179,17 +179,29 @@
         <!-- RIDER SCORE FORMULA – TWO LINES, TIGHT & CLEAN -->
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
-          <p>For each rider, only the n highest <strong>LEVEL</strong> results are used to calculate the final <strong>SCORE</strong>. The <strong>SCORE</strong> is determined using the following formula:</p>
+          <p>For each rider, only the n highest <strong>LEVEL</strong> results are used to calculate the final <strong>SCORE</strong>. The <strong>SCORE</strong> is related to a period of time (usually a full season or 365/366 days) and is determined using the following formula:</p>
           <div class="formula"> Score = [(L₁/2+50)·1 + (L₂/2+50)·C₂ + ... + (Lₙ/2+50)·Cₙ] × 100 ÷ [(HL₁/2+50)·1 + (HL₂/2+50)·C₂ + ... + (HLₙ/2+50)·Cₙ]
-</div>
+		  </div>
           <p>Where: • L₁, L₂, and Lₙ are the rider’s highest, second-highest, and n-highest Levels, respectively.</p>
 		  <p>       • C₂, and Cₙ are the rider’s second-highest, and n-highest Levels Contributions, respectively.</p>
 		  <p>• The contribution of each subsequent result is halved:
   $$ C_k = \frac{C_2}{2^{k-2}} \quad \text{for } k=2,3,\dots,n $$
-  and the total weight from the 2nd to the nth best result is normalised to 1:
+  and the total weight from the 2nd to the nth best result is normalised to 1 (the same as the highest level contribution):
   $$ \sum_{k=2}^{n} C_k = 1 $$</p>
 		  <p>       • HL₁, HL₂, and HLₙ are the highest, second-highest, and n-highest Possible Levels, respectively.</p>
 		  <p>The maximum possible score is <strong>100</strong></p>
+        </div>
+		
+		<!-- RIDER INDEX FORMULA – TWO LINES, TIGHT & CLEAN -->
+        <div class="panel full-width">
+          <h3>Rider Index Formula</h3>
+          <p>The rider's <strong>INDEX</strong> on any selected date is computed from the <strong>SCORES</strong> of the <strong>three</strong> most recent complete years (or available periods) up to that date, according to the formula:</p>
+          <div class="formula"> Index = [(Sₚ₁·1 + Sₚ₂·0.5 + Sₚ₃·0.25]) ÷ (1 + 0.5 + 0.25)]
+		  </div>
+          <p>Where: • ₚ₁ is the most recent full year (ending on the selected date), ₚ₂ is the full year immediately before ₚ₁ and ₚ₃ is the full year immediately before ₚ₂.</p>
+		  <p>       • Sₚ₁, Sₚ₂ and Sₚ₃, are ₚ₁, ₚ₂ and ₚ₃ scores, respectively.</p>
+		  <p>       • Any missing yearly SCORE (Sₚ₁, Sₚ₂ or Sₚ₃) is replaced by a default value of 40.</p>
+		  <p>The maximum possible Index is <strong>100</strong></p>
         </div>
 
         <div class="panel"><h3>Team SCORE/INDEX</h3><p>The final team <strong>SCORE/INDEX</strong> is determined by taking the simple average of the <strong>SCORES/INDEXES</strong> of its three highest-scoring riders.</p></div>
