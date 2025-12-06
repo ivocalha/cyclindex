@@ -178,9 +178,13 @@
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
           <p>For each rider, only the n highest <strong>LEVEL</strong> results are used to calculate the final <strong>SCORE</strong>. The <strong>SCORE</strong> is determined using the following formula:</p>
-          <div class="formula"> Score = [(L₁/2+50)·1 + (L₂/2+50)·0.67 + (L₃/2+50)·0.33] × 100 ÷ [(100/2+50)·1 + (99/2+50)·0.67 + (99/2+50)·0.33]
+          <div class="formula"> Score = [(L₁/2+50)·1 + (L₂/2+50)·C₂ + ... + (Lₙ/2+50)·Cₙ] × 100 ÷ [(HL₁/2+50)·1 + (HL₂/2+50)·C₂ + ... + (HLₙ/2+50)·Cₙ]
 </div>
-          <p>Where: • L₁, L₂, and L₃ are the rider’s highest, second-highest, and third-highest Levels, respectively. The maximum possible score is <strong>100</strong>, achieved only by a rider who wins the Tour de France, Giro d’Italia, and Vuelta a España in the same season.</p>
+          <p>Where: • L₁, L₂, and Lₙ are the rider’s highest, second-highest, and n-highest Levels, respectively.</p>
+		  <p>       • C₂, and Cₙ are the rider’s second-highest, and n-highest Levels Contributions, respectively.</p>
+		  <p>       • C_k = \frac{C_2}{2^{k-2}} \quad (k=2,3,\dots,n), \qquad \sum_{k=2}^{n} C_k = 1 </p>
+		  <p>       • HL₁, HL₂, and HLₙ are the highest, second-highest, and n-highest Possible Levels, respectively.</p>
+		  <p>The maximum possible score is <strong>100</strong></p>
         </div>
 
         <div class="panel"><h3>Team SCORE/INDEX</h3><p>The final team <strong>SCORE/INDEX</strong> is determined by taking the simple average of the <strong>SCORES/INDEXES</strong> of its three highest-scoring riders.</p></div>
