@@ -321,3 +321,291 @@
 2025;OVERALL;305;UCI WCC Men's Team;Club;Switzerland;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
 2025;OVERALL;305;Uzbekistan;NAT;Uzbekistan;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
 2025;OVERALL;305;Wanty - Nippo - ReUz ;CT;Belgium;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;1;UAE Team Emirates;WT;United Arab Emirates;Asian Cycling Confederation;Tadej Pogačar;1;99,83458647;Adam Yates;11;91,66917293;Nils Politt;12;91,65914787;94,38669188
+2024;OVERALL;2;Soudal Quick-Step;WT;Belgium;Union Européenne de Cyclisme;Remco Evenepoel;2;97,91478697;Mikel Landa;15;91,23057644;Julian Alaphilippe;31;86,39849624;91,84703474
+2024;OVERALL;3;Team Visma | Lease a Bike;WT;Netherlands;Union Européenne de Cyclisme;Jonas Vingegaard;5;95,82957393;Matteo Jorgenson;13;91,64661654;Christophe Laporte;25;87,72180451;91,73174767
+2024;OVERALL;4;Lidl - Trek;WT;United States;Confederación Panamericana de Ciclismo;Mads Pedersen;8;93,65413534;Toms Skujiņš;16;91,06516291;Mattias Skjelmose;17;90,23057644;91,64904173
+2024;OVERALL;5;Alpecin - Deceuninck;WT;Belgium;Union Européenne de Cyclisme;Mathieu van der Poel;4;96,82957393;Jasper Philipsen;6;95,08521303;Gianni Vermeersch;71;80,55639098;90,82281774
+2024;OVERALL;6;Red Bull - BORA - hansgrohe;WT;Germany;Union Européenne de Cyclisme;Primož Roglič;7;94,17794486;Daniel Felipe Martínez;29;86,71929825;Florian Lipowitz;34;86,0726817;88,98908504
+2024;OVERALL;7;INEOS Grenadiers;WT;Great Britain;Union Européenne de Cyclisme;Carlos Rodríguez;9;91,90225564;Thomas Pidcock;27;86,88972431;Filippo Ganna;30;86,56641604;88,45191414
+2024;OVERALL;8;Groupama - FDJ;WT;France;Union Européenne de Cyclisme;Valentin Madouas;22;88,81453634;Stefan Küng;32;86,30576441;David Gaudu;52;83,29573935;86,13781865
+2024;OVERALL;9;Decathlon AG2R La Mondiale Team;WT;France;Union Européenne de Cyclisme;Ben O'Connor;3;96,99498747;Benoît Cosnefroy;72;80,45112782;Oliver Naesen;83;78,87969925;85,44108376
+2024;OVERALL;10;Lotto Dstny;PRT;Belgium;Union Européenne de Cyclisme;Maxim Van Gils;21;89,14285714;Lennert Van Eetvelt;28;86,72180451;Arnaud De Lie;72;80,45112782;85,43774211
+2024;OVERALL;11;Israel - Premier Tech;PRT;Israel;Union Européenne de Cyclisme;Stephen Williams;19;90,07518797;Derek Gee;40;85,07017544;Corbin Strong;89;78,36591479;84,50291436
+2024;OVERALL;12;EF Education - EasyPost;WT;United States;Confederación Panamericana de Ciclismo;Richard Carapaz;26;87,46867168;Alberto Bettiol;46;84,46115288;Neilson Powless;76;79,69924812;83,8755188
+2024;OVERALL;13;Bahrain - Victorious;WT;Bahrain;Asian Cycling Confederation;Antonio Tiberi;39;85,47368421;Pello Bilbao;43;84,55137845;Matej Mohorič;65;81,45864662;83,82706481
+2024;OVERALL;14;Team dsm-firmenich PostNL;WT;Netherlands;Union Européenne de Cyclisme;Romain Bardet;23;88,80952381;Oscar Onley;54;83,13784461;Max Poole;99;77,44611529;83,13032992
+2024;OVERALL;15;Movistar Team;WT;Spain;Union Européenne de Cyclisme;Enric Mas;10;91,74185464;Alex Aranburu;79;79,36842105;Einer Rubio;100;77,28070175;82,79616451
+2024;OVERALL;16;Team Jayco AlUla;WT;Australia;Oceanian Cycling Confederation;Michael Matthews;14;91,42857143;Eddie Dunbar;92;77,86466165;Dylan Groenewegen;98;77,61403509;82,3015997
+2024;OVERALL;17;Arkéa - B&B Hotels;WT;France;Union Européenne de Cyclisme;Luca Mozzato;37;85,56892231;Kévin Vauquelin;59;82,47117794;Clément Champoussin;131;74,68671679;80,90812992
+2024;OVERALL;18;Uno-X Mobility;PRT;Norway;Union Européenne de Cyclisme;Magnus Cort;62;81,95488722;Jonas Abrahamsen;67;81,04260652;Søren Wærenskjold;95;77,69924812;80,23144496
+2024;OVERALL;19;Intermarché - Wanty;WT;Belgium;Union Européenne de Cyclisme;Biniam Girmay;32;86,30576441;Gerben Thijssen;131;74,68671679;Georg Zimmermann;150;73,68421053;78,22478165
+2024;OVERALL;20;Cofidis;WT;France;Union Européenne de Cyclisme;Ion Izagirre;41;84,97994987;Axel Zingle;121;75,60651629;Guillaume Martin;173;72,01503759;77,53305925
+2024;OVERALL;21;Equipo Kern Pharma;PRT;Spain;Union Européenne de Cyclisme;Pablo Castrillo;102;76,95488722;Urko Berrade;146;73,94235589;Pau Miquel;213;69,92481203;73,60661564
+2024;OVERALL;22;Caja Rural - Seguros RGA;PRT;Spain;Union Européenne de Cyclisme;Jefferson Alveiro Cepeda;138;74,43859649;Guillermo Thomas Silva;140;74,20050125;Orluis Aular;186;71,43107769;73,35599158
+2024;OVERALL;23;Astana Qazaqstan Team;WT;Kazakhstan;Asian Cycling Confederation;Alexey Lutsenko;119;75,78195489;Simone Velasco;178;71,67919799;Henok Mulubrhan;181;71,61403509;73,02433241
+2024;OVERALL;24;TotalEnergies;PRT;France;Union Européenne de Cyclisme;Jason Tesson;134;74,53132832;Emilien Jeannière;170;72,18295739;Anthony Turgis;173;72,01503759;72,90904534
+2024;OVERALL;25;Q36.5 Pro Cycling Team;PRT;Switzerland;Union Européenne de Cyclisme;Jelte Krijnsen;114;76,03007519;Matteo Moschetti;168;72,18546366;Jannik Steimle;224;69,4235589;72,54564045
+2024;OVERALL;26;VF Group - Bardiani CSF - Faizanè;PRT;Italy;Union Européenne de Cyclisme;Giulio Pellizzari;143;74,10275689;Filippo Magli;198;70,61152882;Domenico Pozzovivo;264;67,92230576;70,87815504
+2024;OVERALL;27;Team Polti Kometa;PRT;Italy;Union Européenne de Cyclisme;Davide Piganzoli;154;73,43609023;Paul Double;209;70,10025063;Mattia Bais;299;66,84711779;70,12711827
+2024;OVERALL;28;Burgos - BH;PRT;Spain;Union Européenne de Cyclisme;Aaron Gate;187;71,36340852;José Manuel Díaz;264;67,92230576;Mario Aparicio;289;67,17042607;68,81802526
+2024;OVERALL;29;TDT - Unibet Cycling Team;PRT;Netherlands;Union Européenne de Cyclisme;Hartthijs de Vries;273;67,75438596;Lander Loockx;327;66,3358396;Axel Huens;363;65,4235589;66,50392977
+2024;OVERALL;30;Bingoal WB;PRT;Belgium;Union Européenne de Cyclisme;Luca Van Boven;251;68,26817043;Ceriel Desal;315;66,5839599;Marco Tizza;390;64,50125313;66,45046331
+2024;OVERALL;31;JCL Team UKYO;CT;Japan;Asian Cycling Confederation;Thomas Pesenti;269;67,9197995;Giovanni Carboni;373;65,0802005;Yuma Koishi;375;65,01002506;66,00268165
+2024;OVERALL;32;Euskaltel - Euskadi;PRT;Spain;Union Européenne de Cyclisme;Jon Aberasturi;279;67,6716792;Joan Bou;360;65,5839599;Mikel Bizkarra;401;64,3283208;65,86066135
+2024;OVERALL;33;Terengganu Cycling Team;CT;Malaysia;Asian Cycling Confederation;Merhawi Kudus;253;68,2556391;Metkel Eyob;452;62,90726817;Anatolii Budiak;499;61,9047619;64,35524617
+2024;OVERALL;34;St Michel - Mavic - Auber93;CT;France;Union Européenne de Cyclisme;Alexandre Delettre;221;69,42606516;Morné Van Niekerk;507;61,73934837;Nicolas Breuillard;515;61,4962406;64,21990917
+2024;OVERALL;35;Van Rysel - Roubaix;CT;France;Union Européenne de Cyclisme;Emmanuel Morin;347;65,8320802;Rémi Capron;420;63,6641604;Samuel Leroux;446;62,9122807;64,13553241
+2024;OVERALL;36;Team Corratec - Vini Fantini;PRT;Italy;Union Européenne de Cyclisme;Kristian Sbaragli;339;66;Valerio Conti;400;64,33082707;Lorenzo Quartucci;504;61,74937343;64,02609323
+2024;OVERALL;37;Tudor Pro Cycling Team;PRT;Switzerland;Union Européenne de Cyclisme;Arvid de Kleijn;114;76,03007519;#N/A;#N/A;40;Michael Storer;129;74,94235589;63,65684045
+2024;OVERALL;38;Alpecin-Deceuninck Development Team;CT;Belgium;Union Européenne de Cyclisme;Simon Dehairs;276;67,67418546;Sente Sentjens;444;62,92230576;Tibor Del Grosso;646;58,06516291;62,88658917
+2024;OVERALL;39;Roojai Insurance;CT;Thailand;Asian Cycling Confederation;Adne van Engelen;332;66,17293233;Carter Bettles;358;65,5914787;Lucas Carstensen;707;56,64160401;62,80137699
+2024;OVERALL;40;Team Flanders - Baloise;PRT;Belgium;Union Européenne de Cyclisme;Kamiel Bonneu;362;65,50125313;Lars Craps;548;60,81954887;Dylan Vandenstorme;574;59,90225564;62,0737318
+2024;OVERALL;41;Team Felt Felbermayr;CT;Austria;Union Européenne de Cyclisme;Riccardo Zoidl;309;66,66917293;Hermann Pernsteiner;464;62,6566416;Miguel Heidemann;730;56,33333333;61,88576376
+2024;OVERALL;42;Decathlon AG2R La Mondiale Development Team;CT;France;Union Européenne de Cyclisme;Tom Donnenwirth;249;68,35588972;Noa Isidore;509;61,66666667;Killian Verschuren;828;54,63659148;61,55243376
+2024;OVERALL;43;Sabgal / Anicolor;CT;Portugal;Union Européenne de Cyclisme;Artem Nych;337;66,16541353;Mathias Bregnhøj;576;59,89974937;Rafael Reis;696;56,97744361;61,01359203
+2024;OVERALL;44;Lidl - Trek Future Racing;CT;United States;Confederación Panamericana de Ciclismo;Tim Torn Teutenberg;300;66,839599;Jakob Söderqvist;610;58,89724311;Mats Wenzel;718;56,49874687;60,74458887
+2024;OVERALL;45;Astana Qazaqstan Development Team;CT;Kazakhstan;Asian Cycling Confederation;Alessandro Romele;464;62,6566416;Ilkhan Dostiyev;484;62,15538847;Davide Toneatti;690;57,08521303;60,63180805
+2024;OVERALL;46;Tarteletto - Isorex;CT;Belgium;Union Européenne de Cyclisme;Timothy Dupont;289;67,17042607;Gianni Marchand;610;58,89724311;Thomas Joseph;788;55,13784461;60,40123391
+2024;OVERALL;47;Petrolike;CT;Mexico;Confederación Panamericana de Ciclismo;Jonathan Klever Caicedo;358;65,5914787;Diego Andrés Camargo;621;58,59649123;Edgar David Cadena;764;55,47368421;59,88661917
+2024;OVERALL;48;CIC U Nantes Atlantique;CT;France;Union Européenne de Cyclisme;Clément Braz Afonso;511;61,65413534;Maël Guégan;589;59,40100251;Pierre-Henry Basset;627;58,50877193;59,85403805
+2024;OVERALL;49;ATT Investments;CT;Czech Republic;Union Européenne de Cyclisme;Márton Dina;417;63,7443609;Jakub Otruba;535;61,0726817;Bartosz Rudyk;839;54,57894737;59,79806534
+2024;OVERALL;50;Mazowsze Serce Polski;CT;Poland;Union Européenne de Cyclisme;Marcin Budziński;269;67,9197995;Jakub Kaczmarek;764;55,47368421;Tomasz Budziński;788;55,13784461;59,50984767
+2024;OVERALL;51;Thailand Continental Cycling Team;CT;Thailand;Asian Cycling Confederation;Thanakhan Chaiyasombat;425;63,49874687;Peerapol Chawchiangkwang;492;61,99498747;Noppachai Klahan;959;50,62656642;58,70617985
+2024;OVERALL;52;AIRTOX - Carl Ras;CT;Denmark;Union Européenne de Cyclisme;Magnus Bak Klaris;538;60,98746867;Mads Andersen;630;58,40100251;Daniel Stampe;730;56,33333333;58,5733491
+2024;OVERALL;53;Team Visma | Lease a Bike Development;CT;Netherlands;Union Européenne de Cyclisme;Matthew Brennan;393;64,42606516;Tijmen Graat;764;55,47368421;Jesse Kramer;788;55,13784461;58,3452812
+2024;OVERALL;54;Philippe Wagner/Bazin;CT;Belgium;Union Européenne de Cyclisme;Pierre Barbier;264;67,92230576;Alexis Guerin;591;59,39849624;Tristan Scherpenbergh;1086;47,36842105;58,22915872
+2024;OVERALL;55;Team Medellín - EPM;CT;Colombia;Confederación Panamericana de Ciclismo;Wilmar Paredes;369;65,33333333;Óscar Sevilla;764;55,47368421;Javier Ernesto Jamaica;855;53,74185464;58,18237556
+2024;OVERALL;56;BIKE AID;CT;Germany;Union Européenne de Cyclisme;Anton Schiffer;610;58,89724311;Dawit Yemane;630;58,40100251;Oliver Mattheis;865;53,07518797;56,79057662
+2024;OVERALL;57;Equipe continentale Groupama-FDJ;CT;France;Union Européenne de Cyclisme;Brieuc Rolland;411;64,0877193;Noah Hobbs;643;58,23057644;Lewis Bower;1005;47,86967419;56,72875602
+2024;OVERALL;58;Wanty - ReUz - Technord;CT;Belgium;Union Européenne de Cyclisme;Simone Gualdi;602;59,07017544;Huub Artz;616;58,73182957;Tim Rex;908;52,23809524;56,67946662
+2024;OVERALL;59;Team Novo Nordisk;PRT;United States;Confederación Panamericana de Ciclismo;Matyáš Kopecký;390;64,50125313;David Lozano;875;52,73934837;Alessandro Perracchione;908;52,23809524;56,49233398
+2024;OVERALL;60;Israel Premier Tech Academy;CT;Israel;Union Européenne de Cyclisme;Pier-André Côté;342;65,91478697;Pau Martí;908;52,23809524;Moritz Kretschy;959;50,62656642;56,25925361
+2024;OVERALL;61;VolkerWessels Cycling Team;CT;Netherlands;Union Européenne de Cyclisme;Thimo Willems;651;57,89473684;Timo de Jong;788;55,13784461;Finn Crockett;828;54,63659148;55,88916541
+2024;OVERALL;62;Team Technipes #inEmiliaRomagna;CT;Italy;Union Européenne de Cyclisme;Nicolò Garibbo;723;56,47619048;Ludovico Crescioli;764;55,47368421;Luca Cavallo;788;55,13784461;55,69534947
+2024;OVERALL;63;Team Vorarlberg;CT;Austria;Union Européenne de Cyclisme;Colin Stüssi;420;63,6641604;Alexander Konychev;763;55,4962406;Jannis Peter;1086;47,36842105;55,50905226
+2024;OVERALL;64;ABTF Betão - Feirense;CT;Portugal;Union Européenne de Cyclisme;Afonso Eulálio;442;62,9924812;Antonio Carvalho;875;52,73934837;Fábio Costa;1005;47,86967419;54,53328925
+2024;OVERALL;65;Nu Colombia;CT;Colombia;Confederación Panamericana de Ciclismo;Rodrigo Contreras;392;64,4962406;Daniel Alejandro Mendez;959;50,62656642;Sergio Henao;1005;47,86967419;54,33028376
+2024;OVERALL;66;Nice Métropole Côte d'Azur;CT;France;Union Européenne de Cyclisme;Jean-Louis Le Ny;572;59,9047619;Andrea Mifsud;908;52,23809524;Damien Girard;965;50,12531328;54,08884925
+2024;OVERALL;67;Diftar Continental Cyclingteam;CT;Netherlands;Union Européenne de Cyclisme;Rick Ottema;640;58,25313283;Peter Schulting;707;56,64160401;Guillaume Visser;1086;47,36842105;54,08717842
+2024;OVERALL;68;Parkhotel Valkenburg;CT;Netherlands;Union Européenne de Cyclisme;Niek Voogt;764;55,47368421;Meindert Weulink;842;54,49373434;Otto van Zanden;908;52,23809524;54,06796391
+2024;OVERALL;69;Project Echelon Racing;CT;United States;Confederación Panamericana de Ciclismo;Scott McGill;668;57,39348371;Tyler Stites;788;55,13784461;Hugo Scala Jr;987;49,37343358;53,96771429
+2024;OVERALL;70;Ferei Quick-Panda Podium Mongolia Team;CT;Mongolia;Asian Cycling Confederation;Martin Laas;499;61,9047619;Oskar Nisu;950;51,62907268;Mihkel Räim;1005;47,86967419;53,80063158
+2024;OVERALL;71;Trinity Racing;CT;Great Britain;Union Européenne de Cyclisme;Fergus Browning;696;56,97744361;Robert Donaldson;730;56,33333333;William Smith;1086;47,36842105;53,55919707
+2024;OVERALL;72;Arkéa - B&B Hôtels Continentale;CT;France;Union Européenne de Cyclisme;Embret Svestad-Bårdseng;677;57,22807018;Florian Dauphin;764;55,47368421;Giosuè Epis;1005;47,86967419;53,52327429
+2024;OVERALL;73;Aviludo - Louletano - Loulé Concelho;CT;Portugal;Union Européenne de Cyclisme;Tomas Contte;839;54,57894737;German Nicolás Tivani;847;54,24310777;Jesus del Pino;950;51,62907268;53,48317444
+2024;OVERALL;74;Li Ning Star;CT;China;Asian Cycling Confederation;Cristian Raileanu;371;65,17794486;Luke Mudgway;1005;47,86967419;Wentao Sun;1086;47,36842105;53,47147865
+2024;OVERALL;75;REMBE Pro Cycling Team Sauerland;CT;Germany;Union Européenne de Cyclisme;Julian Borresch;595;59,34837093;Paul Wright;875;52,73934837;Sebastian Niehues;1005;47,86967419;53,31859797
+2024;OVERALL;76;China Glory - Mentech Continental Cycling Team;CT;China;Asian Cycling Confederation;Lucas De Rossi;646;58,06516291;Xianjing Lyu;875;52,73934837;Reinardt Janse van Rensburg;996;48,87218045;53,22503165
+2024;OVERALL;77;Illes Balears Arabay Cycling;CT;Spain;Union Européenne de Cyclisme;Alex Molenaar;718;56,49874687;Sergi Darder;764;55,47368421;Julen Amezqueta;1086;47,36842105;53,11308624
+2024;OVERALL;78;Bingoal WB Devo Team;CT;Belgium;Union Européenne de Cyclisme;Jens Reynders;582;59,64912281;Joes Oosterlinck;908;52,23809524;Michiel Lambrecht;1086;47,36842105;53,08468218
+2024;OVERALL;79;Lotto Dstny Development Team;CT;Belgium;Union Européenne de Cyclisme;Lorenz Van de Wynkele;764;55,47368421;Jarno Widar;875;52,73934837;Steffen De Schuyteneer;965;50,12531328;52,77892083
+2024;OVERALL;80;Elkov - Kasper;CT;Czech Republic;Union Européenne de Cyclisme;Lukáš Kubiš;633;58,39598997;Tomáš Přidal;950;51,62907268;Michael Boroš;1005;47,86967419;52,63105263
+2024;OVERALL;81;Saint Piran;CT;Great Britain;Union Européenne de Cyclisme;Max Walker;533;61,10025063;Dylan Hicks;987;49,37343358;Joshua Ludman;1086;47,36842105;52,61350895
+2024;OVERALL;82;Team ColoQuick;CT;Denmark;Union Européenne de Cyclisme;Joshua Gudnitz;730;56,33333333;Simon Bak;875;52,73934837;Tore Troelsen;1005;47,86967419;52,31359549
+2024;OVERALL;83;Soudal Quick-Step Devo Team;CT;Belgium;Union Européenne de Cyclisme;Lars Vanden Heede;730;56,33333333;Leander Van Hautegem;908;52,23809524;Federico Savino;1005;47,86967419;52,14651278
+2024;OVERALL;84;Huansheng - SCOM - Taishan Sport Cycling Team;CT;China;Asian Cycling Confederation;Karl Patrick Lauk;258;68,11027569;Bold Iderbold;1005;47,86967419;#N/A;#N/A;40;51,99279669
+2024;OVERALL;85;St George Continental Cycling Team;CT;Australia;Oceanian Cycling Confederation;Boris Clark;607;58,93233083;Nick Kergozou De La Boessiere;987;49,37343358;Ben Carman;1086;47,36842105;51,89087624
+2024;OVERALL;86;Metec - SOLARWATT p/b Mantel;CT;Netherlands;Union Européenne de Cyclisme;Wessel Mouris;667;57,50125313;Axel van der Tuuk;959;50,62656642;Joris Reinderink;1086;47,36842105;51,83156188
+2024;OVERALL;87;Team MBH Bank Colpack Ballan;CT;Italy;Union Européenne de Cyclisme;Florian Samuel Kajamini;788;55,13784461;Sergio Meris;875;52,73934837;Lorenzo Masciarelli;1086;47,36842105;51,74802053
+2024;OVERALL;88;Aisan Racing Team;CT;Japan;Asian Cycling Confederation;Keigo Kusaba;788;55,13784461;Hayato Okamoto;979;49,62406015;Masahiro Ishigami;1005;47,86967419;50,87668421
+2024;OVERALL;89;Team BridgeLane;CT;Australia;Oceanian Cycling Confederation;Elliot Schultz;875;52,73934837;Liam Walsh;979;49,62406015;Luke Burns;994;49,12280702;50,49490023
+2024;OVERALL;90;APHotels & Resorts / Tavira / SC Farense;CT;Portugal;Union Européenne de Cyclisme;Afonso Silva;908;52,23809524;Delio Fernández;959;50,62656642;Diogo Barbosa;1005;47,86967419;50,24427617
+2024;OVERALL;91;Efapel Cycling;CT;Portugal;Union Européenne de Cyclisme;Abner González;458;62,74686717;Tiago Antunes;1005;47,86967419;Henrique Casimiro;1243;40,10025063;50,23842827
+2024;OVERALL;92;Santic - Wibatech;CT;Germany;Union Européenne de Cyclisme;Michał Paluta;908;52,23809524;Piotr Pękala;977;49,87468672;Linus Rosner;1086;47,36842105;49,8265694
+2024;OVERALL;93;Energus Cycling Team;CT;Lithuania;Union Européenne de Cyclisme;Kārlis Klismets;956;51,12781955;Venantas Lašinis;965;50,12531328;Rokas Kmieliauskas;1086;47,36842105;49,54002256
+2024;OVERALL;93;Tianyoude Hotel Cycling Team;CT;China;Asian Cycling Confederation;Saeid Safarzadeh;956;51,12781955;Yonathan Monsalve;965;50,12531328;Josh Kench;1086;47,36842105;49,54002256
+2024;OVERALL;95;Malaysia Pro Cycling;CT;Malaysia;Asian Cycling Confederation;Mohamad Izzat Hilmi Abdul Halil;764;55,47368421;Zulfikri Zulkifli;908;52,23809524;Mohamad Saari Amri Abd Rasim;1243;40,10025063;49,27018398
+2024;OVERALL;96;Victoria Sports Pro Cycling Team;CT;Philippines;Asian Cycling Confederation;Jeroen Meijers;828;54,63659148;Nícolas Sessler;875;52,73934837;Ean Cajucom;1243;40,10025063;49,15823857
+2024;OVERALL;97;Rádio Popular - Paredes - Boavista;CT;Portugal;Union Européenne de Cyclisme;Francisco Joel Peñuela;847;54,24310777;Hélder Gonçalves;875;52,73934837;Daniel Dias;1243;40,10025063;49,02707865
+2024;OVERALL;98;General Store - Essegibi - F.Lli Curia;CT;Italy;Union Européenne de Cyclisme;Filippo D'Aiuto;950;51,62907268;Marco Palomba;1005;47,86967419;Giovanni Bortoluzzi;1086;47,36842105;48,95523308
+2024;OVERALL;99;Utsunomiya Blitzen;CT;Japan;Asian Cycling Confederation;Ruben Dario Acosta;956;51,12781955;Chun Kai Feng;1005;47,86967419;Toki Sawada;1086;47,36842105;48,78815038
+2024;OVERALL;100;Credibom / LA Alumínios / Marcos Car;CT;Portugal;Union Européenne de Cyclisme;Gonçalo Leaça;863;53,38345865;Luís Fernandes;908;52,23809524;Rodrigo Caixas;1243;40,10025063;48,5734491
+2024;OVERALL;101;Pauwels Sauzen - Bingoal;Club;Belgium;Union Européenne de Cyclisme;Kay De Bruyckere;875;52,73934837;Kenay De Moyer;908;52,23809524;#N/A;#N/A;40;48,32533128
+2024;OVERALL;102;CCACHE x Par Küp;CT;Australia;Oceanian Cycling Confederation;Bentley Niquet-Olden;987;49,37343358;Graeme Frislie;1005;47,86967419;Alastair Christie-Johnston;1086;47,36842105;48,2033609
+2024;OVERALL;103;Voltas - Tartu 2024 by CCN;CT;Estonia;Union Européenne de Cyclisme;Siim Kiskonen;440;63,10526316;Rokas Adomaitis;1243;40,10025063;#N/A;#N/A;40;47,73469391
+2024;OVERALL;104;Uno-X Mobility Development Team;CT;Norway;Union Européenne de Cyclisme;Simon Dalby;442;62,9924812;Daniel Årnes;1243;40,10025063;#N/A;#N/A;40;47,6971003
+2024;OVERALL;105;Kinan Racing Team;CT;Japan;Asian Cycling Confederation;Drew Morey;828;54,63659148;Thomas Lebas;1005;47,86967419;Yudai Arashiro;1243;40,10025063;47,53503008
+2024;OVERALL;106;Q36.5 Continental Team;CT;Italy;Union Européenne de Cyclisme;Nahom Zeray;825;54,74937343;Juan Guillermo Martinez;1086;47,36842105;Mirko Bozzola;1243;40,10025063;47,40554098
+2024;OVERALL;107;GW Erco Shimano;CT;Colombia;Confederación Panamericana de Ciclismo;Alejandro Osorio;847;54,24310777;Adrián Bustamante;1086;47,36842105;#N/A;#N/A;40;47,2033709
+2024;OVERALL;108;Hengxiang Cycling Team;CT;China;Asian Cycling Confederation;Māris Bogdanovičs;865;53,07518797;Timofei Ivanov;1086;47,36842105;Ethan Batt;1243;40,10025063;46,84748474
+2024;OVERALL;109;Rad-Net Oßwald;CT;Germany;Union Européenne de Cyclisme;Tobias Müller;875;52,73934837;Roger Kluge;1086;47,36842105;Moritz Binder;1243;40,10025063;46,73553932
+2024;OVERALL;110;Matrix Powertag;CT;Japan;Asian Cycling Confederation;Hijiri Oda;908;52,23809524;Marino Kobayashi;1086;47,36842105;#N/A;#N/A;40;46,53504008
+2024;OVERALL;110;Biesse - Carrera ;CT;Italy;Union Européenne de Cyclisme;Lorenzo Galimberti;908;52,23809524;Nicolò Arrighetti;1086;47,36842105;#N/A;#N/A;40;46,53504008
+2024;OVERALL;112;Shimano Racing;CT;Japan;Asian Cycling Confederation;Shotaro Iribe;947;51,87969925;Shoma Kazama;1086;47,36842105;Takeharu Amano;1243;40,10025063;46,44899248
+2024;OVERALL;113;Global 6 United;CT;Luxembourg;Union Européenne de Cyclisme;Giacomo Ballabio;979;49,62406015;Ronan O'Connor;1086;47,36842105;Loïc Bettendorff;1243;40,10025063;45,6971203
+2024;OVERALL;114;Voster ATS Team;CT;Poland;Union Européenne de Cyclisme;Mateusz Kostański;706;56,74937343;Radosław Frątczak;1243;40,10025063;#N/A;#N/A;40;45,61608519
+2024;OVERALL;115;Nusantara Cycling Team;CT;Indonesia;Asian Cycling Confederation;Muhamad Herlangga;1005;47,86967419;Ilham Dzikri Ramadhan;1086;47,36842105;Muhammah Imam Arifin;1243;40,10025063;45,11233083
+2024;OVERALL;115;Hagens Berman Jayco;CT;United States;Confederación Panamericana de Ciclismo;Kasper Andersen;1005;47,86967419;Adam Holm Jørgensen;1086;47,36842105;Evan Boyle;1243;40,10025063;45,11233083
+2024;OVERALL;115;Victoire Hiroshima;CT;Japan;Asian Cycling Confederation;Benjamin Dyball;1005;47,86967419;Leonel Quintero;1086;47,36842105;Jose Castillo;1243;40,10025063;45,11233083
+2024;OVERALL;118;Rwanda;NAT;Rwanda;Confédération Africaine de Cyclisme;Eric Manizabayo;1005;47,86967419;Vainqueur Masengesho;1086;47,36842105;#N/A;#N/A;40;45,07891429
+2024;OVERALL;118;Team Coop - Repsol;CT;Norway;Union Européenne de Cyclisme;Anton Stensby;788;55,13784461;André Drege;1243;40,10025063;#N/A;#N/A;40;45,07891429
+2024;OVERALL;118;ARA | Skip Capital;CT;Australia;Oceanian Cycling Confederation;William Eaves;1005;47,86967419;#N/A;#N/A;40;Blake Agnoletto;1086;47,36842105;45,07891429
+2024;OVERALL;118;Go For Gold Philippines;CT;Philippines;Asian Cycling Confederation;Jericho Lucero;1005;47,86967419;Marc Ryan Lago;1086;47,36842105;#N/A;#N/A;40;45,07891429
+2024;OVERALL;118;Team Lotto Kern-Haus PSD Bank;CT;Germany;Union Européenne de Cyclisme;Joshua Huppertz;788;55,13784461;Cedric Abt;1243;40,10025063;#N/A;#N/A;40;45,07891429
+2024;OVERALL;123;Team Banco Guayaquil - Bianchi;CT;Ecuador;Confederación Panamericana de Ciclismo;Aldemar Reyes;865;53,07518797;David Sebastian Caicedo;1243;40,10025063;#N/A;#N/A;40;44,39136895
+2024;OVERALL;123;Bodywrap Men's Cycling Team;CT;China;Asian Cycling Confederation;Kuicheng Wang;865;53,07518797;Yihua Fan;1243;40,10025063;#N/A;#N/A;40;44,39136895
+2024;OVERALL;125;Pierre Baguette Cycling;CT;Slovakia;Union Européenne de Cyclisme;Martin Voltr;875;52,73934837;Tomáš Badinský;1243;40,10025063;#N/A;#N/A;40;44,27942353
+2024;OVERALL;126;Ljubljana Gusto Santic;CT;Slovenia;Union Européenne de Cyclisme;Dylan Hopkins;903;52,63157895;James Derrick;1243;40,10025063;#N/A;#N/A;40;44,24350075
+2024;OVERALL;127;UAE Team Emirates Gen Z;CT;United Arab Emirates;Asian Cycling Confederation;Gal Glivar;908;52,23809524;Abdulla Sultan Alhammadi;1243;40,10025063;#N/A;#N/A;40;44,11234083
+2024;OVERALL;128;Team Sistecredito;CT;Colombia;Confederación Panamericana de Ciclismo;Yeison Sebastian Reyes;965;50,12531328;Sebastián Alexander Castaño;1243;40,10025063;#N/A;#N/A;40;43,40808722
+2024;OVERALL;129;Criterion BEx Racing;Club;Australia;Oceanian Cycling Confederation;Ren Bao Tsen;965;50,12531328;#N/A;#N/A;40;#N/A;#N/A;40;43,37467068
+2024;OVERALL;130;Grant Thornton Cycling Team;CT;Thailand;Asian Cycling Confederation;Nati Samansanti;987;49,37343358;Nattaphom Boonrod;1243;40,10025063;#N/A;#N/A;40;43,15746316
+2024;OVERALL;131;Greece;NAT;Greece;Union Européenne de Cyclisme;Periklis Ilias;996;48,87218045;#N/A;#N/A;40;#N/A;#N/A;40;42,95696391
+2024;OVERALL;132;Tudor Pro Cycling Team U23;CT;Switzerland;Union Européenne de Cyclisme;Juan David Sierra;1005;47,86967419;Samuele Alari;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;132;Spor Toto Cycling Team;CT;Türkiye;Union Européenne de Cyclisme;Serdar Anıl Depe;1005;47,86967419;Doğukan Arikan;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;132;Sakarya BB Pro Team;CT;Türkiye;Union Européenne de Cyclisme;Burak Abay;1005;47,86967419;Furkan Akcam;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;132;Istanbul Büyükșehir Belediye Spor Türkiye;CT;Türkiye;Union Européenne de Cyclisme;Natnael Berhane;1005;47,86967419;Samet Bulut;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;132;LX Cycling Team;CT;South Korea;Asian Cycling Confederation;Sanghong Park;1005;47,86967419;Sangjin Choi;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;132;Pingtan International Tourism Island Cycling Team;CT;China;Asian Cycling Confederation;Anton Popov;1005;47,86967419;Zhi Hui Jiang;1243;40,10025063;#N/A;#N/A;40;42,65621504
+2024;OVERALL;138;Sandvika Cykle Club;Club;Norway;Union Européenne de Cyclisme;Henrik Teslo Fjellheim;1005;47,86967419;#N/A;#N/A;40;#N/A;#N/A;40;42,6227985
+2024;OVERALL;138;Gunma-Grifin Racing Team;Club;Japan;Asian Cycling Confederation;Sohei Kaneko;1005;47,86967419;#N/A;#N/A;40;#N/A;#N/A;40;42,6227985
+2024;OVERALL;138;Hexagone - Corbas Lyon Métropole;Club;France;Union Européenne de Cyclisme;Mathias Ribeiro Da Cruz;1005;47,86967419;#N/A;#N/A;40;#N/A;#N/A;40;42,6227985
+2024;OVERALL;138;Great Britain;NAT;Great Britain;Union Européenne de Cyclisme;Matthew Holmes;1005;47,86967419;#N/A;#N/A;40;#N/A;#N/A;40;42,6227985
+2024;OVERALL;142;Java - Inovotec Pro Team;CT;Rwanda;Confédération Africaine de Cyclisme;Moise Mugisha;1086;47,36842105;Joseph Areruya;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;BHS - PL Beton Bornholm;CT;Denmark;Union Européenne de Cyclisme;Emil Schandorff Iwersen;1086;47,36842105;Tobias Aagaard Hansen;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Adria Mobil;CT;Slovenia;Union Européenne de Cyclisme;Tilen Finkšt;1086;47,36842105;Đorđe Đurić;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Lubelskie Perła Polski;CT;Poland;Union Européenne de Cyclisme;Julian Kot;1086;47,36842105;Mateusz Cywiński;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;7Eleven Cliqq Roadbike Philippines;CT;Philippines;Asian Cycling Confederation;Rench Michael Bondoc;1086;47,36842105;Jude Gabriel Francisco;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;WSA KTM Graz;CT;Austria;Union Européenne de Cyclisme;Martin Messner;1086;47,36842105;Matthias Gusner;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Tirol KTM Cycling Team;CT;Austria;Union Européenne de Cyclisme;Trym Brennsæter;1086;47,36842105;Paul Buschek;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Hrinkow Advarics;CT;Austria;Union Européenne de Cyclisme;Jaka Primožič;1086;47,36842105;Scott David;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;BEAT Cycling Club;CT;Netherlands;Union Européenne de Cyclisme;Mārtiņš Pluto;1086;47,36842105;#N/A;#N/A;40;Stijn Appel;1243;40,10025063;42,48913233
+2024;OVERALL;142;Colombia Potencia de la Vida;CT;Colombia;Confederación Panamericana de Ciclismo;"Yeisson Ferney	 Casallas";1086;47,36842105;Julian David Alarcón;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Maloja Pushbikers;CT;Germany;Union Européenne de Cyclisme;Matias Malmberg;1086;47,36842105;Max Benz-kuch;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;GI Group Holding - Simoldes - UDO;CT;Portugal;Union Européenne de Cyclisme;Rui Carvalho;1086;47,36842105;Francisco Alves;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;VC Fukuoka;CT;Japan;Asian Cycling Confederation;Benjamín Prades;1086;47,36842105;Gen Abe;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Team Bridgestone Cycling;CT;Japan;Asian Cycling Confederation;Tetsuo Yamamoto;1086;47,36842105;Eiya Hashimoto;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Rime Drali;CT;Italy;Union Européenne de Cyclisme;Andrea Debiasi;1086;47,36842105;Edoardo Mauro Alleva;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Mg.K Vis - Colors for Peace;CT;Italy;Union Européenne de Cyclisme;Simone Carrò;1086;47,36842105;Davide Bauce;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Hainan Wuzhishan Cycling Team;CT;China;Asian Cycling Confederation;Bowen Zheng;1086;47,36842105;Jin Bai;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;142;Giant Cycling Team;CT;China;Asian Cycling Confederation;Junjie Wu;1086;47,36842105;Pengcheng Bai;1243;40,10025063;#N/A;#N/A;40;42,48913233
+2024;OVERALL;160;EC Saint-Etienne Loire;Club;France;Union Européenne de Cyclisme;Kristers Ansons;1086;47,36842105;#N/A;#N/A;40;#N/A;#N/A;40;42,45571579
+2024;OVERALL;160;AVC Aix-en-Provence;Club;France;Union Européenne de Cyclisme;Hugo Lennartsson;1086;47,36842105;#N/A;#N/A;40;#N/A;#N/A;40;42,45571579
+2024;OVERALL;160;Germany;NAT;Germany;Union Européenne de Cyclisme;Marian Pohlenz;1086;47,36842105;#N/A;#N/A;40;#N/A;#N/A;40;42,45571579
+2024;OVERALL;163;Elite Fondations Cycling Team;Club;Switzerland;Union Européenne de Cyclisme;Antoine Aebi;1237;47,11779449;#N/A;#N/A;40;#N/A;#N/A;40;42,37217444
+2024;OVERALL;164;EuroCyclingTrips - YOELEO;CT;Guam;Oceanian Cycling Confederation;Dan Aponik;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Novapor Speedbike Team;CT;North Macedonia;Union Européenne de Cyclisme;Nikiforos Arvanitou;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Sidi Ali - Unlock Team;CT;Morocco;Confédération Africaine de Cyclisme;Youssef Bdadou;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Madar Pro Cycling Team;CT;Algeria;Confédération Africaine de Cyclisme;Hamza Amari;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;MitoQ - NZ Cycling Project;CT;New Zealand;Oceanian Cycling Confederation;Josh Burnett;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;HKSI Pro Cycling Team;CT;Hong Kong;Asian Cycling Confederation;Tsun Wai Chu;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Epronex - Hungary Cycling Team;CT;Hungary;Union Européenne de Cyclisme;Kristóf Árvai;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Tashkent City Professional Cycling Team;CT;Uzbekistan;Asian Cycling Confederation;Davirjan Abdurakhmanov;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;SuezCanalDiscovery;CT;Egypt;Confédération Africaine de Cyclisme;Abdelrahman Adel Elzoghaby;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Panamá es Cultura y Valores;CT;Panama;Confederación Panamericana de Ciclismo;Franklin Archibold;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Swift Carbon Pro Cycling Brasil;CT;Brazil;Confederación Panamericana de Ciclismo;Jose Manuel Aramayo;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Motala AIF Serneke Allebike;CT;Sweden;Union Européenne de Cyclisme;Jonathan Ahlsson;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;STAMINA Racing;CT;Chile;Confederación Panamericana de Ciclismo;Luis Felipe Alessandrini;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Plus Performance - Solutos;CT;Chile;Confederación Panamericana de Ciclismo;Eyair Astudillo;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Vini Monzon - Savini Due - OMZ;CT;Romania;Union Européenne de Cyclisme;Catalin Buta;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;MENtoRISE MLMsuperstars;CT;Romania;Union Européenne de Cyclisme;Leonard Barbu;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;May Stars;CT;Rwanda;Confédération Africaine de Cyclisme;Habte Naod Araya;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Kelapa Gading Bikers;CT;Indonesia;Asian Cycling Confederation;Ilham Sultansyah Hefnar;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Dukla Banska Bystrica;CT;Slovakia;Union Européenne de Cyclisme;Dominik Dunár;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Canel's - Java;CT;Mexico;Confederación Panamericana de Ciclismo;Luis Aguilar;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Lillehammer CK Continental Team;CT;Norway;Union Européenne de Cyclisme;Brage Aulstad;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Vino SKO Team;CT;Kazakhstan;Asian Cycling Confederation;Vladimir Koltunov;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Almaty Astana Motors;CT;Kazakhstan;Asian Cycling Confederation;Ruslan Aliyev;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;XSpeed United Continental;CT;Canada;Confederación Panamericana de Ciclismo;Casper Berczynski;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Team Ecoflo Chronos;CT;Canada;Confederación Panamericana de Ciclismo;Charles Bergeron;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Hustle Pro Cycling;CT;Canada;Confederación Panamericana de Ciclismo;Jack Ciotlos;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Team Saitel;CT;Ecuador;Confederación Panamericana de Ciclismo;Erik Daniel Caiza;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Best PC;CT;Ecuador;Confederación Panamericana de Ciclismo;Juan Diego Alba;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Sava Kranj Cycling;CT;Slovenia;Union Européenne de Cyclisme;Maj Flajs;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Standard Insurance PHI;CT;Philippines;Asian Cycling Confederation;Jexxel Ehd Azur;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;TUFO - Pardus Prostějov;CT;Czech Republic;Union Européenne de Cyclisme;Martin Chren;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;AC Sparta Praha;CT;Czech Republic;Union Européenne de Cyclisme;Richard Habermann;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Konya Büyükşehir Belediye Spor;CT;Türkiye;Union Européenne de Cyclisme;Ahmet Akpinar;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Team Skyline;CT;United States;Confederación Panamericana de Ciclismo;Rene Corella;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Team Novo Nordisk Development;CT;United States;Confederación Panamericana de Ciclismo;Hamish Armitt;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;UijeongBu Cycling Team;CT;South Korea;Asian Cycling Confederation;Gyusung Cho;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Seoul Cycling Team;CT;South Korea;Asian Cycling Confederation;Jaewoong Choi;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;KSPO Professional;CT;South Korea;Asian Cycling Confederation;In Hyeok Hwang;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Korail Cycling Team;CT;South Korea;Asian Cycling Confederation;Seungsoo Heo;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Geumsan Insam Cello;CT;South Korea;Asian Cycling Confederation;Hyeong Min Choe;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Gapyeong Cycling Team;CT;South Korea;Asian Cycling Confederation;Dongyeon Choi;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Universe Cycling Team;CT;Netherlands;Union Européenne de Cyclisme;Bart Buijk;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Development Team dsm-firmenich PostNL;CT;Netherlands;Union Européenne de Cyclisme;Ilian Alexandre Barhoumi;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Orgullo Paisa;CT;Colombia;Confederación Panamericana de Ciclismo;Juan Manuel Barboza;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Team Storck - Metropol Cycling;CT;Germany;Union Européenne de Cyclisme;Daniel Bichlmann;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;P&S Metalltechnik Benotti;CT;Germany;Union Européenne de Cyclisme;Anton Albrecht;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;MYVELO Pro Cycling Team;CT;Germany;Union Européenne de Cyclisme;Meo Amann;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Tavfer-Ovos Matinados-Mortágua;CT;Portugal;Union Européenne de Cyclisme;Gonçalo Amado;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Velolien Matsuyama;CT;Japan;Asian Cycling Confederation;Takayuki Abe;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Sparkle Oita Racing Team;CT;Japan;Asian Cycling Confederation;Masahiro Abe;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Levante Fuji Shizuoka;CT;Japan;Asian Cycling Confederation;Enkhtaivan Bolor-erdene;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Zalf Euromobil Fior;CT;Italy;Union Européenne de Cyclisme;Samuele Bonetto;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Work Service - Vitalcare - Dynatek;CT;Italy;Union Européenne de Cyclisme;Tommaso Bambagioni;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;UM Tools Caffé Mokambo;CT;Italy;Union Européenne de Cyclisme;Stefano Baffi;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;CTF Victorious;CT;Italy;Union Européenne de Cyclisme;Marco Andreaus;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Beltrami TSA - Tre Colli;CT;Italy;Union Européenne de Cyclisme;Filippo Agostinacchio;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;The Hurricane & Thunder Cycling Team;CT;China;Asian Cycling Confederation;Guoqing Huang;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Shenzhen Xidesheng Cycling Team;CT;China;Asian Cycling Confederation;Xuewen Dong;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Pardus Cycling Team;CT;China;Asian Cycling Confederation;Shoubo Feng;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;LTwoo Men's Cycling Team;CT;China;Asian Cycling Confederation;Zhenlei Cao;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Hebei Continental Team;CT;China;Asian Cycling Confederation;Yuxi Ding;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;164;Chengdu Cycling Team;CT;China;Asian Cycling Confederation;Jiaqing Bai;1243;40,10025063;#N/A;#N/A;40;#N/A;#N/A;40;40,03301654
+2024;OVERALL;226;Biesse - Carrera;Club;Italy;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Team Deschacht - Group Hens - Containers Maes;Club;Belgium;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Baloise - Trek Lions;Club;Belgium;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Antigua and Barbuda;NAT;Antigua and Barbuda;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Australia;NAT;Australia;Oceanian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Austria;NAT;Austria;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Belgium;NAT;Belgium;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Bolivia;NAT;Bolivia;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Canada;NAT;Canada;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;China;NAT;China;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Colombia;NAT;Colombia;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Cyprus;NAT;Cyprus;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Denmark;NAT;Denmark;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Eritrea;NAT;Eritrea;Confédération Africaine de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Estonia;NAT;Estonia;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;France;NAT;France;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Hungary;NAT;Hungary;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Individual Neutral Athletes;NAT;Neutral;None;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Iran;NAT;Iran;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Iraq;NAT;Iraq;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Ireland;NAT;Ireland;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Israel;NAT;Israel;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Italy;NAT;Italy;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Japan;NAT;Japan;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Kazakhstan;NAT;Kazakhstan;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Kenya;NAT;Kenya;Confédération Africaine de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Kyrgyzstan;NAT;Kyrgyzstan;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Latvia;NAT;Latvia;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Lithuania;NAT;Lithuania;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Luxembourg;NAT;Luxembourg;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Mexico;NAT;Mexico;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Mongolia;NAT;Mongolia;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Morocco;NAT;Morocco;Confédération Africaine de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Netherlands;NAT;Netherlands;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Norway;NAT;Norway;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Philippines;NAT;Philippines;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Poland;NAT;Poland;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Portugal;NAT;Portugal;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Romania;NAT;Romania;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Russia;NAT;Russia;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Slovakia;NAT;Slovakia;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Slovenia;NAT;Slovenia;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;South Africa;NAT;South Africa;Confédération Africaine de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Spain;NAT;Spain;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Sweden;NAT;Sweden;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Swiss Cycling;NAT;Switzerland;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Switzerland;NAT;Switzerland;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Thailand;NAT;Thailand;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Uganda;NAT;Uganda;Confédération Africaine de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Ukraine;NAT;Ukraine;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;United States;NAT;United States;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Uzbekistan;NAT;Uzbekistan;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Virgin Islands;NAT;Virgin Islands;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Czech Republic;NAT;Czech Republic;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Uruguay;NAT;Uruguay;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Argentina;NAT;Argentina;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Venezuela;NAT;Venezuela;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Ecuador;NAT;Ecuador;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;New Zealand;NAT;New Zealand;Oceanian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Malaysia;NAT;Malaysia;Asian Cycling Confederation;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;BORA - hansgrohe;WT;Germany;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Beykoz Belediyesi Spor Türkiye;CT;Türkiye;Union Européenne de Cyclisme;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
+2024;OVERALL;226;Colombia Potencia de la Vida - Strongman;CT;Colombia;Confederación Panamericana de Ciclismo;#N/A;#N/A;40;#N/A;#N/A;40;#N/A;#N/A;40;39,9996
