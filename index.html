@@ -94,6 +94,50 @@
       .grid-container{grid-template-columns:260px 1fr 380px;gap:1.2rem;}
       .content-area{padding:1rem;}
     }
+	@media (max-width: 1024px){
+	html, body{
+    overflow-y: auto;
+    height: auto;
+	}
+	}
+	@media (max-width: 1024px){
+	.nav-bar,
+	.content-area,
+	footer{
+    position: relative;
+	}
+
+	.content-area{
+    top: auto;
+    bottom: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    overflow: visible;
+	}
+	}
+	@media (max-width: 1024px){
+	.grid-container{
+    grid-template-columns: 1fr;
+    height: auto;
+	}
+
+	.left-col,
+	.center-col,
+	.right-col{
+    grid-template-rows: auto;
+	}
+	}
+	@media (max-width: 1024px){
+	.block{
+    overflow-x: auto;
+	}
+
+	table{
+    min-width: 520px;
+	}
+	}
+
+
   </style>
 </head>
 <body>
