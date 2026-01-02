@@ -136,6 +136,46 @@
     min-width: 520px;
 	}
 	}
+/* Mobile navigation */
+@media (max-width: 1024px){
+
+  .nav-links,
+  .ig-nav{
+    display: none;
+  }
+
+  .mobile-menu-btn{
+    display: block;
+    font-size: 1.8rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .mobile-menu{
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: rgba(15,23,42,0.98);
+    backdrop-filter: blur(16px);
+    padding: 1rem;
+    z-index: 4000;
+  }
+
+  .mobile-menu a{
+    display: block;
+    font-family: 'Suissnord', sans-serif;
+    font-size: 1.3rem;
+    padding: 0.6rem 0;
+    color: white;
+    text-decoration: none;
+  }
+
+  .mobile-menu a:not(:last-child){
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+}
 
 
   </style>
@@ -154,10 +194,19 @@
       <a href="nation-score.html">Nations</a>
       <a href="how_it_works.html">How It Works</a>
     </div>
+	<div class="mobile-menu-btn">&#9776;</div>
     <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Instagram">
       <div class="ig-nav"></div>
     </a>
   </div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="results-log.html">Results</a>
+  <a href="rider-score.html">Riders</a>
+  <a href="team-score.html">Teams</a>
+  <a href="nation-score.html">Nations</a>
+  <a href="how_it_works.html">How It Works</a>
+  <a href="https://www.instagram.com/cyclindex/" target="_blank">Instagram</a>
+</div>
 
   <div class="content-area">
     <div class="grid-container">
@@ -407,6 +456,14 @@
     }
 
     loadUpcomingRaces();
+	const mobileBtn = document.querySelector('.mobile-menu-btn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+mobileBtn?.addEventListener('click', () => {
+  mobileMenu.style.display =
+    mobileMenu.style.display === 'block' ? 'none' : 'block';
+});
+
   </script>
 </body>
 </html>
