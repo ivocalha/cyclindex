@@ -130,33 +130,6 @@
     .specs-note {
       font-size:1.15rem; color:rgba(255,255,255,.8); margin-top:3rem; text-align:center;
     }
-
-    /* RESPONSIVE ADJUSTMENTS */
-    @media (max-width: 1024px) {
-      .scoring-grid { grid-template-columns:1fr; gap:2.4rem; }
-      .panel { padding:2.2rem 2rem; }
-      .panel.full-width { min-height:auto; padding:2.8rem 2.4rem; }
-      .db-table th, .db-table td { padding:1.4rem 1rem; font-size:1.1rem; }
-      .specs-table td { padding:1.6rem 1.8rem; font-size:1.1rem; }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links { gap:1.2rem; }
-      .nav-links a { font-size:1rem; padding:0.4rem 0.8rem; }
-      .section-title { font-size:clamp(2.5rem,10vw,3.5rem); margin-bottom:4rem; }
-      .db-section, .scoring-section, .specs-section { padding:5rem 3vw 7rem; }
-      .db-table { max-width:100%; border-radius:1.8rem; }
-      .db-table th, .db-table td { padding:1.2rem 0.8rem; font-size:1rem; }
-      .db-table tr:nth-child(4) td { font-size:1rem; }
-      .scoring-grid { gap:2rem; }
-      .panel { padding:2rem 1.8rem; border-radius:2rem; }
-      .panel h3 { font-size:1.8rem; margin-bottom:1.4rem; }
-      .panel p { font-size:1.05rem; }
-      .formula { padding:0.7rem 1rem; font-size:1rem; margin:1rem 0; }
-      .specs-table { max-width:100%; border-radius:1.4rem; }
-      .specs-table td { padding:1.4rem 1.6rem; font-size:1.05rem; }
-      .specs-note { font-size:1rem; margin-top:2rem; }
-    }
   </style>
 </head>
 <body>
@@ -195,7 +168,7 @@
       <div class="scoring-grid">
         <div class="panel"><h3>UCI Points System</h3><p>Riders earn <strong>POINTS</strong> based on their results according to the current <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/UCI%20Points%20(DB%20Model).pdf" target="_blank"><strong>UCI POINTS</strong></a> scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
 
-        <div class="panel"><h3>Performance Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <strong>LEVELS</strong> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
+        <div class="panel"><h3>Performance Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/Cyclindex%20Levels.pdf" target="_blank"><strong>LEVELS</strong></a> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
 
         <!-- RIDER SCORE FORMULA – TWO LINES, TIGHT & CLEAN -->
         <div class="panel full-width">
@@ -243,6 +216,7 @@
 
 </body>
 </html>
+
 
 
 
