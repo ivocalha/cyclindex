@@ -120,26 +120,47 @@
     }
     .specs-table td {
       padding:2rem 2.2rem; border-bottom:1px solid rgba(255,255,255,.1);
-      font-size:1.15rem; line-height:1.7;
+      font-size:1.2rem; line-height:1.6;
     }
+    .specs-table tr:last-child td { border-bottom:none; }
     .specs-table td:first-child {
-      background:rgba(59,130,246,.3); font-weight:bold;
-      font-family:'Suissnord',sans-serif; width:180px;
+      background: rgba(59,130,246,.35); color:white;
+      font-family:'Suissnord',sans-serif; font-weight:bold; text-align:center;
     }
-    .specs-note { font-size:1.1rem; color:#94a3b8; margin-top:1.5rem; font-style:italic; }
+    .specs-note {
+      font-size:1.15rem; color:rgba(255,255,255,.8); margin-top:3rem; text-align:center;
+    }
 
-    @media (max-width:768px){
-      .nav-links a { font-size:1rem; padding:.4rem .8rem; }
-      .section-title { font-size:2.8rem; margin-bottom:3rem; }
-      .formula { font-size:1rem; padding:0.7rem 1rem; line-height:1.5; }
+    /* RESPONSIVE ADJUSTMENTS */
+    @media (max-width: 1024px) {
+      .scoring-grid { grid-template-columns:1fr; gap:2.4rem; }
+      .panel { padding:2.2rem 2rem; }
+      .panel.full-width { min-height:auto; padding:2.8rem 2.4rem; }
+      .db-table th, .db-table td { padding:1.4rem 1rem; font-size:1.1rem; }
+      .specs-table td { padding:1.6rem 1.8rem; font-size:1.1rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { gap:1.2rem; }
+      .nav-links a { font-size:1rem; padding:0.4rem 0.8rem; }
+      .section-title { font-size:clamp(2.5rem,10vw,3.5rem); margin-bottom:4rem; }
+      .db-section, .scoring-section, .specs-section { padding:5rem 3vw 7rem; }
+      .db-table { max-width:100%; border-radius:1.8rem; }
+      .db-table th, .db-table td { padding:1.2rem 0.8rem; font-size:1rem; }
+      .db-table tr:nth-child(4) td { font-size:1rem; }
+      .scoring-grid { gap:2rem; }
+      .panel { padding:2rem 1.8rem; border-radius:2rem; }
+      .panel h3 { font-size:1.8rem; margin-bottom:1.4rem; }
+      .panel p { font-size:1.05rem; }
+      .formula { padding:0.7rem 1rem; font-size:1rem; margin:1rem 0; }
+      .specs-table { max-width:100%; border-radius:1.4rem; }
+      .specs-table td { padding:1.4rem 1.6rem; font-size:1.05rem; }
+      .specs-note { font-size:1rem; margin-top:2rem; }
     }
   </style>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
-  <!-- FIXED NAVIGATION -->
   <nav class="site-nav">
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -157,8 +178,8 @@
     <section class="db-section">
       <h2 class="section-title">Database Model</h2>
       <table class="db-table">
-        <tr><th></th><th>Gender</th><th>Discipline</th><th>Category</th><th>Tour Events</th><th>Champs</th><th>Time Trials</th></tr>
-        <tr><td><strong>Inclusions</strong></td><td>Men</td><td>Road Race</td><td>Elite</td><td>x.UWT, x.PRO, x.1</td><td>Worlds & Olympics</td><td>Prologues & ITTs</td></tr>
+        <tr><th></th><th>Riders</th><th>Teams</th><th>Tiers</th><th>Events</th><th>Championships</th><th>Results</th></tr>
+        <tr><td><strong>Inclusions</strong></td><td>Men</td><td>Pro</td><td>UWT, PRO, 1</td><td>Grand Tours, Monuments, World Tour, Pro Series, Europe Tour</td><td>Worlds & Olympics</td><td>Prologues & ITTs</td></tr>
         <tr><td><strong>Exclusions</strong></td><td>Women</td><td>Others</td><td>Others</td><td>Others</td><td>Continentals & Nationals</td><td>TTTs</td></tr>
         <tr><td><strong>Reasons</strong></td>
             <td>The initial testing database will be kept intentionally small but soon will be expanded.</td>
@@ -172,7 +193,7 @@
     <section class="scoring-section">
       <h2 class="section-title">Scoring Logic</h2>
       <div class="scoring-grid">
-        <div class="panel"><h3>UCI Points System</h3><p>Riders earn <strong>POINTS</strong> based on their results according to the current <strong>UCI POINTS</strong> scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
+        <div class="panel"><h3>UCI Points System</h3><p>Riders earn <strong>POINTS</strong> based on their results according to the current <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/UCI%20Points%20(DB%20Model).pdf" target="_blank"><strong>UCI POINTS</strong></a> scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
 
         <div class="panel"><h3>Performance Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <strong>LEVELS</strong> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
 
@@ -222,6 +243,7 @@
 
 </body>
 </html>
+
 
 
 
