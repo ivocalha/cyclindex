@@ -131,6 +131,16 @@
       font-size:1.15rem; color:rgba(255,255,255,.8); margin-top:3rem; text-align:center;
     }
   </style>
+<!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>	
 </head>
 <body>
 
@@ -169,7 +179,7 @@
         <div class="panel"><h3>UCI Points System</h3><p>Riders earn <strong>POINTS</strong> based on their results according to the current <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/UCI%20Points%20(DB%20Model).pdf" target="_blank"><strong>UCI POINTS</strong></a> scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
         <div class="panel"><h3>Results Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/Cyclindex%20Levels.pdf" target="_blank"><strong>LEVELS</strong></a> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
         <div class="panel"><h3>Results Rating</h3><p>For each result, a corresponding <strong>RATING</strong> is calculated using the formula:</p> 
-			<div class="formula">R = L/2 + 50</div>
+			<div class="formula">Rating = L/2 + 50</div>
 			<p> where L is the result level.</p></div>
         <!-- RIDER SCORE FORMULA – TWO LINES, TIGHT & CLEAN -->
         <div class="panel full-width">
@@ -217,6 +227,7 @@
 
 </body>
 </html>
+
 
 
 
