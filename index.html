@@ -11,7 +11,16 @@
     *, *::before, *::after {box-sizing:border-box;}
     body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
 
-    :root{--nav-height:72px;--footer-height:50px;--pill-bg:rgba(59,130,246,0.35);}
+    :root {
+      --nav-height: 71px;
+      --footer-height: 64px;
+      --pill-radius: 0.7rem;
+      --pill-bg: rgba(59,130,246,0.35);
+      --neon-blue: #3b82f6;
+      --header-blue: #1a2f55;
+      --header-radius: 14px;
+      --fade-duration: 0.4s;
+    }
 
      .nav-bar {
       position: fixed;
@@ -495,6 +504,7 @@ mobileBtn?.addEventListener('click', () => {
 </body>
 
 </html>
+
 
 
 
