@@ -167,15 +167,15 @@
       <h2 class="section-title">Scoring Logic</h2>
       <div class="scoring-grid">
         <div class="panel"><h3>UCI Points System</h3><p>Riders earn <strong>POINTS</strong> based on their results according to the current <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/UCI%20Points%20(DB%20Model).pdf" target="_blank"><strong>UCI POINTS</strong></a> scale. The most valuable achievement, winning the Tour de France, awards 1,300 UCI points. The next highest results, such as winning the Giro d’Italia or the Vuelta a España, award 1,100 UCI points, with subsequent placements and race categories scaled accordingly.</p></div>
-        <div class="panel"><h3>Performance Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/Cyclindex%20Levels.pdf" target="_blank"><strong>LEVELS</strong></a> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
-        <div class="panel"><h3>Performance Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/Cyclindex%20Levels.pdf" target="_blank"><strong>LEVELS</strong></a> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
+        <div class="panel"><h3>Results Level Ladder</h3><p>UCI results <strong>POINTS</strong> are normalized to a tiered <a href="https://raw.githubusercontent.com/ivocalha/cyclindex/main/Cyclindex%20Levels.pdf" target="_blank"><strong>LEVELS</strong></a> scale, where the most valuable possible result corresponds to Level 100, the second most valuable to Level 99, and so on, decreasing incrementally down the ladder.</p></div>
+        <div class="panel"><h3>Results Rating</h3><p>For each result, a corresponding <strong>RATING</strong>strong> is calculated using the formula R = L/2 + 50</p></div>
         <!-- RIDER SCORE FORMULA – TWO LINES, TIGHT & CLEAN -->
         <div class="panel full-width">
           <h3>Rider Score Formula</h3>
-          <p>For each rider, only the n highest <strong>LEVEL</strong> results are used to calculate the final <strong>SCORE</strong>. The <strong>SCORE</strong> is related to a period of time (usually a full season or 365/366 days) and is determined using the following formula:</p>
-          <div class="formula"> Score = [(L₁/2+50)·1 + (L₂/2+50)·C₂ + ... + (Lₙ/2+50)·Cₙ] × 100 ÷ [(HL₁/2+50)·1 + (HL₂/2+50)·C₂ + ... + (HLₙ/2+50)·Cₙ]
+          <p>For each rider, only the n highest results <strong>RATINGS</strong> are used to calculate the final <strong>SCORE</strong>. The <strong>SCORE</strong> is related to a period of time (usually a full season or 365/366 days) and is determined using the following formula:</p>
+          <div class="formula"> Score = [R₁·1 + R₂·C₂ + ... + Rₙ·Cₙ] × 100 ÷ [(HL₁/2+50)·1 + (HL₂/2+50)·C₂ + ... + (HLₙ/2+50)·Cₙ]
 		  </div>
-          <p>Where: • L₁, L₂, and Lₙ are the rider’s highest, second-highest, and n-highest Levels, respectively.</p>
+          <p>Where: • R₁, R₂, and Rₙ are the rider’s highest, second-highest, and n-highest Ratings, respectively.</p>
 		  <p>       • C₂, and Cₙ are the rider’s second-highest, and n-highest Levels Contributions, respectively.</p>
 		  <p>• The contribution of each subsequent result is halved:
   $$ C_k = \frac{C_2}{2^{k-2}} \quad \text{for } k=2,3,\dots,n $$
@@ -215,6 +215,7 @@
 
 </body>
 </html>
+
 
 
 
