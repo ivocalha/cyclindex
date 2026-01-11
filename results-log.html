@@ -272,6 +272,7 @@
         <th title="Results Type">Type</th>
         <th title="UCI Points">Points</th>
         <th title="Result Level">Level</th>
+        <th title="Result Rating">Rating</th>
         <th title="Rider's Season Result Rank">RSRR</th>
       </tr>
     </thead>
@@ -390,7 +391,7 @@ fetch(CSV_URL)
 
     const cols = [
       "Date","Country","Rider","Team","Competition","Class","Rank",
-      "Result Type","UCI Points","Level","Season Result Rank"
+      "Result Type","UCI Points","Level","Score","Season Result Rank"
     ];
 
     const data = parsed.data.filter(r=>r.Date && r.Rider).map(r=>{
