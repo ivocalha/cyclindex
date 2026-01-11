@@ -88,12 +88,11 @@
       table-layout: auto;
     }
 
-    /* ONLY THESE 4 LINES ARE NEW / CHANGED */
     #resultsTable thead th {
       background: var(--header-blue) !important;
       color: white;
       position: sticky;
-      top: 0 !important;                /* ← changed from var(--nav-height) */
+      top: 0 !important;
       z-index: 50;
 
       font-size: 1.02rem !important;
@@ -113,14 +112,12 @@
       animation: fadeInHeader var(--fade-duration) ease forwards;
     }
 
-    /* These two rules eliminate the jump completely */
     .dataTables_scrollHead {
       margin-top: 0 !important;
     }
     .dataTables_scrollHeadInner table {
       margin-top: 0 !important;
     }
-    /* END OF CHANGES */
 
     #resultsTable thead th:first-child {
       border-top-left-radius: var(--header-radius);
@@ -203,7 +200,6 @@
       font-family: inherit;
     }
 
-    /* === NEW FLAG STYLE – identical to rider-score.html === */
     .flag{
       width:26px;
       height:18px;
@@ -237,7 +233,6 @@
     .flag-container:hover .flag-name{
       opacity:1;
     }
-    /* ==================================================== */
 
     @media(max-width:720px) {
       .search-wrap input { width: 140px; }
@@ -401,7 +396,7 @@ fetch(CSV_URL)
         ? `<div class="flag-container"><img class="flag" src="https://flagcdn.com/w40/${code}.png" alt="${c}"><div class="flag-name">${c}</div></div>`
         : c;
 
-      return cols.map(f => f==="Country" ? flag : (r[f]||""));  
+      return cols.map(f => f==="Country" ? flag : (r[f]||""));
     });
 
     const table = $('#resultsTable').DataTable({
@@ -409,7 +404,15 @@ fetch(CSV_URL)
       dom: 't',
       pageLength: 100,
       autoWidth: false,
-      order: [[0,'desc']],
+      // ──────────────────────────────────────────────
+      // Main change - multi-column default sorting
+      order: [
+        [0, 'desc'],   // Date – newest first
+        [4, 'asc'],    // Race (Competition column index 4)
+        [7, 'asc'],    // Type (Result Type column index 7)
+        [6, 'asc']     // Rank (column index 6)
+      ],
+      // ──────────────────────────────────────────────
       columnDefs: [{
         targets: 0,
         type: 'date',
