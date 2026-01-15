@@ -1,0 +1,303 @@
+﻿Rank;Team;Team_Index;Team_Strength;Top1_Rider;Top1_Index;Top2_Rider;Top2_Index;Top3_Rider;Top3_Index
+1;UAE Team Emirates;94,13;86,22;Tadej Pogačar;99,27;João Almeida;93,86;Juan Ayuso;89,26
+2;Lidl - Trek;91,44;84,15;Mads Pedersen;94,32;Mattias Skjelmose;91,12;Giulio Ciccone;88,88
+3;Team Visma | Lease a Bike;91,25;81,11;Jonas Vingegaard;97,41;Wout van Aert;88,92;Matteo Jorgenson;87,43
+4;Alpecin - Deceuninck;88,32;76,73;Mathieu van der Poel;96,95;Jasper Philipsen;86,28;Kaden Groves;81,73
+5;Soudal Quick-Step;88,15;80,28;Remco Evenepoel;95,97;Julian Alaphilippe;84,88;Mikel Landa;83,59
+6;EF Education - EasyPost;85,96;76,59;Ben Healy;88,71;Richard Carapaz;85,6;Neilson Powless;83,57
+7;INEOS Grenadiers;85,59;81,43;Filippo Ganna;90,28;Pavel Sivakov;83,29;Jhonatan Narváez;83,2
+8;Team Jayco AlUla;84,16;76,33;Michael Matthews;88,6;Simon Yates;85,71;Mauro Schmid;78,17
+9;Jumbo-Visma;83,52;72,85;Primož Roglič;90,59;Christophe Laporte;79,99;Sepp Kuss;79,98
+10;Lotto Dstny;82,07;74,86;Arnaud De Lie;86,65;Maxim Van Gils;80,03;Lennert Van Eetvelt;79,54
+11;Bahrain - Victorious;81,65;77,23;Antonio Tiberi;83,06;Pello Bilbao;82,15;Matej Mohorič;79,74
+12;Decathlon AG2R La Mondiale Team;81,55;76,16;Ben O'Connor;84,63;Felix Gall;84,22;Benoît Cosnefroy;75,8
+13;Uno-X Mobility;81,06;75,43;Magnus Cort;82,03;Tobias Halland Johannessen;81,36;Søren Wærenskjold;79,79
+14;Groupama - FDJ;80,95;76,58;Stefan Küng;81,99;Lenny Martinez;81,49;David Gaudu;79,38
+15;BORA - hansgrohe;80,44;74,92;Jai Hindley;84,41;Jordi Meeus;81,48;Daniel Felipe Martínez;75,44
+16;Israel - Premier Tech;80,21;75,18;Derek Gee;84,66;Corbin Strong;79,22;Matthew Riccitello;76,75
+17;Movistar Team;80,2;74,11;Enric Mas;86,59;Einer Rubio;77,45;Alex Aranburu;76,56
+18;UAE Team Emirates - XRG;80,2;70,45;Isaac del Toro;87,39;Jan Christen;77,88;António Morgado;75,34
+19;Red Bull - BORA - hansgrohe;79,78;69;Florian Lipowitz;87,97;Giulio Pellizzari;80,5;Roger Adrià;70,88
+20;Q36.5 Pro Cycling Team;79,33;72,51;Thomas Pidcock;90,55;Matteo Moschetti;74,26;Rory Townsend;73,18
+21;Team Picnic PostNL;77;68,7;Oscar Onley;85,06;Nils Eekhoff;72,99;Pavel Bittner;72,96
+22;Arkéa - B&B Hotels;76,63;71,95;Kévin Vauquelin;85,51;Arnaud Démare;73,04;Cristián Rodríguez;71,34
+23;Tudor Pro Cycling Team;76,38;71,74;Michael Storer;81,77;Matteo Trentin;75,96;Rick Pluimers;71,4
+24;XDS Astana Team;75,75;72,98;Lorenzo Fortunato;77,11;Aaron Gate;75,89;Henok Mulubrhan;74,25
+25;Cofidis;75,15;72,5;Ion Izagirre;76,54;Alexis Renard;74,66;Guillaume Martin;74,24
+26;Intermarché - Wanty;74,33;71,3;Biniam Girmay;78,83;Louis Barré;72,18;Laurenz Rex;71,97
+27;Astana Qazaqstan Team;73;70,67;Simone Velasco;77,71;Mark Cavendish;70,69;Max Kanter;70,61
+28;TotalEnergies;72,58;69,55;Emilien Jeannière;76,81;Anthony Turgis;71,55;Daniel Oss;69,39
+29;Team dsm-firmenich PostNL;72,21;66,36;Max Poole;73,74;Casper van Uden;71,62;Frank van den Broek;71,27
+30;Caja Rural - Seguros RGA;71,59;68,73;Guillermo Thomas Silva;73,19;Orluis Aular;72,3;Yesid Albeiro Pira;69,28
+31;Team DSM;71,27;67,63;Romain Bardet;77,01;Sam Welsford;68,77;Leon Heinschke;68,03
+32;Equipo Kern Pharma;70,42;67,88;Pablo Castrillo;73,12;Eugenio Sánchez;69,07;Martí Márquez;69,07
+33;Team TotalEnergies;70,41;66,61;Sandy Dujardin;71,49;Jordan Jegat;71,23;Alexandre Delettre;68,52
+34;Team Polti Kometa;69,87;63,97;Paul Double;74,33;Jhonatan Restrepo;68,5;Mirco Maestri;66,77
+35;Sindicato de Empleados Públicos of San Juan;69,8;69,8;César Nicolás Paredes;70,14;Juan Pablo Dotti;69,46;;
+36;Algeria;69,75;69,75;Hamza Amari;70,14;Azzedine Lagab;69,36;;
+37;Burgos - BH;69,71;68,76;Victor Langellotti;70,86;Felipe Orts;69,14;Andrés Camilo Ardila;69,14
+38;Chimbas Te Quiero;69,68;69,68;Leandro Carlos Messineo;69,68;;;;
+39;Trek - Segafredo;69,67;69,67;Tony Gallopin;69,67;;;;
+40;NSJBI Victoria Sports Cycling Team;69,61;69,61;José Mendes;69,61;;;;
+41;Wuzhishan SCOM MVMT Cycling Team;69,6;69,6;Samuel Jenner;69,6;;;;
+42;Intermarché - Circus - Wanty;69,56;66,13;Niccolò Bonifazio;69,85;Boy van Poppel;69,52;Loïc Vliegen;69,31
+43;Mauritius;69,56;69,56;Christopher Rougier-Lagane;70,04;Alexandre Mayer;69,07;;
+44;7 Eleven Cliqq - Air21 by Road Bike Philippines;69,5;69,5;Marcelo Felipe;69,61;Nichol Blanca Pareja;69,39;;
+45;Mexico;69,46;69,46;Isaac Del Toro;69,46;;;;
+46;Human Powered Health;69,41;68,71;Colin Joyce;69,82;Adam de Vos;69,34;Matthew Gibson;69,07
+47;Argentina;69,39;69,39;Maximiliano Richeze;69,39;;;;
+48;Cross Team Legendre;69,39;69,39;Robert Scott;69,39;;;;
+49;Team Corratec - Selle Italia;69,39;66,16;Marco Murgano;69,51;Stefano Gandin;69,39;Charlie Quarterman;69,28
+50;St George Continental Cycling Team;69,32;67,32;Lionel Mawditt;69,82;Connor Reardon;69,07;Jack Aitken;69,07
+51;VolkerWessels Cycling Team;69,32;67,44;Max Kroonen;69,61;Bert-Jan Lindeman;69,28;Coen Vermeltfoort;69,07
+52;L39ION of Los Angeles;69,3;69,3;Eder Frayre;69,68;Robin Carpenter;69,14;Tyler Williams;69,07
+53;Taiwan;69,3;69,3;Shao Hsuan Lu;69,53;Kun Hung Hung;69,07;;
+54;Uno-X Pro Cycling Team;69,27;67,82;Kristoffer Halvorsen;69,46;Jacob Hindsgaul;69,21;Magnus Kulset;69,14
+55;Team Hrinkow Advarics;69,25;69,25;Riccardo Verza;69,61;Edward Ravasi;69,07;Stefan Kovar;69,07
+56;ATT Investments;69,17;67,45;Gert Kivistik;69,93;Jan Kašpar;69,07;Matúš Štoček;68,5
+57;Team United Shipping;69,17;69,17;Bálint Feldhoffer;69,17;;;;
+58;EF Education-NIPPO Development Team;69,16;68,81;Felix Stehli;69,28;Yusuke Kadota;69,14;Jo Hashikawa;69,07
+59;Agrupación Virgen de Fatima - San Juan Biker Motos;69,14;69,14;Franco Buchanan;69,14;;;;
+60;Electro Hiper Europa;69,14;69,14;Mateu Estelrich;69,14;;;;
+61;Leopard TOGT Pro Cycling;69,14;67,42;Colin Heiderscheid;69,28;Loïc Bettendorff;69,07;Tobias Aagaard Hansen;69,07
+62;Ljubljana Gusto Santic;69,14;69,14;Viktor Potočki;69,14;;;;
+63;Work Service - Vitalcare - Dynatek;69,14;69,14;Giacomo Garavaglia;69,14;;;;
+64;China;69,12;67,51;Geng Teng;69,14;Haijie Hu;69,14;Binyan Ma;69,07
+65;Trinity Racing;69,12;67,63;Camilo Andres Gomez;69,46;Kevin Mccambridge;69,07;Liam Johnston;68,83
+66;Bodywrap LTwoo Cycling Team;69,1;69,1;Boan Li;69,14;Gaoshang Niu;69,07;;
+67;Sofer Savini Due OMZ;69,1;69,1;Emil Dima;69,14;Conor Schunk;69,07;;
+68;Tartu2024 Cycling Team;69,1;69,1;Markus Pajur;69,14;Alekss Krasts;69,07;;
+69;Team Ecoflo Chronos;69,1;69,1;Edo Goldstein;69,14;Lenaic Langella;69,07;;
+70;Voltas - Tartu 2024 by CCN;69,08;69,08;Siim Kiskonen;69,08;;;;
+71;AT85 Pro Cycling;69,07;69,07;Jim Brown;69,07;;;;
+72;BAI - Sicasal - Petro de Luanda;69,07;69,07;Mikel Mujika;69,07;;;;
+73;Beykoz Belediyesi Spor Kulübü;69,07;69,07;Maximilian Stedman;69,07;Sergey Rostovtsev;69,07;;
+74;Finland;69,07;69,07;Axel Källberg;69,07;Antti-Jussi Juntunen;69,07;;
+75;Gremios por el Deporte - Cutral Co;69,07;69,07;Laureano Rosas;69,07;;;;
+76;Iraq Cycling Project;69,07;69,07;Aidin Aliyari;69,07;;;;
+77;Morocco;69,07;69,07;Adil El Arbaoui;69,07;Youssef Bdadou;69,07;Achraf Ed Doghmy;69,07
+78;Restaurant Suri - Carl Ras;69,07;69,07;Jakob Egholm;69,07;;;;
+79;Shenzhen Xidesheng Cycling Team;69,07;69,07;Yuheng Li;69,07;;;;
+80;Shimano Racing Team;69,07;69,07;Tadaaki Nakai;69,07;Yuki Ishihara;69,07;Takeharu Amano;69,07
+81;Team Felbermayr - Simplon Wels;69,07;69,07;Michael Kukrle;69,07;;;;
+82;Terengganu Polygon Cycling Team;69,07;64,96;Youcef Reguigui;69,07;Muhammad Nur Aiman Mohd Zariff;69,07;Jesse Ewart;69,07
+83;Indonesia;69,06;69,06;Muhammad Andy Royan;69,28;Bernard van Aert;69,07;Terry Kusuma;68,82
+84;Bolton Equities Black Spoke;69,02;66,19;Matthew Bostock;69,45;Dan Gardner;69,07;James Oram;68,54
+85;St Michel - Mavic - Auber93;69;65,75;Thomas Devaux;69,07;Rudy Barbier;69,07;Nicolas Debeaumarché;68,87
+86;Team Arkéa Samsic;69;66,2;Nicolas Edet;69,07;Laurent Pichon;68,99;Nacer Bouhanni;68,93
+87;AG2R Citroën Team;68,98;65,52;Greg Van Avermaet;70,03;Mikaël Cherel;68,56;Michael Schär;68,34
+88;Team Lotto - Kern Haus;68,98;68,98;Pierre-Pascal Keup;68,98;;;;
+89;Team Polti VisitMalta;68,91;65;Davide Piganzoli;70,87;Giovanni Lonardi;67,96;Charlie Meredith;67,89
+90;BIKE AID;68,87;65,46;Eric Muhoza;69,14;Pirmin Eisenbarth;69,07;Vinzent Dorn;68,4
+91;Green Project - Bardiani CSF - Faizanè;68,87;64,49;Alessio Nieri;69,14;Mattia Petrucci;69,14;Alessandro Santaromita;68,33
+92;Utsunomiya Blitzen;68,87;67,75;Rei Onodera;69,07;Ruben Dario Acosta;69,03;Junsei Tani;68,52
+93;Pingtan International Tourism Island Cycling Team;68,86;67,78;Shuai Li;69,07;Yuanfeng Yu;69,07;Roman Maikin;68,45
+94;BEAT Cycling Club;68,85;65,38;Michiel Coppens;69,6;Yoeri Havik;68,86;Emiel Vermeulen;68,1
+95;Biesse - Carrera;68,82;66,35;Riccardo Ciuccarelli;69,07;Michael Belleri;69,07;Pierelis Belletta;68,33
+96;Bingoal WB;68,8;67,88;Dorian De Maeght;69,07;Rémy Mertz;68,8;Guillaume Van Keirsbulck;68,52
+97;Almaty Astana Motors;68,78;67,93;Ruslan Aliyev;69,46;Nikita Bezruchko;69,07;Rudolf Remkhi;67,82
+98;Roojai Online Insurance;68,77;66,06;Arttasorn Pansaard;69,07;Polychronis Tzortzakis;69;Valentin Midey;68,23
+99;Team ColoQuick;68,77;66,72;Tobias Svarre;69,14;Frederik Muff;69,07;Tore Troelsen;68,1
+100;South Korea;68,72;68,72;Daeyeong Joo;69,14;Kyung-Gu Jang;68,29;;
+101;Tarteletto - Isorex;68,7;67,14;Alex Vandenbulcke;69,07;Thibau Verhofstadt;69,07;Ewout De Keyser;67,96
+102;Vino SKO Team;68,65;68,65;Daniil Marukhin;68,65;;;;
+103;EOLO-Kometa;68,6;65,36;Simone Bevilacqua;69,07;Francesco Gavazzi;68,45;Samuele Rivi;68,29
+104;Shimano Racing;68,6;68,6;Shotaro Iribe;69,25;Shoma Kazama;67,96;;
+105;Sweden;68,59;67,21;Hjalmar Klyver;69,46;Hugo Forssell;69,39;Hugo Lennartsson;66,92
+106;Tavfer-Ovos Matinados-Mortágua;68,59;68,59;Bruno Silva;69,07;Leangel Rubén Linarez;68,44;João Matias;68,25
+107;Van Rysel - Roubaix Lille Métropole;68,57;68,57;Tom Mainguenaud;69,07;Thomas Boudat;68,08;;
+108;ABTF Betão - Feirense;68,53;67,83;Ivo Pinheiro;69,07;Afonso Eulálio;68,41;Fábio Costa;68,1
+109;Nu Colombia;68,52;68,52;Daniel Alejandro Mendez;68,89;Rodrigo Contreras;68,56;Sergio Henao;68,1
+110;Saint Piran;68,52;68,38;Harry Birchill;69,07;Dylan Hicks;68,53;Dylan Westley;67,96
+111;Wuzhishan Cycling Team;68,51;68,51;Javier Sarda;69,07;Oliver Anderson;67,96;;
+112;Eritrea;68,5;67,81;Meron Teshome Hagos;69,14;Ephrem Ghebrehiwet;69,07;Aklilu Arefayne;67,28
+113;ABLOC CT;68,42;66,15;Jan-Willem van Schip;69,14;Callum Macleod;69,14;Nils Sinschek;66,99
+114;Nusantara Cycling Team;68,4;68,29;Abdul Gani;69,14;Muhamad Herlangga;68,1;Ilham Dzikri Ramadhan;67,96
+115;Team Medellín - EPM;68,39;65,61;Fabio Duarte;69,07;Miguel Ángel López;68,45;Yeison Sebastian Reyes;67,64
+116;Metec - SOLARWATT p/b Mantel;68,35;67,4;Jaap Roelen;69,07;Victor Broex;68,03;Joris Reinderink;67,96
+117;Li Ning Star;68,3;67,09;Roniel Campos;68,79;Zhi Hui Jiang;68,08;Junqi Shao;68,03
+118;Team Bridgestone Cycling;68,29;68,29;Kazushige Kuboki;68,66;Naoki Kojima;68,25;Tetsuo Yamamoto;67,96
+119;Soudal Quick-Step Devo Team;68,27;66,75;Jonathan Vervenne;68,75;Federico Savino;68,1;Gabriel Berg;67,96
+120;Sabgal / Anicolor;68,25;68,25;Jaime Castrillo;68,39;Oliver Rees;68,1;;
+121;Thailand Continental Cycling Team;68,25;65,72;Ratchanon Yaowarat;69,14;Noppachai Klahan;68,89;Peerapol Chawchiangkwang;66,73
+122;Poland;68,22;68,22;Maciej Paterski;69,28;Mateusz Gajdulewicz;67,17;;
+123;CCACHE x Par Küp;68,2;68,2;Bentley Niquet-Olden;68,53;Graeme Frislie;68,1;Alastair Christie-Johnston;67,96
+124;CIC U Nantes Atlantique;68,2;65,47;Léo Danès;68,39;Pierre-Henry Basset;68,26;Matisse Julien;67,96
+125;REMBE Pro Cycling Team Sauerland;68,19;67,52;Julian Borresch;68,5;Sebastian Niehues;68,1;Yago Aguirre;67,96
+126;Tianyoude Hotel Cycling Team;68,12;66,96;Zisen Li;69,07;Yonathan Monsalve;68,75;Saeid Safarzadeh;66,53
+127;France;68,1;68,1;Mathias Ribeiro Da Cruz;68,1;;;;
+128;Huansheng - SCOM - Taishan Sport Cycling Team;68,1;68,1;Siarhei Shauchenka;68,1;;;;
+129;Sakarya BB Pro Team;68,1;68,1;Burak Abay;68,1;;;;
+130;Team BridgeLane;68,1;67,39;Luke Burns;68,46;Samuel Mckee;67,96;Tristan Saunders;67,89
+131;XSpeed United Continental;68,07;67,58;Red Walters;68,14;George Radcliffe;68,1;Christoph Janssen;67,96
+132;Glassdrive Q8 Anicolor;68,06;67,42;Luís Mendonça;69,07;Mauricio Moreira;68,4;Frederico Figueiredo;66,71
+133;APHotels and Resorts - Tavira;68,05;68,05;Samuel Blanco;69,07;Delio Fernández;67,03;;
+134;Go For Gold Philippines;68,01;67,99;Jericho Lucero;68,1;Ronnilan Quita;67,96;Marc Ryan Lago;67,96
+135;Lidl - Trek Future Racing;68,01;65,79;Nils Aebersold;68,1;Liam O'Brien;67,96;Cole Kessler;67,96
+136;Petrolike;68,01;66,71;José Ramón Muñiz;68,1;Mauricio Zapata;67,96;Cristian David Rico;67,96
+137;Adria Mobil;67,96;67,96;Tilen Finkšt;67,96;;;;
+138;Allinq Continental Cycling Team;67,96;67,96;Dennis van der Horst;69,07;Sam Gademan;66,85;;
+139;Colombia Potencia de la Vida - Strongman;67,96;67,96;"Yeisson Ferney	 Casallas";67,96;;;;
+140;Global 6 United;67,96;67,96;Ronan O'Connor;67,96;;;;
+141;Hainan Wuzhishan Cycling Team;67,96;67,96;Bowen Zheng;67,96;;;;
+142;Illes Balears Arabay Cycling;67,96;67,96;Pau Llaneras;67,96;;;;
+143;Latvia;67,96;67,96;Kristers Ansons;67,96;;;;
+144;Lotto Dstny Development Team;67,96;67,96;Kamiel Eeman;67,96;;;;
+145;Lubelskie Perła Polski;67,96;67,96;Julian Kot;67,96;;;;
+146;Mg.K Vis - Colors for Peace;67,96;67,96;Simone Carrò;67,96;;;;
+147;Nice Métropole Côte d'Azur;67,96;65,04;Maxime Urruty;69,07;Melvin Crommelinck;67,96;Axel Narbonne Zuccarelli;66,85
+148;Rad-Net Oßwald;67,96;67,96;Roger Kluge;67,96;;;;
+149;Rime Drali;67,96;67,96;Andrea Debiasi;67,96;;;;
+150;South Africa;67,96;67,13;Kent Main;69,08;Brandon Downes;69,07;Kieran Gordge;65,74
+151;Swiss Cycling;67,89;67,89;Antoine Aebi;67,89;;;;
+152;Pauwels Sauzen - Bingoal;67,83;64,37;Ryan Kamp;69,07;Yordi Corsus;67,96;Eli Iserbyt;66,47
+153;China Glory Continental Cycling Team;67,82;67,82;James Piccoli;69,69;Julien Trarieux;69,14;Willie Smit;64,63
+154;China Glory - Mentech Continental Cycling Team;67,78;65,58;Reinardt Janse van Rensburg;68,39;Yutao Shen;68,1;Haoyu Su;66,85
+155;Mongolia;67,7;67,7;Bilguunjargal Erdenebat;69,07;Myagmarsuren Baasankhuu;68,28;Temuulen Khadbaatar;65,74
+156;Team Novo Nordisk;67,67;65,2;Péter Kusztor;68,42;Declan Irvine;68,4;Hamish Beadle;66,18
+157;Team Coop - Repsol;67,66;65,11;Magnus Wæhre;69,82;André Drege;68,25;Karsten Larsen Feldmann;64,91
+158;Philippe Wagner/Bazin;67,61;67,61;Tristan Scherpenbergh;67,96;Pierre Barbier;67,27;;
+159;BHS - PL Beton Bornholm;67,6;66,47;Frederik Irgens Jensen;67,96;Marcus Sander Hansen;67,68;Niklas Larsen;67,16
+160;Materiel-Velo.com;67,59;67,59;Enrico Dhaeye;69,07;Alessandro Tuscano;69,07;Alexandre Kess;64,63
+161;Rádio Popular - Paredes - Boavista;67,57;66,36;César Fonte;69,07;Lucas Lopes;67,6;Raúl Rota;66,03
+162;Team Flanders - Baloise;67,54;66,03;Ruben Apers;68,1;Aaron Van Poucke;68,03;Gilles De Wilde;66,5
+163;Energus Cycling Team;67,48;66,76;Venantas Lašinis;68,75;Rokas Kmieliauskas;67,96;Olivers Jēkabs Skrapcis;65,74
+164;VF Group - Bardiani CSF - Faizanè;67,46;65,32;Domenico Pozzovivo;68,89;Filippo Magli;67,08;Martin Marcellusi;66,4
+165;United States;67,44;67,44;Tobias Kleine;69,14;Henry Neff;65,74;;
+166;AIRTOX - Carl Ras;67,43;65,44;Daniel Stampe;67,64;Alexander Arnt Hansen;67,6;Magnus Bak Klaris;67,05
+167;Efapel Cycling;67,41;64,76;Henrique Casimiro;69,71;Pedro Pinto;66,6;Abner González;65,91
+168;JCL Team UKYO;67,41;64,22;Manabu Ishibashi;68,1;Raymond Kreder;68,1;Andrea D'Amato;66,03
+169;GW Erco Shimano;67,4;67,4;Brandon Alejandro Rojas;67,96;Edgar Andrés Pinzón;66,85;;
+170;Iraq;67,4;67,4;Abdullah Wehbi;69,07;Sulaiman Sulaiman;65,74;;
+171;Ferei Mongolia Team;67,39;67,39;Bold Iderbold;67,39;;;;
+172;Mazowsze Serce Polski;67,39;64,37;Kacper Mientki;68,17;Konrad Czabok;67,96;Paweł Bernas;66,03
+173;Bahrain Victorious Development Team;67,31;67,31;Kasper Borremans;67,31;;;;
+174;ARA | Skip Capital;67,24;66,02;Cohen Jessen;68,1;William Eaves;67,07;Declan Trezise;66,54
+175;Unibet Tietema Rockets;67,23;63,82;Lander Loockx;67,8;Lukáš Kubiš;67,28;Adrien Maire;66,6
+176;Corima Wuzhishan MVMT Cycling Team;67,21;67,21;Asier Etxeberria;67,21;;;;
+177;HRE Mazowsze Serce Polski;67,21;64,11;Jeppe Aaskov Pallesen;69,07;Tobiasz Pawlak;66,83;Norbert Banaszek;65,73
+178;Grant Thornton Cycling Team;67,13;67,13;Nati Samansanti;68,53;Sakchai Phodingam;65,74;;
+179;Great Britain;67,06;67,06;Matthew Holmes;68,1;Huw Buck Jones;66,03;;
+180;Development Team Picnic PostNL;67,03;67,03;Oliver Peace;67,03;;;;
+181;Veloce Club Rouen 76;67,03;67,03;Esteban Foucher;67,03;;;;
+182;Lotto;66,97;65,16;Mauro Cuylits;67,51;Steffen De Schuyteneer;67,36;Niels Driesen;66,03
+183;Sparkle Oita Racing Team;66,96;66,96;Shiki Kuroeda;68,17;Kota Sumiyoshi;65,74;;
+184;Terengganu Cycling Team;66,96;65,55;Aiman Cahyadi;68,12;Juan Pedro Lozano;67,03;Wan Abdul Rahman Hamdan;65,74
+185;Rwanda;66,92;65,98;Samuel Niyonkuru;69,07;Vainqueur Masengesho;65,95;Shemu Nsengiyumva;65,74
+186;Euskaltel - Euskadi;66,91;65,88;Ibai Azurmendi;68,09;Xavier Cañellas;66,91;Unai Zubeldia;65,74
+187;Universe Cycling Team;66,88;66,88;Jarri Stravers;66,92;Bart Buijk;66,85;;
+188;Santic - Wibatech;66,87;66,87;Linus Rosner;67,96;Michał Paluta;66,47;Szymon Tracz;66,18
+189;Project Echelon Racing;66,79;65,04;Hugo Scala Jr;67,49;Cade Bickmore;66,85;Cole Davis;66,03
+190;Giant Cycling Team;66,77;66,77;Junjie Wu;67,96;Vladimir Mulagaleyev;66,6;Ronan Teese;65,74
+191;Luxembourg;66,67;66,67;Mathieu Kockelmann;67,31;Arno Wallenborn;66,03;;
+192;General Store - Essegibi - F.Lli Curia;66,62;64,55;Filippo D'Aiuto;69,18;Kevin Biehl;65,74;Marco Palomba;64,95
+193;KSPO Professional;66,6;66,6;Jinwoong Kim;66,6;;;;
+194;Motala AIF Continental;66,53;66,53;David Larsson;67,31;Jacob Ahlsson;65,74;;
+195;7Eleven Cliqq Roadbike Philippines;66,48;66,48;Rench Michael Bondoc;67,96;Joshua Pascual;65,74;Matej Drinovec;65,74
+196;Mes Sungun - Azad;66,48;66,48;Khalil Khorshid;69,28;Ali Labib Shotorban;65,53;Behnam Ariyan;64,63
+197;Astana Qazaqstan Development Team;66,42;66,42;Ilkhan Dostiyev;67,89;Daniil Pronskiy;64,95;;
+198;Denmark;66,42;66,42;Adam Holm Jørgensen;67,96;Kasper Andersen;66,37;Robin Juel Skivild;64,92
+199;Diftar Continental Cyclingteam;66,42;66,42;Guillaume Visser;67,96;Peter Schulting;66,31;Rick Ottema;64,99
+200;Credibom / LA Alumínios / Marcos Car;66,36;65,04;Hugo Nunes;66,88;Luís Fernandes;66,47;João Medeiros;65,74
+201;Norway;66,29;66,29;Trym Brennsæter;66,85;Marius Innhaug Dahl;65,74;;
+202;LX Cycling Team;66,28;65,69;Sanghong Park;67,06;Jongwon Lim;66,03;Euro Kim;65,74
+203;Burgos Burpellet BH;66,26;63,22;Daniel Cavia;68,75;Hugo de la Calle;66,5;Mario Aparicio;63,54
+204;Team Technipes #inEmiliaRomagna;66,22;65,66;Alessandro Monaco;67,03;Luca Cavallo;65,88;Alessandro Cattani;65,74
+205;Team Visma | Lease a Bike Development;66,11;66,11;Dario Igor Belletta;66,11;;;;
+206;Jakarta Pro Cycling Team;66,03;66,03;Dimas Nur Fadhil Rizqi;66,03;;;;
+207;Lillehammer CK Continental Team;66,03;66,03;Toralf Rydningen Martinsen;66,03;Even Thorvaldsen;66,03;;
+208;Sahand Pump Tabriz Crown;66,03;66,03;Sajjad Paydar Shirvanehdeh;66,03;;;;
+209;VC Fukuoka;66,03;66,03;Gerard Ledesma;66,03;;;;
+210;Vride;66,03;66,03;Amir Hossein Vatan;66,6;Nima Nateghi;65,74;Mohammad Darzi Ramandi;65,74
+211;Team Felt Felbermayr;65,94;65,94;Daniel Federspiel;67,96;Felix Ritzinger;67,05;Riccardo Zoidl;62,8
+212;Mg.K Vis Costruzioni e Ambiente;65,91;65,91;Ben Granger;68,56;Matthew Kingston;67,31;Andrea Cantoni;61,87
+213;Cyprus;65,88;65,88;Andreas Miltiadis;66,01;Bogdan Zabelinskiy;65,74;;
+214;Team Sistecredito;65,88;65,88;Estiven Garcia;66,03;Juan Felipe Rodriguez;65,74;;
+215;Baloise - Trek Lions;65,87;65,87;Pim Ronhaar;65,87;;;;
+216;Spor Toto Cycling Team;65,86;65,86;Serdar Anıl Depe;68,1;Ahmet Örken;65,74;Tahir Yiğit;63,73
+217;Parkhotel Valkenburg;65,85;63,75;Meindert Weulink;66,08;Mathis Avondts;65,74;Yanne Dorenbos;65,74
+218;Team Skyline;65,84;65,6;Conn McDunphy;66,03;Liam Flanagan;65,74;Adam Lewis;65,74
+219;Team Solution Tech - Vini Fantini;65,8;63,3;Kyrylo Tsarenko;68,34;Yukiya Arashiro;64,98;Lorenzo Quartucci;64,08
+220;Kelly / Simoldes / UDO;65,77;65,77;Luís Gomes;69,07;Hélder Gonçalves;65,08;Adrián Bustamante;63,16
+221;Aisan Racing Team;65,74;64,5;George Matsui;66,03;Kazuto Minami;65,74;Masahiro Ishigami;65,45
+222;Biesse - Carrera - Premac;65,74;64,51;Michele Bicelli;65,74;Filip Gruszczynski;65,74;Tommaso Bessega;65,74
+223;Equipe continentale Groupama-FDJ;65,74;65,74;Rémi Daumas;65,74;Oscar Nilsson-Julien;65,74;Baptiste Grégoire;65,74
+224;EuroCyclingTrips - CCN;65,74;65,74;Thomas Peyroton-Dartet;65,74;;;;
+225;Gragnano Sporting Club;65,74;65,74;Mattia Piccini;65,74;;;;
+226;HKSI Pro Cycling Team;65,74;65,74;Tsun Wai Chu;65,74;;;;
+227;MENtoRISE Teem CCN;65,74;65,74;Mattew-Denis Piciu;65,74;Iustin-Ioan Văidian;65,74;;
+228;MYVELO Pro Cycling Team;65,74;65,74;Jan Sommer;65,74;;;;
+229;Monogo Lubelskie Perła Polski;65,74;65,74;Paweł Szóstka;65,74;;;;
+230;Nusantara - BYC;65,74;65,74;Astnan Maulana;65,74;;;;
+231;Pauwels Sauzen - Cibel Clementines;65,74;65,74;Viktor Vandenberghe;65,74;Yorben Lauryssen;65,74;;
+232;Pogi Team Gusto Ljubljana;65,74;65,74;Mihael Štajnar;65,74;;;;
+233;Team Amani;65,74;65,74;Desta Amaniel;65,74;;;;
+234;Team UKYO;65,74;65,74;Marc Cabedo;65,74;;;;
+235;Team Vino - North Qazaqstan Region;65,74;65,74;Vladimir Koltunov;65,74;;;;
+236;Victoria Sports Pro Cycling;65,74;65,74;Ean Cajucom;65,74;;;;
+237;Run & Race - Wibatech;65,67;65,67;Bartłomiej Proć;65,67;;;;
+238;China Anta - Mentech Cycling Team;65,65;65,65;Tyler Lange;67,03;Juan Manuel Barboza;65,74;Yevgeniy Gidich;64,18
+239;Bodywrap Men's Cycling Team;65,6;65,6;Kuicheng Wang;65,6;;;;
+240;Go Sport - Roubaix Lille Métropole;65,59;65,59;Jérémy Leveau;65,59;;;;
+241;FNIX - SCOM - Hengxiang Cycling Team;65,37;65,07;Ilya Karabutov;65,74;Aleksandr Shakotko;65,74;Yongbing Gao;64,63
+242;FEIRENSE - BEECELER;65,33;65,33;Diogo Gonçalves;65,74;Byron Munton;64,92;;
+243;Roojai Insurance;65,3;63,08;Maral-Erdene Batmunkh;65,74;Dylan Hopkins;65,25;Patompob Phonarjthan;64,92
+244;MBH Bank Ballan CSB;65,1;63,62;Cesare Chesini;66,03;Leonardo Vesco;65,74;Lorenzo Masciarelli;63,52
+245;Istanbul Büyükșehir Belediye Spor Türkiye;65,07;63,98;Emir Uzun;65,74;Eduardo Pérez-Landaluce;65,74;Even Yemane;63,73
+246;Team Corratec - Vini Fantini;65,04;62,29;Valentin Darbellay;65,42;Jan Stöckli;65,36;Etienne van Empel;64,33
+247;GW Shimano-Sidermec;64,97;64,97;Alessandro Bisolti;69,07;Alejandro Osorio;64,9;Santiago Umba;60,94
+248;CCACHE x BODYWRAP;64,96;64,96;Jack Dohler;65,74;William Heffernan;65,09;Cameron Scott;64,04
+249;Decathlon AG2R La Mondiale Development Team;64,93;64,93;Kasper Haugland;67,03;Arthur Blaise;66,03;Antoine L'Hote;61,74
+250;Hrinkow Advarics;64,85;64,85;Jaka Primožič;66,18;Richard Riška;65,74;Giacomo Ballabio;62,62
+251;UAE Team Emirates Gen Z;64,82;64,82;Ugo Fabries;65,74;Duarte Marivoet;63,91;;
+252;UCI WCC Men's Team;64,81;64,81;Awet Aman;64,81;;;;
+253;Germany;64,75;64,75;Marian Pohlenz;67,96;Tobias Müller;66,61;Miguel Heidemann;59,69
+254;Victoire Hiroshima;64,67;64,67;Leonel Quintero;67,18;Benjamin Dyball;62,16;;
+255;Java - Inovotec Pro Team;64,63;64,63;Patrick Byukusenge;65,74;Moise Mugisha;63,52;;
+256;Elkov - Kasper;64,62;64,62;Michael Boroš;66,2;Tomáš Přidal;63,05;;
+257;Iran;64,58;64,58;Hasan Seyfollahifard;66,39;Aidin Aliyar;62,76;;
+258;Anicolor / Tien 21;64,47;64,47;Pedro Silva;68,32;Artem Nych;67,58;Rafael Reis;57,5
+259;Red Bull - BORA - hansgrohe Rookies;64,45;64,45;Nate Pringle;68,17;Lennart Jasch;63,16;Adrien Boichis;62,01
+260;TDT - Unibet Cycling Team;64,45;61,77;Yentl Vandevelde;65,15;Jordy Bouts;64,68;Charles Paige;63,52
+261;Australia;64,44;63,68;Oliver Bleddyn;66,03;Matthew Fox;63,81;Zac Marriage;63,48
+262;Chengdu DYC Cycling Team;64,43;64,43;Petr Rikunov;67,41;Andrei Stepanov;65,74;Timofei Ivanov;60,13
+263;Team Vorarlberg;64,41;64,41;Óscar Cabedo;68,59;Jannis Peter;62,43;Colin Stüssi;62,2
+264;Austria;64,39;64,39;Johannes Hirschbichler;65,74;Philipp Hofbauer;63,05;;
+265;St Michel - Preference Home - Auber93;64,31;62,82;Yohann Simon;65,74;Nicolas Breuillard;64,69;Dillon Corkery;62,5
+266;Team dsm - firmenich;64,31;64,31;Jonas Hem Hvideberg;64,31;;;;
+267;Quick Pro Team;64,3;64,3;Oskar Küüt;66,6;Martin Laas;61,99;;
+268;Estonia;64,23;63,35;Romet Pajur;67,89;Oskar Nisu;63,63;Rait Ärm;61,18
+269;Global 6 Cycling;64,21;64,21;Iván Moreno;68,03;Nícolas Sessler;60,39;;
+270;Hengxiang Cycling Team;64,21;64,21;Dongyi Hou;69,14;Māris Bogdanovičs;59,28;;
+271;Uzbekistan;64,12;64,12;Muradjan Khalmuratov;65,11;Nikita Tsvetkov;64,5;Dmitriy Bocharov;62,76
+272;Israel Premier Tech Academy;64,06;64,06;Jens Verbrugghe;65,74;Pau Martí;62,38;;
+273;Matrix Powertag;64,06;62,53;Marino Kobayashi;64,63;José Vicente Toribio;63,91;Francisco Mancebo;63,64
+274;Van Rysel - Roubaix;64,01;62,48;Kenny Molly;64,63;Valentin Tabellion;63,95;Samuel Leroux;63,45
+275;Malaysia;63,95;63,95;Ren Bao Tsen;64,31;Muhammad Nur Aiman Bin Rosli;63,59;;
+276;Pierre Baguette Cycling;63,95;63,95;Tomáš Sivok;65,74;Martin Voltr;62,17;;
+277;Team Corratec;63,91;63,91;Samuele Zambelli;68,4;German Nicolás Tivani;59,41;;
+278;Huansheng - Vonoa - Taishan Sport Team;63,89;63,89;Eduard-Michael Grosu;64,05;Cristian David Pita;63,73;;
+279;Monzon - Incolor - Gub;63,84;63,84;Kristiāns Belohvoščiks;66,03;Filippo Tagliani;61,65;;
+280;APHotels & Resorts / Tavira / SC Farense;63,81;63,81;Francisco Campos;65,74;Diogo Barbosa;63,66;Afonso Silva;62,03
+281;Voster ATS Team;63,77;63,77;Radosław Frątczak;65,74;Mateusz Kostański;63,61;Patryk Stosz;61,95
+282;Baloise Glowi Lions;63,76;63,22;David Haverdings;66,63;Olivier Godfroid;63,05;Seppe Van Den Boer;61,59
+283;Wagner Bazin WB;63,46;61,92;Jelle Vermoote;65,74;Quentin Bezza;62,76;Henri-François Renard-Haquin;61,87
+284;Kinan Cycling Team;63,37;63,37;Ryan Cavanagh;68,64;Drew Morey;58,09;;
+285;GI Group Holding - Simoldes - UDO;63,28;63,28;Gaspar Gonçalves;65,74;Rui Carvalho;60,83;;
+286;Malaysia Pro Cycling;63,25;63,25;Zulfikri Zulkifli;66,47;Mohamad Izzat Hilmi Abdul Halil;60,04;;
+287;Factor Racing;63,24;63,24;Henrique da Silva Avancini;63,24;;;;
+288;Aviludo - Louletano - Loulé Concelho;63,13;63,13;Jesus del Pino;63,56;Tomas Contte;62,7;;
+289;Illes Balears Arabay;63,11;63,11;Alvaro Sagrado;64,45;Ricard Fitó;62,76;José María García;62,12
+290;REMBE | rad-net;63,07;63,07;Jonathan Malte Rottmann;64,81;Bruno Kessler;62,76;Ole Theiler;61,65
+291;Japan;63,05;63,05;Sohei Kaneko;63,05;;;;
+292;Colombia;62,83;62,83;Walter Vargas;62,83;;;;
+293;Lotto Development Team;62,81;62,81;Milan Donie;64,17;Aldo Taillieu;63,91;Jarno Widar;60,36
+294;The Hurricane & Thunder Cycling Team;62,76;62,76;James Jobber;62,76;;;;
+295;CIC - U - Nantes;62,63;62,18;Mathias Sanlaville;63,81;Yaël Joalland;62,78;Joris Chaussinand;61,3
+296;Van Rysel Roubaix;62,21;62,21;Daniel Årnes;65,74;Killian Théot;62,76;Maxime Jarnet;58,13
+297;Kinan Racing Team;61,97;61,97;Taishi Miyazaki;66,03;Thomas Lebas;57,91;;
+298;Maloja Pushbikers;61,77;61,77;Roy Eefting-Bloem;63,81;Filippo Fortin;61,45;Matias Malmberg;60,05
+299;Benotti Berthold;61,72;61,72;Patrick Reißig;61,72;;;;
+300;Ireland;61,47;61,47;Ryan Mullen;61,47;;;;
+301;Team Lotto Kern-Haus PSD Bank;59,59;59,59;Joshua Huppertz;59,59;;;;
+302;WSA KTM Graz;59,5;59,5;Martin Messner;59,5;;;;

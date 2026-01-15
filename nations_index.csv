@@ -1,0 +1,76 @@
+﻿Rank;Country;Nation_Index;Nation_Strength;Top1_Rider;Top1_Index;Top2_Rider;Top2_Index;Top3_Rider;Top3_Index
+1;Denmark;94,28;79,99;Jonas Vingegaard;97,41;Mads Pedersen;94,32;Mattias Skjelmose;91,12
+2;Belgium;90,51;85,49;Remco Evenepoel;95,97;Wout van Aert;88,92;Arnaud De Lie;86,65
+3;Slovenia;89,87;74,4;Tadej Pogačar;99,27;Primož Roglič;90,59;Matej Mohorič;79,74
+4;Italy;87,69;82,22;Filippo Ganna;90,28;Giulio Ciccone;88,88;Jonathan Milan;83,91
+5;Netherlands;87,39;77,75;Mathieu van der Poel;96,95;Thymen Arensman;82,86;Olav Kooij;82,35
+6;Great Britain;87,24;80,01;Thomas Pidcock;90,55;Simon Yates;85,71;Adam Yates;85,46
+7;Spain;86,48;80,86;Juan Ayuso;89,26;Enric Mas;86,59;Mikel Landa;83,59
+8;United States;85,98;79,8;Matteo Jorgenson;87,43;Brandon McNulty;86,93;Neilson Powless;83,57
+9;Australia;85,88;80,02;Michael Matthews;88,6;Ben O'Connor;84,63;Jai Hindley;84,41
+10;France;84,56;81,03;Kévin Vauquelin;85,51;Julian Alaphilippe;84,88;Pavel Sivakov;83,29
+11;Ecuador;80,27;71,71;Richard Carapaz;85,6;Jhonatan Narváez;83,2;Harold Martín López;72,02
+12;Switzerland;79,87;74,22;Stefan Küng;81,99;Marc Hirschi;79,46;Mauro Schmid;78,17
+13;Norway;79,65;74,34;Tobias Halland Johannessen;81,36;Søren Wærenskjold;79,79;Jonas Abrahamsen;77,81
+14;Portugal;79,64;72,65;João Almeida;93,86;António Morgado;75,34;Henrique Casimiro;69,71
+15;Colombia;79,44;74,13;Egan Bernal;81,77;Santiago Buitrago;79,09;Einer Rubio;77,45
+16;Germany;78,54;73,49;Florian Lipowitz;87,97;Phil Bauhaus;73,96;Pascal Ackermann;73,7
+17;Ireland;78,2;71,43;Ben Healy;88,71;Rory Townsend;73,18;Eddie Dunbar;72,72
+18;New Zealand;77,52;72,47;Corbin Strong;79,22;Laurence Pithie;77,1;Finn Fisher-Black;76,25
+19;Canada;76,01;70,14;Derek Gee;84,66;Michael Woods;72,63;Derek Gee-West;70,75
+20;Mexico;75,51;68,78;Isaac del Toro;87,39;Eder Frayre;69,68;Isaac Del Toro;69,46
+21;Austria;74,84;70,73;Felix Gall;84,22;Felix Großschartner;71,04;Lukas Pöstlberger;69,27
+22;Eritrea;74,29;69,55;Biniam Girmay;78,83;Henok Mulubrhan;74,25;Natnael Tesfatsion;69,78
+23;Latvia;73,15;66,6;Toms Skujiņš;82,41;Alekss Krasts;69,07;Kristers Ansons;67,96
+24;Czechia;71,59;69;Pavel Bittner;72,96;Mathias Vacek;72,74;Michael Kukrle;69,07
+25;Poland;70,77;69,45;Stanisław Aniołkowski;71,07;Michał Kwiatkowski;70,85;Rafał Majka;70,38
+26;Russia;70,14;67,69;Aleksandr Vlasov;73,87;Roman Maikin;68,45;Ivan Smirnov;68,1
+27;Uruguay;70,04;70,04;Guillermo Thomas Silva;73,19;Eric Antonio Fagúndez;68,53;Mauricio Moreira;68,4
+28;Estonia;70,02;66,97;Madis Mihkels;71;Gert Kivistik;69,93;Markus Pajur;69,14
+29;Venezuela;69,95;68,1;Orluis Aular;72,3;Roniel Campos;68,79;Yonathan Monsalve;68,75
+30;Kazakhstan;69,59;68,99;Andrey Zeits;69,76;Alexey Lutsenko;69,56;Ruslan Aliyev;69,46
+31;Mauritius;69,56;69,56;Christopher Rougier-Lagane;70,04;Alexandre Mayer;69,07;;
+32;Algeria;69,52;69,52;Hamza Amari;70,14;Azzedine Lagab;69,36;Youcef Reguigui;69,07
+33;Argentina;69,51;66,5;Leandro Carlos Messineo;69,68;Juan Pablo Dotti;69,46;Maximiliano Richeze;69,39
+34;Indonesia;69,16;68,28;Muhammad Andy Royan;69,28;Abdul Gani;69,14;Bernard van Aert;69,07
+35;South Africa;69,16;67,84;Daryl Impey;69,32;Kent Main;69,08;Brandon Downes;69,07
+36;Japan;69,15;68,99;Shotaro Iribe;69,25;Yusuke Kadota;69,14;Tadaaki Nakai;69,07
+37;China;69,14;69,1;Boan Li;69,14;Geng Teng;69,14;Haijie Hu;69,14
+38;Morocco;69,07;69,07;Adil El Arbaoui;69,07;Youssef Bdadou;69,07;Achraf Ed Doghmy;69,07
+39;Philippines;69,03;68,07;Marcelo Felipe;69,61;Nichol Blanca Pareja;69,39;Jericho Lucero;68,1
+40;Thailand;69,03;67,17;Ratchanon Yaowarat;69,14;Arttasorn Pansaard;69,07;Noppachai Klahan;68,89
+41;Costa Rica;68,73;68,73;Andrey Amador;68,73;;;;
+42;Sweden;68,72;67,06;Hjalmar Klyver;69,46;Hugo Forssell;69,39;David Larsson;67,31
+43;Hungary;68,57;66,07;Bálint Feldhoffer;69,17;Péter Kusztor;68,42;Attila Valter;68,11
+44;Luxembourg;68,55;65,36;Colin Heiderscheid;69,28;Loïc Bettendorff;69,07;Mathieu Kockelmann;67,31
+45;Ethiopia;68,48;66,54;Kiya Rogora;69,07;Tsgabu Grmay;68,48;Negasi Haylu Abreha;67,89
+46;Finland;68,48;65,73;Axel Källberg;69,07;Antti-Jussi Juntunen;69,07;Kasper Borremans;67,31
+47;Slovakia;68,36;65,61;Peter Sagan;69,3;Matúš Štoček;68,5;Lukáš Kubiš;67,28
+48;Israel;68,34;64,81;Edo Goldstein;69,14;Jonatan Abudraham;69,07;Oded Kogut;66,81
+49;Iran;68,32;66,77;Khalil Khorshid;69,28;Aidin Aliyari;69,07;Amir Hossein Vatan;66,6
+50;Mongolia;68,25;64,83;Bilguunjargal Erdenebat;69,07;Myagmarsuren Baasankhuu;68,28;Bold Iderbold;67,39
+51;Taiwan;68,21;68,21;Shao Hsuan Lu;69,53;Kun Hung Hung;69,07;Chun Kai Feng;66,03
+52;South Korea;68,16;66,56;Daeyeong Joo;69,14;Kyung-Gu Jang;68,29;Sanghong Park;67,06
+53;Grenada;68,14;68,14;Red Walters;68,14;;;;
+54;Rwanda;68,05;66,04;Eric Muhoza;69,14;Samuel Niyonkuru;69,07;Vainqueur Masengesho;65,95
+55;Belarus;67,98;67,98;Alexandr Riabushenko;68,33;Siarhei Shauchenka;68,1;Raman Tsishkou;67,51
+56;Iraq;67,4;67,4;Abdullah Wehbi;69,07;Sulaiman Sulaiman;65,74;;
+57;Turkey;67,31;66,28;Burak Abay;68,1;Serdar Anıl Depe;68,1;Emir Uzun;65,74
+58;Romania;67,11;66,22;Emil Dima;69,14;Cristian Raileanu;66,44;Mattew-Denis Piciu;65,74
+59;Malaysia;67,09;64,85;Muhammad Nur Aiman Mohd Zariff;69,07;Zulfikri Zulkifli;66,47;Wan Abdul Rahman Hamdan;65,74
+60;Lithuania;66,5;66,5;Venantas Lašinis;68,75;Rokas Kmieliauskas;67,96;Aivaras Mikutis;62,78
+61;Monaco;66,44;66,44;Victor Langellotti;70,86;Antoine Berlin;62,03;;
+62;Ukraine;66,44;65,13;Mark Padun;68,82;Kyrylo Tsarenko;68,34;Anatolii Budiak;62,16
+63;Croatia;66,33;66,33;Viktor Potočki;69,14;Fran Miholjević;63,52;;
+64;Uzbekistan;66,23;65,36;Sergey Rostovtsev;69,07;Muradjan Khalmuratov;65,11;Nikita Tsvetkov;64,5
+65;Puerto Rico;65,91;65,91;Abner González;65,91;;;;
+66;Cyprus;65,88;65,88;Andreas Miltiadis;66,01;Bogdan Zabelinskiy;65,74;;
+67;Hong Kong;65,74;65,74;Tsun Wai Chu;65,74;;;;
+68;Greece;64,21;64,21;Polychronis Tzortzakis;69;Periklis Ilias;66,65;Georgios Bouglas;56,97
+69;Brazil;63,54;63,54;Vinícius Rangel;66,99;Henrique da Silva Avancini;63,24;Nícolas Sessler;60,39
+70;Guatemala;63,3;63,3;Sergio Geovani Chumil;63,3;;;;
+71;Laos;61,79;61,79;Ariya Phounsavath;61,79;;;;
+72;Serbia;60,16;60,16;Dušan Rajović;60,16;;;;
+73;Chile;59,93;59,93;Vicente Rojas;59,93;;;;
+74;Panama;58,71;58,71;Roberto Carlos González;58,88;Carlos Samudio;58,54;;
+75;Malta;57,88;57,88;Andrea Mifsud;57,88;;;;
