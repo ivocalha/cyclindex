@@ -106,23 +106,41 @@
     }
     .footer-left{display:flex;align-items:center;gap:0.8rem;}
     .season-label{font-weight:600;opacity:0.85;}
-    #season-select{
-      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
-      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
-      outline:none;cursor:pointer;transition:all .2s;
-    }
-    #season-select:hover{border-color:#3b82f6;}
-    #season-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
-    #season-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
-    #spec-select{
-      background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.3);
-      border-radius:0.5rem;padding:0.4rem 0.8rem;color:white;font-size:0.9rem;
-      outline:none;cursor:pointer;transition:all .2s;
-    }
-    #spec-select:hover{border-color:#3b82f6;}
-    #spec-select:focus{border-color:#3b82f6;background:rgba(255,255,255,0.15);}
-    #spec-select option{background:white !important;color:black !important;font-size:0.95rem;padding:0.5rem;}
 
+    #season-select,
+    #spec-select,
+    #metric-select,
+    #gender-select{
+      background:rgba(15,23,42,0.8);
+      border:1px solid rgba(255,255,255,0.3);
+      border-radius:0.5rem;
+      padding:0.4rem 0.8rem;
+      color:white;
+      font-size:0.9rem;
+      outline:none;
+      cursor:pointer;
+      transition:all .2s;
+    }
+    #season-select:hover,
+    #spec-select:hover,
+    #metric-select:hover,
+    #gender-select:hover{border-color:#3b82f6;}
+    #season-select:focus,
+    #spec-select:focus,
+    #metric-select:focus,
+    #gender-select:focus{
+      border-color:#3b82f6;
+      background:rgba(255,255,255,0.15);
+    }
+    #season-select option,
+    #spec-select option,
+    #metric-select option,
+    #gender-select option{
+      background:white !important;
+      color:black !important;
+      font-size:0.95rem;
+      padding:0.5rem;
+    }
     /* Copyright now perfectly aligned to the far right */
     #copyright{text-align:right;flex:1;}
 
@@ -270,12 +288,34 @@
 
   <footer>
     <div class="footer-left">
+
+      <!-- Metric (FIRST) -->
+      <span class="season-label">Metric</span>
+      <select id="metric-select">
+        <option value="INDEX" selected>Index</option>
+        <option value="SCORE">Score</option>
+      </select>
+
+      <!-- Season -->
       <span class="season-label">Season</span>
-      <select id="season-select"><option>Loading seasons...</option></select>
+      <select id="season-select">
+        <option>Loading seasons...</option>
+      </select>
+
+      <!-- Spec -->
       <span class="season-label">Spec</span>
-      <select id="spec-select"><option>Loading specs...</option></select>
+      <select id="spec-select">
+        <option>Loading specs...</option>
+      </select>
+
+      <!-- Gender (LAST) -->
+      <span class="season-label">Gender</span>
+      <select id="gender-select">
+        <option value="MEN" selected>Men</option>
+      </select>
+
     </div>
-    <div></div> <!-- empty spacer to push copyright right -->
+    <div></div>
     <div id="copyright"></div>
   </footer>
 
@@ -506,6 +546,7 @@ mobileBtn?.addEventListener('click', () => {
 </body>
 
 </html>
+
 
 
 
