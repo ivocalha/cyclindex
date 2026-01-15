@@ -315,7 +315,7 @@
     }
 
     function loadIndexData() {
-      loadLatestResults(currentSeason); // keep latest & upcoming even in Index mode
+      loadLatestResults(currentSeason);
       loadUpcomingRaces();
       loadTopRidersIndex();
       loadTopTeamsIndex();
@@ -326,14 +326,14 @@
     seasonSelect.addEventListener('change', () => {
       currentSeason = seasonSelect.value;
       if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
-      else loadLatestResults(currentSeason); // refresh latest/upcoming if season changes in Index mode
+      else loadLatestResults(currentSeason);
     });
     specSelect.addEventListener('change', () => {
       currentSpec = specSelect.value;
       if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
     });
 
-    // ── Load seasons & specs (only used in Score mode) ──────────────────────────────
+    // Load seasons & specs (used in Score mode)
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -378,7 +378,7 @@
         });
     }
 
-    // ── Score mode functions (original) ────────────────────────────────────────────
+    // ── Score mode functions ────────────────────────────────────────────
     function loadAllData(season, spec) {
       loadLatestResults(season);
       loadTopRiders(season, spec);
@@ -494,33 +494,44 @@
         });
     }
 
-    // ── Index mode functions ───────────────────────────────────────────────────────
+    // ── Index mode ───────────────────────────────────────────────────────
     function loadTopRidersIndex() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/riders-index.csv')
         .then(r => r.text())
         .then(text => {
           if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
+          const lines = text.split('\n').filter(l => l.trim());
           const top = [];
-          // Skip header
+          // Skip header row (first line)
           for (let i = 1; i < lines.length && top.length < 10; i++) {
-            const p = lines[i].split(';');
-            if (p.length < 8) continue;
+            const p = lines[i].split(';').map(s => s.trim());
+            if (p.length < 62) continue;
+
             const rank   = fmtInt(p[0]);
-            const rider  = p[1]?.trim() || '';
-            const nation = p[2]?.trim() || '';
-            const team   = p[3]?.trim() || '';
-            const p1     = fmtDec(p[23]); // Score_P1
-            const p2     = fmtDec(p[45]); // Score_P2 (index 23 + 22 columns later)
-            const p3     = fmtDec(p[67]); // Score_P3
+            const rider  = p[1] || '–';
+            const nation = p[2] || '–';
+            const team   = p[3] || '–';
+            const p1     = fmtDec(p[23]);  // Score_P1
+            const p2     = fmtDec(p[42]);  // Score_P2
+            const p3     = fmtDec(p[61]);  // Score_P3
             const index  = fmtDec(p[4]);
-            top.push({rank, nation, rider, team, p1, p2, p3, index});
+
+            if (rank !== '–' && rider !== '–') {
+              top.push({rank, nation, rider, team, p1, p2, p3, index});
+            }
           }
+
           document.querySelector('#top-riders-table thead tr').innerHTML =
             '<th>#</th><th></th><th>Rider</th><th>Team</th><th>P1</th><th>P2</th><th>P3</th><th>Index</th>';
+
           document.querySelector('#top-riders-table tbody').innerHTML = top.length
             ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.nation)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.p1}</td><td>${t.p2}</td><td>${t.p3}</td><td>${t.index}</td></tr>`).join('')
-            : '<tr><td colspan="8">No data</td></tr>';
+            : '<tr><td colspan="8">No data available</td></tr>';
+        })
+        .catch(err => {
+          console.error(err);
+          document.querySelector('#top-riders-table tbody').innerHTML = 
+            '<tr><td colspan="8">Error loading riders index</td></tr>';
         });
     }
 
@@ -532,14 +543,14 @@
           const lines = text.split('\n');
           const out = [];
           for (let i = 1; i < lines.length && out.length < 5; i++) {
-            const p = lines[i].split(';');
+            const p = lines[i].split(';').map(s => s.trim());
             if (p.length < 3) continue;
             const rank  = fmtInt(p[0]);
-            const team  = p[1]?.trim() || '';
+            const team  = p[1] || '–';
             const index = fmtDec(p[2]);
             out.push({rank, team, index});
           }
-          out.sort((a,b) => a.rank - b.rank);
+          out.sort((a,b) => Number(a.rank) - Number(b.rank));
           document.querySelector('#top-teams-table thead tr').innerHTML =
             '<th>#</th><th>Team</th><th>Index</th>';
           document.querySelector('#top-teams-table tbody').innerHTML = out.length
@@ -556,14 +567,14 @@
           const lines = text.split('\n');
           const out = [];
           for (let i = 1; i < lines.length && out.length < 5; i++) {
-            const p = lines[i].split(';');
+            const p = lines[i].split(';').map(s => s.trim());
             if (p.length < 3) continue;
             const rank   = fmtInt(p[0]);
-            const nation = p[1]?.trim() || '';
+            const nation = p[1] || '–';
             const index  = fmtDec(p[2]);
             out.push({rank, nation, index});
           }
-          out.sort((a,b) => a.rank - b.rank);
+          out.sort((a,b) => Number(a.rank) - Number(b.rank));
           document.querySelector('#top-nations-table thead tr').innerHTML =
             '<th>#</th><th>Nation</th><th>Index</th>';
           document.querySelector('#top-nations-table tbody').innerHTML = out.length
@@ -572,7 +583,6 @@
         });
     }
 
-    // Upcoming races (used in both modes)
     function loadUpcomingRaces() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
         .then(r => r.text())
@@ -606,6 +616,7 @@
   </script>
 </body>
 </html>
+
 
 
 
