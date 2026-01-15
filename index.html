@@ -22,7 +22,7 @@
       --fade-duration: 0.4s;
     }
 
-     .nav-bar {
+    .nav-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-height);
@@ -33,7 +33,7 @@
       z-index: 3000;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-	.nav-left{display:flex;align-items:center;gap:0.9rem;}
+    .nav-left{display:flex;align-items:center;gap:0.9rem;}
     .nav-logo{height:36px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
     .nav-title{font-family:'Suissnord',sans-serif;font-size:1.55rem;margin:0;color:white;}
     .nav-links {
@@ -141,55 +141,55 @@
       font-size:0.95rem;
       padding:0.5rem;
     }
-    /* Copyright now perfectly aligned to the far right */
+
+    #season-group.hidden { display: none; }
+
     #copyright{text-align:right;flex:1;}
 
     @media (max-width:1460px){
       .grid-container{grid-template-columns:260px 1fr 380px;gap:1.2rem;}
       .content-area{padding:1rem;}
     }
-	@media (max-width: 1024px){
-	html, body{
-    overflow-y: auto;
-    height: auto;
-	}
-	}
-	@media (max-width: 1024px){
-	.nav-bar,
-	.content-area,
-	footer{
-    position: relative;
-	}
+    @media (max-width: 1024px){
+      html, body{ overflow-y: auto; height: auto; }
+    }
+    @media (max-width: 1024px){
+      .nav-bar, .content-area, footer{ position: relative; }
+      .content-area{ top: auto; bottom: auto; padding-top: 1rem; padding-bottom: 1rem; overflow: visible; }
+    }
+    @media (max-width: 1024px){
+      .grid-container{ grid-template-columns: 1fr; height: auto; }
+      .left-col, .center-col, .right-col{ grid-template-rows: auto; }
+    }
+    @media (max-width: 1024px){
+      .block{ overflow-x: auto; }
+      table{ min-width: 520px; }
+    }
 
-	.content-area{
-    top: auto;
-    bottom: auto;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    overflow: visible;
-	}
-	}
-	@media (max-width: 1024px){
-	.grid-container{
-    grid-template-columns: 1fr;
-    height: auto;
-	}
-
-	.left-col,
-	.center-col,
-	.right-col{
-    grid-template-rows: auto;
-	}
-	}
-	@media (max-width: 1024px){
-	.block{
-    overflow-x: auto;
-	}
-
-	table{
-    min-width: 520px;
-	}
-	}
+    /* Mobile navigation */
+    @media (max-width: 1024px){
+      .nav-links, .ig-nav{ display: none; }
+      .mobile-menu-btn{ display: block; font-size: 1.8rem; cursor: pointer; user-select: none; }
+      .mobile-menu{
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background: rgba(15,23,42,0.98);
+        backdrop-filter: blur(16px);
+        padding: 1rem;
+        z-index: 4000;
+      }
+      .mobile-menu a{
+        display: block;
+        font-family: 'Suissnord', sans-serif;
+        font-size: 1.3rem;
+        padding: 0.6rem 0;
+        color: white;
+        text-decoration: none;
+      }
+      .mobile-menu a:not(:last-child){ border-bottom: 1px solid rgba(255,255,255,0.15); }
+    }
   </style>
 </head>
 <body>
@@ -206,19 +206,20 @@
       <a href="nation-score.html">Nations</a>
       <a href="how_it_works.html">How It Works</a>
     </div>
-	<div class="mobile-menu-btn">☰</div>
+    <div class="mobile-menu-btn">&#9776;</div>
     <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Instagram">
       <div class="ig-nav"></div>
     </a>
   </div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="results-log.html">Results</a>
-  <a href="rider-score.html">Riders</a>
-  <a href="team-score.html">Teams</a>
-  <a href="nation-score.html">Nations</a>
-  <a href="how_it_works.html">How It Works</a>
-  <a href="https://www.instagram.com/cyclindex/" target="_blank">Instagram</a>
-</div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="results-log.html">Results</a>
+    <a href="rider-score.html">Riders</a>
+    <a href="team-score.html">Teams</a>
+    <a href="nation-score.html">Nations</a>
+    <a href="how_it_works.html">How It Works</a>
+    <a href="https://www.instagram.com/cyclindex/" target="_blank">Instagram</a>
+  </div>
 
   <div class="content-area">
     <div class="grid-container">
@@ -255,8 +256,8 @@
       </select>
 
       <!-- Season -->
-      <span class="season-label">Season</span>
-      <select id="season-select">
+      <span class="season-label season-group" id="season-label">Season</span>
+      <select id="season-select" class="season-group">
         <option>Loading seasons...</option>
       </select>
 
@@ -266,7 +267,7 @@
         <option>Loading specs...</option>
       </select>
 
-      <!-- Gender (LAST) -->
+      <!-- Gender -->
       <span class="season-label">Gender</span>
       <select id="gender-select">
         <option value="MEN" selected>Men</option>
@@ -280,11 +281,13 @@
   <script>
     document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Cyclindex`;
 
-    const seasonSelect = document.getElementById('season-select');
-    const specSelect = document.getElementById('spec-select');
-    const metricSelect = document.getElementById('metric-select');
+    const metricSelect   = document.getElementById('metric-select');
+    const seasonSelect   = document.getElementById('season-select');
+    const seasonLabel    = document.getElementById('season-label');
+    const seasonGroup    = document.querySelectorAll('.season-group');
+    const specSelect     = document.getElementById('spec-select');
     let currentSeason = null;
-    let currentSpec = 'OVERALL';
+    let currentSpec   = 'OVERALL';
     let currentMetric = 'INDEX';
 
     const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
@@ -297,17 +300,40 @@
               </div>`;
     };
 
-    const fmtInt = v => !v || v.trim() === '' ? '–' : Math.round(parseFloat(v.replace(',', '.')));
-    const fmtDec = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
+    const fmtInt  = v => !v || v.trim()==='' ? '–' : Math.round(parseFloat(v.replace(',','.')));
+    const fmtDec  = v => !v || v.trim()==='' ? '–' : (parseFloat(v.replace(',','.')) || v.trim()).toFixed(2).replace('.', ',');
 
-    // ──────────────────────────────────────────────────────────────────────────────
-    // Metric change listener + initial load
-    // ──────────────────────────────────────────────────────────────────────────────
-    metricSelect.addEventListener('change', () => {
+    function updateVisibility() {
       currentMetric = metricSelect.value;
-      loadAllData(currentSeason, currentSpec);
+      if (currentMetric === 'INDEX') {
+        seasonGroup.forEach(el => el.classList.add('hidden'));
+        loadIndexData();
+      } else {
+        seasonGroup.forEach(el => el.classList.remove('hidden'));
+        loadAllData(currentSeason, currentSpec);
+      }
+    }
+
+    function loadIndexData() {
+      loadLatestResults(currentSeason); // keep latest & upcoming even in Index mode
+      loadUpcomingRaces();
+      loadTopRidersIndex();
+      loadTopTeamsIndex();
+      loadTopNationsIndex();
+    }
+
+    metricSelect.addEventListener('change', updateVisibility);
+    seasonSelect.addEventListener('change', () => {
+      currentSeason = seasonSelect.value;
+      if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
+      else loadLatestResults(currentSeason); // refresh latest/upcoming if season changes in Index mode
+    });
+    specSelect.addEventListener('change', () => {
+      currentSpec = specSelect.value;
+      if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
     });
 
+    // ── Load seasons & specs (only used in Score mode) ──────────────────────────────
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
       .then(text => {
@@ -322,14 +348,14 @@
           .filter(s => s.length === 4 && !isNaN(s))
           .sort((a, b) => b - a);
 
-        if (seasonArray.length === 0) {
+        if (seasonArray.length > 0) {
+          currentSeason = seasonArray[0];
+          seasonSelect.innerHTML = seasonArray.map(y =>
+            `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
+          ).join('');
+        } else {
           seasonSelect.innerHTML = '<option>No seasons found</option>';
-          return;
         }
-        currentSeason = seasonArray[0];
-        seasonSelect.innerHTML = seasonArray.map(y =>
-          `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
-        ).join('');
         loadSpecOptions();
       });
 
@@ -348,38 +374,18 @@
           specSelect.innerHTML = specArray.map(s =>
             `<option value="${s}" ${s === 'OVERALL' ? 'selected' : ''}>${s}</option>`
           ).join('');
-          loadAllData(currentSeason, currentSpec);
+          updateVisibility(); // initial load
         });
     }
 
-    seasonSelect.addEventListener('change', () => {
-      currentSeason = seasonSelect.value;
-      loadAllData(currentSeason, currentSpec);
-    });
-
-    specSelect.addEventListener('change', () => {
-      currentSpec = specSelect.value;
-      loadAllData(currentSeason, currentSpec);
-    });
-
+    // ── Score mode functions (original) ────────────────────────────────────────────
     function loadAllData(season, spec) {
       loadLatestResults(season);
+      loadTopRiders(season, spec);
+      loadTopTeams(season, spec);
+      loadTopNations(season, spec);
       loadUpcomingRaces();
-
-      if (currentMetric === 'INDEX') {
-        loadTopRidersIndex(season);
-        loadTopTeamsIndex(season);
-        loadTopNationsIndex(season);
-      } else {
-        loadTopRiders(season, spec);
-        loadTopTeams(season, spec);
-        loadTopNations(season, spec);
-      }
     }
-
-    // ──────────────────────────────────────────────────────────────────────────────
-    // Existing functions (unchanged) - Score mode
-    // ──────────────────────────────────────────────────────────────────────────────
 
     function loadLatestResults(season) {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
@@ -440,7 +446,6 @@
             }
           }
           top.sort((a,b) => a.rank - b.rank);
-          document.querySelector('#top-riders-table thead tr').innerHTML = '<th>#</th><th></th><th>Rider</th><th>Team</th><th>Best</th><th>2nd</th><th>3rd</th><th>Score</th>';
           document.querySelector('#top-riders-table tbody').innerHTML = top.length
             ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.nation)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.best}</td><td>${t.second}</td><td>${t.third}</td><td>${t.score}</td></tr>`).join('')
             : '<tr><td colspan="8">No data</td></tr>';
@@ -462,7 +467,6 @@
             if (rank > 0 && rank <= 5) out.push({rank, team: p[3].trim(), score: fmtDec(p[16])});
           }
           out.sort((a,b)=>a.rank-b.rank);
-          document.querySelector('#top-teams-table thead tr').innerHTML = '<th>#</th><th>Team</th><th>Score</th>';
           document.querySelector('#top-teams-table tbody').innerHTML = out.length
             ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
@@ -484,115 +488,91 @@
             if (rank > 0 && rank <= 5) out.push({rank, nation: p[3].trim(), score: fmtDec(p[14])});
           }
           out.sort((a,b)=>a.rank-b.rank);
-          document.querySelector('#top-nations-table thead tr').innerHTML = '<th>#</th><th>Nation</th><th>Score</th>';
           document.querySelector('#top-nations-table tbody').innerHTML = out.length
             ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
         });
     }
 
-    // ──────────────────────────────────────────────────────────────────────────────
-    // New Index mode functions
-    // ──────────────────────────────────────────────────────────────────────────────
-
-    function loadTopRidersIndex(season) {
+    // ── Index mode functions ───────────────────────────────────────────────────────
+    function loadTopRidersIndex() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/riders-index.csv')
         .then(r => r.text())
         .then(text => {
           if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
           const lines = text.split('\n');
           const top = [];
-          for (let i = 1; i < lines.length; i++) {
+          // Skip header
+          for (let i = 1; i < lines.length && top.length < 10; i++) {
             const p = lines[i].split(';');
             if (p.length < 8) continue;
-            if (p[0]?.trim() !== season) continue; // assuming first column = Season
-            const rank = parseInt(p[1]?.trim() || 999);
-            if (rank >= 1 && rank <= 10) {
-              top.push({
-                rank,
-                country: p[3]?.trim() || '',
-                rider: p[2]?.trim() || '',
-                team: p[4]?.trim() || '',
-                p1: fmtDec(p[5]),
-                p2: fmtDec(p[6]),
-                p3: fmtDec(p[7]),
-                index: fmtDec(p[8] || p[9]) // Index is usually last or near last
-              });
-            }
+            const rank   = fmtInt(p[0]);
+            const rider  = p[1]?.trim() || '';
+            const nation = p[2]?.trim() || '';
+            const team   = p[3]?.trim() || '';
+            const p1     = fmtDec(p[23]); // Score_P1
+            const p2     = fmtDec(p[45]); // Score_P2 (index 23 + 22 columns later)
+            const p3     = fmtDec(p[67]); // Score_P3
+            const index  = fmtDec(p[4]);
+            top.push({rank, nation, rider, team, p1, p2, p3, index});
           }
-          top.sort((a,b) => a.rank - b.rank);
-          document.querySelector('#top-riders-table thead tr').innerHTML = '<th>#</th><th></th><th>Rider</th><th>Team</th><th>P1</th><th>P2</th><th>P3</th><th>Index</th>';
+          document.querySelector('#top-riders-table thead tr').innerHTML =
+            '<th>#</th><th></th><th>Rider</th><th>Team</th><th>P1</th><th>P2</th><th>P3</th><th>Index</th>';
           document.querySelector('#top-riders-table tbody').innerHTML = top.length
-            ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.country)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.p1}</td><td>${t.p2}</td><td>${t.p3}</td><td>${t.index}</td></tr>`).join('')
+            ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.nation)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.p1}</td><td>${t.p2}</td><td>${t.p3}</td><td>${t.index}</td></tr>`).join('')
             : '<tr><td colspan="8">No data</td></tr>';
-        })
-        .catch(() => {
-          document.querySelector('#top-riders-table tbody').innerHTML = '<tr><td colspan="8">Error loading index data</td></tr>';
         });
     }
 
-    function loadTopTeamsIndex(season) {
+    function loadTopTeamsIndex() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/teams-index.csv')
         .then(r => r.text())
         .then(text => {
           if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
           const lines = text.split('\n');
-          const top = [];
-          for (let i = 1; i < lines.length; i++) {
+          const out = [];
+          for (let i = 1; i < lines.length && out.length < 5; i++) {
             const p = lines[i].split(';');
             if (p.length < 3) continue;
-            if (p[0]?.trim() !== season) continue;
-            const rank = parseInt(p[1]?.trim() || 999);
-            if (rank >= 1 && rank <= 5) {
-              top.push({
-                rank,
-                team: p[2]?.trim() || '',
-                index: fmtDec(p[3])
-              });
-            }
+            const rank  = fmtInt(p[0]);
+            const team  = p[1]?.trim() || '';
+            const index = fmtDec(p[2]);
+            out.push({rank, team, index});
           }
-          top.sort((a,b) => a.rank - b.rank);
-          document.querySelector('#top-teams-table thead tr').innerHTML = '<th>#</th><th>Team</th><th>Index</th>';
-          document.querySelector('#top-teams-table tbody').innerHTML = top.length
-            ? top.map(x => `<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.index}</td></tr>`).join('')
+          out.sort((a,b) => a.rank - b.rank);
+          document.querySelector('#top-teams-table thead tr').innerHTML =
+            '<th>#</th><th>Team</th><th>Index</th>';
+          document.querySelector('#top-teams-table tbody').innerHTML = out.length
+            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.index}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
-        })
-        .catch(() => {
-          document.querySelector('#top-teams-table tbody').innerHTML = '<tr><td colspan="3">Error loading index data</td></tr>';
         });
     }
 
-    function loadTopNationsIndex(season) {
+    function loadTopNationsIndex() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nations-index.csv')
         .then(r => r.text())
         .then(text => {
           if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
           const lines = text.split('\n');
-          const top = [];
-          for (let i = 1; i < lines.length; i++) {
+          const out = [];
+          for (let i = 1; i < lines.length && out.length < 5; i++) {
             const p = lines[i].split(';');
             if (p.length < 3) continue;
-            if (p[0]?.trim() !== season) continue;
-            const rank = parseInt(p[1]?.trim() || 999);
-            if (rank >= 1 && rank <= 5) {
-              top.push({
-                rank,
-                nation: p[2]?.trim() || '',
-                index: fmtDec(p[3])
-              });
-            }
+            const rank   = fmtInt(p[0]);
+            const nation = p[1]?.trim() || '';
+            const index  = fmtDec(p[2]);
+            out.push({rank, nation, index});
           }
-          top.sort((a,b) => a.rank - b.rank);
-          document.querySelector('#top-nations-table thead tr').innerHTML = '<th>#</th><th>Nation</th><th>Index</th>';
-          document.querySelector('#top-nations-table tbody').innerHTML = top.length
-            ? top.map(x => `<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.index}</td></tr>`).join('')
+          out.sort((a,b) => a.rank - b.rank);
+          document.querySelector('#top-nations-table thead tr').innerHTML =
+            '<th>#</th><th>Nation</th><th>Index</th>';
+          document.querySelector('#top-nations-table tbody').innerHTML = out.length
+            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.index}</td></tr>`).join('')
             : '<tr><td colspan="3">No data</td></tr>';
-        })
-        .catch(() => {
-          document.querySelector('#top-nations-table tbody').innerHTML = '<tr><td colspan="3">Error loading index data</td></tr>';
         });
     }
 
+    // Upcoming races (used in both modes)
     function loadUpcomingRaces() {
       fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
         .then(r => r.text())
@@ -620,14 +600,13 @@
 
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const mobileMenu = document.getElementById('mobileMenu');
-
     mobileBtn?.addEventListener('click', () => {
       mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
     });
-
   </script>
 </body>
 </html>
+
 
 
 
