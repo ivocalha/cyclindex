@@ -297,7 +297,9 @@
               </div>`;
     };
 
-    const fmt = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
+    const fmtInt = v => !v || v.trim() === '' ? '–' : Math.round(parseFloat(v.replace(',', '.')));
+    const fmtDec = v => !v || v.trim() === '' ? '–' : (parseFloat(v.replace(',', '.')) || v.trim()).toFixed(2).replace('.', ',');
+
 
     fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
       .then(r => r.text())
@@ -412,10 +414,10 @@
                 nation: p[4].trim(),
                 rider: p[3].trim(),
                 team: p[8].trim(),
-                best: fmt(p[15]),
-                second: fmt(p[21]),
-                third: fmt(p[27]),
-                score: fmt(p[28])
+                best: fmtInt(p[15]),
+                second: fmtInt(p[21]),
+                third: fmtInt(p[27]),
+                score: fmtDec(p[28])
               });
             }
           }
@@ -504,6 +506,7 @@ mobileBtn?.addEventListener('click', () => {
 </body>
 
 </html>
+
 
 
 
