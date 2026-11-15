@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rankings · Cyclindex</title>
+<meta name="description" content="Cyclindex rates every men's pro road cyclist on 14 specialties, updated after every race.">
+<meta name="theme-color" content="#07090f">
+<link rel="icon" type="image/png" href="/static/logo-navy.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="/static/site.css?v=1794744745">
+<script>
+  try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body class="page-rankings">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="top__in">
+    <a class="brand" href="/" aria-label="Cyclindex home">
+      <img src="/static/logo-navy.png" alt="" width="34" height="34">
+      <span class="brand__word">CYCLINDEX</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/" >Pulse</a>
+      <a href="/rankings/" aria-current="page">Rankings</a>
+      <a href="/calendar/" >Calendar</a>
+      <a href="/compare/" >Compare</a>
+      <a href="/how-it-works/" >How it works</a>
+    </nav>
+    <div class="top__tools">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Search riders, teams, races" autocomplete="off" aria-label="Search riders, teams, nations and races">
+        <ul id="q-results" class="search__results" hidden></ul>
+      </div>
+      <button class="theme menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="theme" id="theme" type="button" aria-label="Switch light or dark theme">
+        <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="rk-head">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span> Rankings · as of 15 Nov 2026</p>
+    <h1 class="rk-title" id="rk-title">Overall Index</h1>
+    <p class="rk-about" id="rk-about">How good a rider&#39;s results are, whatever the race, terrain or role.</p>
+
+    <div class="rk-controls">
+      <div class="seg" role="tablist" aria-label="Ranking type">
+        <button role="tab" data-kind="riders" aria-selected="true">Riders</button>
+        <button role="tab" data-kind="teams" aria-selected="false">Teams</button>
+        <button role="tab" data-kind="nations" aria-selected="false">Nations</button>
+      </div>
+      <input class="rk-filter" id="rk-filter" type="search" placeholder="Filter this list" aria-label="Filter this list">
+    </div>
+    <div class="chips" role="tablist" aria-label="Specialty">
+      <button class="chip" role="tab" data-spec="overall" aria-selected="true"
+              data-name="OVERALL" data-about="How good a rider&#39;s results are, whatever the race, terrain or role."><b>ALL</b> OVERALL</button>
+      <button class="chip" role="tab" data-spec="stage-hunt" aria-selected="false"
+              data-name="Stage Hunt" data-about="Chasing stage results in multi-day races, on any terrain."><b>STG</b> Stage Hunt</button>
+      <button class="chip" role="tab" data-spec="1gc" aria-selected="false"
+              data-name="1.GC" data-about="One-day races: Monuments, Classics, Worlds."><b>1D</b> 1.GC</button>
+      <button class="chip" role="tab" data-spec="2gc" aria-selected="false"
+              data-name="2.GC" data-about="General classification of stage races."><b>GC</b> 2.GC</button>
+      <button class="chip" role="tab" data-spec="leadout" aria-selected="false"
+              data-name="Leadout" data-about="Delivering a teammate&#39;s bunch-sprint result."><b>LO</b> Leadout</button>
+      <button class="chip" role="tab" data-spec="domestique" aria-selected="false"
+              data-name="Domestique" data-about="Working for a GC leader, credited with the leader&#39;s result."><b>DOM</b> Domestique</button>
+      <button class="chip" role="tab" data-spec="sprint" aria-selected="false"
+              data-name="Sprint" data-about="Genuine bunch-sprint finishes."><b>SPR</b> Sprint</button>
+      <button class="chip" role="tab" data-spec="punch" aria-selected="false"
+              data-name="Punch" data-about="Explosive uphill and short-climb finishes."><b>PUN</b> Punch</button>
+      <button class="chip" role="tab" data-spec="climb" aria-selected="false"
+              data-name="Climb" data-about="Mountain stages and summit finishes."><b>CLB</b> Climb</button>
+      <button class="chip" role="tab" data-spec="tt" aria-selected="false"
+              data-name="TT" data-about="Time trials, and nothing else."><b>TT</b> TT</button>
+      <button class="chip" role="tab" data-spec="breakaway" aria-selected="false"
+              data-name="Breakaway" data-about="Successful, significant breakaway riding."><b>BRK</b> Breakaway</button>
+      <button class="chip" role="tab" data-spec="mix-terrain" aria-selected="false"
+              data-name="Mix Terrain" data-about="Cobbles and gravel: Roubaix, Strade Bianche and their sectors."><b>MIX</b> Mix Terrain</button>
+      <button class="chip" role="tab" data-spec="points-plus" aria-selected="false"
+              data-name="Points+" data-about="Strength across a stage race&#39;s points competition."><b>PTS</b> Points+</button>
+      <button class="chip" role="tab" data-spec="kom-plus" aria-selected="false"
+              data-name="KOM+" data-about="Strength across a stage race&#39;s mountains competition."><b>KOM</b> KOM+</button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap rk">
+  <div class="rk-table" id="rk-table" aria-live="polite">
+    <div class="rk-row rk-row--head" aria-hidden="true">
+      <span>#</span><span>±4w</span><span>Name</span><span class="rk-spark-h">12 months</span><span class="num">Index</span>
+    </div>
+    <div id="rk-body"><p class="rk-loading">Loading ranking…</p></div>
+  </div>
+  <button class="more" id="rk-more" type="button" hidden>Show more</button>
+  <noscript><p>The rankings need JavaScript turned on.</p></noscript>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <img src="/static/logo-navy.png" alt="" width="28" height="28">
+      <p><strong>Cyclindex</strong> rates men's elite road riders on 14 specialties. Every result in the
+        last three years counts: this year in full, the year before at half weight, and the year before that at a quarter.
+        Riders with no results sit at 40.</p>
+    </div>
+    <div class="foot__note">
+      <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
+Seasons loaded so far: 2025, 2026. Until three full seasons
+        are in, the oldest year counts as 40 for everyone, so Index values read a little low.</p>
+      <p>Results data: procyclingstats.com</p>
+    </div>
+  </div>
+</footer>
+<script src="/static/site.js?v=1794744745" defer></script>
+<script src="/static/rankings.js?v=1794744745" defer></script></body>
+</html>

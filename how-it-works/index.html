@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Cyclindex works</title>
+<meta name="description" content="How Cyclindex turns race results into Levels, Scores and the Index: 14 specialties, the best results of each rider, three years weighted 1, ½ and ¼.">
+<meta name="theme-color" content="#07090f">
+<link rel="icon" type="image/png" href="/static/logo-navy.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="/static/site.css?v=1794744745">
+<script>
+  try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body class="page-how">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="top__in">
+    <a class="brand" href="/" aria-label="Cyclindex home">
+      <img src="/static/logo-navy.png" alt="" width="34" height="34">
+      <span class="brand__word">CYCLINDEX</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/" >Pulse</a>
+      <a href="/rankings/" >Rankings</a>
+      <a href="/calendar/" >Calendar</a>
+      <a href="/compare/" >Compare</a>
+      <a href="/how-it-works/" aria-current="page">How it works</a>
+    </nav>
+    <div class="top__tools">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Search riders, teams, races" autocomplete="off" aria-label="Search riders, teams, nations and races">
+        <ul id="q-results" class="search__results" hidden></ul>
+      </div>
+      <button class="theme menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="theme" id="theme" type="button" aria-label="Switch light or dark theme">
+        <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="rk-head">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span> Method</p>
+    <h1 class="rk-title">How it works</h1>
+    <p class="rk-about">Three steps turn thousands of race results into one number per rider and specialty: each result gets a <b>Level</b>, a rider's best Levels make a <b>Score</b>, and three years of Scores make the <b>Index</b>.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap how">
+    <ol class="how__steps">
+      <li>
+        <span class="how__n">1</span>
+        <div>
+          <h2>Every result gets a Level</h2>
+          <p>Each result (a stage, a final GC, a one-day race, and the points and mountains competitions of stage races) is checked against the 14 specialties. A bunch-sprint stage can count for Sprint, a mountain-top finish for Climb, a breakaway for Breakaway, and so on. Most results count for <b>Overall</b>.</p>
+          <p>Where a result counts, it gets a <b>Level from 0 to 100</b> for that specialty, read from Cyclindex's own tables from the UCI points the result earned. Winning the Tour de France is about 100. For cobbles and gravel, the Level is scaled by how much of the day was really on that terrain.</p>
+        </div>
+      </li>
+      <li>
+        <span class="how__n">2</span>
+        <div>
+          <h2>The best results make a Score</h2>
+          <p>Only a rider's <b>best few results</b> per specialty count: five for Overall and Stage Hunt, two for TT, Breakaway and KOM+, three for the rest. The best one counts fully; the others share the same weight again between them, each half the one before.</p>
+          <p>Empty places count as less than a real result, so racing and scoring nothing is always better than not racing. The total is measured against a realistic maximum for that specialty. That gives the <b>Score, from 40 (no results) to 100</b>.</p>
+          <div class="calc" id="calc-score">
+            <p class="calc__title">Try it: Overall Score from your best 5 results</p>
+            <div class="calc__sliders">
+              <label><span>Result 1</span><input type="range" min="-1" max="100" step="1" value="92" data-i="0"><output></output></label>
+              <label><span>Result 2</span><input type="range" min="-1" max="100" step="1" value="80" data-i="1"><output></output></label>
+              <label><span>Result 3</span><input type="range" min="-1" max="100" step="1" value="65" data-i="2"><output></output></label>
+              <label><span>Result 4</span><input type="range" min="-1" max="100" step="1" value="50" data-i="3"><output></output></label>
+              <label><span>Result 5</span><input type="range" min="-1" max="100" step="1" value="-1" data-i="4"><output></output></label>
+            </div>
+            <p class="calc__out">Score <b id="score-out">–</b> <small>(slide to the far left for "no result")</small></p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="how__n">3</span>
+        <div>
+          <h2>Three years make the Index</h2>
+          <p>The Index looks at the <b>last three years</b>, counted back from today, not by calendar season. The last 12 months count in full, the 12 months before at half weight, and the year before that at a quarter. That keeps the Index current while still rewarding a rider's record.</p>
+          <p class="how__formula">Index = (this year + ½ × last year + ¼ × two years back) ÷ 1.75</p>
+          <div class="calc" id="calc-index">
+            <p class="calc__title">Try it</p>
+            <div class="calc__sliders">
+              <label><span>This year</span><input type="range" min="40" max="100" step="0.5" value="88" data-w="1"><output></output></label>
+              <label><span>Last year</span><input type="range" min="40" max="100" step="0.5" value="75" data-w="0.5"><output></output></label>
+              <label><span>Two years back</span><input type="range" min="40" max="100" step="0.5" value="60" data-w="0.25"><output></output></label>
+            </div>
+            <p class="calc__out">Index <b id="index-out">–</b></p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="how__n">+</span>
+        <div>
+          <h2>Teams and nations</h2>
+          <p>A team's Index is the average of its <b>3 best riders' Index</b>, among the riders who raced for it in the last 12 months. A team keeps its history through sponsor and name changes. A nation's Index is the average of its 3 best riders. Missing places count as 40.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band band--alt">
+  <div class="wrap">
+    <header class="sec-head"><h2>The 14 specialties</h2><p>Each one is ranked on its own, and together they make a rider's DNA.</p></header>
+    <ul class="how__specs">
+      <li><a href="/rankings/?spec=overall"><span class="leader__code">ALL</span><strong>OVERALL</strong><small>How good a rider&#39;s results are, whatever the race, terrain or role. Best 5 results count.</small></a></li>
+      <li><a href="/rankings/?spec=stage-hunt"><span class="leader__code">STG</span><strong>Stage Hunt</strong><small>Chasing stage results in multi-day races, on any terrain. Best 5 results count.</small></a></li>
+      <li><a href="/rankings/?spec=1gc"><span class="leader__code">1D</span><strong>1.GC</strong><small>One-day races: Monuments, Classics, Worlds. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=2gc"><span class="leader__code">GC</span><strong>2.GC</strong><small>General classification of stage races. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=leadout"><span class="leader__code">LO</span><strong>Leadout</strong><small>Delivering a teammate&#39;s bunch-sprint result. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=domestique"><span class="leader__code">DOM</span><strong>Domestique</strong><small>Working for a GC leader, credited with the leader&#39;s result. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=sprint"><span class="leader__code">SPR</span><strong>Sprint</strong><small>Genuine bunch-sprint finishes. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=punch"><span class="leader__code">PUN</span><strong>Punch</strong><small>Explosive uphill and short-climb finishes. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=climb"><span class="leader__code">CLB</span><strong>Climb</strong><small>Mountain stages and summit finishes. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=tt"><span class="leader__code">TT</span><strong>TT</strong><small>Time trials, and nothing else. Best 2 results count.</small></a></li>
+      <li><a href="/rankings/?spec=breakaway"><span class="leader__code">BRK</span><strong>Breakaway</strong><small>Successful, significant breakaway riding. Best 2 results count.</small></a></li>
+      <li><a href="/rankings/?spec=mix-terrain"><span class="leader__code">MIX</span><strong>Mix Terrain</strong><small>Cobbles and gravel: Roubaix, Strade Bianche and their sectors. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=points-plus"><span class="leader__code">PTS</span><strong>Points+</strong><small>Strength across a stage race&#39;s points competition. Best 3 results count.</small></a></li>
+      <li><a href="/rankings/?spec=kom-plus"><span class="leader__code">KOM</span><strong>KOM+</strong><small>Strength across a stage race&#39;s mountains competition. Best 2 results count.</small></a></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <img src="/static/logo-navy.png" alt="" width="28" height="28">
+      <p><strong>Cyclindex</strong> rates men's elite road riders on 14 specialties. Every result in the
+        last three years counts: this year in full, the year before at half weight, and the year before that at a quarter.
+        Riders with no results sit at 40.</p>
+    </div>
+    <div class="foot__note">
+      <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
+Seasons loaded so far: 2025, 2026. Until three full seasons
+        are in, the oldest year counts as 40 for everyone, so Index values read a little low.</p>
+      <p>Results data: procyclingstats.com</p>
+    </div>
+  </div>
+</footer>
+<script src="/static/site.js?v=1794744745" defer></script>
+<script>
+(function () {
+  "use strict";
+  var HLK = [100, 99, 99, 97, 94], MISSING = -20, FLOOR = 40.0;
+  function coef(n) {
+    if (n === 1) return [1];
+    var s = 0; for (var i = 0; i < n - 1; i++) s += 1 / Math.pow(2, i);
+    var c2 = 1 / s, out = [1]; for (var k = 0; k < n - 1; k++) out.push(c2 / Math.pow(2, k)); return out;
+  }
+  function score(levels) {           // the Cyclindex Score formula (rules.compute_score)
+    if (!levels.length) return FLOOR;
+    var n = HLK.length, c = coef(n), top = levels.slice().sort(function (a, b) { return b - a; }).slice(0, n);
+    while (top.length < n) top.push(MISSING);
+    var num = 0, den = 0;
+    for (var i = 0; i < n; i++) { num += (top[i] / 2 + 50) * c[i]; den += (HLK[i] / 2 + 50) * c[i]; }
+    return num * 100 / den;
+  }
+  var sIn = document.querySelectorAll("#calc-score input");
+  function runScore() {
+    var lv = [];
+    sIn.forEach(function (i) {
+      var v = +i.value; i.nextElementSibling.textContent = v < 0 ? "none" : "Level " + v; if (v >= 0) lv.push(v);
+    });
+    document.getElementById("score-out").textContent = score(lv).toFixed(2);
+  }
+  sIn.forEach(function (i) { i.addEventListener("input", runScore); }); runScore();
+  var iIn = document.querySelectorAll("#calc-index input");
+  function runIndex() {
+    var s = 0; iIn.forEach(function (i) { i.nextElementSibling.textContent = (+i.value).toFixed(1); s += i.value * i.dataset.w; });
+    document.getElementById("index-out").textContent = (s / 1.75).toFixed(2);
+  }
+  iIn.forEach(function (i) { i.addEventListener("input", runIndex); }); runIndex();
+})();
+</script>
+</body>
+</html>

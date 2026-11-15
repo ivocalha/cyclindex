@@ -1,635 +1,583 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="cyclindex_logo.png">
-  <title>Cyclindex – Professional Cycling Index</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    @font-face{font-family:'Suissnord';src:url('Suissnord.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
-    *, *::before, *::after {box-sizing:border-box;}
-    body,html{height:100%;margin:0;padding:0;background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);color:white;overflow:hidden;}
-
-    :root {
-      --nav-height: 71px;
-      --footer-height: 64px;
-      --pill-radius: 0.7rem;
-      --pill-bg: rgba(59,130,246,0.35);
-      --neon-blue: #3b82f6;
-      --header-blue: #1a2f55;
-      --header-radius: 14px;
-      --fade-duration: 0.4s;
-    }
-
-    .nav-bar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-height);
-      background: rgba(15,23,42,0.9);
-      backdrop-filter: blur(12px);
-      display: flex; align-items: center;
-      padding: 1rem 2rem;
-      z-index: 3000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .nav-left{display:flex;align-items:center;gap:0.9rem;}
-    .nav-logo{height:36px;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));}
-    .nav-title{font-family:'Suissnord',sans-serif;font-size:1.55rem;margin:0;color:white;}
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      width: 100%;
-      justify-content: center;
-    }
-    .nav-links a {
-      font-family: 'Suissnord', sans-serif;
-      text-decoration: none;
-      font-size: 1.05rem;
-      color: white;
-      padding: 0.45rem 0.9rem;
-      border-radius: var(--pill-radius);
-      transition: all .18s;
-    }
-    .nav-links a.active,
-    .nav-links a:hover {
-      background: var(--pill-bg);
-      transform: translateY(-2px);
-    }
-    .ig-nav{width:34px;height:34px;background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>') center/contain no-repeat;transition:transform .25s ease;}
-    .ig-nav:hover{transform:scale(1.22) rotate(10deg);}
-
-    .content-area{position:fixed;top:var(--nav-height);bottom:var(--footer-height);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:1.2rem;overflow:hidden;}
-    .grid-container{display:grid;grid-template-columns:280px 1fr 420px;gap:1.4rem;width:100%;max-width:1920px;height:100%;}
-    .left-col,.center-col,.right-col{display:grid;gap:1.4rem;}
-    .right-col{grid-template-rows:1fr 1fr;}
-
-    .block{background:rgba(15,23,42,0.46);backdrop-filter:blur(12px);border-radius:0.9rem;padding:0.95rem;box-shadow:0 5px 20px rgba(0,0,0,0.35);transition:all .35s;overflow:hidden;}
-    .block:hover{background:rgba(15,23,42,0.68);transform:translateY(-7px);box-shadow:0 16px 40px rgba(0,0,0,0.5);}
-    .block h3{font-family:'Suissnord',sans-serif;font-size:1.22rem;margin:0 0 0.5rem;}
-
-    table{width:100%;border-collapse:collapse;font-size:0.85rem;}
-    th{text-align:left;font-weight:600;font-size:0.78rem;opacity:0.9;padding-bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.2);}
-    td{padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}
-    tr:last-child td{border:none;}
-
-    #latest-results-table th:nth-child(1), #upcoming-table th:nth-child(1){width:90px;text-align:left;}
-    #latest-results-table th:nth-child(2), #upcoming-table th:nth-child(2){width:auto;text-align:left;}
-    #latest-results-table td:nth-child(1), #upcoming-table td:nth-child(1){width:90px;}
-
-    #top-teams-table th:nth-child(1), #top-nations-table th:nth-child(1){width:40px;text-align:center;}
-    #top-teams-table td:nth-child(1), #top-nations-table td:nth-child(1){text-align:center;}
-    #top-teams-table th:nth-child(3), #top-nations-table th:nth-child(3){width:90px;text-align:right;}
-    #top-teams-table td:nth-child(3), #top-nations-table td:nth-child(3){text-align:right;}
-
-    #top-riders-table th:nth-child(1), #top-riders-table td:nth-child(1){width:5%;text-align:center;}
-    #top-riders-table th:nth-child(2), #top-riders-table td:nth-child(2){width:8%;text-align:center;}
-    #top-riders-table th:nth-child(3), #top-riders-table td:nth-child(3){width:30%;font-weight:600;}
-    #top-riders-table th:nth-child(4), #top-riders-table td:nth-child(4){width:26%;}
-    #top-riders-table th:nth-child(5), #top-riders-table td:nth-child(5),
-    #top-riders-table th:nth-child(6), #top-riders-table td:nth-child(6),
-    #top-riders-table th:nth-child(7), #top-riders-table td:nth-child(7),
-    #top-riders-table th:nth-child(8), #top-riders-table td:nth-child(8){text-align:right;width:7.5%;}
-
-    .flag{width:26px;height:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.5);object-fit:cover;transition:transform .2s;}
-    .flag:hover{transform:scale(1.6);}
-    .flag-name{position:absolute;background:rgba(0,0,0,0.92);color:white;font-size:11px;padding:3px 7px;border-radius:4px;opacity:0;transition:opacity .2s;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;}
-    .flag-container{position:relative;display:inline-block;}
-    .flag-container:hover .flag-name{opacity:1;}
-
-    footer{
-      position:fixed;bottom:0;left:0;right:0;height:var(--footer-height);
-      background:rgba(15,23,42,0.96);backdrop-filter:blur(12px);
-      border-top:1px solid rgba(255,255,255,0.1);z-index:2000;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 1.8rem;font-size:0.85rem;color:rgba(255,255,255,0.55);
-    }
-    .footer-left{display:flex;align-items:center;gap:0.8rem;}
-    .season-label{font-weight:600;opacity:0.85;}
-
-    #season-select,
-    #spec-select,
-    #metric-select,
-    #gender-select{
-      background:rgba(15,23,42,0.8);
-      border:1px solid rgba(255,255,255,0.3);
-      border-radius:0.5rem;
-      padding:0.4rem 0.8rem;
-      color:white;
-      font-size:0.9rem;
-      outline:none;
-      cursor:pointer;
-      transition:all .2s;
-    }
-    #season-select:hover,
-    #spec-select:hover,
-    #metric-select:hover,
-    #gender-select:hover{border-color:#3b82f6;}
-    #season-select:focus,
-    #spec-select:focus,
-    #metric-select:focus,
-    #gender-select:focus{
-      border-color:#3b82f6;
-      background:rgba(255,255,255,0.15);
-    }
-    #season-select option,
-    #spec-select option,
-    #metric-select option,
-    #gender-select option{
-      background:white !important;
-      color:black !important;
-      font-size:0.95rem;
-      padding:0.5rem;
-    }
-
-    #season-group.hidden { display: none; }
-
-    #copyright{text-align:right;flex:1;}
-
-    @media (max-width:1460px){
-      .grid-container{grid-template-columns:260px 1fr 380px;gap:1.2rem;}
-      .content-area{padding:1rem;}
-    }
-    @media (max-width: 1024px){
-      html, body{ overflow-y: auto; height: auto; }
-    }
-    @media (max-width: 1024px){
-      .nav-bar, .content-area, footer{ position: relative; }
-      .content-area{ top: auto; bottom: auto; padding-top: 1rem; padding-bottom: 1rem; overflow: visible; }
-    }
-    @media (max-width: 1024px){
-      .grid-container{ grid-template-columns: 1fr; height: auto; }
-      .left-col, .center-col, .right-col{ grid-template-rows: auto; }
-    }
-    @media (max-width: 1024px){
-      .block{ overflow-x: auto; }
-      table{ min-width: 520px; }
-    }
-
-    /* Mobile navigation */
-    @media (max-width: 1024px){
-      .nav-links, .ig-nav{ display: none; }
-      .mobile-menu-btn{ display: block; font-size: 1.8rem; cursor: pointer; user-select: none; }
-      .mobile-menu{
-        display: none;
-        position: absolute;
-        top: var(--nav-height);
-        left: 0; right: 0;
-        background: rgba(15,23,42,0.98);
-        backdrop-filter: blur(16px);
-        padding: 1rem;
-        z-index: 4000;
-      }
-      .mobile-menu a{
-        display: block;
-        font-family: 'Suissnord', sans-serif;
-        font-size: 1.3rem;
-        padding: 0.6rem 0;
-        color: white;
-        text-decoration: none;
-      }
-      .mobile-menu a:not(:last-child){ border-bottom: 1px solid rgba(255,255,255,0.15); }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyclindex: the Index Pulse</title>
+<meta name="description" content="Cyclindex rates every men's pro road cyclist on 14 specialties, updated after every race.">
+<meta name="theme-color" content="#07090f">
+<link rel="icon" type="image/png" href="/static/logo-navy.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="/static/site.css?v=1794744745">
+<script>
+  try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 </head>
-<body>
-
-  <div class="nav-bar">
-    <div class="nav-left">
-      <img src="cyclindex_logo.png" alt="Cyclindex" class="nav-logo">
-      <h1 class="nav-title">Cyclindex</h1>
-    </div>
-    <div class="nav-links">
-      <a href="results-log.html">Results</a>
-      <a href="rider-score.html">Riders</a>
-      <a href="team-score.html">Teams</a>
-      <a href="nation-score.html">Nations</a>
-      <a href="how_it_works.html">How It Works</a>
-    </div>
-    <div class="mobile-menu-btn">&#9776;</div>
-    <a href="https://www.instagram.com/cyclindex/" target="_blank" aria-label="Instagram">
-      <div class="ig-nav"></div>
+<body class="page-home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="top__in">
+    <a class="brand" href="/" aria-label="Cyclindex home">
+      <img src="/static/logo-navy.png" alt="" width="34" height="34">
+      <span class="brand__word">CYCLINDEX</span>
     </a>
-  </div>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="results-log.html">Results</a>
-    <a href="rider-score.html">Riders</a>
-    <a href="team-score.html">Teams</a>
-    <a href="nation-score.html">Nations</a>
-    <a href="how_it_works.html">How It Works</a>
-    <a href="https://www.instagram.com/cyclindex/" target="_blank">Instagram</a>
-  </div>
-
-  <div class="content-area">
-    <div class="grid-container">
-      <div class="left-col">
-        <div class="block"><h3>Latest Results</h3><table id="latest-results-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
-        <div class="block"><h3>Next Races</h3><table id="upcoming-table"><tbody><tr><td colspan="2">Loading...</td></tr></tbody></table></div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/" aria-current="page">Pulse</a>
+      <a href="/rankings/" >Rankings</a>
+      <a href="/calendar/" >Calendar</a>
+      <a href="/compare/" >Compare</a>
+      <a href="/how-it-works/" >How it works</a>
+    </nav>
+    <div class="top__tools">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Search riders, teams, races" autocomplete="off" aria-label="Search riders, teams, nations and races">
+        <ul id="q-results" class="search__results" hidden></ul>
       </div>
+      <button class="theme menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="theme" id="theme" type="button" aria-label="Switch light or dark theme">
+        <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-      <div class="center-col">
-        <div class="block" style="display:flex;flex-direction:column;height:100%;">
-          <h3>Top Riders</h3>
-          <table id="top-riders-table" style="flex:1;">
-            <thead><tr><th>#</th><th></th><th>Rider</th><th>Team</th><th>Best</th><th>2nd</th><th>3rd</th><th>Score</th></tr></thead>
-            <tbody><tr><td colspan="8">Loading...</td></tr></tbody>
-          </table>
-        </div>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__lead">
+      <p class="eyebrow"><span class="dot"></span> Index Pulse · 15 Nov 2026</p>
+      <h1 class="hero__title">The world's best rider, <em>by the numbers.</em></h1>
+
+      <a class="no1" href="/rider/tadej-pogacar/">
+        <span class="no1__rank" aria-hidden="true">01</span>
+        <span class="no1__body">
+          <span class="no1__label">No. 1 · Overall Index</span>
+          <span class="no1__name">Tadej Pogačar</span>
+          <span class="no1__meta"><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> UAE Team Emirates - XRG</span>
+        </span>
+        <span class="no1__value">
+          <span class="big-num">90.57</span>
+          <span class="dl">0.00</span>
+        </span>
+      </a>
+    </div>
+
+    <ol class="toplist" aria-label="Overall Index top 10">
+      <li class="toplist__head"><span>Overall top 10</span><a href="/rankings/">Full ranking →</a></li>
+      <li class="toplist__row">
+        <span class="toplist__rank">1</span>
+        <span class="toplist__who"><span class="toplist__name">Tadej Pogačar</span><small><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> UAE Team Emirates - XRG</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,6.7 24.7,4.9 30.3,2.6 36.0,2.6 41.7,2.6 47.3,2.2 53.0,2.0 58.7,2.0 64.3,2.1 70.0,2.1" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">90.57</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">2</span>
+        <span class="toplist__who"><span class="toplist__name">Remco Evenepoel</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Red Bull - BORA - hansgrohe</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,20.0 24.7,19.6 30.3,7.1 36.0,6.1 41.7,5.5 47.3,4.3 53.0,4.3 58.7,4.3 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">88.14</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">3</span>
+        <span class="toplist__who"><span class="toplist__name">Jonas Vingegaard</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> Team Visma | Lease a Bike</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,10.3 24.7,8.8 30.3,8.8 36.0,8.0 41.7,4.5 47.3,3.8 53.0,2.0 58.7,2.4 64.3,2.4 70.0,2.4" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">87.42</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">4</span>
+        <span class="toplist__who"><span class="toplist__name">Mathieu van der Poel</span><small><span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span> Alpecin - Premier Tech</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,14.3 24.7,3.6 30.3,3.0 36.0,3.0 41.7,3.0 47.3,2.9 53.0,2.9 58.7,3.0 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">87.18</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">5</span>
+        <span class="toplist__who"><span class="toplist__name">Isaac del Toro</span><small><span class="fi fi-mx flag" role="img" aria-label="Mexico" title="Mexico"></span> UAE Team Emirates - XRG</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,11.1 24.7,7.7 30.3,7.7 36.0,6.5 41.7,4.7 47.3,3.3 53.0,3.1 58.7,3.0 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">86.88</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">6</span>
+        <span class="toplist__who"><span class="toplist__name">Wout van Aert</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Team Visma | Lease a Bike</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,13.7 24.7,8.3 30.3,2.1 36.0,2.1 41.7,2.1 47.3,2.1 53.0,2.0 58.7,2.0 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">85.60</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">7</span>
+        <span class="toplist__who"><span class="toplist__name">Felix Gall</span><small><span class="fi fi-at flag" role="img" aria-label="Austria" title="Austria"></span> Decathlon CMA CGM Team</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,20.0 19.0,13.9 24.7,13.0 30.3,11.7 36.0,9.0 41.7,6.0 47.3,5.6 53.0,4.4 58.7,2.0 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">84.97</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">8</span>
+        <span class="toplist__who"><span class="toplist__name">Brandon McNulty</span><small><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> UAE Team Emirates - XRG</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,16.8 19.0,12.0 24.7,11.9 30.3,11.3 36.0,11.2 41.7,9.1 47.3,9.1 53.0,8.8 58.7,8.3 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">84.65</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">9</span>
+        <span class="toplist__who"><span class="toplist__name">Tom Pidcock</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> Pinarello Q36.5 Pro Cycling Team</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,10.7 19.0,7.2 24.7,4.0 30.3,2.8 36.0,2.8 41.7,2.8 47.3,2.7 53.0,2.6 58.7,2.4 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">84.29</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">10</span>
+        <span class="toplist__who"><span class="toplist__name">Mads Pedersen</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> Lidl - Trek</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,16.3 19.0,9.8 24.7,2.0 30.3,3.8 36.0,3.8 41.7,3.8 47.3,3.7 53.0,3.7 58.7,3.7 64.3,3.0 70.0,3.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">83.98</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <header class="sec-head">
+      <h2>No. 1 in every specialty</h2>
+      <p>Fourteen ways to be good on a bike. Tap one to see its full ranking.</p>
+    </header>
+    <div class="leaders">
+      <a class="leader" href="/rankings/?spec=overall">
+        <span class="leader__code">ALL</span>
+        <span class="leader__spec">OVERALL</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 84.3%"></i></span>
+        <span class="leader__idx">90.57</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=stage-hunt">
+        <span class="leader__code">STG</span>
+        <span class="leader__spec">Stage Hunt</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 85.5%"></i></span>
+        <span class="leader__idx">91.31</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=1gc">
+        <span class="leader__code">1D</span>
+        <span class="leader__spec">1.GC</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 85.5%"></i></span>
+        <span class="leader__idx">91.29</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=2gc">
+        <span class="leader__code">GC</span>
+        <span class="leader__spec">2.GC</span>
+        <span class="leader__name">Jonas Vingegaard</span>
+        <span class="leader__bar"><i style="width: 81.0%"></i></span>
+        <span class="leader__idx">88.59</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=leadout">
+        <span class="leader__code">LO</span>
+        <span class="leader__spec">Leadout</span>
+        <span class="leader__name">Yves Lampaert</span>
+        <span class="leader__bar"><i style="width: 80.3%"></i></span>
+        <span class="leader__idx">88.21</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=domestique">
+        <span class="leader__code">DOM</span>
+        <span class="leader__spec">Domestique</span>
+        <span class="leader__name">Nils Politt</span>
+        <span class="leader__bar"><i style="width: 83.1%"></i></span>
+        <span class="leader__idx">89.88</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=sprint">
+        <span class="leader__code">SPR</span>
+        <span class="leader__spec">Sprint</span>
+        <span class="leader__name">Jasper Philipsen</span>
+        <span class="leader__bar"><i style="width: 82.2%"></i></span>
+        <span class="leader__idx">89.33</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=punch">
+        <span class="leader__code">PUN</span>
+        <span class="leader__spec">Punch</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 81.0%"></i></span>
+        <span class="leader__idx">88.62</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=climb">
+        <span class="leader__code">CLB</span>
+        <span class="leader__spec">Climb</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 84.8%"></i></span>
+        <span class="leader__idx">90.86</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=tt">
+        <span class="leader__code">TT</span>
+        <span class="leader__spec">TT</span>
+        <span class="leader__name">Remco Evenepoel</span>
+        <span class="leader__bar"><i style="width: 85.7%"></i></span>
+        <span class="leader__idx">91.43</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=breakaway">
+        <span class="leader__code">BRK</span>
+        <span class="leader__spec">Breakaway</span>
+        <span class="leader__name">Wout van Aert</span>
+        <span class="leader__bar"><i style="width: 69.4%"></i></span>
+        <span class="leader__idx">81.64</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=mix-terrain">
+        <span class="leader__code">MIX</span>
+        <span class="leader__spec">Mix Terrain</span>
+        <span class="leader__name">Tadej Pogačar</span>
+        <span class="leader__bar"><i style="width: 26.1%"></i></span>
+        <span class="leader__idx">55.68</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=points-plus">
+        <span class="leader__code">PTS</span>
+        <span class="leader__spec">Points+</span>
+        <span class="leader__name">Jonathan Milan</span>
+        <span class="leader__bar"><i style="width: 75.6%"></i></span>
+        <span class="leader__idx">85.37</span>
+      </a>
+      <a class="leader" href="/rankings/?spec=kom-plus">
+        <span class="leader__code">KOM</span>
+        <span class="leader__spec">KOM+</span>
+        <span class="leader__name">Jonas Vingegaard</span>
+        <span class="leader__bar"><i style="width: 79.5%"></i></span>
+        <span class="leader__idx">87.70</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band band--alt">
+  <div class="wrap movers">
+    <header class="sec-head">
+      <h2>On the move</h2>
+      <p>Biggest changes in the Overall Index over the last 4 weeks, among the top 300.</p>
+    </header>
+    <div class="movers__cols">
+      <div class="movers__col movers__col--up">
+        <h3>Rising</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><span class="">Alex Baudin</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> #124</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.8 14.0,12.8 26.0,12.7 38.0,12.7 50.0,12.7 62.0,7.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+1.37</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Jørgen Nordhagen</span><small><span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span> #111</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.3 14.0,12.3 26.0,12.2 38.0,12.2 50.0,12.1 62.0,7.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+1.09</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Ion Izagirre</span><small><span class="fi fi-es flag" role="img" aria-label="Spain" title="Spain"></span> #77</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,15.9 14.0,15.9 26.0,15.8 38.0,12.9 50.0,8.3 62.0,4.1" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+1.05</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Christophe Laporte</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> #49</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,18.0 14.0,18.0 26.0,12.9 38.0,11.1 50.0,3.8 62.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+1.04</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Stan Dewulf</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #209</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,14.5 14.0,14.5 26.0,11.7 38.0,8.4 50.0,8.4 62.0,5.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.73</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Alessandro Fancellu</span><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> #152</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,16.9 14.0,16.9 26.0,6.1 38.0,6.0 50.0,5.8 62.0,3.1" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.69</span>
+
+          </li>
+        </ol>
       </div>
+      <div class="movers__col movers__col--down">
+        <h3>Falling</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><span class="">Paul Double</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #171</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,9.8 14.0,9.8 26.0,9.8 38.0,9.8 50.0,4.5 62.0,15.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-2.74</span>
 
-      <div class="right-col">
-        <div class="block"><h3>Top Teams</h3><table id="top-teams-table"><thead><tr><th>#</th><th>Team</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
-        <div class="block"><h3>Top Nations</h3><table id="top-nations-table"><thead><tr><th>#</th><th>Nation</th><th>Score</th></tr></thead><tbody><tr><td colspan="3">Loading...</td></tr></tbody></table></div>
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Mikkel Frølich Honoré</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> #273</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,10.0 14.0,9.4 26.0,9.4 38.0,7.0 50.0,5.7 62.0,14.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-2.16</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Joshua Tarling</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #235</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.3 14.0,11.6 26.0,6.6 38.0,6.6 50.0,6.6 62.0,13.4" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-1.72</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Sakarias Koller Løland</span><small><span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span> #247</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,14.4 14.0,14.4 26.0,13.7 38.0,6.2 50.0,5.6 62.0,8.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.79</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Diego Ulissi</span><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> #189</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,8.7 14.0,9.1 26.0,9.0 38.0,9.1 50.0,8.8 62.0,11.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.63</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Cian Uijtdebroeks</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #140</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,14.4 14.0,14.4 26.0,5.6 38.0,5.6 50.0,5.7 62.0,7.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.41</span>
+
+          </li>
+        </ol>
       </div>
     </div>
   </div>
+</section>
 
-  <footer>
-    <div class="footer-left">
+<section class="band">
+  <div class="wrap impact">
+    <header class="sec-head">
+      <p class="eyebrow">Race impact · 2.UWT · 13 Oct – 18 Oct</p>
+      <h2><a href="/race/tour-of-guangxi-2026/">Tour of Guangxi</a>: who gained most</h2>
+      <p>Overall Index the day before the start compared with the day it finished.</p>
+    </header>
+    <ol class="impact__list">
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Zhicheng Liu</span><small><span class="fi fi-cn flag" role="img" aria-label="China" title="China"></span> Camp Cycling Team</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 4.8%"></i>
+          <i class="impact__gain" style="left: 4.8%; width: 9.8%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">42.9 →</span> <strong>48.7</strong></span>
+        <span class="dl dl--up">+5.83</span>
 
-      <!-- Metric (FIRST) -->
-      <span class="season-label">Metric</span>
-      <select id="metric-select">
-        <option value="INDEX" selected>Index</option>
-        <option value="SCORE">Score</option>
-      </select>
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Martin Tjøtta</span><small><span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span> Uno-X Mobility</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 36.5%"></i>
+          <i class="impact__gain" style="left: 36.5%; width: 5.799999999999997%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">61.9 →</span> <strong>65.4</strong></span>
+        <span class="dl dl--up">+3.51</span>
 
-      <!-- Season -->
-      <span class="season-label season-group" id="season-label">Season</span>
-      <select id="season-select" class="season-group">
-        <option>Loading seasons...</option>
-      </select>
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Davide Formolo</span><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> Movistar Team</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 20.5%"></i>
+          <i class="impact__gain" style="left: 20.5%; width: 5.899999999999999%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">52.3 →</span> <strong>55.8</strong></span>
+        <span class="dl dl--up">+3.50</span>
 
-      <!-- Spec -->
-      <span class="season-label">Spec</span>
-      <select id="spec-select">
-        <option>Loading specs...</option>
-      </select>
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Jarno Widar</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Lotto Intermarché</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 45.2%"></i>
+          <i class="impact__gain" style="left: 45.2%; width: 5.699999999999996%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">67.1 →</span> <strong>70.6</strong></span>
+        <span class="dl dl--up">+3.47</span>
 
-      <!-- Gender -->
-      <span class="season-label">Gender</span>
-      <select id="gender-select">
-        <option value="MEN" selected>Men</option>
-      </select>
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Ruidong Wang</span><small><span class="fi fi-cn flag" role="img" aria-label="China" title="China"></span> Li Ning Star</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 11.4%"></i>
+          <i class="impact__gain" style="left: 11.4%; width: 5.700000000000001%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">46.8 →</span> <strong>50.2</strong></span>
+        <span class="dl dl--up">+3.41</span>
 
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Fabio Jakobsen</span><small><span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span> Team Visma | Lease a Bike</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 20.9%"></i>
+          <i class="impact__gain" style="left: 20.9%; width: 4.0%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">52.5 →</span> <strong>54.9</strong></span>
+        <span class="dl dl--up">+2.40</span>
+
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Louis Barré</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> Team Visma | Lease a Bike</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 52.0%"></i>
+          <i class="impact__gain" style="left: 52.0%; width: 3.799999999999997%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">71.2 →</span> <strong>73.5</strong></span>
+        <span class="dl dl--up">+2.29</span>
+
+      </li>
+      <li class="impact__row">
+        <span class="impact__who"><span class="">Tobias Bayer</span><small><span class="fi fi-at flag" role="img" aria-label="Austria" title="Austria"></span> Alpecin - Premier Tech</small></span>
+        <span class="impact__bar" aria-hidden="true">
+          <i class="impact__before" style="width: 23.9%"></i>
+          <i class="impact__gain" style="left: 23.9%; width: 3.400000000000002%"></i>
+        </span>
+        <span class="impact__nums"><span class="muted">54.3 →</span> <strong>56.4</strong></span>
+        <span class="dl dl--up">+2.04</span>
+
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band band--alt">
+  <div class="wrap">
+    <header class="sec-head sec-head--row"><h2>Latest results</h2><a class="more-link" href="/calendar/">Full calendar →</a></header>
+    <div class="races" tabindex="0" aria-label="Latest races">
+      <div class="race">
+        <span class="race__date">18 Oct</span>
+        <span class="race__cls">1.1</span>
+        <span class="race__name"><a href="/race/chrono-des-nations-2026/">Chrono des Nations</a></span>
+<span class="race__win"><span class="">Remco Evenepoel</span></span>      </div>
+      <div class="race">
+        <span class="race__date">18 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/japan-cup-2026/">Utsunomiya Japan Cup Road Race</a></span>
+<span class="race__win"><span class="">Quinn Simmons</span></span>      </div>
+      <div class="race">
+        <span class="race__date">18 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/veneto-classic-2026/">Veneto Classic</a></span>
+<span class="race__win"><span class="">Brandon McNulty</span></span>      </div>
+      <div class="race">
+        <span class="race__date">18 Oct</span>
+        <span class="race__cls">2.1</span>
+        <span class="race__name"><a href="/race/eneco-tour-2026/">Eneco Tour</a></span>
+<span class="race__win"><span class="">Victor Campenaerts</span></span>      </div>
+      <div class="race">
+        <span class="race__date">18 Oct</span>
+        <span class="race__cls">2.UWT</span>
+        <span class="race__name"><a href="/race/tour-of-guangxi-2026/">Tour of Guangxi</a></span>
+<span class="race__win"><span class="">Jarno Widar</span></span>      </div>
+      <div class="race">
+        <span class="race__date">14 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/giro-del-veneto-2026/">Giro del Veneto</a></span>
+<span class="race__win"><span class="">Alessandro Covi</span></span>      </div>
+      <div class="race">
+        <span class="race__date">12 Oct</span>
+        <span class="race__cls">2.1</span>
+        <span class="race__name"><a href="/race/tour-de-kyushu-2026/">Tour de Kyushu</a></span>
+<span class="race__win"><span class="">Ivo Oliveira</span></span>      </div>
+      <div class="race">
+        <span class="race__date">11 Oct</span>
+        <span class="race__cls">1.1</span>
+        <span class="race__name"><a href="/race/sun-hung-kai-properties-hong-kong-challenge-2026/">Sun Hung Kai Properties Hong Kong Cyclothon</a></span>
+<span class="race__win"><span class="">Paul Magnier</span></span>      </div>
+      <div class="race">
+        <span class="race__date">11 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/paris-tours-2026/">Paris - Tours Elite</a></span>
+<span class="race__win"><span class="">Per Strand Hagenes</span></span>      </div>
+      <div class="race">
+        <span class="race__date">10 Oct</span>
+        <span class="race__cls">1.UWT</span>
+        <span class="race__name"><a href="/race/il-lombardia-2026/">Il Lombardia</a></span>
+<span class="race__win"><span class="">Paul Seixas</span></span>      </div>
+      <div class="race">
+        <span class="race__date">8 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/gran-piemonte-2026/">Gran Piemonte</a></span>
+<span class="race__win"><span class="">Dorian Godon</span></span>      </div>
+      <div class="race">
+        <span class="race__date">6 Oct</span>
+        <span class="race__cls">1.1</span>
+        <span class="race__name"><a href="/race/memorial-frank-vandenbroucke-2026/">Binche - Chimay - Binche / Mémorial Frank Vandenbroucke</a></span>
+<span class="race__win"><span class="">Paul Magnier</span></span>      </div>
+      <div class="race">
+        <span class="race__date">6 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/tre-valli-varesine-2026/">Tre Valli Varesine</a></span>
+<span class="race__win"><span class="">Jarno Widar</span></span>      </div>
+      <div class="race">
+        <span class="race__date">5 Oct</span>
+        <span class="race__cls">1.Pro</span>
+        <span class="race__name"><a href="/race/coppa-bernocchi-2026/">Coppa Bernocchi - GP Banco BPM</a></span>
+<span class="race__win"><span class="">Noa Isidore</span></span>      </div>
     </div>
-    <div></div>
-    <div id="copyright"></div>
-  </footer>
+  </div>
+</section>
+</main>
 
-  <script>
-    document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Cyclindex`;
-
-    const metricSelect   = document.getElementById('metric-select');
-    const seasonSelect   = document.getElementById('season-select');
-    const seasonLabel    = document.getElementById('season-label');
-    const seasonGroup    = document.querySelectorAll('.season-group');
-    const specSelect     = document.getElementById('spec-select');
-    let currentSeason = null;
-    let currentSpec   = 'OVERALL';
-    let currentMetric = 'INDEX';
-
-    const flags = {"Afghanistan":"af","Albania":"al","Algeria":"dz","Andorra":"ad","Angola":"ao","Antigua and Barbuda":"ag","Argentina":"ar","Armenia":"am","Australia":"au","Austria":"at","Azerbaijan":"az","Bahamas":"bs","Bahrain":"bh","Bangladesh":"bd","Barbados":"bb","Belarus":"by","Belgium":"be","Belize":"bz","Benin":"bj","Bermuda":"bm","Bhutan":"bt","Bolivia":"bo","Bosnia and Herzegovina":"ba","Botswana":"bw","Brazil":"br","Brunei":"bn","Bulgaria":"bg","Burkina Faso":"bf","Burundi":"bi","Cambodia":"kh","Cameroon":"cm","Canada":"ca","Cape Verde":"cv","Cayman Islands":"ky","Central African Republic":"cf","Chad":"td","Chile":"cl","China":"cn","Colombia":"co","Comoros":"km","Congo":"cg","Costa Rica":"cr","Croatia":"hr","Cuba":"cu","Cyprus":"cy","Czech Republic":"cz","Denmark":"dk","Djibouti":"dj","Dominica":"dm","Dominican Republic":"do","Ecuador":"ec","Egypt":"eg","El Salvador":"sv","Equatorial Guinea":"gq","Eritrea":"er","Estonia":"ee","Eswatini":"sz","Ethiopia":"et","Fiji":"fj","Finland":"fi","France":"fr","Gabon":"ga","Gambia":"gm","Georgia":"ge","Germany":"de","Ghana":"gh","Greece":"gr","Grenada":"gd","Guatemala":"gt","Guinea":"gn","Guinea-Bissau":"gw","Guyana":"gy","Haiti":"ht","Honduras":"hn","Hong Kong":"hk","Hungary":"hu","Iceland":"is","India":"in","Indonesia":"id","Iran":"ir","Iraq":"iq","Ireland":"ie","Israel":"il","Italy":"it","Ivory Coast":"ci","Jamaica":"jm","Japan":"jp","Jordan":"jo","Kazakhstan":"kz","Kenya":"ke","Kiribati":"ki","Kosovo":"xk","Kuwait":"kw","Kyrgyzstan":"kg","Laos":"la","Latvia":"lv","Lebanon":"lb","Lesotho":"ls","Liberia":"lr","Libya":"ly","Liechtenstein":"li","Lithuania":"lt","Luxembourg":"lu","Madagascar":"mg","Malawi":"mw","Malaysia":"my","Maldives":"mv","Mali":"ml","Malta":"mt","Marshall Islands":"mh","Mauritania":"mr","Mauritius":"mu","Mexico":"mx","Moldova":"md","Monaco":"mc","Mongolia":"mn","Montenegro":"me","Morocco":"ma","Mozambique":"mz","Myanmar":"mm","Namibia":"na","Nauru":"nr","Nepal":"np","Netherlands":"nl","New Zealand":"nz","Nicaragua":"ni","Niger":"ne","Nigeria":"ng","North Macedonia":"mk","Norway":"no","Oman":"om","Pakistan":"pk","Palau":"pw","Palestine":"ps","Panama":"pa","Papua New Guinea":"pg","Paraguay":"py","Peru":"pe","Philippines":"ph","Poland":"pl","Portugal":"pt","Qatar":"qa","Romania":"ro","Russia":"ru","Rwanda":"rw","Saint Kitts and Nevis":"kn","Saint Lucia":"lc","Saint Vincent and the Grenadines":"vc","Samoa":"ws","San Marino":"sm","Sao Tome and Principe":"st","Saudi Arabia":"sa","Senegal":"sn","Serbia":"rs","Seychelles":"sc","Sierra Leone":"sl","Singapore":"sg","Slovakia":"sk","Slovenia":"si","Solomon Islands":"sb","Somalia":"so","South Africa":"za","South Korea":"kr","South Sudan":"ss","Spain":"es","Sri Lanka":"lk","Sudan":"sd","Suriname":"sr","Sweden":"se","Switzerland":"ch","Syria":"sy","Taiwan":"tw","Tajikistan":"tj","Tanzania":"tz","Thailand":"th","Timor-Leste":"tl","Togo":"tg","Tonga":"to","Trinidad and Tobago":"tt","Tunisia":"tn","Turkey":"tr","Turkmenistan":"tm","Tuvalu":"tv","Uganda":"ug","Ukraine":"ua","United Arab Emirates":"ae","United Kingdom":"gb","Great Britain":"gb","England":"gb-eng","Scotland":"gb-sct","Wales":"gb-wls","United States":"us","Uruguay":"uy","Uzbekistan":"uz","Vanuatu":"vu","Vatican City":"va","Venezuela":"ve","Vietnam":"vn","Yemen":"ye","Zambia":"zm","Zimbabwe":"zw"};
-
-    const flagImg = country => {
-      const code = flags[country] || 'xx';
-      return `<div class="flag-container">
-                <img src="https://flagcdn.com/w40/${code}.png" width="26" height="18" alt="${country}" class="flag">
-                <div class="flag-name">${country}</div>
-              </div>`;
-    };
-
-    const fmtInt  = v => !v || v.trim()==='' ? '–' : Math.round(parseFloat(v.replace(',','.')));
-    const fmtDec  = v => !v || v.trim()==='' ? '–' : (parseFloat(v.replace(',','.')) || v.trim()).toFixed(2).replace('.', ',');
-
-    function updateVisibility() {
-      currentMetric = metricSelect.value;
-      if (currentMetric === 'INDEX') {
-        seasonGroup.forEach(el => el.classList.add('hidden'));
-        loadIndexData();
-      } else {
-        seasonGroup.forEach(el => el.classList.remove('hidden'));
-        loadAllData(currentSeason, currentSpec);
-      }
-    }
-
-    function loadIndexData() {
-      loadLatestResults(currentSeason);
-      loadUpcomingRaces();
-      loadTopRidersIndex();
-      loadTopTeamsIndex();
-      loadTopNationsIndex();
-    }
-
-    metricSelect.addEventListener('change', updateVisibility);
-    seasonSelect.addEventListener('change', () => {
-      currentSeason = seasonSelect.value;
-      if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
-      else loadLatestResults(currentSeason);
-    });
-    specSelect.addEventListener('change', () => {
-      currentSpec = specSelect.value;
-      if (currentMetric !== 'INDEX') loadAllData(currentSeason, currentSpec);
-    });
-
-    // Load seasons & specs (used in Score mode)
-    fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
-      .then(r => r.text())
-      .then(text => {
-        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-        const lines = text.split('\n');
-        const seasons = new Set();
-        for (let i = 1; i < lines.length; i++) {
-          const cols = lines[i].split(';');
-          if (cols.length > 8 && cols[8]) seasons.add(cols[8].trim());
-        }
-        const seasonArray = Array.from(seasons)
-          .filter(s => s.length === 4 && !isNaN(s))
-          .sort((a, b) => b - a);
-
-        if (seasonArray.length > 0) {
-          currentSeason = seasonArray[0];
-          seasonSelect.innerHTML = seasonArray.map(y =>
-            `<option value="${y}" ${y === currentSeason ? 'selected' : ''}>${y}</option>`
-          ).join('');
-        } else {
-          seasonSelect.innerHTML = '<option>No seasons found</option>';
-        }
-        loadSpecOptions();
-      });
-
-    function loadSpecOptions() {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const specs = new Set(['OVERALL']);
-          for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(';');
-            if (cols.length > 1 && cols[1]) specs.add(cols[1].trim());
-          }
-          const specArray = Array.from(specs).sort();
-          specSelect.innerHTML = specArray.map(s =>
-            `<option value="${s}" ${s === 'OVERALL' ? 'selected' : ''}>${s}</option>`
-          ).join('');
-          updateVisibility(); // initial load
-        });
-    }
-
-    // ── Score mode functions ────────────────────────────────────────────
-    function loadAllData(season, spec) {
-      loadLatestResults(season);
-      loadTopRiders(season, spec);
-      loadTopTeams(season, spec);
-      loadTopNations(season, spec);
-      loadUpcomingRaces();
-    }
-
-    function loadLatestResults(season) {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/results-log.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const headers = lines[0].split(';');
-          const dateIdx = headers.indexOf('Date');
-          const compIdx = headers.indexOf('Competition');
-          const seasonIdx = headers.indexOf('Season');
-          let maxDate = null, races = new Set();
-          for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(';');
-            if (cols.length <= Math.max(dateIdx, compIdx, seasonIdx)) continue;
-            if (cols[seasonIdx]?.trim() !== season) continue;
-            const dateStr = cols[dateIdx]?.trim();
-            if (!dateStr) continue;
-            const [d,m,y] = dateStr.split('/');
-            const curDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-            if (!maxDate || curDate > maxDate) {
-              maxDate = curDate;
-              races = new Set([cols[compIdx].trim()]);
-            } else if (curDate.getTime() === maxDate.getTime()) {
-              races.add(cols[compIdx].trim());
-            }
-          }
-          const tbody = document.querySelector('#latest-results-table tbody');
-          tbody.innerHTML = maxDate
-            ? Array.from(races).sort().map(r => `<tr><td>${maxDate.toLocaleDateString('en-GB')}</td><td>${r}</td></tr>`).join('')
-            : '<tr><td colspan="2">No results this season</td></tr>';
-        });
-    }
-
-    function loadTopRiders(season, spec) {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/rider-score.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const top = [];
-          for (let i = 1; i < lines.length; i++) {
-            const p = lines[i].split(';');
-            if (p.length < 31) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
-            const rank = parseInt(p[2], 10);
-            if (rank >= 1 && rank <= 10) {
-              top.push({
-                rank,
-                nation: p[4].trim(),
-                rider: p[3].trim(),
-                team: p[8].trim(),
-                best: fmtInt(p[15]),
-                second: fmtInt(p[21]),
-                third: fmtInt(p[27]),
-                score: fmtDec(p[28])
-              });
-            }
-          }
-          top.sort((a,b) => a.rank - b.rank);
-          document.querySelector('#top-riders-table tbody').innerHTML = top.length
-            ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.nation)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.best}</td><td>${t.second}</td><td>${t.third}</td><td>${t.score}</td></tr>`).join('')
-            : '<tr><td colspan="8">No data</td></tr>';
-        });
-    }
-
-    function loadTopTeams(season, spec) {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/team-score.csv')
-        .then(r => r.text())
-        .then(t => {
-          if (t.charCodeAt(0) === 0xFEFF) t = t.slice(1);
-          const lines = t.split('\n');
-          const out = [];
-          for (let i = 1; i < lines.length; i++) {
-            const p = lines[i].split(';');
-            if (p.length < 17) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
-            const rank = parseInt(p[2]);
-            if (rank > 0 && rank <= 5) out.push({rank, team: p[3].trim(), score: fmtDec(p[16])});
-          }
-          out.sort((a,b)=>a.rank-b.rank);
-          document.querySelector('#top-teams-table tbody').innerHTML = out.length
-            ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.score}</td></tr>`).join('')
-            : '<tr><td colspan="3">No data</td></tr>';
-        });
-    }
-
-    function loadTopNations(season, spec) {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nation-score.csv')
-        .then(r => r.text())
-        .then(t => {
-          if (t.charCodeAt(0) === 0xFEFF) t = t.slice(1);
-          const lines = t.split('\n');
-          const out = [];
-          for (let i = 1; i < lines.length; i++) {
-            const p = lines[i].split(';');
-            if (p.length < 15) continue;
-            if (p[0]?.trim() !== season || p[1]?.trim() !== spec) continue;
-            const rank = parseInt(p[2]);
-            if (rank > 0 && rank <= 5) out.push({rank, nation: p[3].trim(), score: fmtDec(p[14])});
-          }
-          out.sort((a,b)=>a.rank-b.rank);
-          document.querySelector('#top-nations-table tbody').innerHTML = out.length
-            ? out.map(x=>`<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.score}</td></tr>`).join('')
-            : '<tr><td colspan="3">No data</td></tr>';
-        });
-    }
-
-    // ── Index mode ───────────────────────────────────────────────────────
-    function loadTopRidersIndex() {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/riders-index.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n').filter(l => l.trim());
-          const top = [];
-          // Skip header row (first line)
-          for (let i = 1; i < lines.length && top.length < 10; i++) {
-            const p = lines[i].split(';').map(s => s.trim());
-            if (p.length < 62) continue;
-
-            const rank   = fmtInt(p[0]);
-            const rider  = p[1] || '–';
-            const nation = p[2] || '–';
-            const team   = p[3] || '–';
-            const p1     = fmtDec(p[23]);  // Score_P1
-            const p2     = fmtDec(p[42]);  // Score_P2
-            const p3     = fmtDec(p[61]);  // Score_P3
-            const index  = fmtDec(p[4]);
-
-            if (rank !== '–' && rider !== '–') {
-              top.push({rank, nation, rider, team, p1, p2, p3, index});
-            }
-          }
-
-          document.querySelector('#top-riders-table thead tr').innerHTML =
-            '<th>#</th><th></th><th>Rider</th><th>Team</th><th>P1</th><th>P2</th><th>P3</th><th>Index</th>';
-
-          document.querySelector('#top-riders-table tbody').innerHTML = top.length
-            ? top.map(t => `<tr><td>${t.rank}</td><td>${flagImg(t.nation)}</td><td>${t.rider}</td><td>${t.team}</td><td>${t.p1}</td><td>${t.p2}</td><td>${t.p3}</td><td>${t.index}</td></tr>`).join('')
-            : '<tr><td colspan="8">No data available</td></tr>';
-        })
-        .catch(err => {
-          console.error(err);
-          document.querySelector('#top-riders-table tbody').innerHTML = 
-            '<tr><td colspan="8">Error loading riders index</td></tr>';
-        });
-    }
-
-    function loadTopTeamsIndex() {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/teams-index.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const out = [];
-          for (let i = 1; i < lines.length && out.length < 5; i++) {
-            const p = lines[i].split(';').map(s => s.trim());
-            if (p.length < 3) continue;
-            const rank  = fmtInt(p[0]);
-            const team  = p[1] || '–';
-            const index = fmtDec(p[2]);
-            out.push({rank, team, index});
-          }
-          out.sort((a,b) => Number(a.rank) - Number(b.rank));
-          document.querySelector('#top-teams-table thead tr').innerHTML =
-            '<th>#</th><th>Team</th><th>Index</th>';
-          document.querySelector('#top-teams-table tbody').innerHTML = out.length
-            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.team}</td><td>${x.index}</td></tr>`).join('')
-            : '<tr><td colspan="3">No data</td></tr>';
-        });
-    }
-
-    function loadTopNationsIndex() {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/nations-index.csv')
-        .then(r => r.text())
-        .then(text => {
-          if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-          const lines = text.split('\n');
-          const out = [];
-          for (let i = 1; i < lines.length && out.length < 5; i++) {
-            const p = lines[i].split(';').map(s => s.trim());
-            if (p.length < 3) continue;
-            const rank   = fmtInt(p[0]);
-            const nation = p[1] || '–';
-            const index  = fmtDec(p[2]);
-            out.push({rank, nation, index});
-          }
-          out.sort((a,b) => Number(a.rank) - Number(b.rank));
-          document.querySelector('#top-nations-table thead tr').innerHTML =
-            '<th>#</th><th>Nation</th><th>Index</th>';
-          document.querySelector('#top-nations-table tbody').innerHTML = out.length
-            ? out.map(x => `<tr><td>${x.rank}</td><td>${x.nation}</td><td>${x.index}</td></tr>`).join('')
-            : '<tr><td colspan="3">No data</td></tr>';
-        });
-    }
-
-    function loadUpcomingRaces() {
-      fetch('https://raw.githubusercontent.com/ivocalha/cyclindex/main/calendar.csv')
-        .then(r => r.text())
-        .then(csv => {
-          const lines = csv.trim().split('\n').slice(1);
-          const today = new Date(); today.setHours(0,0,0,0);
-          const upcoming = [];
-          for (const line of lines) {
-            const p = line.split(';');
-            if (p.length < 5) continue;
-            const [d,m,y] = p[0].trim().split('/');
-            const raceDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-            if (raceDate >= today) {
-              upcoming.push(p);
-              if (upcoming.length === 5) break;
-            }
-          }
-          document.querySelector('#upcoming-table tbody').innerHTML = upcoming.length
-            ? upcoming.map(p => `<tr><td>${p[0].trim()}</td><td>${p[2].trim()}</td></tr>`).join('')
-            : '<tr><td colspan="2">No upcoming races</td></tr>';
-        });
-    }
-
-    loadUpcomingRaces();
-
-    const mobileBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileBtn?.addEventListener('click', () => {
-      mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-    });
-  </script>
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <img src="/static/logo-navy.png" alt="" width="28" height="28">
+      <p><strong>Cyclindex</strong> rates men's elite road riders on 14 specialties. Every result in the
+        last three years counts: this year in full, the year before at half weight, and the year before that at a quarter.
+        Riders with no results sit at 40.</p>
+    </div>
+    <div class="foot__note">
+      <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
+Seasons loaded so far: 2025, 2026. Until three full seasons
+        are in, the oldest year counts as 40 for everyone, so Index values read a little low.</p>
+      <p>Results data: procyclingstats.com</p>
+    </div>
+  </div>
+</footer>
+<script src="/static/site.js?v=1794744745" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

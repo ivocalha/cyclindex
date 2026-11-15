@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare riders · Cyclindex</title>
+<meta name="description" content="Cyclindex rates every men's pro road cyclist on 14 specialties, updated after every race.">
+<meta name="theme-color" content="#07090f">
+<link rel="icon" type="image/png" href="/static/logo-navy.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="/static/site.css?v=1794744745">
+<script>
+  try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body class="page-compare">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="top__in">
+    <a class="brand" href="/" aria-label="Cyclindex home">
+      <img src="/static/logo-navy.png" alt="" width="34" height="34">
+      <span class="brand__word">CYCLINDEX</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/" >Pulse</a>
+      <a href="/rankings/" >Rankings</a>
+      <a href="/calendar/" >Calendar</a>
+      <a href="/compare/" aria-current="page">Compare</a>
+      <a href="/how-it-works/" >How it works</a>
+    </nav>
+    <div class="top__tools">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Search riders, teams, races" autocomplete="off" aria-label="Search riders, teams, nations and races">
+        <ul id="q-results" class="search__results" hidden></ul>
+      </div>
+      <button class="theme menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="theme" id="theme" type="button" aria-label="Switch light or dark theme">
+        <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="rk-head">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span> Compare</p>
+    <h1 class="rk-title">Head to head</h1>
+    <p class="rk-about">Put up to three riders side by side: their DNA across the 14 specialties and their Overall Index over the last 12 months.</p>
+    <div class="cmp-pick" id="cmp-pick">
+      <div class="cmp-slot" data-i="0">
+        <span class="cmp-slot__sw" aria-hidden="true"></span>
+        <div class="search search--slot">
+          <input type="search" placeholder="Choose a rider" autocomplete="off" aria-label="Rider 1">
+          <ul class="search__results" hidden></ul>
+        </div>
+        <button class="cmp-slot__x" type="button" aria-label="Remove rider 1" hidden>×</button>
+      </div>
+      <div class="cmp-slot" data-i="1">
+        <span class="cmp-slot__sw" aria-hidden="true"></span>
+        <div class="search search--slot">
+          <input type="search" placeholder="Add a rider" autocomplete="off" aria-label="Rider 2">
+          <ul class="search__results" hidden></ul>
+        </div>
+        <button class="cmp-slot__x" type="button" aria-label="Remove rider 2" hidden>×</button>
+      </div>
+      <div class="cmp-slot" data-i="2">
+        <span class="cmp-slot__sw" aria-hidden="true"></span>
+        <div class="search search--slot">
+          <input type="search" placeholder="Add a rider" autocomplete="off" aria-label="Rider 3">
+          <ul class="search__results" hidden></ul>
+        </div>
+        <button class="cmp-slot__x" type="button" aria-label="Remove rider 3" hidden>×</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="cmp-out" hidden>
+  <div class="wrap">
+    <div class="cmp-grid">
+      <div>
+        <header class="sec-head"><h2>DNA overlay</h2><p>Centre 40, each ring adds 10, edge 100.</p></header>
+        <svg class="radar radar--cmp" id="cmp-radar" viewBox="0 0 340 340" role="img" aria-label="DNA comparison"></svg>
+      </div>
+      <div>
+        <header class="sec-head"><h2>Specialty by specialty</h2><p>Index in each specialty; the best of the group is highlighted.</p></header>
+        <table class="cmp-table" id="cmp-table"></table>
+      </div>
+    </div>
+    <header class="sec-head cmp-tl-head"><h2>Overall Index, last 12 months</h2></header>
+    <svg class="cmp-tl" id="cmp-tl" viewBox="0 0 720 240" role="img" aria-label="Overall Index comparison over 12 months"></svg>
+    <ul class="cmp-legend" id="cmp-legend"></ul>
+  </div>
+</section>
+<section class="wrap cmp-empty" id="cmp-empty"><p class="muted">Pick a rider above to start. Tip: open any rider page and use “Compare with…”.</p></section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <img src="/static/logo-navy.png" alt="" width="28" height="28">
+      <p><strong>Cyclindex</strong> rates men's elite road riders on 14 specialties. Every result in the
+        last three years counts: this year in full, the year before at half weight, and the year before that at a quarter.
+        Riders with no results sit at 40.</p>
+    </div>
+    <div class="foot__note">
+      <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
+Seasons loaded so far: 2025, 2026. Until three full seasons
+        are in, the oldest year counts as 40 for everyone, so Index values read a little low.</p>
+      <p>Results data: procyclingstats.com</p>
+    </div>
+  </div>
+</footer>
+<script src="/static/site.js?v=1794744745" defer></script>
+<script>window.CX_SPECS = [{"about": "How good a rider\u0027s results are, whatever the race, terrain or role.", "name": "OVERALL", "short": "ALL", "slug": "overall"}, {"about": "Chasing stage results in multi-day races, on any terrain.", "name": "Stage Hunt", "short": "STG", "slug": "stage-hunt"}, {"about": "One-day races: Monuments, Classics, Worlds.", "name": "1.GC", "short": "1D", "slug": "1gc"}, {"about": "General classification of stage races.", "name": "2.GC", "short": "GC", "slug": "2gc"}, {"about": "Delivering a teammate\u0027s bunch-sprint result.", "name": "Leadout", "short": "LO", "slug": "leadout"}, {"about": "Working for a GC leader, credited with the leader\u0027s result.", "name": "Domestique", "short": "DOM", "slug": "domestique"}, {"about": "Genuine bunch-sprint finishes.", "name": "Sprint", "short": "SPR", "slug": "sprint"}, {"about": "Explosive uphill and short-climb finishes.", "name": "Punch", "short": "PUN", "slug": "punch"}, {"about": "Mountain stages and summit finishes.", "name": "Climb", "short": "CLB", "slug": "climb"}, {"about": "Time trials, and nothing else.", "name": "TT", "short": "TT", "slug": "tt"}, {"about": "Successful, significant breakaway riding.", "name": "Breakaway", "short": "BRK", "slug": "breakaway"}, {"about": "Cobbles and gravel: Roubaix, Strade Bianche and their sectors.", "name": "Mix Terrain", "short": "MIX", "slug": "mix-terrain"}, {"about": "Strength across a stage race\u0027s points competition.", "name": "Points+", "short": "PTS", "slug": "points-plus"}, {"about": "Strength across a stage race\u0027s mountains competition.", "name": "KOM+", "short": "KOM", "slug": "kom-plus"}];</script>
+<script src="/static/compare.js?v=1794744745" defer></script>
+</body>
+</html>
