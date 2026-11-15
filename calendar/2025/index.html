@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="/static/site.css?v=1794746006">
+<link rel="stylesheet" href="/static/site.css?v=1794761221">
 <script>
   try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -54,7 +54,7 @@
     <h1 class="rk-title">2025 season</h1>
     <p class="rk-about">Every men's elite road race Cyclindex scores: WorldTour, ProSeries, class 1 and 2 races, the Worlds and the Olympics. Tap a finished race for its result and how it moved the rankings.</p>
     <nav class="seasons" aria-label="Season">
-<a href="/calendar/" >2026</a><a href="/calendar/2025/" aria-current="page">2025</a>    </nav>
+<a href="/calendar/" >2026</a><a href="/calendar/2025/" aria-current="page">2025</a><a href="/calendar/2024/" >2024</a>    </nav>
     <div class="chips cal-filter" role="group" aria-label="Filter by class">
       <button class="chip" data-f="all" aria-pressed="true">All races</button>
       <button class="chip" data-f="UWT" aria-pressed="false">WorldTour</button>
@@ -109,7 +109,7 @@
         <span class="cal__date">30 Jan</span>
         <span class="cal__cls"><span class="badge">1.1</span></span>
         <span class="cal__name"><a href="/race/trofeo-ses-salines-felanitx-2025/">Trofeo Ses Salines</a></span>
-        <span class="cal__win">Marijn van den Berg <span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span></span>
+        <span class="cal__win"><a href="/rider/marijn-van-den-berg/">Marijn van den Berg</a> <span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span></span>
       </li>
       <li class="cal__row" data-class="1.1" data-sr="1">
         <span class="cal__date">31 Jan</span>
@@ -615,7 +615,7 @@
         <span class="cal__date">9 May</span>
         <span class="cal__cls"><span class="badge">1.1</span></span>
         <span class="cal__name"><a href="/race/tour-du-finistere-2025/">Tour du Finistère Pays de Quimper</a></span>
-        <span class="cal__win"><a href="/rider/aubin-sparfel/">Aubin Sparfel</a> <span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span></span>
+        <span class="cal__win">Aubin Sparfel <span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span></span>
       </li>
       <li class="cal__row" data-class="1.Pro" data-sr="1">
         <span class="cal__date">10 May</span>
@@ -900,7 +900,7 @@
         <span class="cal__date">6 Aug<small>– 17 Aug</small></span>
         <span class="cal__cls"><span class="badge">2.1</span></span>
         <span class="cal__name"><a href="/race/volta-a-portugal-2025/">Volta a Portugal em Bicicleta</a></span>
-        <span class="cal__win">Artem Nych <span class="fi fi-ru flag" role="img" aria-label="Russia" title="Russia"></span></span>
+        <span class="cal__win"><a href="/rider/artem-nych/">Artem Nych</a> <span class="fi fi-ru flag" role="img" aria-label="Russia" title="Russia"></span></span>
       </li>
       <li class="cal__row" data-class="2.Pro" data-sr="2">
         <span class="cal__date">7 Aug<small>– 10 Aug</small></span>
@@ -1282,7 +1282,7 @@
         <span class="cal__date">19 Oct</span>
         <span class="cal__cls"><span class="badge">1.Pro</span></span>
         <span class="cal__name"><a href="/race/veneto-classic-2025/">Veneto Classic</a></span>
-        <span class="cal__win"><a href="/rider/sakarias-koller-loland/">Sakarias Koller Løland</a> <span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span></span>
+        <span class="cal__win">Sakarias Koller Løland <span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span></span>
       </li>
     </ol>
   </div>
@@ -1299,13 +1299,12 @@
     </div>
     <div class="foot__note">
       <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
-Seasons loaded so far: 2025, 2026. Until three full seasons
-        are in, the oldest year counts as 40 for everyone, so Index values read a little low.</p>
+</p>
       <p>Results data: procyclingstats.com</p>
     </div>
   </div>
 </footer>
-<script src="/static/site.js?v=1794746006" defer></script>
+<script src="/static/site.js?v=1794761221" defer></script>
 <script>
 (function () {
   var chips = document.querySelectorAll(".cal-filter .chip"), rows = document.querySelectorAll(".cal__row");
