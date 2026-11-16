@@ -99,3 +99,17 @@
     svg.addEventListener("pointerleave", hide);
   });
 })();
+
+/* Pulse: switch between riders, teams and nations (the first one is picked at random in home.html). */
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var btns = Array.prototype.slice.call(document.querySelectorAll(".pulse-seg button"));
+  if (!btns.length) return;
+  function show(kind) {
+    root.dataset.pulse = kind;
+    btns.forEach(function (b) { b.setAttribute("aria-selected", b.dataset.pulse === kind ? "true" : "false"); });
+  }
+  show(root.dataset.pulse || "riders");
+  btns.forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.pulse); }); });
+})();

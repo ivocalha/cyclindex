@@ -615,3 +615,34 @@ small { font-size: 12.5px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 .impact__others { margin-top: 16px; color: var(--muted); font-size: 14px; }
 .impact__others a { color: var(--text); font-weight: 600; }
+
+/* Pulse: riders / teams / nations switch (picked at random on load by an inline script in home.html) */
+.pulse-seg { margin: 18px 0 0; }
+.pulse-seg + [data-view] .hero__title, .pulse-seg ~ [data-view] .hero__title { margin-top: 18px; }
+html:not([data-pulse]) [data-view]:not([data-view="riders"]),
+html[data-pulse="riders"] [data-view]:not([data-view="riders"]),
+html[data-pulse="teams"] [data-view]:not([data-view="teams"]),
+html[data-pulse="nations"] [data-view]:not([data-view="nations"]) { display: none; }
+
+/* Pulse top 10: the whole row opens the rider / team / nation page */
+.toplist__row { position: relative; transition: background .15s; margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 6px; }
+.toplist__row a.toplist__name::after { content: ""; position: absolute; inset: 0; }
+.toplist__row:hover { background: var(--surface); }
+.toplist__row:hover .toplist__name { color: var(--accent-text); }
+
+/* Rankings: riders show the three yearly Scores behind the Index (×1, ×½, ×¼) */
+.rk-per, .rk-per-m { display: none; }
+.rk-per { font: 500 14px var(--f-mono); color: var(--muted); }
+.rk-row--head .rk-per { font: 500 11px var(--f-mono); cursor: help; }
+.rk-table--riders .rk-row { grid-template-columns: 40px 44px minmax(0, 1fr) 110px 76px 76px 84px 80px; }
+.rk-table--riders .rk-per { display: block; }
+@media (max-width: 900px) {
+  .rk-table--riders .rk-row { grid-template-columns: 40px 44px minmax(0, 1fr) 76px 76px 84px 80px; }
+  .rk-table--riders .rk-row .spark, .rk-table--riders .rk-spark-h { display: none; }
+}
+@media (max-width: 600px) {
+  .rk-table--riders .rk-row { grid-template-columns: 30px 36px minmax(0, 1fr) 64px; }
+  .rk-table--riders .rk-per { display: none; }
+  .rk-table--riders .rk-per-m { display: block; font: 500 12px var(--f-mono); color: var(--muted); }
+  .rk-per-m i { font-style: normal; opacity: .7; }
+}

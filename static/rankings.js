@@ -45,8 +45,15 @@
       var href = "/" + (kind === "teams" ? "team" : "nation") + "/" + esc(r.page) + "/";
       who = "<span>" + (kind === "nations" ? cc(r.cc, r.cn) : "") + '<a href="' + href + '">' + esc(r.name) + "</a></span><small>Best: " + names + "</small>";
     }
+    // riders: the three yearly Scores behind the Index (columns on wide screens, a small line on phones)
+    var per = "";
+    if (kind === "riders" && r.period != null) {
+      var v = [r.period, r.prior, r.two].map(function (x) { return x == null ? "–" : x.toFixed(1); });
+      per = '<span class="num rk-per">' + v[0] + '</span><span class="num rk-per">' + v[1] + '</span><span class="num rk-per">' + v[2] + "</span>";
+      who += '<small class="rk-per-m">' + v[0] + " · " + v[1] + " · " + v[2] + " <i>(×1 · ×½ · ×¼)</i></small>";
+    }
     return '<div class="rk-row"><span class="rk-rank">' + r.rank + "</span>" + move(r.move) +
-      '<span class="rk-who">' + who + "</span>" + spark(r.spark) +
+      '<span class="rk-who">' + who + "</span>" + spark(r.spark) + per +
       '<span class="rk-idx">' + r.index.toFixed(2) + "</span></div>";
   }
 
@@ -70,6 +77,7 @@
     state.spec = spec; state.kind = kind; state.shown = PAGE;
     chips.forEach(function (c) { c.setAttribute("aria-selected", c.dataset.spec === spec ? "true" : "false"); });
     kinds.forEach(function (b) { b.setAttribute("aria-selected", b.dataset.kind === kind ? "true" : "false"); });
+    document.getElementById("rk-table").classList.toggle("rk-table--riders", kind === "riders");
     var chip = chips.filter(function (c) { return c.dataset.spec === spec; })[0] || chips[0];
     var label = { riders: "", teams: " · Teams", nations: " · Nations" }[kind];
     title.textContent = (chip.dataset.name === "OVERALL" ? "Overall" : chip.dataset.name) + " Index" + label;

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="/static/site.css?v=1794777762">
+<link rel="stylesheet" href="/static/site.css?v=1794830295">
 <script>
   try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -48,34 +48,68 @@
 </header>
 
 <main id="main">
+<script>(function(){var k=["riders","teams","nations"];document.documentElement.dataset.pulse=k[Math.floor(Math.random()*3)];})();</script>
 
 <section class="hero">
   <div class="wrap hero__grid">
     <div class="hero__lead">
-      <p class="eyebrow"><span class="dot"></span> Index Pulse · 15 Nov 2026</p>
-      <h1 class="hero__title">The world's best rider, <em>by the numbers.</em></h1>
-
-      <a class="no1" href="/rider/tadej-pogacar/">
-        <span class="no1__rank" aria-hidden="true">01</span>
-        <span class="no1__body">
-          <span class="no1__label">No. 1 · Overall Index</span>
-          <span class="no1__name">Tadej Pogačar</span>
-          <span class="no1__meta"><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> UAE Team Emirates - XRG</span>
-        </span>
-        <span class="no1__value">
-          <span class="big-num">99.10</span>
-          <span class="dl">0.00</span>
-        </span>
-      </a>
+      <p class="eyebrow"><span class="dot"></span> Index Pulse · 16 Nov 2026</p>
+      <div class="seg pulse-seg" role="tablist" aria-label="Show riders, teams or nations">
+<button role="tab" data-pulse="riders" aria-selected="true">Riders</button><button role="tab" data-pulse="teams" aria-selected="false">Teams</button><button role="tab" data-pulse="nations" aria-selected="false">Nations</button>      </div>
+      <div data-view="riders">
+        <h1 class="hero__title">The world's best rider, <em>by the numbers.</em></h1>
+        <a class="no1" href="/rider/tadej-pogacar/">
+          <span class="no1__rank" aria-hidden="true">01</span>
+          <span class="no1__body">
+            <span class="no1__label">No. 1 · Overall Index</span>
+            <span class="no1__name">Tadej Pogačar</span>
+            <span class="no1__meta"><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> UAE Team Emirates - XRG</span>
+          </span>
+          <span class="no1__value">
+            <span class="big-num">99.10</span>
+            <span class="dl">0.00</span>
+          </span>
+        </a>
+      </div>
+      <div data-view="teams">
+        <h1 class="hero__title">The world's best team, <em>by the numbers.</em></h1>
+        <a class="no1" href="/team/uae-team-emirates-xrg/">
+          <span class="no1__rank" aria-hidden="true">01</span>
+          <span class="no1__body">
+            <span class="no1__label">No. 1 · Overall Index · Teams</span>
+            <span class="no1__name">UAE Team Emirates - XRG</span>
+            <span class="no1__meta">Best: Tadej Pogačar, Isaac del Toro, Brandon McNulty</span>
+          </span>
+          <span class="no1__value">
+            <span class="big-num">94.38</span>
+            <span class="dl">0.00</span>
+          </span>
+        </a>
+      </div>
+      <div data-view="nations">
+        <h1 class="hero__title">The world's best nation, <em>by the numbers.</em></h1>
+        <a class="no1" href="/nation/be/">
+          <span class="no1__rank" aria-hidden="true">01</span>
+          <span class="no1__body">
+            <span class="no1__label">No. 1 · Overall Index · Nations</span>
+            <span class="no1__name">Belgium</span>
+            <span class="no1__meta"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Best: Remco Evenepoel</span>
+          </span>
+          <span class="no1__value">
+            <span class="big-num">92.34</span>
+            <span class="dl">0.00</span>
+          </span>
+        </a>
+      </div>
     </div>
 
-    <ol class="toplist" aria-label="Overall Index top 10">
-      <li class="toplist__head"><span>Overall top 10</span><a href="/rankings/">Full ranking →</a></li>
+    <ol class="toplist" data-view="riders" aria-label="Overall Index top 10, riders">
+      <li class="toplist__head"><span>Overall top 10 · Riders</span><a href="/rankings/">Full ranking →</a></li>
       <li class="toplist__row">
         <span class="toplist__rank">1</span>
         <span class="toplist__who"><span class="toplist__name">Tadej Pogačar</span><small><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> UAE Team Emirates - XRG</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,10.8 7.7,10.8 13.3,10.8 19.0,10.8 24.7,11.1 30.3,10.8 36.0,10.8 41.7,10.8 47.3,10.5 53.0,10.5 58.7,10.5 64.3,11.5 70.0,11.5" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,10.8 7.7,10.8 13.3,10.8 19.0,10.8 24.7,11.1 30.3,10.8 36.0,10.8 41.7,10.8 47.3,10.6 53.0,10.5 58.7,10.5 64.3,11.5 70.0,11.5" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">99.10</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -84,7 +118,7 @@
         <span class="toplist__rank">2</span>
         <span class="toplist__who"><span class="toplist__name">Remco Evenepoel</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Red Bull - BORA - hansgrohe</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,13.9 7.7,13.9 13.3,13.9 19.0,13.9 24.7,12.2 30.3,13.7 36.0,13.7 41.7,14.0 47.3,8.0 53.0,10.5 58.7,10.5 64.3,10.0 70.0,10.0" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,13.9 7.7,13.9 13.3,13.9 19.0,13.9 24.7,12.2 30.3,13.7 36.0,13.7 41.7,14.1 47.3,7.9 53.0,10.6 58.7,9.9 64.3,10.0 70.0,10.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">96.36</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -93,7 +127,7 @@
         <span class="toplist__rank">3</span>
         <span class="toplist__who"><span class="toplist__name">Mathieu van der Poel</span><small><span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span> Alpecin - Premier Tech</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,6.7 7.7,6.7 13.3,6.7 19.0,6.5 24.7,7.8 30.3,14.0 36.0,14.0 41.7,14.0 47.3,14.0 53.0,14.9 58.7,15.5 64.3,12.3 70.0,12.3" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,6.7 7.7,6.7 13.3,6.7 19.0,6.5 24.7,9.3 30.3,14.0 36.0,14.0 41.7,14.0 47.3,14.0 53.0,15.5 58.7,15.5 64.3,12.3 70.0,12.3" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">95.26</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -102,7 +136,7 @@
         <span class="toplist__rank">4</span>
         <span class="toplist__who"><span class="toplist__name">Jonas Vingegaard</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> Team Visma | Lease a Bike</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,11.7 7.7,11.7 13.3,11.7 19.0,11.7 24.7,10.4 30.3,10.7 36.0,7.7 41.7,6.5 47.3,15.3 53.0,12.2 58.7,15.5 64.3,15.5 70.0,15.5" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,11.7 7.7,11.7 13.3,11.7 19.0,11.7 24.7,10.4 30.3,10.7 36.0,7.7 41.7,6.5 47.3,10.7 53.0,12.0 58.7,15.5 64.3,15.5 70.0,15.5" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">95.21</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -111,7 +145,7 @@
         <span class="toplist__rank">5</span>
         <span class="toplist__who"><span class="toplist__name">Isaac del Toro</span><small><span class="fi fi-mx flag" role="img" aria-label="Mexico" title="Mexico"></span> UAE Team Emirates - XRG</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,20.0 7.7,20.0 13.3,16.6 19.0,13.5 24.7,12.4 30.3,13.1 36.0,10.8 41.7,7.4 47.3,4.6 53.0,4.2 58.7,3.9 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,20.0 7.7,20.0 13.3,16.6 19.0,13.5 24.7,12.5 30.3,13.1 36.0,8.3 41.7,7.4 47.3,4.6 53.0,4.2 58.7,3.9 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">93.13</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -120,7 +154,7 @@
         <span class="toplist__rank">6</span>
         <span class="toplist__who"><span class="toplist__name">Wout van Aert</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Team Visma | Lease a Bike</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,19.2 7.7,19.2 13.3,19.2 19.0,19.8 24.7,14.0 30.3,2.2 36.0,2.2 41.7,2.2 47.3,2.2 53.0,6.0 58.7,6.0 64.3,6.0 70.0,6.0" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,19.2 7.7,19.2 13.3,19.2 19.0,19.8 24.7,9.0 30.3,2.2 36.0,2.2 41.7,2.2 47.3,3.1 53.0,6.0 58.7,6.0 64.3,6.0 70.0,6.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">91.79</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -129,7 +163,7 @@
         <span class="toplist__rank">7</span>
         <span class="toplist__who"><span class="toplist__name">Mads Pedersen</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> Lidl - Trek</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,5.0 7.7,5.0 13.3,5.0 19.0,5.0 24.7,5.9 30.3,16.0 36.0,16.0 41.7,16.0 47.3,15.8 53.0,17.0 58.7,16.7 64.3,14.3 70.0,14.3" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,5.0 7.7,5.0 13.3,5.0 19.0,5.0 24.7,9.4 30.3,16.0 36.0,16.0 41.7,16.0 47.3,15.8 53.0,17.0 58.7,16.7 64.3,14.3 70.0,14.3" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">91.44</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -147,7 +181,7 @@
         <span class="toplist__rank">9</span>
         <span class="toplist__who"><span class="toplist__name">Brandon McNulty</span><small><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> UAE Team Emirates - XRG</small></span>
         <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,15.7 7.7,15.7 13.3,15.5 19.0,15.5 24.7,18.6 30.3,19.7 36.0,19.7 41.7,17.6 47.3,17.6 53.0,20.0 58.7,19.0 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,15.7 7.7,15.7 13.3,15.5 19.0,15.5 24.7,19.7 30.3,19.7 36.0,18.3 41.7,17.6 47.3,18.3 53.0,20.0 58.7,19.8 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
         <span class="toplist__idx">90.92</span>
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
@@ -162,144 +196,530 @@
         <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
       </li>
     </ol>
+    <ol class="toplist" data-view="teams" aria-label="Overall Index top 10, teams">
+      <li class="toplist__head"><span>Overall top 10 · Teams</span><a href="/rankings/?kind=teams">Full ranking →</a></li>
+      <li class="toplist__row">
+        <span class="toplist__rank">1</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/uae-team-emirates-xrg/">UAE Team Emirates - XRG</a><small>Best: Tadej Pogačar, Isaac del Toro, Brandon McNulty</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,9.5 7.7,9.5 13.3,9.2 19.0,8.3 24.7,10.0 30.3,11.4 36.0,9.7 41.7,11.9 47.3,9.8 53.0,9.8 58.7,15.9 64.3,6.1 70.0,6.1" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">94.38</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">2</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/team-visma-lease-a-bike/">Team Visma | Lease a Bike</a><small>Best: Jonas Vingegaard, Wout van Aert, Matteo Jorgenson</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,14.8 7.7,14.8 13.3,14.8 19.0,14.9 24.7,11.6 30.3,10.0 36.0,9.0 41.7,7.1 47.3,10.0 53.0,11.7 58.7,12.9 64.3,12.2 70.0,12.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">91.26</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">3</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/red-bull-bora-hansgrohe/">Red Bull - BORA - hansgrohe</a><small>Best: Remco Evenepoel, Florian Lipowitz, Primož Roglič</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,4.2 19.0,4.2 24.7,4.5 30.3,2.0 36.0,2.8 41.7,3.2 47.3,7.4 53.0,8.3 58.7,2.2 64.3,2.7 70.0,2.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">91.05</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">4</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/lidl-trek/">Lidl - Trek</a><small>Best: Mads Pedersen, Mattias Skjelmose, Giulio Ciccone</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,8.5 7.7,8.5 13.3,8.5 19.0,7.1 24.7,10.5 30.3,14.8 36.0,14.4 41.7,14.9 47.3,9.9 53.0,10.3 58.7,11.7 64.3,9.8 70.0,9.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">90.30</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">5</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/ineos-grenadiers/">INEOS Grenadiers</a><small>Best: Filippo Ganna, Oscar Onley, Thymen Arensman</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,15.0 7.7,15.0 13.3,14.9 19.0,5.8 24.7,10.8 30.3,10.7 36.0,9.6 41.7,12.6 47.3,15.7 53.0,16.2 58.7,10.7 64.3,10.1 70.0,9.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">85.43</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">6</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/alpecin-deceuninck/">Alpecin - Deceuninck</a><small>Best: Mathieu van der Poel, Jasper Philipsen, Emiel Verstrynge</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,5.9 7.7,5.9 13.3,5.9 19.0,6.1 24.7,3.3 30.3,8.2 36.0,11.5 41.7,10.4 47.3,12.7 53.0,12.5 58.7,12.7 64.3,18.7 70.0,18.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">85.11</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">7</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/decathlon-ag2r-la-mondiale-team/">Decathlon AG2R La Mondiale Team</a><small>Best: Felix Gall, Paul Seixas, Olav Kooij</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,20.0 7.7,20.0 13.3,18.2 19.0,16.3 24.7,14.5 30.3,11.6 36.0,7.3 41.7,7.0 47.3,7.0 53.0,5.9 58.7,4.8 64.3,2.0 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">85.01</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">8</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/bahrain-victorious/">Bahrain - Victorious</a><small>Best: Lenny Martinez, Antonio Tiberi, Pello Bilbao</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,17.2 7.7,17.2 13.3,17.7 19.0,18.0 24.7,14.0 30.3,6.0 36.0,6.5 41.7,6.9 47.3,4.0 53.0,6.2 58.7,7.5 64.3,5.3 70.0,5.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">84.14</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">9</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/soudal-quick-step/">Soudal Quick-Step</a><small>Best: Jasper Stuyven, Paul Magnier, Tim Merlier</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.8 7.7,7.8 13.3,7.8 19.0,7.9 24.7,10.1 30.3,3.8 36.0,4.0 41.7,4.3 47.3,2.0 53.0,3.3 58.7,2.7 64.3,20.0 70.0,20.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">83.76</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">10</span>
+        <span class="toplist__who"><a class="toplist__name" href="/team/team-jayco-alula/">Team Jayco AlUla</a><small>Best: Michael Matthews, Mauro Schmid, Luke Plapp</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,10.2 7.7,10.2 13.3,3.9 19.0,3.3 24.7,7.2 30.3,12.4 36.0,13.1 41.7,13.6 47.3,18.7 53.0,18.0 58.7,16.8 64.3,7.7 70.0,7.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">83.45</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+    </ol>
+    <ol class="toplist" data-view="nations" aria-label="Overall Index top 10, nations">
+      <li class="toplist__head"><span>Overall top 10 · Nations</span><a href="/rankings/?kind=nations">Full ranking →</a></li>
+      <li class="toplist__row">
+        <span class="toplist__rank">1</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/be/">Belgium</a><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Best: Remco Evenepoel</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,16.2 7.7,16.2 13.3,16.2 19.0,16.7 24.7,6.4 30.3,7.9 36.0,7.9 41.7,6.9 47.3,5.3 53.0,6.4 58.7,6.1 64.3,6.2 70.0,6.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">92.34</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">2</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/dk/">Denmark</a><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> Best: Jonas Vingegaard</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,8.6 7.7,8.6 13.3,8.6 19.0,8.6 24.7,10.4 30.3,12.1 36.0,11.1 41.7,11.9 47.3,11.1 53.0,11.9 58.7,13.4 64.3,13.2 70.0,13.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">92.22</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">3</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/us/">United States</a><small><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> Best: Brandon McNulty</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,11.6 7.7,11.6 13.3,11.4 19.0,11.4 24.7,17.2 30.3,19.3 36.0,17.8 41.7,15.9 47.3,17.0 53.0,20.0 58.7,16.5 64.3,2.2 70.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">87.66</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">4</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/nl/">Netherlands</a><small><span class="fi fi-nl flag" role="img" aria-label="Netherlands" title="Netherlands"></span> Best: Mathieu van der Poel</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,9.1 7.7,9.1 13.3,9.0 19.0,8.7 24.7,12.4 30.3,13.7 36.0,10.6 41.7,10.9 47.3,10.1 53.0,9.3 58.7,10.8 64.3,8.3 70.0,8.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">87.25</span>
+        <span class="mv mv--up" title="Up 1 places in 4 weeks">▲1</span>
+
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">5</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/si/">Slovenia</a><small><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> Best: Tadej Pogačar</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,5.9 7.7,5.9 13.3,5.9 19.0,7.3 24.7,8.1 30.3,8.0 36.0,8.9 41.7,9.6 47.3,14.6 53.0,16.1 58.7,13.0 64.3,13.8 70.0,14.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">87.23</span>
+        <span class="mv mv--down" title="Down 1 places in 4 weeks">▼1</span>
+
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">6</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/es/">Spain</a><small><span class="fi fi-es flag" role="img" aria-label="Spain" title="Spain"></span> Best: Enric Mas</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,8.7 7.7,8.7 13.3,8.7 19.0,8.0 24.7,19.3 30.3,18.4 36.0,18.6 41.7,15.8 47.3,15.0 53.0,16.1 58.7,7.4 64.3,2.7 70.0,2.7" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">86.80</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">7</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/it/">Italy</a><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> Best: Giulio Ciccone</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,5.7 7.7,5.7 13.3,5.8 19.0,5.4 24.7,11.5 30.3,14.4 36.0,13.0 41.7,13.3 47.3,13.5 53.0,16.6 58.7,11.7 64.3,7.5 70.0,7.4" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">86.71</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">8</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/gb/">Great Britain</a><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> Best: Tom Pidcock</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,4.7 7.7,4.7 13.3,4.0 19.0,5.4 24.7,2.0 30.3,4.3 36.0,4.5 41.7,8.3 47.3,20.0 53.0,18.6 58.7,11.7 64.3,10.9 70.0,10.6" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">85.32</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">9</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/fr/">France</a><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> Best: Lenny Martinez</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.9 7.7,12.9 13.3,12.3 19.0,14.7 24.7,11.2 30.3,7.3 36.0,7.6 41.7,9.2 47.3,7.4 53.0,9.2 58.7,11.0 64.3,9.6 70.0,9.6" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">84.40</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+      <li class="toplist__row">
+        <span class="toplist__rank">10</span>
+        <span class="toplist__who"><a class="toplist__name" href="/nation/au/">Australia</a><small><span class="fi fi-au flag" role="img" aria-label="Australia" title="Australia"></span> Best: Michael Matthews</small></span>
+        <svg class="spark" viewBox="0 0 72 22" width="72" height="22" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,6.6 7.7,6.6 13.3,7.1 19.0,6.6 24.7,12.0 30.3,15.4 36.0,9.1 41.7,10.3 47.3,12.4 53.0,12.8 58.7,15.0 64.3,11.4 70.0,11.4" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+        <span class="toplist__idx">83.90</span>
+        <span class="mv mv--flat" title="Same place as 4 weeks ago">–</span>
+      </li>
+    </ol>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <header class="sec-head">
-      <h2>No. 1 in every specialty</h2>
-      <p>Fourteen ways to be good on a bike. Tap one to see its full ranking.</p>
-    </header>
-    <div class="leaders">
-      <a class="leader" href="/rankings/?spec=overall">
-        <span class="leader__code">ALL</span>
-        <span class="leader__spec">OVERALL</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 98.5%"></i></span>
-        <span class="leader__idx">99.10</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=stage-hunt">
-        <span class="leader__code">STG</span>
-        <span class="leader__spec">Stage Hunt</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 99.8%"></i></span>
-        <span class="leader__idx">99.89</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=1gc">
-        <span class="leader__code">1D</span>
-        <span class="leader__spec">1.GC</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 99.7%"></i></span>
-        <span class="leader__idx">99.83</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=2gc">
-        <span class="leader__code">GC</span>
-        <span class="leader__spec">2.GC</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 94.8%"></i></span>
-        <span class="leader__idx">96.87</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=leadout">
-        <span class="leader__code">LO</span>
-        <span class="leader__spec">Leadout</span>
-        <span class="leader__name">Jasper Stuyven</span>
-        <span class="leader__bar"><i style="width: 93.0%"></i></span>
-        <span class="leader__idx">95.79</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=domestique">
-        <span class="leader__code">DOM</span>
-        <span class="leader__spec">Domestique</span>
-        <span class="leader__name">Nils Politt</span>
-        <span class="leader__bar"><i style="width: 96.2%"></i></span>
-        <span class="leader__idx">97.70</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=sprint">
-        <span class="leader__code">SPR</span>
-        <span class="leader__spec">Sprint</span>
-        <span class="leader__name">Jasper Philipsen</span>
-        <span class="leader__bar"><i style="width: 95.7%"></i></span>
-        <span class="leader__idx">97.40</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=punch">
-        <span class="leader__code">PUN</span>
-        <span class="leader__spec">Punch</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 95.3%"></i></span>
-        <span class="leader__idx">97.19</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=climb">
-        <span class="leader__code">CLB</span>
-        <span class="leader__spec">Climb</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 99.1%"></i></span>
-        <span class="leader__idx">99.43</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=tt">
-        <span class="leader__code">TT</span>
-        <span class="leader__spec">TT</span>
-        <span class="leader__name">Remco Evenepoel</span>
-        <span class="leader__bar"><i style="width: 100.0%"></i></span>
-        <span class="leader__idx">100.00</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=breakaway">
-        <span class="leader__code">BRK</span>
-        <span class="leader__spec">Breakaway</span>
-        <span class="leader__name">Mathieu van der Poel</span>
-        <span class="leader__bar"><i style="width: 78.9%"></i></span>
-        <span class="leader__idx">87.32</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=mix-terrain">
-        <span class="leader__code">MIX</span>
-        <span class="leader__spec">Mix Terrain</span>
-        <span class="leader__name">Tadej Pogačar</span>
-        <span class="leader__bar"><i style="width: 86.8%"></i></span>
-        <span class="leader__idx">92.09</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=points-plus">
-        <span class="leader__code">PTS</span>
-        <span class="leader__spec">Points+</span>
-        <span class="leader__name">Jonathan Milan</span>
-        <span class="leader__bar"><i style="width: 88.5%"></i></span>
-        <span class="leader__idx">93.11</span>
-      </a>
-      <a class="leader" href="/rankings/?spec=kom-plus">
-        <span class="leader__code">KOM</span>
-        <span class="leader__spec">KOM+</span>
-        <span class="leader__name">Jonas Vingegaard</span>
-        <span class="leader__bar"><i style="width: 92.3%"></i></span>
-        <span class="leader__idx">95.41</span>
-      </a>
+    <div data-view="riders">
+      <header class="sec-head">
+        <h2>No. 1 in every specialty</h2>
+        <p>Fourteen ways to be good on a bike. Tap one to see its full ranking.</p>
+      </header>
+      <div class="leaders">
+        <a class="leader" href="/rankings/?spec=overall">
+          <span class="leader__code">ALL</span>
+          <span class="leader__spec">OVERALL</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 98.5%"></i></span>
+          <span class="leader__idx">99.10</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=stage-hunt">
+          <span class="leader__code">STG</span>
+          <span class="leader__spec">Stage Hunt</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 99.8%"></i></span>
+          <span class="leader__idx">99.89</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=1gc">
+          <span class="leader__code">1D</span>
+          <span class="leader__spec">1.GC</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 99.7%"></i></span>
+          <span class="leader__idx">99.83</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=2gc">
+          <span class="leader__code">GC</span>
+          <span class="leader__spec">2.GC</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 94.8%"></i></span>
+          <span class="leader__idx">96.87</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=leadout">
+          <span class="leader__code">LO</span>
+          <span class="leader__spec">Leadout</span>
+          <span class="leader__name">Jasper Stuyven</span>
+          <span class="leader__bar"><i style="width: 93.0%"></i></span>
+          <span class="leader__idx">95.79</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=domestique">
+          <span class="leader__code">DOM</span>
+          <span class="leader__spec">Domestique</span>
+          <span class="leader__name">Nils Politt</span>
+          <span class="leader__bar"><i style="width: 96.2%"></i></span>
+          <span class="leader__idx">97.70</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=sprint">
+          <span class="leader__code">SPR</span>
+          <span class="leader__spec">Sprint</span>
+          <span class="leader__name">Jasper Philipsen</span>
+          <span class="leader__bar"><i style="width: 95.7%"></i></span>
+          <span class="leader__idx">97.40</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=punch">
+          <span class="leader__code">PUN</span>
+          <span class="leader__spec">Punch</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 95.3%"></i></span>
+          <span class="leader__idx">97.19</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=climb">
+          <span class="leader__code">CLB</span>
+          <span class="leader__spec">Climb</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 99.1%"></i></span>
+          <span class="leader__idx">99.43</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=tt">
+          <span class="leader__code">TT</span>
+          <span class="leader__spec">TT</span>
+          <span class="leader__name">Remco Evenepoel</span>
+          <span class="leader__bar"><i style="width: 100.0%"></i></span>
+          <span class="leader__idx">100.00</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=breakaway">
+          <span class="leader__code">BRK</span>
+          <span class="leader__spec">Breakaway</span>
+          <span class="leader__name">Mathieu van der Poel</span>
+          <span class="leader__bar"><i style="width: 78.9%"></i></span>
+          <span class="leader__idx">87.32</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=mix-terrain">
+          <span class="leader__code">MIX</span>
+          <span class="leader__spec">Mix Terrain</span>
+          <span class="leader__name">Tadej Pogačar</span>
+          <span class="leader__bar"><i style="width: 86.8%"></i></span>
+          <span class="leader__idx">92.09</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=points-plus">
+          <span class="leader__code">PTS</span>
+          <span class="leader__spec">Points+</span>
+          <span class="leader__name">Jonathan Milan</span>
+          <span class="leader__bar"><i style="width: 88.5%"></i></span>
+          <span class="leader__idx">93.11</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=kom-plus">
+          <span class="leader__code">KOM</span>
+          <span class="leader__spec">KOM+</span>
+          <span class="leader__name">Jonas Vingegaard</span>
+          <span class="leader__bar"><i style="width: 92.3%"></i></span>
+          <span class="leader__idx">95.41</span>
+        </a>
+      </div>
+    </div>
+    <div data-view="teams">
+      <header class="sec-head">
+        <h2>No. 1 in every specialty</h2>
+        <p>Fourteen ways to be good on a bike, teams by their best riders. Tap one to see its full ranking.</p>
+      </header>
+      <div class="leaders">
+        <a class="leader" href="/rankings/?spec=overall&amp;kind=teams">
+          <span class="leader__code">ALL</span>
+          <span class="leader__spec">OVERALL</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 90.6%"></i></span>
+          <span class="leader__idx">94.38</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=stage-hunt&amp;kind=teams">
+          <span class="leader__code">STG</span>
+          <span class="leader__spec">Stage Hunt</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 91.3%"></i></span>
+          <span class="leader__idx">94.79</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=1gc&amp;kind=teams">
+          <span class="leader__code">1D</span>
+          <span class="leader__spec">1.GC</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 86.2%"></i></span>
+          <span class="leader__idx">91.70</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=2gc&amp;kind=teams">
+          <span class="leader__code">GC</span>
+          <span class="leader__spec">2.GC</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 83.6%"></i></span>
+          <span class="leader__idx">90.17</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=leadout&amp;kind=teams">
+          <span class="leader__code">LO</span>
+          <span class="leader__spec">Leadout</span>
+          <span class="leader__name">Soudal Quick-Step</span>
+          <span class="leader__bar"><i style="width: 91.2%"></i></span>
+          <span class="leader__idx">94.74</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=domestique&amp;kind=teams">
+          <span class="leader__code">DOM</span>
+          <span class="leader__spec">Domestique</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 95.7%"></i></span>
+          <span class="leader__idx">97.39</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=sprint&amp;kind=teams">
+          <span class="leader__code">SPR</span>
+          <span class="leader__spec">Sprint</span>
+          <span class="leader__name">Soudal Quick-Step</span>
+          <span class="leader__bar"><i style="width: 78.0%"></i></span>
+          <span class="leader__idx">86.77</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=punch&amp;kind=teams">
+          <span class="leader__code">PUN</span>
+          <span class="leader__spec">Punch</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 84.2%"></i></span>
+          <span class="leader__idx">90.51</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=climb&amp;kind=teams">
+          <span class="leader__code">CLB</span>
+          <span class="leader__spec">Climb</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 81.8%"></i></span>
+          <span class="leader__idx">89.06</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=tt&amp;kind=teams">
+          <span class="leader__code">TT</span>
+          <span class="leader__spec">TT</span>
+          <span class="leader__name">INEOS Grenadiers</span>
+          <span class="leader__bar"><i style="width: 75.6%"></i></span>
+          <span class="leader__idx">85.38</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=breakaway&amp;kind=teams">
+          <span class="leader__code">BRK</span>
+          <span class="leader__spec">Breakaway</span>
+          <span class="leader__name">Team Visma | Lease a Bike</span>
+          <span class="leader__bar"><i style="width: 61.6%"></i></span>
+          <span class="leader__idx">76.99</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=mix-terrain&amp;kind=teams">
+          <span class="leader__code">MIX</span>
+          <span class="leader__spec">Mix Terrain</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 63.1%"></i></span>
+          <span class="leader__idx">77.87</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=points-plus&amp;kind=teams">
+          <span class="leader__code">PTS</span>
+          <span class="leader__spec">Points+</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 75.7%"></i></span>
+          <span class="leader__idx">85.40</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=kom-plus&amp;kind=teams">
+          <span class="leader__code">KOM</span>
+          <span class="leader__spec">KOM+</span>
+          <span class="leader__name">UAE Team Emirates - XRG</span>
+          <span class="leader__bar"><i style="width: 79.1%"></i></span>
+          <span class="leader__idx">87.46</span>
+        </a>
+      </div>
+    </div>
+    <div data-view="nations">
+      <header class="sec-head">
+        <h2>No. 1 in every specialty</h2>
+        <p>Fourteen ways to be good on a bike, nations by their best riders. Tap one to see its full ranking.</p>
+      </header>
+      <div class="leaders">
+        <a class="leader" href="/rankings/?spec=overall&amp;kind=nations">
+          <span class="leader__code">ALL</span>
+          <span class="leader__spec">OVERALL</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 87.2%"></i></span>
+          <span class="leader__idx">92.34</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=stage-hunt&amp;kind=nations">
+          <span class="leader__code">STG</span>
+          <span class="leader__spec">Stage Hunt</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 95.5%"></i></span>
+          <span class="leader__idx">97.31</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=1gc&amp;kind=nations">
+          <span class="leader__code">1D</span>
+          <span class="leader__spec">1.GC</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 89.0%"></i></span>
+          <span class="leader__idx">93.39</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=2gc&amp;kind=nations">
+          <span class="leader__code">GC</span>
+          <span class="leader__spec">2.GC</span>
+          <span class="leader__name"><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> Slovenia</span>
+          <span class="leader__bar"><i style="width: 74.9%"></i></span>
+          <span class="leader__idx">84.97</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=leadout&amp;kind=nations">
+          <span class="leader__code">LO</span>
+          <span class="leader__spec">Leadout</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 91.3%"></i></span>
+          <span class="leader__idx">94.77</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=domestique&amp;kind=nations">
+          <span class="leader__code">DOM</span>
+          <span class="leader__spec">Domestique</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 92.8%"></i></span>
+          <span class="leader__idx">95.67</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=sprint&amp;kind=nations">
+          <span class="leader__code">SPR</span>
+          <span class="leader__spec">Sprint</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 91.8%"></i></span>
+          <span class="leader__idx">95.07</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=punch&amp;kind=nations">
+          <span class="leader__code">PUN</span>
+          <span class="leader__spec">Punch</span>
+          <span class="leader__name"><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> United States</span>
+          <span class="leader__bar"><i style="width: 69.7%"></i></span>
+          <span class="leader__idx">81.84</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=climb&amp;kind=nations">
+          <span class="leader__code">CLB</span>
+          <span class="leader__spec">Climb</span>
+          <span class="leader__name"><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> Slovenia</span>
+          <span class="leader__bar"><i style="width: 73.5%"></i></span>
+          <span class="leader__idx">84.11</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=tt&amp;kind=nations">
+          <span class="leader__code">TT</span>
+          <span class="leader__spec">TT</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 65.4%"></i></span>
+          <span class="leader__idx">79.23</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=breakaway&amp;kind=nations">
+          <span class="leader__code">BRK</span>
+          <span class="leader__spec">Breakaway</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 65.3%"></i></span>
+          <span class="leader__idx">79.19</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=mix-terrain&amp;kind=nations">
+          <span class="leader__code">MIX</span>
+          <span class="leader__spec">Mix Terrain</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 66.9%"></i></span>
+          <span class="leader__idx">80.15</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=points-plus&amp;kind=nations">
+          <span class="leader__code">PTS</span>
+          <span class="leader__spec">Points+</span>
+          <span class="leader__name"><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> Belgium</span>
+          <span class="leader__bar"><i style="width: 77.1%"></i></span>
+          <span class="leader__idx">86.24</span>
+        </a>
+        <a class="leader" href="/rankings/?spec=kom-plus&amp;kind=nations">
+          <span class="leader__code">KOM</span>
+          <span class="leader__spec">KOM+</span>
+          <span class="leader__name"><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> France</span>
+          <span class="leader__bar"><i style="width: 65.9%"></i></span>
+          <span class="leader__idx">79.52</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="band band--alt">
-  <div class="wrap movers">
+  <div class="wrap movers" data-view="riders">
     <header class="sec-head">
       <h2>On the move</h2>
-      <p>Biggest changes in the Overall Index over the last 4 weeks, among the top 300.</p>
+      <p>Biggest changes in the Overall Index over the last 4 weeks, among the top 300 riders.</p>
     </header>
     <div class="movers__cols">
       <div class="movers__col movers__col--up">
         <h3>Rising</h3>
         <ol>
-          <li>
-            <span class="movers__who"><span class="">Jørgen Nordhagen</span><small><span class="fi fi-no flag" role="img" aria-label="Norway" title="Norway"></span> #131</small></span>
-            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,16.9 14.0,16.9 26.0,11.1 38.0,7.6 50.0,7.4 62.0,3.1" fill="none" vector-effect="non-scaling-stroke"/>
-</svg>
-            <span class="dl dl--up">+1.08</span>
-
-          </li>
-          <li>
-            <span class="movers__who"><span class="">Ion Izagirre</span><small><span class="fi fi-es flag" role="img" aria-label="Spain" title="Spain"></span> #69</small></span>
-            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,2.2 14.0,3.9 26.0,6.0 38.0,10.2 50.0,17.8 62.0,13.6" fill="none" vector-effect="non-scaling-stroke"/>
-</svg>
-            <span class="dl dl--up">+1.05</span>
-
-          </li>
           <li>
             <span class="movers__who"><span class="">Brady Gilmore</span><small><span class="fi fi-au flag" role="img" aria-label="Australia" title="Australia"></span> #226</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
@@ -309,27 +729,43 @@
 
           </li>
           <li>
-            <span class="movers__who"><span class="">Christophe Laporte</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> #38</small></span>
+            <span class="movers__who"><span class="">Ethan Vernon</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #164</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,3.2 14.0,3.2 26.0,7.7 38.0,14.0 50.0,16.8 62.0,12.6" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,11.9 14.0,11.9 26.0,11.4 38.0,9.4 50.0,9.1 62.0,8.1" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
-            <span class="dl dl--up">+1.04</span>
+            <span class="dl dl--up">+0.26</span>
 
           </li>
           <li>
-            <span class="movers__who"><span class="">Alessandro Fancellu</span><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> #184</small></span>
+            <span class="movers__who"><span class="">Oscar Onley</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #24</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,16.9 14.0,16.9 26.0,6.1 38.0,6.0 50.0,5.9 62.0,3.1" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,4.8 14.0,18.0 26.0,13.6 38.0,2.7 50.0,2.4 62.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
-            <span class="dl dl--up">+0.69</span>
+            <span class="dl dl--up">+0.17</span>
 
           </li>
           <li>
-            <span class="movers__who"><span class="">Florian Vermeersch</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #66</small></span>
+            <span class="movers__who"><span class="">Quinn Simmons</span><small><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> #25</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,3.7 14.0,3.7 26.0,3.9 38.0,9.7 50.0,16.3 62.0,15.0" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,18.0 14.0,16.2 26.0,14.7 38.0,9.6 50.0,2.3 62.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
-            <span class="dl dl--up">+0.32</span>
+            <span class="dl dl--up">+0.13</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Dries De Bondt</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #249</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.3 14.0,7.3 26.0,12.7 38.0,12.7 50.0,12.4 62.0,11.9" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.12</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Max Kanter</span><small><span class="fi fi-de flag" role="img" aria-label="Germany" title="Germany"></span> #96</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.0 14.0,8.2 26.0,9.3 38.0,8.4 50.0,8.3 62.0,8.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.07</span>
 
           </li>
         </ol>
@@ -338,35 +774,11 @@
         <h3>Falling</h3>
         <ol>
           <li>
-            <span class="movers__who"><span class="">Paul Double</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #167</small></span>
-            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,8.1 14.0,9.4 26.0,9.4 38.0,9.4 50.0,4.5 62.0,15.5" fill="none" vector-effect="non-scaling-stroke"/>
-</svg>
-            <span class="dl dl--down">-2.74</span>
-
-          </li>
-          <li>
             <span class="movers__who"><span class="">Lennert Van Eetvelt</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #97</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
   <polyline points="2.0,13.0 14.0,12.2 26.0,5.8 38.0,3.2 50.0,6.8 62.0,16.8" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
             <span class="dl dl--down">-2.48</span>
-
-          </li>
-          <li>
-            <span class="movers__who"><span class="">Mikkel Frølich Honoré</span><small><span class="fi fi-dk flag" role="img" aria-label="Denmark" title="Denmark"></span> #272</small></span>
-            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,6.1 14.0,6.5 26.0,8.1 38.0,7.0 50.0,5.7 62.0,14.3" fill="none" vector-effect="non-scaling-stroke"/>
-</svg>
-            <span class="dl dl--down">-2.16</span>
-
-          </li>
-          <li>
-            <span class="movers__who"><span class="">Joshua Tarling</span><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #191</small></span>
-            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,7.0 14.0,7.0 26.0,5.2 38.0,5.2 50.0,7.9 62.0,14.8" fill="none" vector-effect="non-scaling-stroke"/>
-</svg>
-            <span class="dl dl--down">-1.72</span>
 
           </li>
           <li>
@@ -378,11 +790,199 @@
 
           </li>
           <li>
+            <span class="movers__who"><span class="">Alex Baudin</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> #114</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.5 14.0,7.5 26.0,7.5 38.0,7.6 50.0,7.9 62.0,12.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-1.17</span>
+
+          </li>
+          <li>
             <span class="movers__who"><span class="">Stan Dewulf</span><small><span class="fi fi-be flag" role="img" aria-label="Belgium" title="Belgium"></span> #187</small></span>
             <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
-  <polyline points="2.0,7.0 14.0,6.0 26.0,5.9 38.0,10.7 50.0,11.0 62.0,14.1" fill="none" vector-effect="non-scaling-stroke"/>
+  <polyline points="2.0,7.1 14.0,6.1 26.0,5.9 38.0,10.8 50.0,11.6 62.0,14.1" fill="none" vector-effect="non-scaling-stroke"/>
 </svg>
-            <span class="dl dl--down">-0.77</span>
+            <span class="dl dl--down">-0.62</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Filippo Zana</span><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> #149</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,8.6 14.0,8.6 26.0,8.4 38.0,11.6 50.0,8.8 62.0,11.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.55</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><span class="">Axel Zingle</span><small><span class="fi fi-fr flag" role="img" aria-label="France" title="France"></span> #247</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,5.8 14.0,5.8 26.0,6.9 38.0,12.5 50.0,12.5 62.0,14.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.42</span>
+
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="wrap movers" data-view="teams">
+    <header class="sec-head">
+      <h2>On the move</h2>
+      <p>Biggest changes in the Overall Index over the last 4 weeks, among the top 50 teams.</p>
+    </header>
+    <div class="movers__cols">
+      <div class="movers__col movers__col--up">
+        <h3>Rising</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><a class="" href="/team/ineos-grenadiers/">INEOS Grenadiers</a><small>#5</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,9.6 14.0,12.4 26.0,12.8 38.0,8.0 50.0,7.4 62.0,7.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.06</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/team/st-michel-preference-home-auber93/">St Michel - Preference Home - Auber93</a><small>#43</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.6 14.0,7.4 26.0,5.1 38.0,4.9 50.0,15.1 62.0,14.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.06</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/team/israel-premier-tech-academy/">Israel Premier Tech Academy</a><small>#24</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,11.4 14.0,11.4 26.0,6.6 38.0,13.4 50.0,12.0 62.0,11.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.05</span>
+
+          </li>
+        </ol>
+      </div>
+      <div class="movers__col movers__col--down">
+        <h3>Falling</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><a class="" href="/team/lotto/">Lotto</a><small>#16</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,10.2 14.0,9.8 26.0,5.8 38.0,9.2 50.0,10.8 62.0,14.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.83</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/team/ef-education-easypost/">EF Education - EasyPost</a><small>#11</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.7 14.0,6.5 26.0,8.7 38.0,8.0 50.0,11.9 62.0,13.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.39</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/team/roojai-insurance/">Roojai Insurance</a><small>#44</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,10.3 14.0,10.3 26.0,9.7 38.0,8.8 50.0,9.8 62.0,11.2" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.35</span>
+
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="wrap movers" data-view="nations">
+    <header class="sec-head">
+      <h2>On the move</h2>
+      <p>Biggest changes in the Overall Index over the last 4 weeks, among the top 50 nations.</p>
+    </header>
+    <div class="movers__cols">
+      <div class="movers__col movers__col--up">
+        <h3>Rising</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/gb/">Great Britain</a><small><span class="fi fi-gb flag" role="img" aria-label="Great Britain" title="Great Britain"></span> #8</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,4.8 14.0,15.2 26.0,13.9 38.0,7.8 50.0,7.1 62.0,6.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.06</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/us/">United States</a><small><span class="fi fi-us flag" role="img" aria-label="United States" title="United States"></span> #3</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,14.4 14.0,15.3 26.0,18.0 38.0,14.9 50.0,2.2 62.0,2.0" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.05</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/de/">Germany</a><small><span class="fi fi-de flag" role="img" aria-label="Germany" title="Germany"></span> #11</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.3 14.0,13.5 26.0,9.4 38.0,7.5 50.0,6.6 62.0,6.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.02</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/it/">Italy</a><small><span class="fi fi-it flag" role="img" aria-label="Italy" title="Italy"></span> #7</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,11.1 14.0,11.3 26.0,14.1 38.0,9.7 50.0,5.9 62.0,5.9" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--up">+0.01</span>
+
+          </li>
+        </ol>
+      </div>
+      <div class="movers__col movers__col--down">
+        <h3>Falling</h3>
+        <ol>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/ca/">Canada</a><small><span class="fi fi-ca flag" role="img" aria-label="Canada" title="Canada"></span> #23</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,5.5 14.0,14.5 26.0,9.1 38.0,8.3 50.0,6.6 62.0,7.5" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.22</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/sk/">Slovakia</a><small><span class="fi fi-sk flag" role="img" aria-label="Slovakia" title="Slovakia"></span> #34</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,11.6 14.0,11.0 26.0,8.4 38.0,8.4 50.0,8.6 62.0,9.1" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.12</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/si/">Slovenia</a><small><span class="fi fi-si flag" role="img" aria-label="Slovenia" title="Slovenia"></span> #5</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.1 14.0,11.6 26.0,12.9 38.0,10.1 50.0,10.9 62.0,11.3" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.11</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/cz/">Czech Republic</a><small><span class="fi fi-cz flag" role="img" aria-label="Czech Republic" title="Czech Republic"></span> #20</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,12.7 14.0,12.5 26.0,11.3 38.0,7.3 50.0,7.7 62.0,7.9" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.06</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/jp/">Japan</a><small><span class="fi fi-jp flag" role="img" aria-label="Japan" title="Japan"></span> #40</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.2 14.0,7.2 26.0,7.5 38.0,11.5 50.0,12.6 62.0,12.8" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.05</span>
+
+          </li>
+          <li>
+            <span class="movers__who"><a class="" href="/nation/mn/">Mongolia</a><small><span class="fi fi-mn flag" role="img" aria-label="Mongolia" title="Mongolia"></span> #43</small></span>
+            <svg class="spark" viewBox="0 0 64 20" width="64" height="20" aria-hidden="true" preserveAspectRatio="none">
+  <polyline points="2.0,7.7 14.0,7.4 26.0,7.8 38.0,10.2 50.0,12.4 62.0,12.6" fill="none" vector-effect="non-scaling-stroke"/>
+</svg>
+            <span class="dl dl--down">-0.04</span>
 
           </li>
         </ol>
@@ -574,12 +1174,12 @@
         Riders with no results sit at 40.</p>
     </div>
     <div class="foot__note">
-      <p><span class="tag">Beta</span> Data as of 15 Nov 2026.
+      <p><span class="tag">Beta</span> Data as of 16 Nov 2026.
 </p>
       <p>Results data: procyclingstats.com</p>
     </div>
   </div>
 </footer>
-<script src="/static/site.js?v=1794777762" defer></script>
+<script src="/static/site.js?v=1794830295" defer></script>
 </body>
 </html>
