@@ -651,3 +651,12 @@ html[data-pulse="nations"] [data-view]:not([data-view="nations"]) { display: non
 .no1__chg { display: inline-flex; gap: 6px; align-items: baseline; }
 .no1__chg small { font: 500 11px var(--f-mono); color: var(--muted); letter-spacing: .04em; }
 .leader__new { font: 700 10px/1 var(--f-mono); background: var(--accent); color: var(--on-accent); padding: 2px 5px; border-radius: 4px; margin-left: 4px; letter-spacing: .06em; }
+
+/* Pulse hero on wide screens: the headline starts level with the top 10 and the No. 1 card ends level with it,
+   whatever the height of the No. 1 card (a long team name wraps, a rider name doesn't) */
+@media (min-width: 980px) {
+  .hero__grid { align-items: stretch; }
+  .hero__lead { display: flex; flex-direction: column; }
+  .hero__lead > [data-view] { flex: 1; display: flex; flex-direction: column; }
+  .hero__lead .no1 { margin-top: auto; }
+}
