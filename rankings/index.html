@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="/static/site.css?v=1794830295">
+<link rel="stylesheet" href="/static/site.css?v=1794831593">
 <script>
   try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -50,7 +50,7 @@
 <main id="main">
 <section class="rk-head">
   <div class="wrap">
-    <p class="eyebrow"><span class="dot"></span> Rankings · as of 16 Nov 2026</p>
+    <p class="eyebrow"><span class="dot"></span> Rankings · <span id="rk-asof" data-today="as of 16 Nov 2026">as of 16 Nov 2026</span></p>
     <h1 class="rk-title" id="rk-title">Overall Index</h1>
     <p class="rk-about" id="rk-about">How good a rider&#39;s results are, whatever the race, terrain or role.</p>
 
@@ -60,6 +60,9 @@
         <button role="tab" data-kind="teams" aria-selected="false">Teams</button>
         <button role="tab" data-kind="nations" aria-selected="false">Nations</button>
       </div>
+      <div class="seg" role="tablist" aria-label="Season" id="rk-season">
+        <button role="tab" data-season="" aria-selected="true">Today</button>
+<button role="tab" data-season="2025" aria-selected="false">2025 final</button>      </div>
       <input class="rk-filter" id="rk-filter" type="search" placeholder="Filter this list" aria-label="Filter this list">
     </div>
     <div class="chips" role="tablist" aria-label="Specialty">
@@ -98,7 +101,7 @@
 <section class="wrap rk">
   <div class="rk-table" id="rk-table" aria-live="polite">
     <div class="rk-row rk-row--head" aria-hidden="true">
-      <span>#</span><span>±4w</span><span>Name</span><span class="rk-spark-h">12 months</span><span class="num rk-per" title="Score of the last 12 months, counted in full">This yr ×1</span><span class="num rk-per" title="Score of the 12 months before, counted at half weight">Last yr ×½</span><span class="num rk-per" title="Score of the 12 months before that, counted at a quarter">2 yrs ago ×¼</span><span class="num">Index</span>
+      <span>#</span><span id="rk-chg" title="Change since 31 Dec 2025">±2026</span><span>Name</span><span class="rk-spark-h">12 months</span><span class="num">Index</span><span class="num rk-per" title="Score of the last 12 months, counted in full">This yr ×1</span><span class="num rk-per" title="Score of the 12 months before, counted at half weight">Last yr ×½</span><span class="num rk-per" title="Score of the 12 months before that, counted at a quarter">2 yrs ago ×¼</span>
     </div>
     <div id="rk-body"><p class="rk-loading">Loading ranking…</p></div>
   </div>
@@ -122,6 +125,6 @@
     </div>
   </div>
 </footer>
-<script src="/static/site.js?v=1794830295" defer></script>
-<script src="/static/rankings.js?v=1794830295" defer></script></body>
+<script src="/static/site.js?v=1794831593" defer></script>
+<script src="/static/rankings.js?v=1794831593" defer></script></body>
 </html>
