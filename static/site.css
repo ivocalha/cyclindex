@@ -617,7 +617,7 @@ small { font-size: 12.5px; color: var(--muted); }
 .impact__others a { color: var(--text); font-weight: 600; }
 
 /* Pulse: riders / teams / nations switch (picked at random on load by an inline script in home.html) */
-.pulse-seg { margin: 18px 0 0; }
+.pulse-seg { margin: 18px 0 0; align-self: flex-start; width: fit-content; }
 .pulse-seg + [data-view] .hero__title, .pulse-seg ~ [data-view] .hero__title { margin-top: 18px; }
 html:not([data-pulse]) [data-view]:not([data-view="riders"]),
 html[data-pulse="riders"] [data-view]:not([data-view="riders"]),
