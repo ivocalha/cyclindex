@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="/static/site.css?v=1794832619">
+<link rel="stylesheet" href="/static/site.css?v=1794912230">
 <script>
   try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -65,6 +65,7 @@
           <h2>Every result gets a Level</h2>
           <p>Each result (a stage, a final GC, a one-day race, and the points and mountains competitions of stage races) is checked against the 14 specialties. A bunch-sprint stage can count for Sprint, a mountain-top finish for Climb, a breakaway for Breakaway, and so on. Most results count for <b>Overall</b>.</p>
           <p>Where a result counts, it gets a <b>Level from 0 to 100</b> for that specialty, read from Cyclindex's own tables from the UCI points the result earned. Winning the Tour de France is about 100. For cobbles and gravel, the Level is scaled by how much of the day was really on that terrain.</p>
+          <p><a class="how__more" href="#levels">How a result becomes a Level, with real examples ↓</a></p>
         </div>
       </li>
       <li>
@@ -114,7 +115,101 @@
   </div>
 </section>
 
-<section class="band band--alt">
+<section class="band band--alt" id="levels">
+  <div class="wrap how">
+    <header class="sec-head"><h2>From result to Level</h2><p>How one race result turns into a Level, specialty by specialty.</p></header>
+    <ol class="lv-flow">
+      <li><span class="how__n">a</span><div><h3>UCI points</h3><p>Every result starts from the <b>UCI points</b> it earned. The UCI sets them by race class and place: winning the Tour de France is worth 1300, a WorldTour stage 210, a 1.1 one-day race 125.</p></div></li>
+      <li><span class="how__n">b</span><div><h3>Which specialties</h3><p>The result is checked against each specialty's rules (the table below). One result can count for <b>several specialties</b> at once, each with its own Level.</p></div></li>
+      <li><span class="how__n">c</span><div><h3>Each specialty's table</h3><p>Each specialty reads the points from <b>its own table</b>. Sprint, Climb or Stage Hunt reach a high Level with fewer points than Overall, because their best days are worth fewer UCI points.</p></div></li>
+    </ol>
+
+    <div class="calc" id="calc-level">
+      <p class="calc__title">Try it: the same UCI points in every specialty (2026 tables)</p>
+      <div class="calc__sliders">
+        <label><span>UCI points</span><input type="range" min="0" max="10000" step="1" value="4019" id="lv-pts" aria-label="UCI points"><output id="lv-pts-out"></output></label>
+      </div>
+      <ul class="lv-bars" id="lv-bars">
+<li data-spec="OVERALL"><span class="leader__code">ALL</span><span class="lv-bars__name">OVERALL</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Stage Hunt"><span class="leader__code">STG</span><span class="lv-bars__name">Stage Hunt</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="1.GC"><span class="leader__code">1D</span><span class="lv-bars__name">1.GC</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="2.GC"><span class="leader__code">GC</span><span class="lv-bars__name">2.GC</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Leadout"><span class="leader__code">LO</span><span class="lv-bars__name">Leadout<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Domestique"><span class="leader__code">DOM</span><span class="lv-bars__name">Domestique<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Sprint"><span class="leader__code">SPR</span><span class="lv-bars__name">Sprint</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Punch"><span class="leader__code">PUN</span><span class="lv-bars__name">Punch</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Climb"><span class="leader__code">CLB</span><span class="lv-bars__name">Climb</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="TT"><span class="leader__code">TT</span><span class="lv-bars__name">TT</span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Breakaway"><span class="leader__code">BRK</span><span class="lv-bars__name">Breakaway<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Mix Terrain"><span class="leader__code">MIX</span><span class="lv-bars__name">Mix Terrain<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="Points+"><span class="leader__code">PTS</span><span class="lv-bars__name">Points+<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li><li data-spec="KOM+"><span class="leader__code">KOM</span><span class="lv-bars__name">KOM+<sup>*</sup></span><span class="lv-bars__track"><i></i></span><b>–</b></li>      </ul>
+      <p class="lv-note"><sup>*</sup> Leadout and Domestique use a teammate's points, Points+, KOM+ and long breaks use a Cyclindex points value, and Mix Terrain is then scaled by the terrain share (see the table below). Seasons up to 2022 use an older table, because the UCI changed its points scales in 2023.</p>
+    </div>
+
+    <h3 class="lv-sub">Real results from 2026</h3>
+    <ul class="lv-ex">
+      <li>
+        <p class="lv-ex__label">Grand Tour win</p>
+        <p class="lv-ex__who"><a href="/rider/tadej-pogacar/">Tadej Pogačar</a></p>
+        <p class="lv-ex__what"><a href="/race/tour-de-france-2026/">Tour de France</a> · Final GC · 1st · 0.5 km solo</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="1300" title="Put these points in the calculator above">1300 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="2.GC: Level 100"><span class="leader__code">GC</span><b>100</b></li><li title="OVERALL: Level 100"><span class="leader__code">ALL</span><b>100</b></li>        </ul>
+      </li>
+      <li>
+        <p class="lv-ex__label">WorldTour one-day win</p>
+        <p class="lv-ex__who"><a href="/rider/tadej-pogacar/">Tadej Pogačar</a></p>
+        <p class="lv-ex__what"><a href="/race/milano-sanremo-2026/">Milano-Sanremo</a> · Result · 1st · Sprint a deux</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="800" title="Put these points in the calculator above">800 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="1.GC: Level 99"><span class="leader__code">1D</span><b>99</b></li><li title="OVERALL: Level 94"><span class="leader__code">ALL</span><b>94</b></li>        </ul>
+      </li>
+      <li>
+        <p class="lv-ex__label">Bunch-sprint stage win</p>
+        <p class="lv-ex__who"><a href="/rider/tim-merlier/">Tim Merlier</a></p>
+        <p class="lv-ex__what"><a href="/race/tour-de-france-2026/">Tour de France</a> · Stage 7 · 1st · Bunchsprint</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="210" title="Put these points in the calculator above">210 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="Stage Hunt: Level 100"><span class="leader__code">STG</span><b>100</b></li><li title="Sprint: Level 90"><span class="leader__code">SPR</span><b>90</b></li><li title="OVERALL: Level 60"><span class="leader__code">ALL</span><b>60</b></li>        </ul>
+      </li>
+      <li>
+        <p class="lv-ex__label">10th on a mountain stage</p>
+        <p class="lv-ex__who"><a href="/rider/juan-ayuso-pesquera/">Juan Ayuso</a></p>
+        <p class="lv-ex__what"><a href="/race/tour-de-france-2026/">Tour de France</a> · Stage 3 · 10th · Sprint of small group</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="30" title="Put these points in the calculator above">30 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="Climb: Level 43"><span class="leader__code">CLB</span><b>43</b></li><li title="Stage Hunt: Level 43"><span class="leader__code">STG</span><b>43</b></li><li title="OVERALL: Level 23"><span class="leader__code">ALL</span><b>23</b></li>        </ul>
+      </li>
+      <li>
+        <p class="lv-ex__label">Lead-out in a bunch sprint</p>
+        <p class="lv-ex__who"><a href="/rider/jasper-stuyven/">Jasper Stuyven</a></p>
+        <p class="lv-ex__what"><a href="/race/tour-de-france-2026/">Tour de France</a> · Stage 12 · 16th · Bunchsprint</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="0" title="Put these points in the calculator above">0 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="Leadout: Level 90"><span class="leader__code">LO</span><b>90</b><small>from 210 pts</small></li><li title="OVERALL: Level 0"><span class="leader__code">ALL</span><b>0</b></li><li title="Sprint: Level 0"><span class="leader__code">SPR</span><b>0</b></li><li title="Stage Hunt: Level 0"><span class="leader__code">STG</span><b>0</b></li>        </ul>
+      </li>
+      <li>
+        <p class="lv-ex__label">A 1.1 race win</p>
+        <p class="lv-ex__who"><a href="/rider/christian-scaroni/">Christian Scaroni</a></p>
+        <p class="lv-ex__what"><a href="/race/classica-camp-de-morvedre-2026/">Classica Camp de Morvedre</a> · Result · 1st · Sprint of small group</p>
+        <p class="lv-ex__pts"><button type="button" data-pts="125" title="Put these points in the calculator above">125 UCI points</button></p>
+        <ul class="lv-chips">
+<li title="1.GC: Level 46"><span class="leader__code">1D</span><b>46</b></li><li title="OVERALL: Level 46"><span class="leader__code">ALL</span><b>46</b></li><li title="Punch: Level 46"><span class="leader__code">PUN</span><b>46</b></li>        </ul>
+      </li>
+    </ul>
+    <p class="lv-note">"from … pts" marks a Level read from other points than the rider's own, such as a lead-out rider credited with the team sprinter's points.</p>
+
+    <h3 class="lv-sub">What counts for each specialty</h3>
+    <div class="lv-rules">
+      <div class="lv-rules__row lv-rules__head"><span>Specialty</span><span>Results that count</span><span>Points used</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">ALL</span> OVERALL</span><span>Every result: stages, one-day races, the final GC, the GC leader&#39;s daily points, and each stage race&#39;s Points+ and KOM+ value.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">STG</span> Stage Hunt</span><span>Every stage of a stage race, except time trials.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">1D</span> 1.GC</span><span>One-day races.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">GC</span> 2.GC</span><span>The final GC of a stage race.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">SPR</span> Sprint</span><span>Days won in a bunch sprint (30 or more riders on the winner&#39;s time), for riders who scored UCI points or finished on the winner&#39;s time.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">PUN</span> Punch</span><span>Hilly days (PCS parcours type 2 or 3, profile score 100 or more) that were not a bunch sprint or a time trial.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">CLB</span> Climb</span><span>Mountain days (PCS parcours type 4 or 5, profile score 150 or more) that were not a bunch sprint or a time trial.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">TT</span> TT</span><span>Individual time trials, as a stage or a one-day race.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">MIX</span> Mix Terrain</span><span>Days on the Cyclindex cobbles and gravel list. The Level is then multiplied by the share of the day really raced on that terrain.</span><span>Own UCI points</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">BRK</span> Breakaway</span><span>Three ways in: on a flat day, finishing ahead of the peloton when it was not a bunch sprint; on a mountain stage, finishing ahead of every GC top-10 rider; or riding in the break for at least a quarter of the day.</span><span>Own UCI points; for a long break, a Cyclindex value set by kilometres in the break and the race class</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">LO</span> Leadout</span><span>Bunch sprints: every finisher of a team except its best-placed rider.</span><span>The UCI points of the team&#39;s best-placed rider</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">DOM</span> Domestique</span><span>Final GCs and one-day races: riders outside the top 10 whose teammate placed best.</span><span>The UCI points of that teammate</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">PTS</span> Points+</span><span>Stage races: each rider&#39;s highest total in the points competition on any day of the race, ranked across the race (top 30).</span><span>A Cyclindex value set by that rank and the race class</span></div>
+      <div class="lv-rules__row"><span><span class="leader__code">KOM</span> KOM+</span><span>The same for the mountains competition.</span><span>A Cyclindex value set by that rank and the race class</span></div>
+    </div>
+    <p class="lv-note">Only finished results count; riders who did not start are left out, and a rider who abandoned gets Level 0. A Level of 0 still counts for more than no result at all.</p>
+  </div>
+</section>
+
+<section class="band">
   <div class="wrap">
     <header class="sec-head"><h2>The 14 specialties</h2><p>Each one is ranked on its own, and together they make a rider's DNA.</p></header>
     <ul class="how__specs">
@@ -146,13 +241,13 @@
         Riders with no results sit at 40.</p>
     </div>
     <div class="foot__note">
-      <p><span class="tag">Beta</span> Data as of 16 Nov 2026.
+      <p><span class="tag">Beta</span> Data as of 17 Nov 2026.
 </p>
       <p>Results data: procyclingstats.com</p>
     </div>
   </div>
 </footer>
-<script src="/static/site.js?v=1794832619" defer></script>
+<script src="/static/site.js?v=1794912230" defer></script>
 <script>
 (function () {
   "use strict";
@@ -169,6 +264,34 @@
     var num = 0, den = 0;
     for (var i = 0; i < n; i++) { num += (top[i] / 2 + 50) * c[i]; den += (HLK[i] / 2 + 50) * c[i]; }
     return num * 100 / den;
+  }
+  // Level converter: each specialty's UCI points -> Level table (highest band whose minimum is reached)
+  var BANDS = {"1.GC": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [8.0, 12], [10.0, 14], [12.0, 15], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 47], [135.0, 48], [140.0, 49], [150.0, 50], [160.0, 52], [165.0, 53], [175.0, 55], [180.0, 56], [190.0, 57], [195.0, 58], [200.0, 59], [215.0, 61], [220.0, 62], [225.0, 63], [240.0, 66], [250.0, 67], [260.0, 68], [265.0, 69], [275.0, 70], [280.0, 71], [300.0, 74], [320.0, 75], [325.0, 76], [340.0, 77], [360.0, 78], [400.0, 80], [410.0, 82], [440.0, 84], [455.0, 86], [490.0, 88], [500.0, 90], [520.0, 92], [600.0, 94], [640.0, 96], [715.0, 98], [800.0, 99], [900.0, 100]], "2.GC": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 47], [140.0, 49], [150.0, 50], [155.0, 51], [165.0, 53], [175.0, 55], [180.0, 56], [190.0, 57], [200.0, 59], [210.0, 60], [215.0, 61], [220.0, 62], [225.0, 63], [230.0, 64], [235.0, 65], [250.0, 67], [260.0, 68], [275.0, 70], [285.0, 72], [295.0, 73], [300.0, 74], [320.0, 75], [325.0, 76], [340.0, 77], [360.0, 78], [400.0, 79], [415.0, 81], [425.0, 82], [495.0, 86], [500.0, 87], [520.0, 88], [600.0, 89], [620.0, 90], [750.0, 93], [880.0, 95], [885.0, 96], [1040.0, 98], [1100.0, 99], [1300.0, 100]], "Breakaway": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 52], [135.0, 53], [140.0, 54], [150.0, 55], [160.0, 56], [175.0, 57], [180.0, 58], [190.0, 59], [200.0, 60], [210.0, 61], [215.0, 62], [220.0, 63], [225.0, 64], [240.0, 65], [250.0, 66], [260.0, 67], [265.0, 68], [275.0, 69], [280.0, 70], [300.0, 72], [320.0, 74], [325.0, 76], [340.0, 78], [360.0, 80], [400.0, 82], [410.0, 84], [440.0, 86], [490.0, 88], [500.0, 90], [520.0, 92], [600.0, 94], [640.0, 96], [715.0, 98], [800.0, 100], [900.0, 100]], "Climb": [[0.0, 0], [1.0, 5], [2.0, 7], [3.0, 9], [4.0, 11], [5.0, 13], [6.0, 15], [7.0, 17], [8.0, 19], [9.0, 22], [10.0, 25], [12.0, 28], [14.0, 31], [15.0, 34], [20.0, 37], [25.0, 40], [30.0, 43], [35.0, 46], [40.0, 49], [45.0, 52], [50.0, 56], [55.0, 60], [60.0, 64], [70.0, 68], [80.0, 72], [90.0, 76], [95.0, 80], [110.0, 84], [130.0, 88], [150.0, 92], [180.0, 96], [210.0, 100], [215.0, 100], [220.0, 100], [225.0, 100], [240.0, 100], [250.0, 100], [260.0, 100], [265.0, 100], [275.0, 100], [280.0, 100], [300.0, 100], [320.0, 100], [325.0, 100], [340.0, 100], [360.0, 100], [400.0, 100], [410.0, 100], [440.0, 100], [490.0, 100], [500.0, 100], [520.0, 100], [600.0, 100], [640.0, 100], [715.0, 100], [800.0, 100], [900.0, 100]], "Domestique": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 47], [135.0, 48], [140.0, 49], [150.0, 50], [155.0, 51], [160.0, 52], [165.0, 53], [175.0, 55], [180.0, 56], [190.0, 57], [200.0, 59], [210.0, 60], [215.0, 61], [220.0, 62], [225.0, 63], [230.0, 64], [235.0, 65], [240.0, 66], [250.0, 67], [260.0, 68], [265.0, 69], [275.0, 70], [280.0, 71], [285.0, 72], [295.0, 73], [300.0, 74], [320.0, 75], [325.0, 76], [340.0, 77], [360.0, 78], [400.0, 79], [410.0, 80], [415.0, 81], [425.0, 82], [440.0, 83], [490.0, 85], [495.0, 86], [500.0, 87], [520.0, 88], [600.0, 89], [620.0, 90], [640.0, 91], [715.0, 92], [750.0, 93], [800.0, 94], [880.0, 95], [885.0, 96], [900.0, 97], [1040.0, 98], [1100.0, 99], [1300.0, 100]], "KOM+": [[0.0, 0], [1.0, 1], [2.0, 2], [3.0, 3], [4.0, 4], [5.0, 5], [6.0, 6], [7.0, 7], [8.0, 8], [9.0, 9], [10.0, 10], [11.0, 11], [12.0, 12], [13.0, 13], [14.0, 14], [15.0, 15], [16.0, 16], [17.0, 17], [18.0, 18], [19.0, 19], [20.0, 20], [21.0, 21], [22.0, 22], [23.0, 23], [25.0, 25], [26.0, 26], [27.0, 27], [28.0, 28], [29.0, 29], [30.0, 30], [31.0, 31], [33.0, 33], [34.0, 34], [35.0, 35], [36.0, 36], [37.0, 37], [39.0, 39], [41.0, 41], [42.0, 42], [44.0, 44], [46.0, 46], [47.0, 47], [48.0, 48], [50.0, 50], [51.0, 51], [52.0, 52], [53.0, 53], [54.0, 54], [55.0, 55], [57.0, 57], [58.0, 58], [60.0, 60], [62.0, 62], [64.0, 64], [65.0, 65], [66.0, 66], [68.0, 68], [70.0, 70], [72.0, 72], [75.0, 74], [78.0, 76], [80.0, 78], [83.0, 80], [85.0, 82], [88.0, 84], [90.0, 86], [92.0, 88], [95.0, 90], [110.0, 92], [130.0, 94], [150.0, 96], [180.0, 98], [210.0, 100]], "Leadout": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 19], [20.0, 21], [24.0, 23], [25.0, 25], [28.0, 27], [30.0, 29], [32.0, 31], [35.0, 33], [40.0, 35], [45.0, 37], [48.0, 39], [50.0, 41], [55.0, 43], [56.0, 45], [60.0, 47], [65.0, 49], [68.0, 51], [70.0, 53], [75.0, 55], [80.0, 57], [85.0, 59], [90.0, 61], [95.0, 63], [100.0, 65], [105.0, 67], [110.0, 69], [115.0, 71], [120.0, 73], [125.0, 75], [130.0, 77], [135.0, 78], [140.0, 79], [150.0, 81], [160.0, 83], [175.0, 84], [180.0, 86], [190.0, 87], [200.0, 88], [210.0, 90], [215.0, 90], [220.0, 91], [225.0, 92], [240.0, 93], [250.0, 93], [260.0, 94], [265.0, 94], [275.0, 95], [280.0, 95], [300.0, 96], [320.0, 97], [325.0, 98], [340.0, 98], [360.0, 98], [400.0, 99], [410.0, 99], [440.0, 99], [490.0, 99], [500.0, 100], [520.0, 100], [600.0, 100], [640.0, 100], [715.0, 100], [800.0, 100], [900.0, 100]], "Mix": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 47], [135.0, 48], [140.0, 49], [150.0, 50], [160.0, 52], [175.0, 54], [180.0, 56], [190.0, 58], [200.0, 60], [210.0, 62], [215.0, 64], [220.0, 66], [225.0, 68], [240.0, 70], [250.0, 72], [260.0, 74], [265.0, 74], [275.0, 76], [280.0, 78], [300.0, 80], [320.0, 82], [325.0, 84], [340.0, 84], [360.0, 86], [400.0, 88], [410.0, 88], [440.0, 90], [490.0, 90], [500.0, 92], [520.0, 95], [600.0, 95], [640.0, 97], [715.0, 97], [800.0, 100], [900.0, 100]], "Overall": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 47], [135.0, 48], [140.0, 49], [150.0, 50], [155.0, 51], [160.0, 52], [165.0, 53], [170.0, 54], [175.0, 55], [180.0, 56], [190.0, 57], [195.0, 58], [200.0, 59], [210.0, 60], [215.0, 61], [220.0, 62], [225.0, 63], [230.0, 64], [235.0, 65], [240.0, 66], [250.0, 67], [260.0, 68], [265.0, 69], [275.0, 70], [280.0, 71], [285.0, 72], [295.0, 73], [300.0, 74], [320.0, 75], [325.0, 76], [340.0, 77], [360.0, 78], [400.0, 79], [410.0, 80], [415.0, 81], [425.0, 82], [440.0, 83], [455.0, 84], [490.0, 85], [495.0, 86], [500.0, 87], [520.0, 88], [600.0, 89], [620.0, 90], [640.0, 91], [715.0, 92], [750.0, 93], [800.0, 94], [880.0, 95], [885.0, 96], [900.0, 97], [1040.0, 98], [1100.0, 99], [1300.0, 100]], "Points+": [[0.0, 0], [1.0, 1], [2.0, 2], [3.0, 3], [4.0, 4], [5.0, 5], [6.0, 6], [7.0, 7], [8.0, 8], [9.0, 9], [10.0, 10], [11.0, 11], [12.0, 12], [13.0, 13], [14.0, 14], [15.0, 15], [16.0, 16], [17.0, 17], [18.0, 18], [19.0, 19], [20.0, 20], [21.0, 21], [22.0, 22], [23.0, 23], [25.0, 25], [26.0, 26], [27.0, 27], [28.0, 28], [29.0, 29], [30.0, 30], [31.0, 31], [33.0, 33], [34.0, 34], [35.0, 35], [36.0, 36], [37.0, 37], [39.0, 39], [41.0, 41], [42.0, 42], [44.0, 44], [46.0, 46], [47.0, 47], [48.0, 48], [50.0, 50], [51.0, 51], [52.0, 52], [53.0, 53], [54.0, 54], [55.0, 55], [57.0, 57], [58.0, 58], [60.0, 60], [62.0, 62], [64.0, 64], [65.0, 65], [66.0, 66], [68.0, 68], [70.0, 70], [72.0, 72], [75.0, 74], [78.0, 76], [80.0, 78], [83.0, 80], [85.0, 82], [88.0, 84], [90.0, 86], [92.0, 88], [95.0, 90], [110.0, 92], [130.0, 94], [150.0, 96], [180.0, 98], [210.0, 100]], "Punch": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 18], [20.0, 19], [24.0, 20], [25.0, 21], [28.0, 22], [30.0, 23], [32.0, 24], [35.0, 25], [40.0, 26], [45.0, 27], [48.0, 28], [50.0, 29], [55.0, 30], [56.0, 31], [60.0, 32], [65.0, 33], [68.0, 34], [70.0, 35], [75.0, 36], [80.0, 37], [85.0, 38], [90.0, 39], [95.0, 40], [100.0, 41], [105.0, 42], [110.0, 43], [115.0, 44], [120.0, 45], [125.0, 46], [130.0, 52], [135.0, 53], [140.0, 54], [150.0, 55], [160.0, 56], [175.0, 57], [180.0, 58], [190.0, 59], [200.0, 60], [210.0, 61], [215.0, 62], [220.0, 63], [225.0, 64], [240.0, 65], [250.0, 66], [260.0, 67], [265.0, 68], [275.0, 69], [280.0, 70], [300.0, 72], [320.0, 74], [325.0, 76], [340.0, 78], [360.0, 80], [400.0, 82], [410.0, 84], [440.0, 86], [490.0, 88], [500.0, 90], [520.0, 92], [600.0, 94], [640.0, 96], [715.0, 98], [800.0, 100], [900.0, 100]], "Sprint": [[0.0, 0], [1.0, 5], [2.0, 6], [3.0, 7], [4.0, 8], [5.0, 9], [6.0, 10], [7.0, 11], [8.0, 12], [9.0, 13], [10.0, 14], [12.0, 15], [14.0, 16], [15.0, 17], [16.0, 19], [20.0, 21], [24.0, 23], [25.0, 25], [28.0, 27], [30.0, 29], [32.0, 31], [35.0, 33], [40.0, 35], [45.0, 37], [48.0, 39], [50.0, 41], [55.0, 43], [56.0, 45], [60.0, 47], [65.0, 49], [68.0, 51], [70.0, 53], [75.0, 55], [80.0, 57], [85.0, 59], [90.0, 61], [95.0, 63], [100.0, 65], [105.0, 67], [110.0, 69], [115.0, 71], [120.0, 73], [125.0, 75], [130.0, 77], [135.0, 78], [140.0, 79], [150.0, 81], [160.0, 83], [175.0, 84], [180.0, 86], [190.0, 87], [200.0, 88], [210.0, 90], [215.0, 90], [220.0, 91], [225.0, 92], [240.0, 93], [250.0, 93], [260.0, 94], [265.0, 94], [275.0, 95], [280.0, 95], [300.0, 96], [320.0, 97], [325.0, 98], [340.0, 98], [360.0, 98], [400.0, 99], [410.0, 99], [440.0, 99], [490.0, 99], [500.0, 100], [520.0, 100], [600.0, 100], [640.0, 100], [715.0, 100], [800.0, 100], [900.0, 100]], "Stage Hunt": [[0.0, 0], [1.0, 5], [2.0, 7], [3.0, 9], [4.0, 11], [5.0, 13], [6.0, 15], [7.0, 17], [8.0, 19], [9.0, 22], [10.0, 25], [12.0, 28], [14.0, 31], [15.0, 34], [20.0, 37], [25.0, 40], [30.0, 43], [35.0, 46], [40.0, 49], [45.0, 52], [50.0, 56], [55.0, 60], [60.0, 64], [70.0, 68], [80.0, 72], [90.0, 76], [95.0, 80], [110.0, 84], [130.0, 88], [150.0, 92], [180.0, 96], [210.0, 100]], "TT": [[0.0, 0], [1.0, 5], [2.0, 7], [3.0, 9], [4.0, 11], [5.0, 13], [6.0, 15], [7.0, 17], [8.0, 19], [9.0, 21], [10.0, 23], [12.0, 25], [14.0, 27], [15.0, 29], [20.0, 31], [25.0, 33], [30.0, 35], [35.0, 37], [40.0, 39], [45.0, 41], [50.0, 43], [55.0, 46], [60.0, 49], [65.0, 52], [70.0, 55], [80.0, 58], [85.0, 61], [90.0, 64], [95.0, 67], [110.0, 70], [125.0, 73], [130.0, 76], [150.0, 79], [165.0, 82], [180.0, 85], [195.0, 88], [210.0, 91], [260.0, 94], [325.0, 97], [455.0, 100]]}, BAND_NAME = {"OVERALL": "Overall", "Mix Terrain": "Mix"};
+  var lvIn = document.getElementById("lv-pts"), lvOut = document.getElementById("lv-pts-out");
+  var lvRows = document.querySelectorAll("#lv-bars li");
+  function level(spec, p) {
+    var b = BANDS[BAND_NAME[spec] || spec] || [], lv = null;
+    for (var i = 0; i < b.length; i++) if (p >= b[i][0]) lv = b[i][1];
+    return lv;
+  }
+  // the slider is squared, so the low points where most results sit get more room
+  function pts() { var t = lvIn.value / 10000; return Math.round(1300 * t * t); }
+  function runLevel() {
+    var p = pts(); lvOut.textContent = p + " pts";
+    lvRows.forEach(function (li) {
+      var lv = level(li.dataset.spec, p);
+      li.querySelector("b").textContent = lv === null ? "–" : lv;
+      li.querySelector("i").style.width = (lv || 0) + "%";
+    });
+  }
+  if (lvIn) {
+    lvIn.addEventListener("input", runLevel); runLevel();
+    document.querySelectorAll(".lv-ex button[data-pts]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        lvIn.value = Math.round(Math.sqrt(b.dataset.pts / 1300) * 10000); runLevel();
+        document.getElementById("calc-level").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
   }
   var sIn = document.querySelectorAll("#calc-score input");
   function runScore() {
