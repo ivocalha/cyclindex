@@ -700,3 +700,5 @@ html[data-pulse="nations"] [data-view]:not([data-view="nations"]) { display: non
   .lv-rules__row > span:last-child::before { content: "Points: "; color: var(--text); }
 }
 @media (max-width: 420px) { .lv-bars li { grid-template-columns: 40px 92px 1fr 30px; gap: 8px; } }
+.lv-bars .leader__code, .lv-chips .leader__code, .lv-rules .leader__code { grid-area: auto; justify-self: start; }
+.lv-bars li.is-none { opacity: .38; }
