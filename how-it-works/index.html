@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="/static/site.css?v=1794917346">
+<link rel="stylesheet" href="/static/site.css?v=1795192006">
 <script>
   try { var t = localStorage.getItem("cx-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -112,6 +112,95 @@
         </div>
       </li>
     </ol>
+  </div>
+</section>
+
+<section class="band" id="scope">
+  <div class="wrap">
+    <header class="sec-head">
+      <h2>What counts</h2>
+      <p>Cyclindex rates <b>men's elite road racing</b>, from the Tour de France down to class 1 races. Below the line, nothing is scored.
+        Races counted so far: 2023–2026.</p>
+    </header>
+    <div class="scope">
+      <ol class="ladder" aria-label="Race levels, highest first">
+        <li class="ladder__tier" style="--w: 100%">
+          <span class="ladder__mark" aria-hidden="true">✓</span>
+          <span class="ladder__txt"><strong>Championships</strong><small>World Championships and Olympic Games: road race and time trial</small></span>
+          <span class="ladder__cls"><span class="badge">WC</span><span class="badge">Olympics</span></span>
+          <span class="ladder__n"><b>10</b> races</span>
+        </li>
+        <li class="ladder__tier" style="--w: 93%">
+          <span class="ladder__mark" aria-hidden="true">✓</span>
+          <span class="ladder__txt"><strong>WorldTour</strong><small>Grand Tours, Monuments and the rest of the top level</small></span>
+          <span class="ladder__cls"><span class="badge badge--wt">1.UWT</span><span class="badge badge--wt">2.UWT</span></span>
+          <span class="ladder__n"><b>142</b> races</span>
+        </li>
+        <li class="ladder__tier" style="--w: 86%">
+          <span class="ladder__mark" aria-hidden="true">✓</span>
+          <span class="ladder__txt"><strong>ProSeries</strong><small>The level just below the WorldTour</small></span>
+          <span class="ladder__cls"><span class="badge">1.Pro</span><span class="badge">2.Pro</span></span>
+          <span class="ladder__n"><b>226</b> races</span>
+        </li>
+        <li class="ladder__tier" style="--w: 79%">
+          <span class="ladder__mark" aria-hidden="true">✓</span>
+          <span class="ladder__txt"><strong>Class 1</strong><small>International races, open to Continental teams</small></span>
+          <span class="ladder__cls"><span class="badge">1.1</span><span class="badge">2.1</span></span>
+          <span class="ladder__n"><b>354</b> races</span>
+        </li>
+        <li class="ladder__cut" aria-label="Cyclindex cut-off"><span>Cyclindex cut-off</span></li>
+        <li class="ladder__tier is-out" style="--w: 72%">
+          <span class="ladder__mark" aria-hidden="true">✕</span>
+          <span class="ladder__txt"><strong>Class 2</strong><small>Lower international races</small></span>
+          <span class="ladder__cls"><span class="badge">1.2</span><span class="badge">2.2</span></span>
+          <span class="ladder__n">not scored</span>
+        </li>
+        <li class="ladder__tier is-out" style="--w: 65%">
+          <span class="ladder__mark" aria-hidden="true">✕</span>
+          <span class="ladder__txt"><strong>National championships</strong><small>Road race and time trial titles of each country</small></span>
+          <span class="ladder__cls"></span>
+          <span class="ladder__n">not scored</span>
+        </li>
+        <li class="ladder__tier is-out" style="--w: 58%">
+          <span class="ladder__mark" aria-hidden="true">✕</span>
+          <span class="ladder__txt"><strong>Under-23, junior and women’s races</strong><small>Rated in other categories, not here</small></span>
+          <span class="ladder__cls"></span>
+          <span class="ladder__n">not scored</span>
+        </li>
+      </ol>
+      <div class="sieve">
+        <div class="sieve__card">
+          <h3>Who</h3>
+          <ul>
+            <li class="in">Men’s elite riders</li>
+            <li class="out">Women</li>
+            <li class="out">Juniors and under-23 races</li>
+          </ul>
+        </div>
+        <div class="sieve__card">
+          <h3>Which results</h3>
+          <ul>
+            <li class="in">Every stage result</li>
+            <li class="in">Final overall standings (GC)</li>
+            <li class="in">One-day race results</li>
+            <li class="in">Points and mountains competitions of stage races</li>
+            <li class="out">Team time trials</li>
+            <li class="out">Cancelled races and stages</li>
+            <li class="out">Results taken away by a disqualification</li>
+          </ul>
+        </div>
+        <div class="sieve__card">
+          <h3>Which teams</h3>
+          <ul>
+            <li class="in">WorldTeams</li>
+            <li class="in">ProTeams</li>
+            <li class="in">Continental teams</li>
+            <li class="in">National teams (Worlds, Olympics and other races)</li>
+          </ul>
+          <p class="sieve__note">Every rider who starts a counted race counts, whatever his team.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -241,13 +330,13 @@
         Riders with no results sit at 40.</p>
     </div>
     <div class="foot__note">
-      <p><span class="tag">Beta</span> Data as of 17 Nov 2026.
+      <p><span class="tag">Beta</span> Data as of 20 Nov 2026.
 </p>
       <p>Results data: procyclingstats.com</p>
     </div>
   </div>
 </footer>
-<script src="/static/site.js?v=1794917346" defer></script>
+<script src="/static/site.js?v=1795192006" defer></script>
 <script>
 (function () {
   "use strict";
