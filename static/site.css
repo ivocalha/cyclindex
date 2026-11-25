@@ -490,7 +490,7 @@ small { font-size: 12.5px; color: var(--muted); }
 /* Race page */
 .rd-two--race { align-items: start; }
 .res { list-style: none; margin: 0; padding: 0; }
-.res li { display: grid; grid-template-columns: 40px minmax(0, 1fr) 70px 64px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.res li { display: grid; grid-template-columns: 40px minmax(0, 1fr) 64px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .res__head { font: 500 11px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom-color: var(--line-2) !important; }
 .res__head .num { text-align: right; }
 .res__rank { font: 700 15px var(--f-mono); }
@@ -520,7 +520,6 @@ small { font-size: 12.5px; color: var(--muted); }
   .stages li { grid-template-columns: 30px minmax(0, 1fr) 36px; }
   .stages__win { grid-column: 2 / -1; }
   .res li { grid-template-columns: 30px minmax(0, 1fr) 56px; }
-  .res__gap { display: none; }
 }
 
 /* Calendar */
