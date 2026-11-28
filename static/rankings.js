@@ -31,7 +31,7 @@
   function cc(c, name) {
     if (!c) return "";
     var label = esc(name || (c === "rf" ? "Neutral" : c.toUpperCase()));
-    var cls = c === "rf" ? "flag flag--neutral" : "fi fi-" + esc(c) + " flag";   // 'rf' = PCS neutral riders
+    var cls = c === "rf" ? "flag flag--neutral" : "fi fi-" + esc(c) + " flag";   // 'rf' = neutral riders
     return '<span class="' + cls + '" role="img" aria-label="' + label + '" title="' + label + '"></span> ';
   }
   function riderName(r) {
